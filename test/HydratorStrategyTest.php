@@ -100,8 +100,10 @@ class HydratorStrategyTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider underscoreHandlingDataProvider
      */
-    public function testWhenUsingUnderscoreSeparatedKeysHydratorStrategyIsAlwaysConsideredUnderscoreSeparatedToo($underscoreSeparatedKeys, $formFieldKey)
-    {
+    public function testWhenUsingUnderscoreSeparatedKeysHydratorStrategyIsAlwaysConsideredUnderscoreSeparatedToo(
+        $underscoreSeparatedKeys,
+        $formFieldKey
+    ) {
         $hydrator = new ClassMethods($underscoreSeparatedKeys);
 
         $strategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
