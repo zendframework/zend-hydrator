@@ -2,11 +2,19 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.0.0 - TBD
+## 2.0.0 - 2015-09-17
 
 ### Added
 
-- Nothing.
+- The following classes were marked `final` (per their original implementation
+  in zend-stdlib):
+  - `Zend\Hydrator\NamingStrategy\IdentityNamingStrategy`
+  - `Zend\Hydrator\NamingStrategy\ArrayMapNamingStrategy`
+  - `Zend\Hydrator\NamingStrategy\CompositeNamingStrategy`
+  - `Zend\Hydrator\Strategy\ExplodeStrategy`
+  - `Zend\Hydrator\Strategy\StrategyChain`
+  - `Zend\Hydrator\Strategy\DateTimeFormatterStrategy`
+  - `Zend\Hydrator\Strategy\BooleanStrategy`
 
 ### Deprecated
 
