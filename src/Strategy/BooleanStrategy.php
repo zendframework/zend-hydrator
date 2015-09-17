@@ -14,7 +14,7 @@ use Zend\Hydrator\Exception\InvalidArgumentException;
 /**
  * This Strategy extracts and hydrates int and string values to Boolean values
  */
-class BooleanStrategy implements StrategyInterface
+final class BooleanStrategy implements StrategyInterface
 {
     /**
      * @var int|string
