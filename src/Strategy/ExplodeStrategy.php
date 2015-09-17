@@ -9,7 +9,7 @@
 
 namespace Zend\Hydrator\Strategy;
 
-final class ExplodeStrategy implements StrategyInterface
+class ExplodeStrategy implements StrategyInterface
 {
     /**
      * @var string

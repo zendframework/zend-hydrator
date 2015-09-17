@@ -89,7 +89,8 @@ class FilterComposite implements FilterInterface
      *
      * @param  string                   $name
      * @param  callable|FilterInterface $filter
-     * @param  int                      $condition Can be either FilterComposite::CONDITION_OR or FilterComposite::CONDITION_AND
+     * @param  int                      $condition Can be either
+     *     FilterComposite::CONDITION_OR or FilterComposite::CONDITION_AND
      * @throws InvalidArgumentException
      * @return FilterComposite
      */

@@ -12,7 +12,7 @@ namespace Zend\Hydrator\Strategy;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 
-final class StrategyChain implements StrategyInterface
+class StrategyChain implements StrategyInterface
 {
     /**
      * Strategy chain for extraction

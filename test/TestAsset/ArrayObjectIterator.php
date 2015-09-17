@@ -12,7 +12,7 @@ namespace ZendTest\Hydrator\TestAsset;
 class ArrayObjectIterator implements \Iterator
 {
 
-    private $var = array();
+    private $var = [];
 
     public function __construct($array)
     {
