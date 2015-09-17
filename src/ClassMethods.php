@@ -56,7 +56,11 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         $this->filterComposite->addFilter('is', new Filter\IsFilter());
         $this->filterComposite->addFilter('has', new Filter\HasFilter());
         $this->filterComposite->addFilter('get', new Filter\GetFilter());
-        $this->filterComposite->addFilter('parameter', new Filter\OptionalParametersFilter(), Filter\FilterComposite::CONDITION_AND);
+        $this->filterComposite->addFilter(
+            'parameter',
+            new Filter\OptionalParametersFilter(),
+            Filter\FilterComposite::CONDITION_AND
+        );
     }
 
     /**
