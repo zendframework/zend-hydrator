@@ -12,7 +12,7 @@ namespace Zend\Hydrator\Strategy;
 use DateTime;
 use DateTimeZone;
 
-final class DateTimeFormatterStrategy implements StrategyInterface
+class DateTimeFormatterStrategy implements StrategyInterface
 {
     /**
      * @var string

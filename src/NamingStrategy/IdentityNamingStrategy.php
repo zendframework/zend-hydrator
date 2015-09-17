@@ -9,7 +9,7 @@
 
 namespace Zend\Hydrator\NamingStrategy;
 
-final class IdentityNamingStrategy implements NamingStrategyInterface
+class IdentityNamingStrategy implements NamingStrategyInterface
 {
     /**
      * {@inheritDoc}
