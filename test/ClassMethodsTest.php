@@ -12,7 +12,6 @@ namespace ZendTest\Hydrator;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\Exception\BadMethodCallException;
 use Zend\Hydrator\Exception\InvalidArgumentException;
-use Zend\Stdlib\ArrayObject;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCaseMissing;
 use ZendTest\Hydrator\TestAsset\ClassMethodsOptionalParameters;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCase;
@@ -94,7 +93,7 @@ class ClassMethodsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetOptionsFromTraversable()
     {
-        $options = new ArrayObject([
+        $options = new \ArrayObject([
             'underscoreSeparatedKeys' => false,
         ]);
         $this->hydrator->setOptions($options);
