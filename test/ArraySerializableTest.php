@@ -34,8 +34,6 @@ class ArraySerializableTest extends \PHPUnit_Framework_TestCase
         $this->hydrator = new ArraySerializable();
     }
 
-
-
     /**
      * Verify that we get an exception when trying to extract on a non-object
      */
