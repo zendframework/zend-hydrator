@@ -10,6 +10,7 @@
 namespace ZendTest\Hydrator\Filter;
 
 use Zend\Hydrator\Filter\NumberOfParameterFilter;
+use Zend\Hydrator\Exception\InvalidArgumentException;
 
 /**
  * Unit tests for {@see NumberOfParameterFilter}
@@ -36,6 +37,16 @@ class NumberOfParameterFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new NumberOfParameterFilter(1);
         $this->assertFalse($filter->filter(__CLASS__ . '::methodWithNoParameters'));
         $this->assertTrue($filter->filter(__CLASS__ . '::methodWithOptionalParameters'));
+    }
+
+    /**
+     * Verifies an InvalidArgumentException is thrown for a method that doesn't exist
+     */
+    public function testFilterPropertyDoesNotExist()
+    {
+        $this->setExpectedException(InvalidArgumentException::class);
+        $filter = new NumberOfParameterFilter(1);
+        $filter->filter(__CLASS__ . '::methodDoesNotExist');
     }
 
     /**
