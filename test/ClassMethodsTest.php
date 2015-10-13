@@ -10,6 +10,8 @@
 namespace ZendTest\Hydrator;
 
 use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\Exception\BadMethodCallException;
+use Zend\Hydrator\Exception\InvalidArgumentException;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCaseMissing;
 use ZendTest\Hydrator\TestAsset\ClassMethodsOptionalParameters;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCase;
@@ -72,5 +74,54 @@ class ClassMethodsTest extends \PHPUnit_Framework_TestCase
             ],
             $arraySerializable->getArrayCopy()
         );
+    }
+
+    /**
+     * Verifies the options must be an array or Traversable
+     */
+    public function testSetOptionsThrowsInvalidArgumentException()
+    {
+        $this->setExpectedException(
+            InvalidArgumentException::class,
+            'The options parameter must be an array or a Traversable'
+        );
+        $this->hydrator->setOptions('invalid options');
+    }
+
+    /**
+     * Verifies options can be set from a Traversable object
+     */
+    public function testSetOptionsFromTraversable()
+    {
+        $options = new \ArrayObject([
+            'underscoreSeparatedKeys' => false,
+        ]);
+        $this->hydrator->setOptions($options);
+
+        $this->assertSame(false, $this->hydrator->getUnderscoreSeparatedKeys());
+    }
+
+    /**
+     * Verifies a BadMethodCallException is thrown for extracting a non-object
+     */
+    public function testExtractNonObjectThrowsBadMethodCallException()
+    {
+        $this->setExpectedException(
+            BadMethodCallException::class,
+            'Zend\Hydrator\ClassMethods::extract expects the provided $object to be a PHP object)'
+        );
+        $this->hydrator->extract('non-object');
+    }
+
+    /**
+     * Verifies a BadMethodCallException is thrown for hydrating a non-object
+     */
+    public function testHydrateNonObjectThrowsBadMethodCallException()
+    {
+        $this->setExpectedException(
+            BadMethodCallException::class,
+            'Zend\Hydrator\ClassMethods::hydrate expects the provided $object to be a PHP object)'
+        );
+        $this->hydrator->hydrate([], 'non-object');
     }
 }
