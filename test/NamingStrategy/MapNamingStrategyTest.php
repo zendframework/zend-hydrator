@@ -37,4 +37,17 @@ class MapNamingStrategyTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException('InvalidArgumentException');
         new MapNamingStrategy(['foo' => 3.1415]);
     }
+
+    public function testReturnSpecifiedValue()
+    {
+        $namingStrategy = new MapNamingStrategy(
+            [ 'foo' => 'foo-hydrated'],
+            [ 'bar' => 'bar-extracted']
+        );
+
+        $name = 'foobar';
+
+        $this->assertEquals($name, $namingStrategy->extract($name));
+        $this->assertEquals($name, $namingStrategy->hydrate($name));
+    }
 }
