@@ -25,50 +25,29 @@ class FilterComposite implements FilterInterface
     protected $andFilter;
 
     /**
-     * Constant to add with "or" conditition
+     * Constant to add with "or" condition
      */
     const CONDITION_OR = 1;
 
     /**
-     * Constant to add with "and" conditition
+     * Constant to add with "and" condition
      */
     const CONDITION_AND = 2;
 
     /**
-     * Define default Filter
+     * We can pass a list of OR/AND filters through construct
      *
-     * @param  array $orFilter
-     * @param  array $andFilter
+     * @param array $orFilters
+     * @param array $andFilters
      * @throws InvalidArgumentException
      */
-    public function __construct($orFilter = [], $andFilter = [])
+    public function __construct($orFilters = [], $andFilters = [])
     {
-        array_walk(
-            $orFilter,
-            function ($value, $key) {
-                if (!is_callable($value) && !$value instanceof FilterInterface) {
-                    throw new InvalidArgumentException(
-                        'The value of ' . $key . ' should be either a callable or ' .
-                        'an instance of Zend\Stdlib\Hydrator\Filter\FilterInterface'
-                    );
-                }
-            }
-        );
+        array_walk($orFilters, [$this, 'validateFilter']);
+        array_walk($andFilters, [$this, 'validateFilter']);
 
-        array_walk(
-            $andFilter,
-            function ($value, $key) {
-                if (!is_callable($value) && !$value instanceof FilterInterface) {
-                    throw new InvalidArgumentException(
-                        'The value of ' . $key . '  should be either a callable or ' .
-                        'an instance of Zend\Stdlib\Hydrator\Filter\FilterInterface'
-                    );
-                }
-            }
-        );
-
-        $this->orFilter = new ArrayObject($orFilter);
-        $this->andFilter = new ArrayObject($andFilter);
+        $this->orFilter = new ArrayObject($orFilters);
+        $this->andFilter = new ArrayObject($andFilters);
     }
 
     /**
@@ -96,12 +75,7 @@ class FilterComposite implements FilterInterface
      */
     public function addFilter($name, $filter, $condition = self::CONDITION_OR)
     {
-        if (!is_callable($filter) && !($filter instanceof FilterInterface)) {
-            throw new InvalidArgumentException(
-                'The value of ' . $name . ' should be either a callable or ' .
-                'an instance of Zend\Stdlib\Hydrator\Filter\FilterInterface'
-            );
-        }
+        $this->validateFilter($filter, $name);
 
         if ($condition === self::CONDITION_OR) {
             $this->orFilter[$name] = $filter;
@@ -110,6 +84,17 @@ class FilterComposite implements FilterInterface
         }
 
         return $this;
+    }
+
+    /**
+     * Check if $name has a filter registered
+     *
+     * @param $name string Identifier for the filter
+     * @return bool
+     */
+    public function hasFilter($name)
+    {
+        return isset($this->orFilter[$name]) || isset($this->andFilter[$name]);
     }
 
     /**
@@ -129,17 +114,6 @@ class FilterComposite implements FilterInterface
         }
 
         return $this;
-    }
-
-    /**
-     * Check if $name has a filter registered
-     *
-     * @param $name string Identifier for the filter
-     * @return bool
-     */
-    public function hasFilter($name)
-    {
-        return isset($this->orFilter[$name]) || isset($this->andFilter[$name]);
     }
 
     /**
@@ -194,5 +168,25 @@ class FilterComposite implements FilterInterface
         }
 
         return $returnValue;
+    }
+
+    /**
+     * @param FilterInterface|callable $filter
+     * @param string $name
+     *
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    private function validateFilter($filter, $name)
+    {
+        if (!is_callable($filter) && !$filter instanceof FilterInterface) {
+            throw new InvalidArgumentException(
+                sprintf(
+                    'The value of %s should be either a callable or an ' .
+                    'instance of Zend\Hydrator\Filter\FilterInterface',
+                    $name
+                )
+            );
+        }
     }
 }
