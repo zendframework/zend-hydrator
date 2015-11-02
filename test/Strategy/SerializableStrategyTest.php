@@ -13,6 +13,9 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Hydrator\Strategy\SerializableStrategy;
 use Zend\Serializer\Serializer;
 
+/**
+ * @covers Zend\Hydrator\Strategy\SerializableStrategy<extended>
+ */
 class SerializableStrategyTest extends TestCase
 {
     public function testCannotUseBadArgumentSerilizer()

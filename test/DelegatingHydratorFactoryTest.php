@@ -11,6 +11,9 @@ namespace ZendTest\Hydrator;
 
 use Zend\Hydrator\DelegatingHydratorFactory;
 
+/**
+ * @covers Zend\Hydrator\DelegatingHydratorFactory<extended>
+ */
 class DelegatingHydratorFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testFactory()

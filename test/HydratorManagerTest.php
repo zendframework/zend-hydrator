@@ -11,6 +11,9 @@ namespace ZendTest\Hydrator;
 
 use Zend\Hydrator\HydratorPluginManager;
 
+/**
+ * @covers Zend\Hydrator\HydratorPluginManager<extended>
+ */
 class HydratorManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**

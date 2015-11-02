@@ -13,6 +13,9 @@ use ArrayObject;
 use Zend\Hydrator\ArraySerializable;
 use Zend\Hydrator\Iterator\HydratingArrayIterator;
 
+/**
+ * @covers Zend\Hydrator\Iterator\HydratingArrayIterator<extended>
+ */
 class HydratingArrayIteratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testHydratesObjectAndClonesOnCurrent()

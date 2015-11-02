@@ -11,6 +11,9 @@ namespace ZendTest\Hydrator\NamingStrategy;
 
 use Zend\Hydrator\NamingStrategy\MapNamingStrategy;
 
+/**
+ * @covers Zend\Hydrator\NamingStrategy\MapNamingStrategy<extended>
+ */
 class MapNamingStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testHydrateMap()
