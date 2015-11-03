@@ -29,9 +29,6 @@ use ZendTest\Hydrator\TestAsset\ReflectionFilter;
 use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyAsset;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
 
-/**
- * @covers Zend\Hydrator\ClassMethods<extended>
- */
 class HydratorTest extends \PHPUnit_Framework_TestCase
 {
     /**
