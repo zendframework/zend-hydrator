@@ -10,6 +10,7 @@
 namespace Zend\Hydrator;
 
 use Zend\ServiceManager\AbstractPluginManager;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
  * Plugin manager implementation for hydrators.
@@ -31,19 +32,20 @@ class HydratorPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $aliases = [
-        'delegatinghydrator' => 'Zend\Hydrator\DelegatingHydrator',
-    ];
-
-    /**
-     * Default set of adapters
-     *
-     * @var array
-     */
-    protected $invokableClasses = [
-        'arrayserializable' => 'Zend\Hydrator\ArraySerializable',
-        'classmethods'      => 'Zend\Hydrator\ClassMethods',
-        'objectproperty'    => 'Zend\Hydrator\ObjectProperty',
-        'reflection'        => 'Zend\Hydrator\Reflection'
+        'arrayserializable'  => ArraySerializable::class,
+        'arraySerializable'  => ArraySerializable::class,
+        'ArraySerializable'  => ArraySerializable::class,
+        'classmethods'       => ClassMethods::class,
+        'classMethods'       => ClassMethods::class,
+        'ClassMethods'       => ClassMethods::class,
+        'objectproperty'     => ObjectProperty::class,
+        'objectProperty'     => ObjectProperty::class,
+        'ObjectProperty'     => ObjectProperty::class,
+        'reflection'         => Reflection::class,
+        'Reflection'         => Reflection::class,
+        'delegatinghydrator' => DelegatingHydrator::class,
+        'delegatingHydrator' => DelegatingHydrator::class,
+        'DelegatingHydrator' => DelegatingHydrator::class,
     ];
 
     /**
@@ -52,7 +54,20 @@ class HydratorPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = [
-        'Zend\Hydrator\DelegatingHydrator' => 'Zend\Hydrator\DelegatingHydratorFactory',
+        ArraySerializable::class  => InvokableFactory::class,
+        ClassMethods::class       => InvokableFactory::class,
+        ObjectProperty::class     => InvokableFactory::class,
+        Reflection::class         => InvokableFactory::class,
+        DelegatingHydrator::class => DelegatingHydratorFactory::class,
+
+        // Legacy (v2) due to alias resolution; canonical form of resolved
+        // alias is used to look up the factory, while the non-normalized
+        // resolved alias is used as the requested name passed to the factory.
+        'zendhydratorarrayserializable'  => InvokableFactory::class,
+        'zendhydratorclassmethods'       => InvokableFactory::class,
+        'zendhydratorobjectproperty'     => InvokableFactory::class,
+        'zendhydratorreflection'         => InvokableFactory::class,
+        'zendhydratordelegatinghydrator' => DelegatingHydratorFactory::class,
     ];
 
     /**
