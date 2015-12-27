@@ -17,6 +17,19 @@ use Zend\Stdlib\StringUtils;
  */
 final class UnderscoreToCamelCaseFilter
 {
+    /** @var  bool */
+    private $pcreUnicodeSupport;
+
+    /**
+     * @return bool
+     */
+    private function hasPcreUnicodeSupport(){
+        if ($this->pcreUnicodeSupport === null) {
+            $this->pcreUnicodeSupport = StringUtils::hasPcreUnicodeSupport();
+        }
+        return $this->pcreUnicodeSupport;
+    }
+
     /**
      * @param  string $value
      * @return string
@@ -30,51 +43,36 @@ final class UnderscoreToCamelCaseFilter
         // a unicode safe way of converting characters to \x00\x00 notation
         $pregQuotedSeparator = preg_quote('_', '#');
 
-        if (StringUtils::hasPcreUnicodeSupport()) {
-            $patterns = [
-                '#(' . $pregQuotedSeparator.')(\P{Z}{1})#u',
-                '#(^\P{Z}{1})#u',
-            ];
+        if ($this->hasPcreUnicodeSupport()) {
+            $pattern = '#(' . $pregQuotedSeparator.')(\P{Z}{1})#u';
             if (!extension_loaded('mbstring')) {
-                $replacements = [
-                    function ($matches) {
-                        return strtoupper($matches[2]);
-                    },
-                    function ($matches) {
-                        return strtoupper($matches[1]);
-                    },
-                ];
+                $replacement = function ($matches) {
+                    return strtoupper($matches[2]);
+                };
             } else {
-                $replacements = [
-                    function ($matches) {
-                        return mb_strtoupper($matches[2], 'UTF-8');
-                    },
-                    function ($matches) {
-                        return mb_strtoupper($matches[1], 'UTF-8');
-                    },
-                ];
+                $replacement = function ($matches) {
+                    return mb_strtoupper($matches[2], 'UTF-8');
+                };
             }
         } else {
-            $patterns = [
-                '#(' . $pregQuotedSeparator.')([\S]{1})#',
-                '#(^[\S]{1})#',
-            ];
-            $replacements = [
-                function ($matches) {
+            $pattern = '#(' . $pregQuotedSeparator.')([\S]{1})#';
+            $replacement = function ($matches) {
                     return strtoupper($matches[2]);
-                },
-                function ($matches) {
-                    return strtoupper($matches[1]);
-                },
-            ];
+            };
         }
 
-        $filtered = $value;
-        foreach ($patterns as $index => $pattern) {
-            $filtered = preg_replace_callback($pattern, $replacements[$index], $filtered);
+        $filtered = preg_replace_callback($pattern, $replacement, $value);
+
+
+        if (extension_loaded('mbstring')) {
+            $lcFirstFunction = function($value){
+                return mb_strtolower($value[0], 'UTF-8')
+                    . substr($value, 1, strlen($value)-1);
+            };
+        } else {
+            $lcFirstFunction = 'lcfirst';
         }
 
-
-        return lcfirst($filtered);
+        return $lcFirstFunction($filtered);
     }
 }

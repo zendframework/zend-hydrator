@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
+use ReflectionClass;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter;
 
 /**
@@ -26,6 +27,12 @@ class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
     public function testFilterCamelCasesNonUnicodeStrings($string, $expected)
     {
         $filter   = new UnderscoreToCamelCaseFilter();
+
+        $reflectionClass = new ReflectionClass($filter);
+        $property = $reflectionClass->getProperty('pcreUnicodeSupport');
+        $property->setAccessible(true);
+        $property->setValue($filter, false);
+
         $filtered = $filter->filter($string);
 
         $this->assertNotEquals($string, $filtered);
@@ -50,28 +57,55 @@ class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-
     /**
-     * @group ZF-10517
+     * @dataProvider unicodeProvider
+     * @param string $string
+     * @param string $expected
      */
-    public function testFilterStudlyCasesUnicodeStrings()
+    public function testFilterCamelCasesUnicodeStrings($string, $expected)
     {
         if (!extension_loaded('mbstring')) {
             $this->markTestSkipped('Extension mbstring not available');
         }
 
-        $string   = 'test_šuma';
-        $filter   = new UnderscoreToCamelCaseFilter;
+        $filter   = new UnderscoreToCamelCaseFilter();
         $filtered = $filter->filter($string);
 
         $this->assertNotEquals($string, $filtered);
-        $this->assertEquals('testŠuma', $filtered);
+        $this->assertEquals($expected, $filtered);
+    }
+
+    public function unicodeProvider()
+    {
+        return [
+            'upcased first letter' => [
+                'Camel',
+                'camel'
+            ],
+            'multiple words' => [
+                'studly_cases_me',
+                'studlyCasesMe'
+            ],
+            'alphanumeric' => [
+                'one_2_three',
+                'one2Three'
+            ],
+            'unicode character' => [
+                'test_Šuma',
+                'testŠuma'
+            ],
+            'unicode character [ZF-10517]' => [
+                'test_šuma',
+                'testŠuma'
+            ]
+        ];
     }
 
 
     public function returnUnfilteredDataProvider()
     {
         return [
+            ['foo'],
             [null],
             [new \stdClass()]
         ];
