@@ -16,7 +16,8 @@ final class CamelCaseToUnderscoreFilter
     /**
      * @return bool
      */
-    private function hasPcreUnicodeSupport(){
+    private function hasPcreUnicodeSupport()
+    {
         if ($this->pcreUnicodeSupport === null) {
             $this->pcreUnicodeSupport = StringUtils::hasPcreUnicodeSupport();
         }

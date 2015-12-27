@@ -23,7 +23,8 @@ final class UnderscoreToCamelCaseFilter
     /**
      * @return bool
      */
-    private function hasPcreUnicodeSupport(){
+    private function hasPcreUnicodeSupport()
+    {
         if ($this->pcreUnicodeSupport === null) {
             $this->pcreUnicodeSupport = StringUtils::hasPcreUnicodeSupport();
         }
@@ -65,7 +66,7 @@ final class UnderscoreToCamelCaseFilter
 
 
         if (extension_loaded('mbstring')) {
-            $lcFirstFunction = function($value){
+            $lcFirstFunction = function ($value) {
                 return mb_strtolower($value[0], 'UTF-8')
                     . substr($value, 1, strlen($value)-1);
             };
