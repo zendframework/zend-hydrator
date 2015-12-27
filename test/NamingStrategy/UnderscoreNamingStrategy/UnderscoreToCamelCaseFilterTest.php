@@ -78,7 +78,7 @@ class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
     public function unicodeProvider()
     {
         return [
-            'upcased first letter' => [
+            'uppercase first letter' => [
                 'Camel',
                 'camel'
             ],
@@ -101,6 +101,48 @@ class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
+    /**
+     * @dataProvider unicodeWithoutMbStringsProvider
+     * @param string $string
+     * @param string $expected
+     */
+    public function testFilterCamelCasesUnicodeStringsWithoutMbStrings(
+        $string,
+        $expected
+    ) {
+
+        $filter   = new UnderscoreToCamelCaseFilter();
+
+        $reflectionClass = new ReflectionClass($filter);
+        $property = $reflectionClass->getProperty('mbStringSupport');
+        $property->setAccessible(true);
+        $property->setValue($filter, false);
+
+        $filtered = $filter->filter($string);
+        $this->assertEquals($expected, $filtered);
+    }
+
+    public function unicodeWithoutMbStringsProvider()
+    {
+        return [
+            'multiple words' => [
+                'studly_cases_me',
+                'studlyCasesMe'
+            ],
+            'alphanumeric' => [
+                'one_2_three',
+                'one2Three'
+            ],
+            'uppercase unicode character' => [
+                'test_Šuma',
+                'testŠuma'
+            ],
+            'lowercase unicode character' => [
+                'test_šuma',
+                'test_šuma'
+            ]
+        ];
+    }
 
     public function returnUnfilteredDataProvider()
     {

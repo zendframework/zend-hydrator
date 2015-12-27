@@ -12,7 +12,19 @@ final class CamelCaseToUnderscoreFilter
 {
     /** @var  bool */
     private $pcreUnicodeSupport;
+    /** @var  bool */
+    private $mbStringSupport;
 
+    /**
+     * @return bool
+     */
+    private function hasMbStringSupport()
+    {
+        if ($this->mbStringSupport === null) {
+            $this->mbStringSupport = extension_loaded('mbstring');
+        }
+        return $this->mbStringSupport;
+    }
     /**
      * @return bool
      */
@@ -46,8 +58,13 @@ final class CamelCaseToUnderscoreFilter
         }
         $filtered = preg_replace($pattern, $replacement, $value);
 
-        if (!extension_loaded('mbstring')) {
-            $lowerFunction = 'strtolower';
+        if (!$this->hasMbStringSupport()) {
+            $lowerFunction = function ($value) {
+                // ignore unicode characters w/ strtolower
+                return preg_replace_callback('#([A-Z])#', function ($matches) {
+                    return strtolower($matches[1]);
+                }, $value);
+            };
         } else {
             $lowerFunction = function ($value) {
                 return mb_strtolower($value, 'UTF-8');
