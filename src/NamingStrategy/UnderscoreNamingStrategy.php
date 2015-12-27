@@ -9,7 +9,6 @@
 
 namespace Zend\Hydrator\NamingStrategy;
 
-use Zend\Filter\FilterChain;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter;
 
@@ -52,7 +51,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
      */
     private function getUnderscoreToCamelCaseFilter()
     {
-        if (static::$underscoreToCamelCaseFilter === null) {
+        if (! static::$underscoreToCamelCaseFilter) {
             static::$underscoreToCamelCaseFilter = new UnderscoreToCamelCaseFilter();
         }
 
@@ -64,7 +63,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
      */
     private function getCamelCaseToUnderscoreFilter()
     {
-        if (static::$camelCaseToUnderscoreFilter === null) {
+        if (! static::$camelCaseToUnderscoreFilter) {
             static::$camelCaseToUnderscoreFilter = new CamelCaseToUnderscoreFilter();
         }
 
