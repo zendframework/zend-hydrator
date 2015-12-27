@@ -19,6 +19,8 @@ final class UnderscoreToCamelCaseFilter
 {
     /** @var  bool */
     private $pcreUnicodeSupport;
+    /** @var  bool */
+    private $mbStringSupport;
 
     /**
      * @return bool
@@ -29,6 +31,17 @@ final class UnderscoreToCamelCaseFilter
             $this->pcreUnicodeSupport = StringUtils::hasPcreUnicodeSupport();
         }
         return $this->pcreUnicodeSupport;
+    }
+
+    /**
+     * @return bool
+     */
+    private function hasMbStringSupport()
+    {
+        if ($this->mbStringSupport === null) {
+            $this->mbStringSupport = extension_loaded('mbstring');
+        }
+        return $this->mbStringSupport;
     }
 
     /**
@@ -45,12 +58,14 @@ final class UnderscoreToCamelCaseFilter
         $pregQuotedSeparator = preg_quote('_', '#');
 
         if ($this->hasPcreUnicodeSupport()) {
-            $pattern = '#(' . $pregQuotedSeparator.')(\P{Z}{1})#u';
-            if (!extension_loaded('mbstring')) {
+            if (!$this->hasMbStringSupport()) {
+                $pattern = '#('. $pregQuotedSeparator .')'
+                    .'([^\p{Z}\p{Ll}]{1}|[a-zA-Z]{1})#u';
                 $replacement = function ($matches) {
                     return strtoupper($matches[2]);
                 };
             } else {
+                $pattern = '#(' . $pregQuotedSeparator.')(\P{Z}{1})#u';
                 $replacement = function ($matches) {
                     return mb_strtoupper($matches[2], 'UTF-8');
                 };
@@ -65,7 +80,7 @@ final class UnderscoreToCamelCaseFilter
         $filtered = preg_replace_callback($pattern, $replacement, $value);
 
 
-        if (extension_loaded('mbstring')) {
+        if ($this->hasMbStringSupport()) {
             $lcFirstFunction = function ($value) {
                 return mb_strtolower($value[0], 'UTF-8')
                     . substr($value, 1, strlen($value)-1);

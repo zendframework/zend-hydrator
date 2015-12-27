@@ -52,6 +52,25 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $filtered);
     }
 
+    /**
+     * @dataProvider unicodeProviderWithoutMbStrings
+     * @param string $string
+     * @param string $expected
+     */
+    public function testFilterUnderscoresUnicodeStringsWithoutMbStrings($string, $expected)
+    {
+        $filter   = new CamelCaseToUnderscoreFilter();
+
+        $reflectionClass = new ReflectionClass($filter);
+        $property = $reflectionClass->getProperty('mbStringSupport');
+        $property->setAccessible(true);
+        $property->setValue($filter, false);
+
+        $filtered = $filter->filter($string);
+
+        $this->assertNotEquals($string, $filtered);
+        $this->assertEquals($expected, $filtered);
+    }
 
     public function nonUnicodeProvider()
     {
@@ -106,6 +125,36 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
                 'testŠuma',
                 'test_šuma'
             ]
+        ];
+    }
+
+    public function unicodeProviderWithoutMbStrings()
+    {
+        return [
+            'upcased first letter' => [
+                'Camel',
+                'camel'
+            ],
+            'multiple words' => [
+                'underscoresMe',
+                'underscores_me'
+            ],
+            'alphanumeric' => [
+                'one2Three',
+                'one_2_three'
+            ],
+            'multiple uppercased letters and underscores' => [
+                'TheseAre_SOME_CamelCASEDWords',
+                'these_are_some_camel_cased_words'
+            ],
+            'alphanumeric multiple up cases' => [
+                'one2THR23ree',
+                'one_2_thr_23_ree'
+            ],
+            'unicode uppercase character' => [
+                'testŠuma',
+                'test_Šuma'
+            ],
         ];
     }
 
