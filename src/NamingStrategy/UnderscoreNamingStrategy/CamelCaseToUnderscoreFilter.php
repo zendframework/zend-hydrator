@@ -17,10 +17,14 @@ class CamelCaseToUnderscoreFilter
             return $value;
         }
         if (StringUtils::hasPcreUnicodeSupport()) {
-            $pattern     = ['#(\p{L})(\p{Nd}+)(\p{L})#', '#(?<=(?:\p{Lu}))(\p{Lu}\p{Ll})#', '#(?<=(?:\p{Ll}|\p{Nd}))(\p{Lu})#'];
+            $pattern     = ['#(\p{L})(\p{Nd}+)(\p{L})#',
+                '#(?<=(?:\p{Lu}))(\p{Lu}\p{Ll})#',
+                '#(?<=(?:\p{Ll}|\p{Nd}))(\p{Lu})#'];
             $replacement = ['\1_\2_\3','_\1', '_\1'];
         } else {
-            $pattern     = ['#([A-Za-z])([0-9]+)([A-Za-z])#', '#(?<=(?:[A-Z]))([A-Z]+)([A-Z][a-z])#', '#(?<=(?:[a-z0-9]))([A-Z])#'];
+            $pattern     = ['#([A-Za-z])([0-9]+)([A-Za-z])#',
+                '#(?<=(?:[A-Z]))([A-Z]+)([A-Z][a-z])#',
+                '#(?<=(?:[a-z0-9]))([A-Z])#'];
             $replacement = ['\1_\2_\3', '\1_\2', '_\1'];
         }
         $filtered = preg_replace($pattern, $replacement, $value);
