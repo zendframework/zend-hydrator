@@ -5,15 +5,18 @@ namespace Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 use Zend\Stdlib\StringUtils;
 
-class CamelCaseToUnderscoreFilter
+/**
+ * @internal
+ */
+final class CamelCaseToUnderscoreFilter
 {
     /**
-     * @param  string|array $value
-     * @return string|array
+     * @param  string $value
+     * @return string
      */
     public function filter($value)
     {
-        if (!is_scalar($value) && !is_array($value)) {
+        if (!is_scalar($value)) {
             return $value;
         }
         if (StringUtils::hasPcreUnicodeSupport()) {
@@ -37,14 +40,6 @@ class CamelCaseToUnderscoreFilter
             };
         }
 
-        if (is_array($filtered)) {
-            $filtered = array_map(function ($string) use ($lowerFunction) {
-                return call_user_func($lowerFunction, $string);
-            }, $filtered);
-        } else {
-            $filtered = call_user_func($lowerFunction, $filtered);
-        }
-
-        return $filtered;
+        return $lowerFunction($filtered);
     }
 }

@@ -5,6 +5,11 @@ namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter;
 
+/**
+ * Tests for {@see CamelCaseToUnderscoreFilter}
+ *
+ * @covers Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter
+ */
 class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -51,10 +56,6 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
                 'one2Three',
                 'one_2_three'
             ],
-            'array input' => [
-                ['firstInput', 'secondInput'],
-                ['first_input', 'second_input']
-            ],
             'multiple uppercased letters and underscores' => [
                 'TheseAre_SOME_CamelCASEDWords',
                 'these_are_some_camel_cased_words'
@@ -76,10 +77,6 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
             'alphanumeric' => [
                 'one2Three',
                 'one_2_three'
-            ],
-            'array input' => [
-                ['firstInput', 'secondInput'],
-                ['first_input', 'second_input']
             ],
             'multiple uppercased letters and underscores' => [
                 'TheseAre_SOME_CamelCASEDWords',

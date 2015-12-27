@@ -12,9 +12,9 @@ namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter;
 
 /**
- * Test class for Zend\Filter\Word\SeparatorToCamelCase.
+ * Tests for {@see UnderscoreToCamelCaseFilter}
  *
- * @group      Zend_Filter
+ * @covers Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter
  */
 class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -47,10 +47,6 @@ class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
                 'one_2_three',
                 'one2Three'
             ],
-            'array input' => [
-                ['first_input', 'second_input'],
-                ['firstInput', 'secondInput']
-            ]
         ];
     }
 

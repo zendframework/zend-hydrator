@@ -2,11 +2,36 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.0.1 - TBD
+## 3.0.0 - TBD
 
 ### Added
 
 - Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#14](https://github.com/zendframework/zend-hydrator/pull/14) replaced usage of zend filters w/ hardcoded versions
+- The following visibility changes occurred to `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy`:
+  - static property `$underscoreToStudlyCaseFilter` was renamed to `$underscoreToCamelCaseFilter` and marked `private`
+  - static property `$camelCaseToUnderscoreFilter` was marked `private`
+  - method `getCamelCaseToUnderscoreFilter` was marked `private`
+  - method `getUnderscoreToStudlyCaseFilter` was renamed to `getUnderscoreToCamelCaseFilter` and marked `private`
+
+## 2.0.1 - TBD
+
+### Added
+
+- The following classes were marked `final`:
+  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter`
+  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter`
 
 ### Deprecated
 

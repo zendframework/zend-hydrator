@@ -12,15 +12,18 @@ namespace Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 use Zend\Stdlib\StringUtils;
 
-class UnderscoreToCamelCaseFilter
+/**
+ * @internal
+ */
+final class UnderscoreToCamelCaseFilter
 {
     /**
-     * @param  string|array $value
-     * @return string|array
+     * @param  string $value
+     * @return string
      */
     public function filter($value)
     {
-        if (!is_scalar($value) && !is_array($value)) {
+        if (!is_scalar($value)) {
             return $value;
         }
 
@@ -71,17 +74,7 @@ class UnderscoreToCamelCaseFilter
             $filtered = preg_replace_callback($pattern, $replacements[$index], $filtered);
         }
 
-        if (is_array($filtered)) {
-            $filtered = array_map(function (&$camelCased) {
-                return lcfirst($camelCased);
-            }, $filtered);
-        } else {
-            $filtered = lcfirst($filtered);
-        }
 
-
-
-
-        return $filtered;
+        return lcfirst($filtered);
     }
 }
