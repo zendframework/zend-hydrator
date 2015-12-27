@@ -3,6 +3,7 @@
 
 namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
+use ReflectionClass;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter;
 
 /**
@@ -20,6 +21,12 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
     public function testFilterUnderscoresNonUnicodeStrings($string, $expected)
     {
         $filter   = new CamelCaseToUnderscoreFilter();
+
+        $reflectionClass = new ReflectionClass($filter);
+        $property = $reflectionClass->getProperty('pcreUnicodeSupport');
+        $property->setAccessible(true);
+        $property->setValue($filter, false);
+
         $filtered = $filter->filter($string);
 
         $this->assertNotEquals($string, $filtered);
@@ -38,6 +45,7 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
         }
 
         $filter   = new CamelCaseToUnderscoreFilter();
+
         $filtered = $filter->filter($string);
 
         $this->assertNotEquals($string, $filtered);
@@ -48,6 +56,10 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
     public function nonUnicodeProvider()
     {
         return [
+            'upcased first letter' => [
+                'Camel',
+                'camel'
+            ],
             'multiple words' => [
                 'underscoresMe',
                 'underscores_me'
@@ -70,6 +82,10 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
     public function unicodeProvider()
     {
         return [
+            'upcased first letter' => [
+                'Camel',
+                'camel'
+            ],
             'multiple words' => [
                 'underscoresMe',
                 'underscores_me'

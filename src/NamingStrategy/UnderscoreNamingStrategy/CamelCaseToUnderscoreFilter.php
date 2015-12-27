@@ -10,6 +10,20 @@ use Zend\Stdlib\StringUtils;
  */
 final class CamelCaseToUnderscoreFilter
 {
+    /** @var  bool */
+    private $pcreUnicodeSupport;
+
+    /**
+     * @return bool
+     */
+    private function hasPcreUnicodeSupport()
+    {
+        if ($this->pcreUnicodeSupport === null) {
+            $this->pcreUnicodeSupport = StringUtils::hasPcreUnicodeSupport();
+        }
+        return $this->pcreUnicodeSupport;
+    }
+
     /**
      * @param  string $value
      * @return string
@@ -19,7 +33,7 @@ final class CamelCaseToUnderscoreFilter
         if (!is_scalar($value)) {
             return $value;
         }
-        if (StringUtils::hasPcreUnicodeSupport()) {
+        if ($this->hasPcreUnicodeSupport()) {
             $pattern     = ['#(\p{L})(\p{Nd}+)(\p{L})#',
                 '#(?<=(?:\p{Lu}))(\p{Lu}\p{Ll})#',
                 '#(?<=(?:\p{Ll}|\p{Nd}))(\p{Lu})#'];
