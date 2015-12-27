@@ -3,7 +3,6 @@
 
 namespace Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
-
 use Zend\Stdlib\StringUtils;
 
 class CamelCaseToUnderscoreFilter
@@ -29,13 +28,13 @@ class CamelCaseToUnderscoreFilter
         if (!extension_loaded('mbstring')) {
             $lowerFunction = 'strtolower';
         } else {
-            $lowerFunction = function($value){
+            $lowerFunction = function ($value) {
                 return mb_strtolower($value, 'UTF-8');
             };
         }
 
-        if(is_array($filtered)){
-            $filtered = array_map(function($string) use($lowerFunction){
+        if (is_array($filtered)) {
+            $filtered = array_map(function ($string) use ($lowerFunction) {
                 return call_user_func($lowerFunction, $string);
             }, $filtered);
         } else {

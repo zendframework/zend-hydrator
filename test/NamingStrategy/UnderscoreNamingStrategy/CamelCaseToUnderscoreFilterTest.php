@@ -3,7 +3,6 @@
 
 namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
-
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter;
 
 class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
@@ -13,7 +12,8 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
      * @param string $string
      * @param string $expected
      */
-    public function testFilterUnderscoresNonUnicodeStrings($string, $expected){
+    public function testFilterUnderscoresNonUnicodeStrings($string, $expected)
+    {
         $filter   = new CamelCaseToUnderscoreFilter();
         $filtered = $filter->filter($string);
 
@@ -26,7 +26,8 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
      * @param string $string
      * @param string $expected
      */
-    public function testFilterUnderscoresUnicodeStrings($string, $expected){
+    public function testFilterUnderscoresUnicodeStrings($string, $expected)
+    {
         if (!extension_loaded('mbstring')) {
             $this->markTestSkipped('Extension mbstring not available');
         }
@@ -39,7 +40,8 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    public function nonUnicodeProvider(){
+    public function nonUnicodeProvider()
+    {
         return [
             'multiple words' => [
                 'underscoresMe',
@@ -64,7 +66,8 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function unicodeProvider(){
+    public function unicodeProvider()
+    {
         return [
             'multiple words' => [
                 'underscoresMe',

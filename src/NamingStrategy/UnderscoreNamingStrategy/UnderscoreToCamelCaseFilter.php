@@ -71,8 +71,8 @@ class UnderscoreToCamelCaseFilter
             $filtered = preg_replace_callback($pattern, $replacements[$index], $filtered);
         }
 
-        if(is_array($filtered)){
-            $filtered = array_map(function(&$camelCased){
+        if (is_array($filtered)) {
+            $filtered = array_map(function (&$camelCased) {
                 return lcfirst($camelCased);
             }, $filtered);
         } else {

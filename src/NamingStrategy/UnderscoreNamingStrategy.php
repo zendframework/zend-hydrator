@@ -52,7 +52,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
      */
     private function getUnderscoreToCamelCaseFilter()
     {
-        if(static::$underscoreToCamelCaseFilter === null){
+        if (static::$underscoreToCamelCaseFilter === null) {
             static::$underscoreToCamelCaseFilter = new UnderscoreToCamelCaseFilter();
         }
 

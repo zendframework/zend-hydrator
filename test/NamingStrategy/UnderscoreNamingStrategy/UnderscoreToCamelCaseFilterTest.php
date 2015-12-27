@@ -8,8 +8,8 @@
  */
 
 namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
-use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter;
 
+use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter;
 
 /**
  * Test class for Zend\Filter\Word\SeparatorToCamelCase.
@@ -32,7 +32,8 @@ class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $filtered);
     }
 
-    public function nonUnicodeProvider(){
+    public function nonUnicodeProvider()
+    {
         return [
             'one word' => [
                 'Studly',
