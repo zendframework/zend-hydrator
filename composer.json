@@ -21,8 +21,7 @@
         "zendframework/zend-serializer": "^2.5.1",
         "zendframework/zend-servicemanager": "^2.5.1",
         "phpunit/PHPUnit": "~4.0",
-        "squizlabs/php_codesniffer": "^2.0@dev",
-        "zendframework/zend-inputfilter": "^2.5"
+        "squizlabs/php_codesniffer": "^2.0@dev"
     },
     "suggest": {
         "zendframework/zend-eventmanager": "^2.5.1, to support aggregate hydrator usage",
