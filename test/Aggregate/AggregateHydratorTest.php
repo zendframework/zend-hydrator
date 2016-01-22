@@ -12,6 +12,8 @@ namespace ZendTest\Hydrator\Aggregate;
 use PHPUnit_Framework_TestCase;
 use stdClass;
 use Zend\Hydrator\Aggregate\AggregateHydrator;
+use Zend\Hydrator\Aggregate\ExtractEvent;
+use Zend\Hydrator\Aggregate\HydrateEvent;
 
 /**
  * Unit tests for {@see AggregateHydrator}
@@ -48,9 +50,12 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
 
         $this
             ->eventManager
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('attach')
-            ->with($this->isInstanceOf('Zend\Hydrator\Aggregate\HydratorListener'), 123);
+            ->withConsecutive(
+                [$this->equalTo(HydrateEvent::EVENT_HYDRATE), $this->isType('callable'), 123],
+                [$this->equalTo(ExtractEvent::EVENT_EXTRACT), $this->isType('callable'), 123]
+            );
 
         $this->hydrator->add($attached, 123);
     }

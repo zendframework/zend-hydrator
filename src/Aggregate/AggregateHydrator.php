@@ -34,8 +34,8 @@ class AggregateHydrator implements HydratorInterface, EventManagerAwareInterface
      */
     public function add(HydratorInterface $hydrator, $priority = self::DEFAULT_PRIORITY)
     {
-        $aggregate = new HydratorListener($hydrator);
-        $aggregate->attach($this->getEventManager(), $priority);
+        $listener = new HydratorListener($hydrator);
+        $listener->attach($this->getEventManager(), $priority);
     }
 
     /**

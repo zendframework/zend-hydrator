@@ -23,7 +23,7 @@ class DelegatingHydratorFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $this($serviceLocator, '');
+        return $this($serviceLocator, '');
     }
 
     /**
