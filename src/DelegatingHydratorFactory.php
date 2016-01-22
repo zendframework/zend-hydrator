@@ -9,21 +9,36 @@
 
 namespace Zend\Hydrator;
 
+use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class DelegatingHydratorFactory implements FactoryInterface
 {
     /**
-     * Creates DelegatingHydrator
+     * Creates DelegatingHydrator (v2)
      *
      * @param  ServiceLocatorInterface $serviceLocator
      * @return DelegatingHydrator
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        $this($serviceLocator);
+    }
+
+    /**
+     * v3
+     *
+     * @param ContainerInterface $container
+     * @param string $requestedName
+     * @param array|null $options
+     * @return DelegatingHydrator
+     */
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+
         // Assume that this factory is registered with the HydratorManager,
         // and just pass it directly on.
-        return new DelegatingHydrator($serviceLocator);
+        return new DelegatingHydrator($container);
     }
 }
