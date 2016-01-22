@@ -9,7 +9,9 @@
 
 namespace ZendTest\Hydrator;
 
+use phpDocumentor\Reflection\DocBlock\Serializer;
 use Zend\Hydrator\HydratorPluginManager;
+use Zend\ServiceManager\ServiceManager;
 
 class HydratorManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,7 +22,7 @@ class HydratorManagerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->manager = new HydratorPluginManager();
+        $this->manager = new HydratorPluginManager(new ServiceManager());
     }
 
     public function testRegisteringInvalidElementRaisesException()
