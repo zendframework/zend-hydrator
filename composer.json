@@ -14,13 +14,13 @@
     },
     "require": {
         "php": ">=5.5",
-        "zendframework/zend-stdlib": "^2.5.1"
+        "zendframework/zend-stdlib": "dev-develop as 2.5.1"
     },
     "require-dev": {
-        "zendframework/zend-eventmanager": "^2.5.1",
-        "zendframework/zend-inputfilter": "^2.5.1",
+        "zendframework/zend-eventmanager": "^3.0",
+        "zendframework/zend-inputfilter": "dev-feature/zf3-improvement as 2.5.1",
         "zendframework/zend-serializer": "^2.5.1",
-        "zendframework/zend-servicemanager": "^2.5.1",
+        "zendframework/zend-servicemanager": "^2.7.3 || ^3.0",
         "zendframework/zend-filter": "^2.5.1",
         "phpunit/PHPUnit": "~4.0",
         "squizlabs/php_codesniffer": "^2.0@dev"
@@ -43,5 +43,11 @@
         "psr-4": {
             "ZendTest\\Hydrator\\": "test/"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type" : "vcs",
+            "url" : "git@github.com:gianarb/zend-inputfilter.git"
+        }
+    ]
 }
