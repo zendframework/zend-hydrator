@@ -23,11 +23,11 @@ class DelegatingHydratorFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        $this($serviceLocator);
+        $this($serviceLocator, '');
     }
 
     /**
-     * v3
+     * Creates DelegatingHydrator (v3)
      *
      * @param ContainerInterface $container
      * @param string $requestedName
@@ -36,7 +36,6 @@ class DelegatingHydratorFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-
         // Assume that this factory is registered with the HydratorManager,
         // and just pass it directly on.
         return new DelegatingHydrator($container);
