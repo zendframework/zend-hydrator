@@ -26,7 +26,7 @@ class HydratorPluginManager extends AbstractPluginManager
      *
      * @var bool
      */
-    protected $shareByDefault = false;
+    protected $sharedByDefault = false;
 
     /**
      * Default aliases
@@ -35,10 +35,19 @@ class HydratorPluginManager extends AbstractPluginManager
      */
     protected $aliases = [
         'arrayserializable'  => ArraySerializable::class,
+        'arraySerializable'  => ArraySerializable::class,
+        'ArraySerializable'  => ArraySerializable::class,
         'classmethods'       => ClassMethods::class,
+        'classMethods'       => ClassMethods::class,
+        'ClassMethods'       => ClassMethods::class,
         'delegatinghydrator' => DelegatingHydrator::class,
+        'delegatingHydrator' => DelegatingHydrator::class,
+        'DelegatingHydrator' => DelegatingHydrator::class,
         'objectproperty'     => ObjectProperty::class,
+        'objectProperty'     => ObjectProperty::class,
+        'ObjectProperty'     => ObjectProperty::class,
         'reflection'         => Reflection::class,
+        'Reflection'         => Reflection::class,
     ];
 
     /**
