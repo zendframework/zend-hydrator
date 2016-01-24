@@ -64,6 +64,11 @@ class HydratorPluginManager extends AbstractPluginManager
     ];
 
     /**
+     * {inheritDoc}
+     */
+    protected $instanceOf = HydratorInterface::class;
+
+    /**
      * Validate the plugin is of the expected type (v3).
      *
      * Checks that the filter loaded is either a valid callback or an instance
@@ -74,12 +79,12 @@ class HydratorPluginManager extends AbstractPluginManager
      */
     public function validate($instance)
     {
-        if ($instance instanceof HydratorInterface) {
+        if ($instance instanceof $this->instanceOf) {
             // we're okay
             return;
         }
 
-        throw new Exception\RuntimeException(sprintf(
+        throw new InvalidServiceException(sprintf(
             'Plugin of type %s is invalid; must implement Zend\Hydrator\HydratorInterface',
             (is_object($instance) ? get_class($instance) : gettype($instance))
         ));
@@ -90,6 +95,10 @@ class HydratorPluginManager extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        $this->validate($plugin);
+        try {
+            $this->validate($plugin);
+        } catch (InvalidServiceException $e) {
+            throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 }
