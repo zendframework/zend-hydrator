@@ -9,7 +9,6 @@
 
 namespace Zend\Hydrator;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -56,11 +55,18 @@ class HydratorPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = [
-        ArraySerializable::class  => InvokableFactory::class,
-        ClassMethods::class       => InvokableFactory::class,
-        DelegatingHydrator::class => DelegatingHydratorFactory::class,
-        ObjectProperty::class     => InvokableFactory::class,
-        Reflection::class         => InvokableFactory::class,
+        ArraySerializable::class                => InvokableFactory::class,
+        ClassMethods::class                     => InvokableFactory::class,
+        DelegatingHydrator::class               => DelegatingHydratorFactory::class,
+        ObjectProperty::class                   => InvokableFactory::class,
+        Reflection::class                       => InvokableFactory::class,
+
+        // v2 canonical FQCNs
+        'zendhydratorarrayserializable'         => InvokableFactory::class,
+        'zendhydratorclassmethods'              => InvokableFactory::class,
+        'zendhydratordelegatinghydrator'        => DelegatingHydratorFactory::class,
+        'zendhydratorhydratorbbjectproperty'    => InvokableFactory::class,
+        'zendhydratorzendhydratorreflection'    => InvokableFactory::class,
     ];
 
     /**
