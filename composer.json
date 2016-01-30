@@ -14,7 +14,7 @@
     },
     "require": {
         "php": ">=5.5",
-        "zendframework/zend-stdlib": "^2.7.4"
+        "zendframework/zend-stdlib": "dev-develop as 2.7"
     },
     "require-dev": {
         "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
