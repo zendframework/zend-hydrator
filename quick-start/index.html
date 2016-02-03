@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="shortcut icon" href="../img/favicon.ico">
+
+    <title>Quick Start - zend-hydrator</title>
+
+    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/zf.css" rel="stylesheet">
+    <link href="../css/prism-zf.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+    <script>
+    WebFont.load({
+        google: {
+            families: ['Open Sans', 'PT Sans']
+        }
+    });
+    </script>
+
+    
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <span class="navbar-brand">
+              <a href="http://framework.zend.com"><img src="../img/zf-logo-mark.png" height="28" alt="Zend Framework" /></a>
+              <a href="..">zend-hydrator</a>
+            </span>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="active">
+                        <a href="./">Quick Start</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../filter/">Filters</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../strategy/">Strategies</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../aggregate/">Aggregates</a>
+</li>
+
+                        
+                            
+  <li class="dropdown-submenu">
+    <a tabindex="-1" href="">Naming Strategies</a>
+    <ul class="dropdown-menu">
+        
+            
+<li >
+    <a href="../naming-strategy/identity-naming-strategy/">Identity</a>
+</li>
+
+        
+            
+<li >
+    <a href="../naming-strategy/map-naming-strategy/">Mapping</a>
+</li>
+
+        
+            
+<li >
+    <a href="../naming-strategy/underscore-naming-strategy/">Underscore Mapping</a>
+</li>
+
+        
+            
+<li >
+    <a href="../naming-strategy/composite-naming-strategy/">Composite</a>
+</li>
+
+        
+    </ul>
+  </li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="prev" href="..">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../filter/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/zendframework/zend-hydrator">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <!-- content:begin -->
+    <div class="container">
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#zend-hydrator">zend-hydrator</a></li>
+        
+            <li><a href="#base-interfaces">Base Interfaces</a></li>
+        
+            <li><a href="#usage">Usage</a></li>
+        
+            <li><a href="#available-implementations">Available Implementations</a></li>
+        
+    
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
+  <li><a href="..">Docs</a> &raquo;</li>
+  
+    
+  
+  <li class="active">Quick Start</li>
+</ol>
+
+<nav class="hidden-lg">
+  <ul class="pager">
+    <li class="previous">
+      <a rel="prev" href=".."><i class="fa fa-arrow-left"></i> Previous</a>
+    </li>
+    <li class="next">
+      <a rel="next" href="../filter/">Next <i class="fa fa-arrow-right"></i></a>
+    </li>
+  </ul>
+</nav>
+
+<h1 id="zend-hydrator">zend-hydrator</h1>
+<p>Hydration is the act of populating an object from a set of data.</p>
+<p>zend-hydrator is a simple component to provide mechanisms both for hydrating
+objects, as well as extracting data sets from them.</p>
+<p>The component consists of interfaces, and several implementations for common use cases.</p>
+<h2 id="base-interfaces">Base Interfaces</h2>
+<h3 id="extractioninterface">ExtractionInterface</h3>
+<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator;
+
+interface ExtractionInterface
+{
+    /
+     * Extract values from an object
+     *
+     * @param  object $object
+     * @return array
+     */
+    public function extract($object);
+}</code></pre>
+
+
+<h3 id="hydrationinterface">HydrationInterface</h3>
+<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator;
+
+interface HydrationInterface
+{
+    /
+     * Hydrate $object with the provided $data.
+     *
+     * @param  array $data
+     * @param  object $object
+     * @return object
+     */
+    public function hydrate(array $data, $object);
+}</code></pre>
+
+
+<h3 id="hydratorinterface">HydratorInterface</h3>
+<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator;
+
+interface HydratorInterface extends
+    ExtractionInterface,
+    HydrationInterface
+{
+}</code></pre>
+
+
+<h2 id="usage">Usage</h2>
+<p>Usage involves instantiating the hydrator, and then passing information to it.</p>
+<pre class="codehilite"><code class="language-php">use Zend\Hydrator;
+$hydrator = new Hydrator\ArraySerializable();
+
+$object = new ArrayObject(array());
+
+$hydrator-&gt;hydrate($someData, $object);
+
+// or, if the object has data we want as an array:
+$data = $hydrator-&gt;extract($object);</code></pre>
+
+
+<h2 id="available-implementations">Available Implementations</h2>
+<h3 id="zend92hydrator92arrayserializable">Zend\Hydrator\ArraySerializable</h3>
+<p>Follows the definition of <code>ArrayObject</code>. Objects must implement either the <code>exchangeArray()</code> or
+<code>populate()</code> methods to support hydration, and the <code>getArrayCopy()</code> method to support extraction.</p>
+<h3 id="zend92hydrator92classmethods">Zend\Hydrator\ClassMethods</h3>
+<p>Any data key matching a setter method will be called in order to hydrate; any method matching a
+getter method will be called for extraction.</p>
+<h3 id="zend92hydrator92delegatinghydrator">Zend\Hydrator\DelegatingHydrator</h3>
+<p>Composes a hydrator locator, and will delegate <code>hydrate()</code> and <code>extract()</code> calls
+to the appropriate one based upon the class name of the object being operated
+on.</p>
+<pre class="codehilite"><code class="language-php">// Instantiate each hydrator you wish to delegate to
+$albumHydrator = new Zend\Hydrator\ClassMethods;
+$artistHydrator = new Zend\Hydrator\ClassMethods;
+
+// Map the entity class name to the hydrator using the HydratorPluginManager.
+// In this case we have two entity classes, &quot;Album&quot; and &quot;Artist&quot;.
+$hydrators = new Zend\Hydrator\HydratorPluginManager;
+$hydrators-&gt;setService('Album', $albumHydrator);
+$hydrators-&gt;setService('Artist', $artistHydrator);
+
+// Create the DelegatingHydrator and tell it to use our configured hydrator locator
+$delegating = new Zend\Hydrator\DelegatingHydrator($hydrators);
+
+// Now we can use $delegating to hydrate or extract any supported object    
+$array = $delegating-&gt;extract(new Artist);
+$artist = $delegating-&gt;hydrate($data, new Artist);</code></pre>
+
+
+<h3 id="zend92hydrator92objectproperty">Zend\Hydrator\ObjectProperty</h3>
+<p>Any data key matching a publicly accessible property will be hydrated; any public properties
+will be used for extraction.</p>
+<h3 id="zend92hydrator92reflection">Zend\Hydrator\Reflection</h3>
+<p>Similar to the <code>ObjectProperty</code> hydrator, but uses <a href="http://php.net/manual/en/intro.reflection.php">PHP's reflection API</a>
+to hydrate or extract properties of any visibility. Any data key matching an
+existing property will be hydrated; any existing properties will be used for
+extraction.</p>
+
+<hr />
+
+<nav>
+  <ul class="pager">
+    <li class="previous">
+      <a rel="prev" href=".."><i class="fa fa-arrow-left"></i> Previous</a>
+    </li>
+    <li class="next">
+      <a rel="next" href="../filter/">Next <i class="fa fa-arrow-right"></i></a>
+    </li>
+  </ul>
+</nav></div>
+        
+    </div>
+    <!-- content:end -->
+
+    <footer class="col-md-12 text-center">
+        <hr>
+        <p>
+        <small>Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a><br></small>
+        </p>
+        <p><small><a href="http://framework.zend.com">Learn more about Zend Framework</a></small></p>
+    </footer>
+
+    <script src="../js/jquery-1.10.2.min.js"></script>
+    <script src="../js/bootstrap-3.0.3.min.js"></script>
+    <script src="../js/prism-zf.js"></script>
+
+    <script>var base_url = '..';</script>
+    <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+    <script src="../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>
