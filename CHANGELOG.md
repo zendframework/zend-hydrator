@@ -6,7 +6,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#20](https://github.com/zendframework/zend-hydrator/pull/20) imports the
+  documentation from zend-stdlib, publishes it to
+  https://zendframework.github.io/zend-hydrator/, and automates building and
+  publishing the documentation.
 
 ### Deprecated
 
