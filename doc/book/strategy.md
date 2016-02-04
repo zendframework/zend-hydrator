@@ -87,7 +87,8 @@ functionality in your own hydrators, you should extend `AbstractHydrator`.
 
 ### Zend\\Hydrator\\Strategy\\BooleanStrategy
 
-This Strategy converts values into Booleans and vice versa. It expects two arguments at the constructor, which are used to define a contrary for `true` and `false`.
+This Strategy converts values into Booleans and vice versa. It expects two 
+arguments at the constructor, which are used to define a contrary for `true` and `false`.
 
 ### Zend\\Hydrator\\Strategy\\DateTimeFormatterStrategy 
 
@@ -97,7 +98,7 @@ The in- and output format can be defined as a constructor argument.
 ### Zend\\Hydrator\\Strategy\\ExplodeStrategy 
 
 This Strategy is a wrapper around PHPs `implode` and `explode` functions. The delemiter 
-and a limit can be defined at teh constructor. The Limit is only respected in the `extract`
+and a limit can be defined at the constructor. The Limit is only respected in the `extract`
 function.
 
 ### Zend\\Hydrator\\Strategy\\SerializableStrategy
@@ -120,7 +121,7 @@ doing anything on the parameters.
 ### Zend\\Hydrator\\Strategy\\StrategyChain
 
 This Strategy takes an array of `Zend\\Hydrator\\Strategy\\StrategyInterface` and iterates 
-over it in the `extract` and `hydrate` Method. It allows you concatinate multiple Strategies,
+over it in the `extract` and `hydrate` Method. It allows you concatination of multiple Strategies,
 and execute them on a single value.
 
 ## Writing custom strategies
