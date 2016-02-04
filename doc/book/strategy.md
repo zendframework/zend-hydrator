@@ -85,6 +85,10 @@ functionality in your own hydrators, you should extend `AbstractHydrator`.
 
 ## Available implementations
 
+### Zend\\Hydrator\\Strategy\\BooleanStrategy
+
+This Strategy converts values into Booleans and vice versa. It expects two arguments at the constructor, which are used to define a contrary for `true` and `false`.
+
 ### Zend\\Hydrator\\Strategy\\SerializableStrategy
 
 This is a strategy that provides the functionality for
