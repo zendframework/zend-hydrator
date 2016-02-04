@@ -117,6 +117,12 @@ of extraction.
 This is a "dummy"-implementation that simply proxies everything through, without
 doing anything on the parameters.
 
+### Zend\\Hydrator\\Strategy\\StrategyChain
+
+This Strategy takes an array of `Zend\\Hydrator\\Strategy\\StrategyInterface` and iterates 
+over it in the `extract` and `hydrate` Method. It allows you concatinate multiple Strategies,
+and execute them on a single value.
+
 ## Writing custom strategies
 
 As usual, this is not really a very useful example, but will provide you with
