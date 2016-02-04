@@ -94,6 +94,12 @@ This Strategy converts values into Booleans and vice versa. It expects two argum
 This is a strategy that converts bidirectional a string into a DateTime Object. 
 The in- and output format can be defined as a constructor argument.
 
+### Zend\\Hydrator\\Strategy\\ExplodeStrategy 
+
+This Strategy is a wrapper around PHPs `implode` and `explode` functions. The delemiter 
+and a limit can be defined at teh constructor. The Limit is only respected in the `extract`
+function.
+
 ### Zend\\Hydrator\\Strategy\\SerializableStrategy
 
 This is a strategy that provides the functionality for
