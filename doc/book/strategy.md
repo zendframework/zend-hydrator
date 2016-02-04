@@ -89,6 +89,11 @@ functionality in your own hydrators, you should extend `AbstractHydrator`.
 
 This Strategy converts values into Booleans and vice versa. It expects two arguments at the constructor, which are used to define a contrary for `true` and `false`.
 
+### Zend\\Hydrator\\Strategy\\DateTimeFormatterStrategy 
+
+This is a strategy that converts bidirectional a string into a DateTime Object. 
+The in- and output format can be defined as a constructor argument.
+
 ### Zend\\Hydrator\\Strategy\\SerializableStrategy
 
 This is a strategy that provides the functionality for
