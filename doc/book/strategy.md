@@ -90,10 +90,21 @@ functionality in your own hydrators, you should extend `AbstractHydrator`.
 This Strategy converts values into Booleans and vice versa. It expects two 
 arguments at the constructor, which are used to define a contrary for `true` and `false`.
 
+### Zend\\Hydrator\\Strategy\\ClosureStrategy
+
+This is a strategy that allows you to pass in a `hydrate` callback to be called
+in the event of hydration, and an `extract` callback to be called in the event
+of extraction.
+
 ### Zend\\Hydrator\\Strategy\\DateTimeFormatterStrategy 
 
 This is a strategy that converts bidirectional a string into a DateTime Object. 
 The in- and output format can be defined as a constructor argument.
+
+### Zend\\Hydrator\\Strategy\\DefaultStrategy
+
+This is a "dummy"-implementation that simply proxies everything through, without
+doing anything on the parameters.
 
 ### Zend\\Hydrator\\Strategy\\ExplodeStrategy 
 
@@ -106,17 +117,6 @@ function.
 This is a strategy that provides the functionality for
 `Zend\Hydrator\ArraySerializable`.  You can use it with custom implementations
 for `Zend\Serializer\Adapter\AdapterInterface` if you want to as well.
-
-### Zend\\Hydrator\\Strategy\\ClosureStrategy
-
-This is a strategy that allows you to pass in a `hydrate` callback to be called
-in the event of hydration, and an `extract` callback to be called in the event
-of extraction.
-
-### Zend\\Hydrator\\Strategy\\DefaultStrategy
-
-This is a "dummy"-implementation that simply proxies everything through, without
-doing anything on the parameters.
 
 ### Zend\\Hydrator\\Strategy\\StrategyChain
 
