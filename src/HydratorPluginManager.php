@@ -58,8 +58,8 @@ class HydratorPluginManager extends AbstractPluginManager
         'zendhydratorarrayserializable'         => InvokableFactory::class,
         'zendhydratorclassmethods'              => InvokableFactory::class,
         'zendhydratordelegatinghydrator'        => DelegatingHydratorFactory::class,
-        'zendhydratorhydratorbbjectproperty'    => InvokableFactory::class,
-        'zendhydratorzendhydratorreflection'    => InvokableFactory::class,
+        'zendhydratorobjectproperty'            => InvokableFactory::class,
+        'zendhydratorreflection'                => InvokableFactory::class,
     ];
 
     /**
