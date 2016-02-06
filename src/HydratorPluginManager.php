@@ -21,13 +21,6 @@ use Zend\ServiceManager\Factory\InvokableFactory;
 class HydratorPluginManager extends AbstractPluginManager
 {
     /**
-     * Whether or not to share by default
-     *
-     * @var bool
-     */
-    protected $sharedByDefault = false;
-
-    /**
      * Default aliases
      *
      * @var array
@@ -61,13 +54,27 @@ class HydratorPluginManager extends AbstractPluginManager
         ObjectProperty::class                   => InvokableFactory::class,
         Reflection::class                       => InvokableFactory::class,
 
-        // v2 canonical FQCNs
+        // v2 normalized FQCNs
         'zendhydratorarrayserializable'         => InvokableFactory::class,
         'zendhydratorclassmethods'              => InvokableFactory::class,
         'zendhydratordelegatinghydrator'        => DelegatingHydratorFactory::class,
         'zendhydratorhydratorbbjectproperty'    => InvokableFactory::class,
         'zendhydratorzendhydratorreflection'    => InvokableFactory::class,
     ];
+
+    /**
+     * Whether or not to share by default (v3)
+     *
+     * @var bool
+     */
+    protected $sharedByDefault = false;
+
+    /**
+     * Whether or not to share by default (v2)
+     *
+     * @var bool
+     */
+    protected $shareByDefault = false;
 
     /**
      * {inheritDoc}
