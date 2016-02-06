@@ -14,13 +14,13 @@
     },
     "require": {
         "php": ">=5.5",
-        "zendframework/zend-stdlib": "dev-develop as 2.7"
+        "zendframework/zend-stdlib": "dev-develop as 2.7",
+        "zendframework/zend-servicemanager": "2.7.5"
     },
     "require-dev": {
         "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
         "zendframework/zend-inputfilter": "dev-develop as 2.6.0",
         "zendframework/zend-serializer": "dev-develop",
-        "zendframework/zend-servicemanager": "^2.7.4 || ^3.0",
         "zendframework/zend-filter": "^2.6.0",
         "phpunit/PHPUnit": "~4.0",
         "squizlabs/php_codesniffer": "^2.0@dev"
