@@ -23,7 +23,8 @@
         "zendframework/zend-servicemanager": "^2.5.1",
         "zendframework/zend-filter": "^2.5.1",
         "phpunit/PHPUnit": "~4.0",
-        "squizlabs/php_codesniffer": "^2.0@dev"
+        "squizlabs/php_codesniffer": "^2.0@dev",
+        "phpbench/phpbench": "^0.10.0"
     },
     "suggest": {
         "zendframework/zend-eventmanager": "^2.5.1, to support aggregate hydrator usage",
@@ -41,7 +42,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ZendTest\\Hydrator\\": "test/"
+            "ZendTest\\Hydrator\\": "test/",
+            "ZendBench\\Hydrator\\": "benchmarks/"
         }
     }
 }
