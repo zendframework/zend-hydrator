@@ -51,7 +51,7 @@ matrix:
         - SERVICE_MANAGER_VERSION="^2.7.3"
         - EVENT_MANAGER_VERSION="^2.6.2"
   allow_failures:
-    - php: 7
+    - php: hhvm
 
 notifications:
   irc: "irc.freenode.org#zftalk.dev"
