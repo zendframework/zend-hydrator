@@ -10,10 +10,13 @@
 namespace ZendTest\Hydrator\Aggregate;
 
 use PHPUnit_Framework_TestCase;
+use Prophecy\Argument;
 use stdClass;
+use Zend\EventManager\EventManager;
 use Zend\Hydrator\Aggregate\AggregateHydrator;
 use Zend\Hydrator\Aggregate\ExtractEvent;
 use Zend\Hydrator\Aggregate\HydrateEvent;
+use Zend\Hydrator\HydratorInterface;
 
 /**
  * Unit tests for {@see AggregateHydrator}
@@ -26,7 +29,7 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
     protected $hydrator;
 
     /**
-     * @var \Zend\EventManager\EventManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Zend\EventManager\EventManager|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $eventManager;
 
@@ -35,10 +38,10 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->eventManager = $this->getMock('Zend\EventManager\EventManagerInterface');
+        $this->eventManager = $this->prophesize(EventManager::class);
         $this->hydrator     = new AggregateHydrator();
 
-        $this->hydrator->setEventManager($this->eventManager);
+        $this->hydrator->setEventManager($this->eventManager->reveal());
     }
 
     /**
@@ -46,18 +49,16 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
      */
     public function testAdd()
     {
-        $attached = $this->getMock('Zend\Hydrator\HydratorInterface');
+        $attached = $this->prophesize(HydratorInterface::class);
 
-        $this
-            ->eventManager
-            ->expects($this->exactly(2))
-            ->method('attach')
-            ->withConsecutive(
-                [$this->equalTo(HydrateEvent::EVENT_HYDRATE), $this->isType('callable'), 123],
-                [$this->equalTo(ExtractEvent::EVENT_EXTRACT), $this->isType('callable'), 123]
-            );
+        $this->eventManager
+            ->attach(HydrateEvent::EVENT_HYDRATE, Argument::type('callable'), 123)
+            ->shouldBeCalled();
+        $this->eventManager
+            ->attach(ExtractEvent::EVENT_EXTRACT, Argument::type('callable'), 123)
+            ->shouldBeCalled();
 
-        $this->hydrator->add($attached, 123);
+        $this->hydrator->add($attached->reveal(), 123);
     }
 
     /**
@@ -67,11 +68,9 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
     {
         $object = new stdClass();
 
-        $this
-            ->eventManager
-            ->expects($this->once())
-            ->method('triggerEvent')
-            ->with($this->isInstanceOf('Zend\Hydrator\Aggregate\HydrateEvent'));
+        $this->eventManager
+            ->triggerEvent(Argument::type(HydrateEvent::class))
+            ->shouldBeCalled();
 
         $this->assertSame($object, $this->hydrator->hydrate(['foo' => 'bar'], $object));
     }
@@ -83,11 +82,9 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
     {
         $object = new stdClass();
 
-        $this
-            ->eventManager
-            ->expects($this->once())
-            ->method('triggerEvent')
-            ->with($this->isInstanceOf('Zend\Hydrator\Aggregate\ExtractEvent'));
+        $this->eventManager
+            ->triggerEvent(Argument::type(ExtractEvent::class))
+            ->shouldBeCalled();
 
         $this->assertSame([], $this->hydrator->extract($object));
     }
@@ -99,22 +96,16 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
     public function testGetSetManager()
     {
         $hydrator     = new AggregateHydrator();
-        $eventManager = $this->getMock('Zend\EventManager\EventManagerInterface');
+        $eventManager = $this->prophesize(EventManager::class);
 
-        $this->assertInstanceOf('Zend\EventManager\EventManagerInterface', $hydrator->getEventManager());
+        $this->assertInstanceOf(EventManager::class, $hydrator->getEventManager());
 
         $eventManager
-            ->expects($this->once())
-            ->method('setIdentifiers')
-            ->with(
-                [
-                     'Zend\Hydrator\Aggregate\AggregateHydrator',
-                     'Zend\Hydrator\Aggregate\AggregateHydrator',
-                ]
-            );
+            ->setIdentifiers([AggregateHydrator::class, AggregateHydrator::class])
+            ->shouldBeCalled();
 
-        $hydrator->setEventManager($eventManager);
+        $hydrator->setEventManager($eventManager->reveal());
 
-        $this->assertSame($eventManager, $hydrator->getEventManager());
+        $this->assertSame($eventManager->reveal(), $hydrator->getEventManager());
     }
 }
