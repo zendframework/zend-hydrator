@@ -62,7 +62,7 @@ class DelegatingHydratorFactory implements FactoryInterface
         if ($container->has('HydratorManager')) {
             return $container->get('HydratorManager');
         }
-        
+
         // Fallback: create one
         return new HydratorPluginManager($container);
     }
