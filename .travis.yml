@@ -30,7 +30,6 @@ matrix:
     - php: 5.5
       env:
         - SERVICE_MANAGER_VERSION="^2.7.3"
-        - EVENT_MANAGER_VERSION="^2.6.2"
     - php: 5.6
       env:
         - EXECUTE_TEST_COVERALLS=true
@@ -39,17 +38,14 @@ matrix:
     - php: 5.6
       env:
         - SERVICE_MANAGER_VERSION="^2.7.3"
-        - EVENT_MANAGER_VERSION="^2.6.2"
     - php: 7
     - php: 7
       env:
         - SERVICE_MANAGER_VERSION="^2.7.3"
-        - EVENT_MANAGER_VERSION="^2.6.2"
     - php: hhvm
     - php: hhvm
       env:
         - SERVICE_MANAGER_VERSION="^2.7.3"
-        - EVENT_MANAGER_VERSION="^2.6.2"
   allow_failures:
     - php: 7
 
@@ -61,8 +57,6 @@ before_install:
   - if [[ $EXECUTE_TEST_COVERALLS != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
   - composer self-update
   - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then composer require --dev --no-update satooshi/php-coveralls ; fi
-  - if [[ $EVENT_MANAGER_VERSION != '' ]]; then composer require --dev --no-update "zendframework/zend-eventmanager:$EVENT_MANAGER_VERSION" ; fi
-  - if [[ $EVENT_MANAGER_VERSION == '' ]]; then composer require --dev --no-update "zendframework/zend-eventmanager:^3.0" ; fi
   - if [[ $SERVICE_MANAGER_VERSION != '' ]]; then composer require --dev --no-update "zendframework/zend-servicemanager:$SERVICE_MANAGER_VERSION" ; fi
   - if [[ $SERVICE_MANAGER_VERSION == '' ]]; then composer require --dev --no-update "zendframework/zend-servicemanager:^3.0.3" ; fi
 
