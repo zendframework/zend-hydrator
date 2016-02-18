@@ -36,8 +36,34 @@ class DelegatingHydratorFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        // Assume that this factory is registered with the HydratorManager,
-        // and just pass it directly on.
+        $container = $this->marshalHydratorPluginManager($container);
         return new DelegatingHydrator($container);
+    }
+
+    /**
+     * Locate and return a HydratorPluginManager instance.
+     *
+     * @param ContainerInterface $container
+     * @return HydratorPluginManager
+     */
+    private function marshalHydratorPluginManager(ContainerInterface $container)
+    {
+        // Already one? Return it.
+        if ($container instanceof HydratorPluginManager) {
+            return $container;
+        }
+
+        // As typically registered with v3 (FQCN)
+        if ($container->has(HydratorPluginManager::class)) {
+            return $container->get(HydratorPluginManager::class);
+        }
+
+        // As registered by zend-mvc
+        if ($container->has('HydratorManager')) {
+            return $container->get('HydratorManager');
+        }
+        
+        // Fallback: create one
+        return new HydratorPluginManager($container);
     }
 }
