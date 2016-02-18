@@ -67,7 +67,8 @@ before_install:
   - if [[ $SERVICE_MANAGER_VERSION == '' ]]; then composer require --dev --no-update "zendframework/zend-servicemanager:^3.0.3" ; fi
 
 install:
-  - travis_retry composer install --no-interaction --ignore-platform-reqs
+  - if [[ $EVENT_MANAGER_VERSION != '' ]]; then COMPOSER_ROOT_VERSION=1.9.99 travis_retry composer install --no-interaction --ignore-platform-reqs ; fi
+  - if [[ $EVENT_MANAGER_VERSION == '' ]]; then travis_retry composer install --no-interaction --ignore-platform-reqs ; fi
 
 script:
   - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then ./vendor/bin/phpunit --coverage-clover clover.xml ; fi
