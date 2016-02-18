@@ -9,30 +9,28 @@
 
 namespace ZendTest\Hydrator;
 
+use Zend\Hydrator\Exception\RuntimeException;
+use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\HydratorPluginManager;
+use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\Test\CommonPluginManagerTrait;
 
 class HydratorManagerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var HydratorPluginManager
-     */
-    protected $manager;
+    use CommonPluginManagerTrait;
 
-    public function setUp()
+    protected function getPluginManager()
     {
-        $this->manager = new HydratorPluginManager();
+        return new HydratorPluginManager(new ServiceManager());
     }
 
-    public function testRegisteringInvalidElementRaisesException()
+    protected function getV2InvalidPluginException()
     {
-        $this->setExpectedException('Zend\Hydrator\Exception\RuntimeException');
-        $this->manager->setService('test', $this);
+        return RuntimeException::class;
     }
 
-    public function testLoadingInvalidElementRaisesException()
+    protected function getInstanceOf()
     {
-        $this->manager->setInvokableClass('test', get_class($this));
-        $this->setExpectedException('Zend\Hydrator\Exception\RuntimeException');
-        $this->manager->get('test');
+        return HydratorInterface::class;
     }
 }
