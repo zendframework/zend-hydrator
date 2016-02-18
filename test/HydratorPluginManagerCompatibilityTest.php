@@ -15,7 +15,7 @@ use Zend\Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Test\CommonPluginManagerTrait;
 
-class HydratorManagerTest extends \PHPUnit_Framework_TestCase
+class HydratorPluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
 {
     use CommonPluginManagerTrait;
 
