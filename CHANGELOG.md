@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.0.1 - TBD
+## 2.1.0 - 2016-02-18
 
 ### Added
 
@@ -23,6 +23,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#6](https://github.com/zendframework/zend-hydrator/pull/6) add additional
   unit test coverage
+- [#17](https://github.com/zendframework/zend-hydrator/pull/17) and
+  [#23](https://github.com/zendframework/zend-hydrator/pull/23) update the code
+  to be forwards compatible with zend-servicemanager v3, and to depend on
+  zend-stdlib and zend-eventmanager v3.
 
 ## 2.0.0 - 2015-09-17
 
