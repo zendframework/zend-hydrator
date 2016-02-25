@@ -89,7 +89,7 @@ abstract class AbstractHydrator implements
      *
      * @param string $name The name of the strategy to register.
      * @param Strategy\StrategyInterface $strategy The strategy to register.
-     * @return HydratorInterface
+     * @return AbstractHydrator
      */
     public function addStrategy($name, Strategy\StrategyInterface $strategy)
     {
