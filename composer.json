@@ -39,6 +39,10 @@
             "dev-release-1.1": "1.1-dev",
             "dev-master": "2.1-dev",
             "dev-develop": "2.2-dev"
+        },
+        "zf": {
+            "component": "Zend\\Hydrator",
+            "config-provider": "Zend\\Hydrator\\ConfigProvider"
         }
     },
     "autoload-dev": {
