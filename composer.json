@@ -22,8 +22,8 @@
         "zendframework/zend-serializer": "^2.6.1",
         "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
         "zendframework/zend-filter": "^2.6",
-        "phpunit/PHPUnit": "~4.0",
-        "squizlabs/php_codesniffer": "^2.0@dev"
+        "phpunit/phpunit": "^4.5",
+        "squizlabs/php_codesniffer": "^2.3.1"
     },
     "suggest": {
         "zendframework/zend-eventmanager": "^2.6.2 || ^3.0, to support aggregate hydrator usage",
@@ -39,6 +39,10 @@
             "dev-release-1.1": "1.1-dev",
             "dev-master": "2.1-dev",
             "dev-develop": "2.2-dev"
+        },
+        "zf": {
+            "component": "Zend\\Hydrator",
+            "config-provider": "Zend\\Hydrator\\ConfigProvider"
         }
     },
     "autoload-dev": {
