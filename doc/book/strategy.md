@@ -87,49 +87,53 @@ functionality in your own hydrators, you should extend `AbstractHydrator`.
 
 ### Zend\\Hydrator\\Strategy\\BooleanStrategy
 
-This Strategy converts values into Booleans and vice versa. It expects two 
-arguments at the constructor, which are used to define a contrary for `true` and `false`.
+This strategy converts values into Booleans and vice versa. It expects two
+arguments at the constructor, which are used to define value maps for `true` and
+`false`.
 
 ### Zend\\Hydrator\\Strategy\\ClosureStrategy
 
-This is a strategy that allows you to pass in a `hydrate` callback to be called
-in the event of hydration, and an `extract` callback to be called in the event
-of extraction.
+This is a strategy that allows you to pass in options for:
+
+- `hydrate`, a callback to be called when hydrating a value, and
+- `extract`, a callback to be called when extracting a value.
 
 ### Zend\\Hydrator\\Strategy\\DateTimeFormatterStrategy 
 
-This is a strategy that converts bidirectional a string into a DateTime Object. 
-The in- and output format can be defined as a constructor argument.
+`DateTimeFormatterStrategy` provides bidirectional conversion between strings
+and DateTime instances. The input and output formats can be provided as
+constructor arguments.
 
 ### Zend\\Hydrator\\Strategy\\DefaultStrategy
 
-This is a "dummy"-implementation that simply proxies everything through, without
-doing anything on the parameters.
+The `DefaultStrategy` simply proxies everything through, without performing any
+conversion of values.
 
 ### Zend\\Hydrator\\Strategy\\ExplodeStrategy 
 
-This Strategy is a wrapper around PHPs `implode` and `explode` functions. The delemiter 
-and a limit can be defined at the constructor. The Limit is only respected in the `extract`
-function.
+This strategy is a wrapper around PHP's `implode()` and `explode()` functions.
+The delemiter and a limit can be provided to the constructor; the limit will
+only be used for `extract` operations.
 
 ### Zend\\Hydrator\\Strategy\\SerializableStrategy
 
-This is a strategy that provides the functionality for
-`Zend\Hydrator\ArraySerializable`.  You can use it with custom implementations
+`SerializableStrategy` provides the functionality backing
+`Zend\Hydrator\ArraySerializable`. You can use it with custom implementations
 for `Zend\Serializer\Adapter\AdapterInterface` if you want to as well.
 
 ### Zend\\Hydrator\\Strategy\\StrategyChain
 
-This Strategy takes an array of `Zend\\Hydrator\\Strategy\\StrategyInterface` and iterates 
-over it in the `extract` and `hydrate` Method. It allows you concatination of multiple Strategies,
-and execute them on a single value.
+This strategy takes an array of `StrategyInterface` instances and iterates 
+over them when performing `extract()` and `hydrate()` operations. Each operates
+on the return value of the previous, allowing complex operations based on
+smaller, single-purpose strategies.
 
 ## Writing custom strategies
 
-As usual, this is not really a very useful example, but will provide you with
-the basics to start with writing your own strategies, as well as provide ideas
-as to where and when to use them. This strategy simply transform the value for
-the defined key using `rot13` during `extract()` and `hydrate()`:
+The following example, while not terribly useful, will provide you with the
+basics for writing your own strategies, as well as provide ideas as to where and
+when to use them. This strategy simply transforms the value for the defined key
+using `str_rot13()` during both the `extract()` and `hydrate()` operations:
 
 ```php
 class Rot13Strategy implements StrategyInterface
