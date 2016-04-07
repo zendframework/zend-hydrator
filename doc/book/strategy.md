@@ -85,11 +85,10 @@ functionality in your own hydrators, you should extend `AbstractHydrator`.
 
 ## Available implementations
 
-### Zend\\Hydrator\\Strategy\\SerializableStrategy
+### Zend\\Hydrator\\Strategy\\BooleanStrategy
 
-This is a strategy that provides the functionality for
-`Zend\Hydrator\ArraySerializable`.  You can use it with custom implementations
-for `Zend\Serializer\Adapter\AdapterInterface` if you want to as well.
+This Strategy converts values into Booleans and vice versa. It expects two 
+arguments at the constructor, which are used to define a contrary for `true` and `false`.
 
 ### Zend\\Hydrator\\Strategy\\ClosureStrategy
 
@@ -97,10 +96,33 @@ This is a strategy that allows you to pass in a `hydrate` callback to be called
 in the event of hydration, and an `extract` callback to be called in the event
 of extraction.
 
+### Zend\\Hydrator\\Strategy\\DateTimeFormatterStrategy 
+
+This is a strategy that converts bidirectional a string into a DateTime Object. 
+The in- and output format can be defined as a constructor argument.
+
 ### Zend\\Hydrator\\Strategy\\DefaultStrategy
 
 This is a "dummy"-implementation that simply proxies everything through, without
 doing anything on the parameters.
+
+### Zend\\Hydrator\\Strategy\\ExplodeStrategy 
+
+This Strategy is a wrapper around PHPs `implode` and `explode` functions. The delemiter 
+and a limit can be defined at the constructor. The Limit is only respected in the `extract`
+function.
+
+### Zend\\Hydrator\\Strategy\\SerializableStrategy
+
+This is a strategy that provides the functionality for
+`Zend\Hydrator\ArraySerializable`.  You can use it with custom implementations
+for `Zend\Serializer\Adapter\AdapterInterface` if you want to as well.
+
+### Zend\\Hydrator\\Strategy\\StrategyChain
+
+This Strategy takes an array of `Zend\\Hydrator\\Strategy\\StrategyInterface` and iterates 
+over it in the `extract` and `hydrate` Method. It allows you concatination of multiple Strategies,
+and execute them on a single value.
 
 ## Writing custom strategies
 
