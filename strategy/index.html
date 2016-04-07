@@ -295,22 +295,41 @@ interface StrategyEnabledInterface
 <code>AbstractHydrator</code> fully implements it as well. As such, if you want to use this
 functionality in your own hydrators, you should extend <code>AbstractHydrator</code>.</p>
 <h2 id="available-implementations">Available implementations</h2>
-<h3 id="zend92hydrator92strategy92serializablestrategy">Zend\Hydrator\Strategy\SerializableStrategy</h3>
-<p>This is a strategy that provides the functionality for
-<code>Zend\Hydrator\ArraySerializable</code>.  You can use it with custom implementations
-for <code>Zend\Serializer\Adapter\AdapterInterface</code> if you want to as well.</p>
+<h3 id="zend92hydrator92strategy92booleanstrategy">Zend\Hydrator\Strategy\BooleanStrategy</h3>
+<p>This strategy converts values into Booleans and vice versa. It expects two
+arguments at the constructor, which are used to define value maps for <code>true</code> and
+<code>false</code>.</p>
 <h3 id="zend92hydrator92strategy92closurestrategy">Zend\Hydrator\Strategy\ClosureStrategy</h3>
-<p>This is a strategy that allows you to pass in a <code>hydrate</code> callback to be called
-in the event of hydration, and an <code>extract</code> callback to be called in the event
-of extraction.</p>
+<p>This is a strategy that allows you to pass in options for:</p>
+<ul>
+<li><code>hydrate</code>, a callback to be called when hydrating a value, and</li>
+<li><code>extract</code>, a callback to be called when extracting a value.</li>
+</ul>
+<h3 id="zend92hydrator92strategy92datetimeformatterstrategy">Zend\Hydrator\Strategy\DateTimeFormatterStrategy</h3>
+<p><code>DateTimeFormatterStrategy</code> provides bidirectional conversion between strings
+and DateTime instances. The input and output formats can be provided as
+constructor arguments.</p>
 <h3 id="zend92hydrator92strategy92defaultstrategy">Zend\Hydrator\Strategy\DefaultStrategy</h3>
-<p>This is a "dummy"-implementation that simply proxies everything through, without
-doing anything on the parameters.</p>
+<p>The <code>DefaultStrategy</code> simply proxies everything through, without performing any
+conversion of values.</p>
+<h3 id="zend92hydrator92strategy92explodestrategy">Zend\Hydrator\Strategy\ExplodeStrategy</h3>
+<p>This strategy is a wrapper around PHP's <code>implode()</code> and <code>explode()</code> functions.
+The delemiter and a limit can be provided to the constructor; the limit will
+only be used for <code>extract</code> operations.</p>
+<h3 id="zend92hydrator92strategy92serializablestrategy">Zend\Hydrator\Strategy\SerializableStrategy</h3>
+<p><code>SerializableStrategy</code> provides the functionality backing
+<code>Zend\Hydrator\ArraySerializable</code>. You can use it with custom implementations
+for <code>Zend\Serializer\Adapter\AdapterInterface</code> if you want to as well.</p>
+<h3 id="zend92hydrator92strategy92strategychain">Zend\Hydrator\Strategy\StrategyChain</h3>
+<p>This strategy takes an array of <code>StrategyInterface</code> instances and iterates 
+over them when performing <code>extract()</code> and <code>hydrate()</code> operations. Each operates
+on the return value of the previous, allowing complex operations based on
+smaller, single-purpose strategies.</p>
 <h2 id="writing-custom-strategies">Writing custom strategies</h2>
-<p>As usual, this is not really a very useful example, but will provide you with
-the basics to start with writing your own strategies, as well as provide ideas
-as to where and when to use them. This strategy simply transform the value for
-the defined key using <code>rot13</code> during <code>extract()</code> and <code>hydrate()</code>:</p>
+<p>The following example, while not terribly useful, will provide you with the
+basics for writing your own strategies, as well as provide ideas as to where and
+when to use them. This strategy simply transforms the value for the defined key
+using <code>str_rot13()</code> during both the <code>extract()</code> and <code>hydrate()</code> operations:</p>
 <pre class="codehilite"><code class="language-php">class Rot13Strategy implements StrategyInterface
 {
     public function extract($value)
