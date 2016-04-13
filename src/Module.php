@@ -35,7 +35,7 @@ class Module
         $serviceListener->addServiceManager(
             'HydratorManager',
             'hydrators',
-            'Zend\ModuleManager\Feature\HydratorProviderInterface',
+            'Zend\Hydrator\HydratorProviderInterface',
             'getHydratorConfig'
         );
     }
