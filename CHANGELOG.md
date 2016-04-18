@@ -20,7 +20,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 2.2.1 - TBD
+## 2.2.1 - 2016-04-18
 
 ### Added
 
@@ -36,7 +36,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#28](https://github.com/zendframework/zend-hydrator/pull/28) fixes the
+  `Module::init()` method to properly receive a `ModuleManager` instance, and
+  not expect a `ModuleEvent`.
 
 ## 2.2.0 - 2016-04-06
 
