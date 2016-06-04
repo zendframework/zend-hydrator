@@ -61,7 +61,7 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
      */
     protected $reflection;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->classMethodsCamelCase = new ClassMethodsCamelCase();
         $this->classMethodsTitleCase = new ClassMethodsTitleCase();

@@ -35,7 +35,7 @@ class HydratorListenerTest extends PHPUnit_Framework_TestCase
      *
      * @covers \Zend\Hydrator\Aggregate\HydratorListener::__construct
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->hydrator = $this->getMock('Zend\Hydrator\HydratorInterface');
         $this->listener = new HydratorListener($this->hydrator);

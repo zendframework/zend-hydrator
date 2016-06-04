@@ -40,7 +40,7 @@ class DelegatingHydratorTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->hydrators = $this->prophesize(ContainerInterface::class);
         $this->hydrator = new DelegatingHydrator($this->hydrators->reveal());

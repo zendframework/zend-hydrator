@@ -26,7 +26,7 @@ class OptionalParametersFilterTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->filter = new OptionalParametersFilter();
     }

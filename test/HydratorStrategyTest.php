@@ -21,7 +21,7 @@ class HydratorStrategyTest extends \PHPUnit_Framework_TestCase
      */
     private $hydrator;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->hydrator = new ClassMethods();
     }

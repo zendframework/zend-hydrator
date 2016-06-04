@@ -36,7 +36,7 @@ class AggregateHydratorTest extends PHPUnit_Framework_TestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->eventManager = $this->prophesize(EventManager::class);
         $this->hydrator     = new AggregateHydrator();
