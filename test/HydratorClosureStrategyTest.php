@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator;
 
+use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\ObjectProperty;
 use Zend\Hydrator\Strategy\ClosureStrategy;
 
