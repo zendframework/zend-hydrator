@@ -112,6 +112,6 @@ class HydratorClosureStrategyTest extends \PHPUnit_Framework_TestCase
         $this->hydrator->hydrate($values, $entity);
         $this->assertCount(3, (array) $entity);
 
-        $this->assertInstanceOf('ZendTest\Hydrator\TestAsset\HydratorClosureStrategyEntity', $entity->field3);
+        $this->assertInstanceOf(TestAsset\HydratorClosureStrategyEntity::class, $entity->field3);
     }
 }

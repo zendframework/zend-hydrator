@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\Filter;
 
+use InvalidArgumentException;
 use Zend\Hydrator\Filter\OptionalParametersFilter;
 
 /**
@@ -62,7 +63,7 @@ class OptionalParametersFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testTriggersExceptionOnUnknownMethod()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->setExpectedException(InvalidArgumentException::class);
         $this->filter->filter(__CLASS__ . '::' . 'nonExistingMethod');
     }
 

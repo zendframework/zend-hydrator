@@ -289,9 +289,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
         $hydrator->addStrategy('default', new DefaultStrategy());
         $hydrator->addStrategy('*', new SerializableStrategy('phpserialize'));
         $default = $hydrator->getStrategy('default');
-        $this->assertEquals(get_class($default), 'Zend\Hydrator\Strategy\DefaultStrategy');
+        $this->assertEquals(get_class($default), DefaultStrategy::class);
         $serializable = $hydrator->getStrategy('*');
-        $this->assertEquals(get_class($serializable), 'Zend\Hydrator\Strategy\SerializableStrategy');
+        $this->assertEquals(get_class($serializable), SerializableStrategy::class);
     }
 
     public function testUseWildStrategyByDefault()

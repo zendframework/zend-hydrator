@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
+use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Hydrator\Strategy\BooleanStrategy;
 
 /**
@@ -20,18 +21,18 @@ class BooleanStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructorWithValidInteger()
     {
-        $this->assertInstanceOf('Zend\Hydrator\Strategy\BooleanStrategy', new BooleanStrategy(1, 0));
+        $this->assertInstanceOf(BooleanStrategy::class, new BooleanStrategy(1, 0));
     }
 
     public function testConstructorWithValidString()
     {
-        $this->assertInstanceOf('Zend\Hydrator\Strategy\BooleanStrategy', new BooleanStrategy('true', 'false'));
+        $this->assertInstanceOf(BooleanStrategy::class, new BooleanStrategy('true', 'false'));
     }
 
     public function testExceptionOnWrongTrueValueInConstructor()
     {
         $this->setExpectedException(
-            'Zend\Hydrator\Exception\InvalidArgumentException',
+            InvalidArgumentException::class,
             'Expected int or string as $trueValue.'
         );
 
@@ -41,7 +42,7 @@ class BooleanStrategyTest extends \PHPUnit_Framework_TestCase
     public function testExceptionOnWrongFalseValueInConstructor()
     {
         $this->setExpectedException(
-            'Zend\Hydrator\Exception\InvalidArgumentException',
+            InvalidArgumentException::class,
             'Expected int or string as $falseValue.'
         );
 
@@ -67,7 +68,7 @@ class BooleanStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $hydrator = new BooleanStrategy(1, 0);
 
-        $this->setExpectedException('Zend\Hydrator\Exception\InvalidArgumentException', 'Unable to extract');
+        $this->setExpectedException(InvalidArgumentException::class, 'Unable to extract');
 
         $hydrator->extract(5);
     }
@@ -88,14 +89,14 @@ class BooleanStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testHydrateUnexpectedValueThrowsException()
     {
-        $this->setExpectedException('Zend\Hydrator\Exception\InvalidArgumentException', 'Unexpected value');
+        $this->setExpectedException(InvalidArgumentException::class, 'Unexpected value');
         $hydrator = new BooleanStrategy(1, 0);
         $hydrator->hydrate(2);
     }
 
     public function testHydrateInvalidArgument()
     {
-        $this->setExpectedException('Zend\Hydrator\Exception\InvalidArgumentException', 'Unable to hydrate');
+        $this->setExpectedException(InvalidArgumentException::class, 'Unable to hydrate');
         $hydrator = new BooleanStrategy(1, 0);
         $hydrator->hydrate(new \stdClass());
     }
