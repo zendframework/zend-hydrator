@@ -264,7 +264,6 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         $filter = $this->filterComposite;
         if ($object instanceof Filter\FilterProviderInterface) {
             $filter = $this->getFilterFrom($object);
-            return $filter;
         }
         return $filter;
     }
@@ -286,6 +285,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     private function addMethodToExtractionCache($object, $objectClass, $methodName)
     {
         $methodFqn = $objectClass . '::' . $methodName;
+        // @todo this can be an performance issue. For every Method a new Filter is instantiated
         $filter = $this->getMethodFilter($object);
 
         if (!($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
