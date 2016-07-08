@@ -292,15 +292,28 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
             return;
         }
 
-        $attribute = $methodName;
-        if ($this->isGetterMethod($methodName)) {
-            $attribute = $this->extractAttributeFromMethodName($methodName);
-            if (!property_exists($object, $attribute)) {
-                $attribute = lcfirst($attribute);
-            }
-        }
+        $attribute = $this->extractAttribute($object, $methodName);
 
         $this->extractionMethodsCache[$objectClass][$methodName] = $attribute;
+    }
+
+    /**
+     * @param object $object
+     * @param string $methodName
+     * @return string
+     */
+    private function extractAttribute($object, $methodName)
+    {
+        $attribute = $methodName;
+        if (!$this->isGetterMethod($methodName)) {
+            return $attribute;
+        }
+
+        $attribute = $this->extractAttributeFromMethodName($methodName);
+        if (!property_exists($object, $attribute)) {
+            $attribute = lcfirst($attribute);
+        }
+        return $attribute;
     }
 
     /**
