@@ -250,25 +250,8 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         $this->extractionMethodsCache[$objectClass] = [];
         $methods = get_class_methods($object);
 
-        $filter = $this->getMethodFilter($object);
-
         foreach ($methods as $method) {
-            $methodFqn = $objectClass . '::' . $method;
-
-            if (!($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
-                continue;
-            }
-
-            $attribute = $method;
-
-            if (strpos($method, 'get') === 0) {
-                $attribute = substr($method, 3);
-                if (!property_exists($object, $attribute)) {
-                    $attribute = lcfirst($attribute);
-                }
-            }
-
-            $this->extractionMethodsCache[$objectClass][$method] = $attribute;
+            $this->addMethodToExtractionCache($object, $objectClass, $method);
         }
     }
 
@@ -281,6 +264,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         $filter = $this->filterComposite;
         if ($object instanceof Filter\FilterProviderInterface) {
             $filter = $this->getFilterFrom($object);
+            return $filter;
         }
         return $filter;
     }
@@ -292,5 +276,30 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     private function getFilterFrom(Filter\FilterProviderInterface $object)
     {
         return new Filter\FilterComposite([$object->getFilter()], [new Filter\MethodMatchFilter('getFilter')]);
+    }
+
+    /**
+     * @param object $object
+     * @param string $objectClass
+     * @param string $method
+     */
+    private function addMethodToExtractionCache($object, $objectClass, $method)
+    {
+        $methodFqn = $objectClass . '::' . $method;
+        $filter = $this->getMethodFilter($object);
+
+        if (!($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
+            return;
+        }
+
+        $attribute = $method;
+        if (strpos($method, 'get') === 0) {
+            $attribute = substr($method, 3);
+            if (!property_exists($object, $attribute)) {
+                $attribute = lcfirst($attribute);
+            }
+        }
+
+        $this->extractionMethodsCache[$objectClass][$method] = $attribute;
     }
 }
