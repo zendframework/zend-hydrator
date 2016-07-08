@@ -244,35 +244,37 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     private function populateExtractionCache($object, $objectClass)
     {
         if (!isset($this->extractionMethodsCache[$objectClass])) {
-            $this->extractionMethodsCache[$objectClass] = [];
-            $filter = $this->filterComposite;
-            $methods = get_class_methods($object);
+            return;
+        }
 
-            if ($object instanceof Filter\FilterProviderInterface) {
-                $filter = new Filter\FilterComposite(
-                    [$object->getFilter()],
-                    [new Filter\MethodMatchFilter('getFilter')]
-                );
+        $this->extractionMethodsCache[$objectClass] = [];
+        $filter = $this->filterComposite;
+        $methods = get_class_methods($object);
+
+        if ($object instanceof Filter\FilterProviderInterface) {
+            $filter = new Filter\FilterComposite(
+                [$object->getFilter()],
+                [new Filter\MethodMatchFilter('getFilter')]
+            );
+        }
+
+        foreach ($methods as $method) {
+            $methodFqn = $objectClass . '::' . $method;
+
+            if (!($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
+                continue;
             }
 
-            foreach ($methods as $method) {
-                $methodFqn = $objectClass . '::' . $method;
+            $attribute = $method;
 
-                if (!($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
-                    continue;
+            if (strpos($method, 'get') === 0) {
+                $attribute = substr($method, 3);
+                if (!property_exists($object, $attribute)) {
+                    $attribute = lcfirst($attribute);
                 }
-
-                $attribute = $method;
-
-                if (strpos($method, 'get') === 0) {
-                    $attribute = substr($method, 3);
-                    if (!property_exists($object, $attribute)) {
-                        $attribute = lcfirst($attribute);
-                    }
-                }
-
-                $this->extractionMethodsCache[$objectClass][$method] = $attribute;
             }
+
+            $this->extractionMethodsCache[$objectClass][$method] = $attribute;
         }
     }
 }
