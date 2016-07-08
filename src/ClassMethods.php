@@ -252,10 +252,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         $methods = get_class_methods($object);
 
         if ($object instanceof Filter\FilterProviderInterface) {
-            $filter = new Filter\FilterComposite(
-                [$object->getFilter()],
-                [new Filter\MethodMatchFilter('getFilter')]
-            );
+            $filter = $this->getFilterFrom($object);
         }
 
         foreach ($methods as $method) {
@@ -276,5 +273,14 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 
             $this->extractionMethodsCache[$objectClass][$method] = $attribute;
         }
+    }
+
+    /**
+     * @param Filter\FilterProviderInterface $object
+     * @return Filter\FilterComposite
+     */
+    private function getFilterFrom(Filter\FilterProviderInterface $object)
+    {
+        return new Filter\FilterComposite([$object->getFilter()], [new Filter\MethodMatchFilter('getFilter')]);
     }
 }
