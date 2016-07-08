@@ -294,7 +294,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 
         $attribute = $methodName;
         if ($this->isGetterMethod($methodName)) {
-            $attribute = substr($methodName, 3);
+            $attribute = $this->extractAttributeFromMethodName($methodName);
             if (!property_exists($object, $attribute)) {
                 $attribute = lcfirst($attribute);
             }
@@ -310,5 +310,14 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     private function isGetterMethod($methodName)
     {
         return strpos($methodName, 'get') === 0;
+    }
+
+    /**
+     * @param string $methodName
+     * @return string
+     */
+    private function extractAttributeFromMethodName($methodName)
+    {
+        return substr($methodName, 3);
     }
 }
