@@ -134,38 +134,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
             $this->extractionMethodsCache[$objectClass] = null;
         }
 
-        // pass 1 - finding out which properties can be extracted, with which methods (populate hydration cache)
-        if (! isset($this->extractionMethodsCache[$objectClass])) {
-            $this->extractionMethodsCache[$objectClass] = [];
-            $filter                                     = $this->filterComposite;
-            $methods                                    = get_class_methods($object);
-
-            if ($object instanceof Filter\FilterProviderInterface) {
-                $filter = new Filter\FilterComposite(
-                    [$object->getFilter()],
-                    [new Filter\MethodMatchFilter('getFilter')]
-                );
-            }
-
-            foreach ($methods as $method) {
-                $methodFqn = $objectClass . '::' . $method;
-
-                if (! ($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
-                    continue;
-                }
-
-                $attribute = $method;
-
-                if (strpos($method, 'get') === 0) {
-                    $attribute = substr($method, 3);
-                    if (!property_exists($object, $attribute)) {
-                        $attribute = lcfirst($attribute);
-                    }
-                }
-
-                $this->extractionMethodsCache[$objectClass][$method] = $attribute;
-            }
-        }
+        $this->populateExtractionCache($object, $objectClass);
 
         $values = [];
 
@@ -264,5 +233,46 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     private function resetCaches()
     {
         $this->hydrationMethodsCache = $this->extractionMethodsCache = [];
+    }
+
+    /**
+     * Finding out which properties can be extracted, with which methods
+     *
+     * @param $object
+     * @param $objectClass
+     */
+    private function populateExtractionCache($object, $objectClass)
+    {
+        if (!isset($this->extractionMethodsCache[$objectClass])) {
+            $this->extractionMethodsCache[$objectClass] = [];
+            $filter = $this->filterComposite;
+            $methods = get_class_methods($object);
+
+            if ($object instanceof Filter\FilterProviderInterface) {
+                $filter = new Filter\FilterComposite(
+                    [$object->getFilter()],
+                    [new Filter\MethodMatchFilter('getFilter')]
+                );
+            }
+
+            foreach ($methods as $method) {
+                $methodFqn = $objectClass . '::' . $method;
+
+                if (!($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
+                    continue;
+                }
+
+                $attribute = $method;
+
+                if (strpos($method, 'get') === 0) {
+                    $attribute = substr($method, 3);
+                    if (!property_exists($object, $attribute)) {
+                        $attribute = lcfirst($attribute);
+                    }
+                }
+
+                $this->extractionMethodsCache[$objectClass][$method] = $attribute;
+            }
+        }
     }
 }
