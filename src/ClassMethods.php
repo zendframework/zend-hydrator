@@ -250,8 +250,8 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         $this->extractionMethodsCache[$objectClass] = [];
         $methods = get_class_methods($object);
 
-        foreach ($methods as $method) {
-            $this->addMethodToExtractionCache($object, $objectClass, $method);
+        foreach ($methods as $methodName) {
+            $this->addMethodToExtractionCache($object, $objectClass, $methodName);
         }
     }
 
@@ -281,34 +281,34 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     /**
      * @param object $object
      * @param string $objectClass
-     * @param string $method
+     * @param string $methodName
      */
-    private function addMethodToExtractionCache($object, $objectClass, $method)
+    private function addMethodToExtractionCache($object, $objectClass, $methodName)
     {
-        $methodFqn = $objectClass . '::' . $method;
+        $methodFqn = $objectClass . '::' . $methodName;
         $filter = $this->getMethodFilter($object);
 
         if (!($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
             return;
         }
 
-        $attribute = $method;
-        if ($this->isGetterMethod($method)) {
-            $attribute = substr($method, 3);
+        $attribute = $methodName;
+        if ($this->isGetterMethod($methodName)) {
+            $attribute = substr($methodName, 3);
             if (!property_exists($object, $attribute)) {
                 $attribute = lcfirst($attribute);
             }
         }
 
-        $this->extractionMethodsCache[$objectClass][$method] = $attribute;
+        $this->extractionMethodsCache[$objectClass][$methodName] = $attribute;
     }
 
     /**
-     * @param string $method
+     * @param string $methodName
      * @return bool
      */
-    private function isGetterMethod($method)
+    private function isGetterMethod($methodName)
     {
-        return strpos($method, 'get') === 0;
+        return strpos($methodName, 'get') === 0;
     }
 }
