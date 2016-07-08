@@ -243,7 +243,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      */
     private function populateExtractionCache($object, $objectClass)
     {
-        if (!isset($this->extractionMethodsCache[$objectClass])) {
+        if (isset($this->extractionMethodsCache[$objectClass])) {
             return;
         }
 
