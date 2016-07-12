@@ -39,4 +39,12 @@ class ClassMethodsBench
     {
         $this->classMethods->extract($this->user);
     }
+
+    public function benchHydrate()
+    {
+        $this->classMethods->hydrate(
+            ['name' => 'Robyn', 'lastname' => 'Hunsaker', 'email' => 'robyn@hunsaker.com'],
+            new User()
+        );
+    }
 }
