@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ## 3.0.0 - TBD
 
+### Changed
+- [#14](https://github.com/zendframework/zend-hydrator/pull/14) replaced usage of zend filters w/ hardcoded versions
+- The following visibility changes occurred to `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy`:
+  - static property `$underscoreToStudlyCaseFilter` was renamed to `$underscoreToCamelCaseFilter` and marked `private`
+  - static property `$camelCaseToUnderscoreFilter` was marked `private`
+  - method `getCamelCaseToUnderscoreFilter` was marked `private`
+  - method `getUnderscoreToStudlyCaseFilter` was renamed to `getUnderscoreToCamelCaseFilter` and marked `private`
+
+### Added
+
+- The following classes were marked `final`:
+  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter`
+  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter`
+
+## 2.2.2 - TBD
+
 ### Added
 
 - Nothing.
@@ -18,20 +34,64 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#14](https://github.com/zendframework/zend-hydrator/pull/14) replaced usage of zend filters w/ hardcoded versions
-- The following visibility changes occurred to `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy`:
-  - static property `$underscoreToStudlyCaseFilter` was renamed to `$underscoreToCamelCaseFilter` and marked `private`
-  - static property `$camelCaseToUnderscoreFilter` was marked `private`
-  - method `getCamelCaseToUnderscoreFilter` was marked `private`
-  - method `getUnderscoreToStudlyCaseFilter` was renamed to `getUnderscoreToCamelCaseFilter` and marked `private`
+- Nothing.
 
-## 2.0.1 - TBD
+## 2.2.1 - 2016-04-18
 
 ### Added
 
-- The following classes were marked `final`:
-  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter`
-  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter`
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#28](https://github.com/zendframework/zend-hydrator/pull/28) fixes the
+  `Module::init()` method to properly receive a `ModuleManager` instance, and
+  not expect a `ModuleEvent`.
+
+## 2.2.0 - 2016-04-06
+
+### Added
+
+- [#26](https://github.com/zendframework/zend-hydrator/pull/26) exposes the
+  package as a ZF component and/or generic configuration provider, by adding the
+  following:
+  - `HydratorPluginManagerFactory`, which can be consumed by container-interop /
+    zend-servicemanager to create and return a `HydratorPluginManager` instance.
+  - `ConfigProvider`, which maps the service `HydratorManager` to the above
+    factory.
+  - `Module`, which does the same as `ConfigProvider`, but specifically for
+    zend-mvc applications. It also provices a specification to
+    `Zend\ModuleManager\Listener\ServiceListener` to allow modules to provide
+    hydrator configuration.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+## 2.1.0 - 2016-02-18
+
+### Added
+
+- [#20](https://github.com/zendframework/zend-hydrator/pull/20) imports the
+  documentation from zend-stdlib, publishes it to
+  https://zendframework.github.io/zend-hydrator/, and automates building and
+  publishing the documentation.
 
 ### Deprecated
 
@@ -45,6 +105,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#6](https://github.com/zendframework/zend-hydrator/pull/6) add additional
   unit test coverage
+- [#17](https://github.com/zendframework/zend-hydrator/pull/17) and
+  [#23](https://github.com/zendframework/zend-hydrator/pull/23) update the code
+  to be forwards compatible with zend-servicemanager v3, and to depend on
+  zend-stdlib and zend-eventmanager v3.
 
 ## 2.0.0 - 2015-09-17
 
