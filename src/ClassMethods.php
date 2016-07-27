@@ -131,7 +131,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 
         // reset the hydrator's hydrator's cache for this object, as the filter may be per-instance
         if ($object instanceof Filter\FilterProviderInterface) {
-            $this->extractionMethodsCache[$objectClass] = null;
+            $this->resetMethodCache($objectClass);
         }
 
         if (!isset($this->extractionMethodsCache[$objectClass])) {
@@ -330,5 +330,13 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     private function extractAttributeFromMethodName($methodName)
     {
         return substr($methodName, 3);
+    }
+
+    /**
+     * @param $objectClass
+     */
+    private function resetMethodCache($objectClass)
+    {
+        $this->extractionMethodsCache[$objectClass] = null;
     }
 }
