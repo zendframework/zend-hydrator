@@ -259,11 +259,11 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      */
     private function getMethodFilter($object)
     {
-        $filter = $this->filterComposite;
         if ($object instanceof Filter\FilterProviderInterface) {
-            $filter = $this->getFilterFrom($object);
+            return $this->getFilterFrom($object);
         }
-        return $filter;
+
+        return $this->filterComposite;
     }
 
     /**
