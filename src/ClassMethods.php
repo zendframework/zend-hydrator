@@ -134,7 +134,9 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
             $this->extractionMethodsCache[$objectClass] = null;
         }
 
-        $this->populateExtractionCache($object, $objectClass);
+        if (!isset($this->extractionMethodsCache[$objectClass])) {
+            $this->populateExtractionCache($object, $objectClass);
+        }
 
         $values = [];
 
@@ -243,10 +245,6 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      */
     private function populateExtractionCache($object, $objectClass)
     {
-        if (isset($this->extractionMethodsCache[$objectClass])) {
-            return;
-        }
-
         $this->extractionMethodsCache[$objectClass] = [];
         $methods = get_class_methods($object);
 
