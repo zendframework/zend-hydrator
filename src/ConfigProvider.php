@@ -29,6 +29,9 @@ class ConfigProvider
     public function getDependencyConfig()
     {
         return [
+            'aliases' => [
+                HydratorPluginManagerFactory::class => 'HydratorManager',
+            ],
             'factories' => [
                 'HydratorManager' => HydratorPluginManagerFactory::class,
             ],
