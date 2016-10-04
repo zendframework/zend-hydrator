@@ -30,10 +30,10 @@ class ConfigProvider
     {
         return [
             'aliases' => [
-                HydratorPluginManager::class => 'HydratorManager',
+                'HydratorManager' => HydratorPluginManager::class,
             ],
             'factories' => [
-                'HydratorManager' => HydratorPluginManagerFactory::class,
+                HydratorPluginManager::class => HydratorPluginManagerFactory::class,
             ],
         ];
     }
