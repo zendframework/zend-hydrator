@@ -72,7 +72,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
-        } elseif (!is_array($options)) {
+        } elseif (! is_array($options)) {
             throw new Exception\InvalidArgumentException(
                 'The options parameter must be an array or a Traversable'
             );
@@ -120,7 +120,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      */
     public function extract($object)
     {
-        if (!is_object($object)) {
+        if (! is_object($object)) {
             throw new Exception\BadMethodCallException(sprintf(
                 '%s expects the provided $object to be a PHP object)',
                 __METHOD__
@@ -158,7 +158,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 
                 if (strpos($method, 'get') === 0) {
                     $attribute = substr($method, 3);
-                    if (!property_exists($object, $attribute)) {
+                    if (! property_exists($object, $attribute)) {
                         $attribute = lcfirst($attribute);
                     }
                 }
@@ -190,7 +190,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      */
     public function hydrate(array $data, $object)
     {
-        if (!is_object($object)) {
+        if (! is_object($object)) {
             throw new Exception\BadMethodCallException(sprintf(
                 '%s expects the provided $object to be a PHP object)',
                 __METHOD__

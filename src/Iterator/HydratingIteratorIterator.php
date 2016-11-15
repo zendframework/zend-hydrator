@@ -48,7 +48,7 @@ class HydratingIteratorIterator extends IteratorIterator implements HydratingIte
             return;
         }
 
-        if (!class_exists($prototype)) {
+        if (! class_exists($prototype)) {
             throw new InvalidArgumentException(
                 sprintf('Method %s was passed an invalid class name: %s', __METHOD__, $prototype)
             );
