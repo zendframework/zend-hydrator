@@ -21,6 +21,8 @@ use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyTestAsset;
  */
 class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
 {
+    use HydratorTestTrait;
+
     /**
      * @var ObjectProperty
      */

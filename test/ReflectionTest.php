@@ -20,6 +20,8 @@ use Zend\Hydrator\Reflection;
  */
 class ReflectionTest extends \PHPUnit_Framework_TestCase
 {
+    use HydratorTestTrait;
+
     /**
      * @var Reflection
      */

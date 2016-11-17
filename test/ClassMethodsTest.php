@@ -24,6 +24,8 @@ use ZendTest\Hydrator\TestAsset\ArraySerializable;
  */
 class ClassMethodsTest extends \PHPUnit_Framework_TestCase
 {
+    use HydratorTestTrait;
+
     /**
      * @var ClassMethods
      */
