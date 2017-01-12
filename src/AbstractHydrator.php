@@ -59,6 +59,11 @@ abstract class AbstractHydrator implements
     {
         if (isset($this->strategies[$name])) {
             return $this->strategies[$name];
+        } elseif ($this->hasNamingStrategy() &&
+            ($hydrated = $this->getNamingStrategy()->hydrate($name)) &&
+            isset($this->strategies[$hydrated])
+        ) {
+            return $this->strategies[$hydrated];
         }
 
         if (!isset($this->strategies['*'])) {
@@ -80,8 +85,17 @@ abstract class AbstractHydrator implements
      */
     public function hasStrategy($name)
     {
-        return array_key_exists($name, $this->strategies)
-               || array_key_exists('*', $this->strategies);
+        if (array_key_exists($name, $this->strategies)) {
+            return true;
+        }
+
+        if ($this->hasNamingStrategy() &&
+            array_key_exists($this->getNamingStrategy()->hydrate($name), $this->strategies)
+        ) {
+            return true;
+        }
+
+        return array_key_exists('*', $this->strategies);
     }
 
     /**

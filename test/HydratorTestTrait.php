@@ -17,7 +17,7 @@ trait HydratorTestTrait
     {
         $namingStrategy = $this->getMock('Zend\Hydrator\NamingStrategy\NamingStrategyInterface');
         $namingStrategy
-            ->expects($this->once())
+            ->expects($this->any())
             ->method('hydrate')
             ->with($this->anything())
             ->will($this->returnValue('value'))
@@ -25,7 +25,7 @@ trait HydratorTestTrait
 
         $strategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
         $strategy
-            ->expects($this->once())
+            ->expects($this->any())
             ->method('hydrate')
             ->with($this->anything())
             ->will($this->returnValue('hydrate'))
