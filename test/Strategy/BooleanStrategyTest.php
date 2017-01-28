@@ -86,6 +86,13 @@ class BooleanStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(false, $hydrator->hydrate(0));
     }
 
+    public function testHydrateBool()
+    {
+        $hydrator = new BooleanStrategy(1, 0);
+        $this->assertEquals(true, $hydrator->hydrate(true));
+        $this->assertEquals(false, $hydrator->hydrate(false));
+    }
+
     public function testHydrateUnexpectedValueThrowsException()
     {
         $this->setExpectedException('Zend\Hydrator\Exception\InvalidArgumentException', 'Unexpected value');
