@@ -9,17 +9,18 @@
 
 namespace Zend\Hydrator\NamingStrategy;
 
-use Zend\Filter\FilterChain;
+use Closure;
+use Zend\Stdlib\StringUtils;
 
 class UnderscoreNamingStrategy implements NamingStrategyInterface
 {
     /**
-     * @var FilterChain|null
+     * @var Closure|null
      */
     protected static $camelCaseToUnderscoreFilter;
 
     /**
-     * @var FilterChain|null
+     * @var Closure|null
      */
     protected static $underscoreToStudlyCaseFilter;
 
@@ -31,7 +32,9 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
      */
     public function hydrate($name)
     {
-        return $this->getUnderscoreToStudlyCaseFilter()->filter($name);
+        $filter = $this->getUnderscoreToStudlyCaseFilter();
+
+        return $filter($name);
     }
 
     /**
@@ -42,39 +45,108 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
      */
     public function extract($name)
     {
-        return $this->getCamelCaseToUnderscoreFilter()->filter($name);
+        $filter = $this->getCamelCaseToUnderscoreFilter();
+
+        return $filter($name);
     }
 
     /**
-     * @return FilterChain
+     * @return Closure
      */
     protected function getUnderscoreToStudlyCaseFilter()
     {
-        if (static::$underscoreToStudlyCaseFilter instanceof FilterChain) {
+        if (static::$underscoreToStudlyCaseFilter instanceof Closure) {
             return static::$underscoreToStudlyCaseFilter;
         }
 
-        $filter = new FilterChain();
+        return static::$underscoreToStudlyCaseFilter = function ($value) {
+            if (!is_scalar($value) && !is_array($value)) {
+                return $value;
+            }
 
-        $filter->attachByName('WordUnderscoreToStudlyCase');
+            // a unicode safe way of converting characters to \x00\x00 notation
+            $pregQuotedSeparator = preg_quote('_', '#');
+            if (StringUtils::hasPcreUnicodeSupport()) {
+                $patterns = [
+                    '#(' . $pregQuotedSeparator.')(\P{Z}{1})#u',
+                    '#(^\P{Z}{1})#u',
+                ];
+                if (!extension_loaded('mbstring')) {
+                    $replacements = [
+                        function ($matches) {
+                            return strtoupper($matches[2]);
+                        },
+                        function ($matches) {
+                            return strtoupper($matches[1]);
+                        },
+                    ];
+                } else {
+                    $replacements = [
+                        function ($matches) {
+                            return mb_strtoupper($matches[2], 'UTF-8');
+                        },
+                        function ($matches) {
+                            return mb_strtoupper($matches[1], 'UTF-8');
+                        },
+                    ];
+                }
+            } else {
+                $patterns = [
+                    '#(' . $pregQuotedSeparator.')([\S]{1})#',
+                    '#(^[\S]{1})#',
+                ];
+                $replacements = [
+                    function ($matches) {
+                        return strtoupper($matches[2]);
+                    },
+                    function ($matches) {
+                        return strtoupper($matches[1]);
+                    },
+                ];
+            }
+            $filtered = $value;
+            foreach ($patterns as $index => $pattern) {
+                $filtered = preg_replace_callback($pattern, $replacements[$index], $filtered);
+            }
 
-        return static::$underscoreToStudlyCaseFilter = $filter;
+            $lowerCaseFirst = 'lcfirst';
+            if (StringUtils::hasPcreUnicodeSupport() && extension_loaded('mbstring')) {
+                $lowerCaseFirst = function ($value) {
+                    if (0 === mb_strlen($value)) {
+                        return $value;
+                    }
+
+                    return mb_strtolower(mb_substr($value, 0, 1)) . mb_substr($value, 1);
+                };
+            }
+
+            return is_array($filtered) ? array_map($lowerCaseFirst, $filtered) : $lowerCaseFirst($filtered);
+        };
     }
 
     /**
-     * @return FilterChain
+     * @return Closure
      */
     protected function getCamelCaseToUnderscoreFilter()
     {
-        if (static::$camelCaseToUnderscoreFilter instanceof FilterChain) {
+        if (static::$camelCaseToUnderscoreFilter instanceof Closure) {
             return static::$camelCaseToUnderscoreFilter;
         }
 
-        $filter = new FilterChain();
+        return static::$camelCaseToUnderscoreFilter = function ($value) {
+            if (!is_scalar($value) && !is_array($value)) {
+                return $value;
+            }
 
-        $filter->attachByName('WordCamelCaseToUnderscore');
-        $filter->attachByName('StringToLower');
+            if (StringUtils::hasPcreUnicodeSupport()) {
+                $pattern     = ['#(?<=(?:\p{Lu}))(\p{Lu}\p{Ll})#', '#(?<=(?:\p{Ll}|\p{Nd}))(\p{Lu})#'];
+                $replacement = ['_' . '\1', '_' . '\1'];
+            } else {
+                $pattern     = ['#(?<=(?:[A-Z]))([A-Z]+)([A-Z][a-z])#', '#(?<=(?:[a-z0-9]))([A-Z])#'];
+                $replacement = ['\1' . '_' . '\2', '_' . '\1'];
+            }
 
-        return static::$camelCaseToUnderscoreFilter = $filter;
+            return strtolower(preg_replace($pattern, $replacement, $value));
+        };
     }
 }
