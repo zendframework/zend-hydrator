@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\NamingStrategy;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\NamingStrategy\IdentityNamingStrategy;
 
 /**
@@ -16,7 +17,7 @@ use Zend\Hydrator\NamingStrategy\IdentityNamingStrategy;
  *
  * @covers \Zend\Hydrator\NamingStrategy\IdentityNamingStrategy
  */
-class IdentityNamingStrategyTest extends \PHPUnit_Framework_TestCase
+class IdentityNamingStrategyTest extends TestCase
 {
     /**
      * @dataProvider getTestedNames

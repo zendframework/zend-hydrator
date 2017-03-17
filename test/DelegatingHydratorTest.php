@@ -11,6 +11,7 @@ namespace ZendTest\Hydrator;
 
 use ArrayObject;
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Zend\Hydrator\DelegatingHydrator;
 use Zend\Hydrator\HydratorInterface;
@@ -20,7 +21,7 @@ use Zend\Hydrator\HydratorInterface;
  *
  * @covers \Zend\Hydrator\DelegatingHydrator
  */
-class DelegatingHydratorTest extends \PHPUnit_Framework_TestCase
+class DelegatingHydratorTest extends TestCase
 {
     /**
      * @var DelegatingHydrator
