@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\Filter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Hydrator\Filter\GetFilter;
@@ -21,7 +22,7 @@ use Zend\Hydrator\Filter\NumberOfParameterFilter;
  *
  * @covers \Zend\Hydrator\Filter\FilterComposite
  */
-class FilterCompositeTest extends \PHPUnit_Framework_TestCase
+class FilterCompositeTest extends TestCase
 {
     /**
      * @dataProvider getDataProvider
@@ -35,7 +36,7 @@ class FilterCompositeTest extends \PHPUnit_Framework_TestCase
                 $key = 'foo';
             }
 
-            $this->setExpectedException(
+            $this->expectException(
                 InvalidArgumentException::class,
                 sprintf(
                     'The value of %s should be either a callable or an ' .

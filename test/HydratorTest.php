@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ArraySerializable;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\ObjectProperty;
@@ -29,7 +30,7 @@ use ZendTest\Hydrator\TestAsset\ReflectionFilter;
 use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyAsset;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
 
-class HydratorTest extends \PHPUnit_Framework_TestCase
+class HydratorTest extends TestCase
 {
     /**
      * @var ClassMethodsCamelCase

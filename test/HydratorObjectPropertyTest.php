@@ -9,9 +9,10 @@
 
 namespace ZendTest\Hdyrator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ObjectProperty;
 
-class HydratorObjectPropertyTest extends \PHPUnit_Framework_TestCase
+class HydratorObjectPropertyTest extends TestCase
 {
     public function setUp()
     {

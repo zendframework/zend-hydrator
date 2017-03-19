@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\NamingStrategy;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 /**
@@ -16,7 +17,7 @@ use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
  *
  * @covers \Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy
  */
-class UnderscoreNamingStrategyTest extends \PHPUnit_Framework_TestCase
+class UnderscoreNamingStrategyTest extends TestCase
 {
     public function testNameHydratesToCamelCase()
     {

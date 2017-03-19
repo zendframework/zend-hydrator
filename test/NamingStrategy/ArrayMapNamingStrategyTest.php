@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\NamingStrategy;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\NamingStrategy\ArrayMapNamingStrategy;
 
 /**
@@ -16,7 +17,7 @@ use Zend\Hydrator\NamingStrategy\ArrayMapNamingStrategy;
  *
  * @covers \Zend\Hydrator\NamingStrategy\ArrayMapNamingStrategy
  */
-class ArrayMapNamingStrategyTest extends \PHPUnit_Framework_TestCase
+class ArrayMapNamingStrategyTest extends TestCase
 {
     public function testGetSameNameWithEmptyMap()
     {
