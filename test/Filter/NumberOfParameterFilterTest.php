@@ -45,8 +45,8 @@ class NumberOfParameterFilterTest extends TestCase
      */
     public function testFilterPropertyDoesNotExist()
     {
-        $this->setExpectedException(
-            InvalidArgumentException::class,
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
             'Method ZendTest\Hydrator\Filter\NumberOfParameterFilterTest::methodDoesNotExist doesn\'t exist'
         );
         $filter = new NumberOfParameterFilter(1);

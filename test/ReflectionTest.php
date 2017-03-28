@@ -48,7 +48,8 @@ class ReflectionTest extends TestCase
 
     public function testNotStringOrObjectOnExtract()
     {
-        $this->setExpectedException(InvalidArgumentException::class, 'Input must be a string or an object.');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Input must be a string or an object.');
 
         $argument = (int) 1;
         $this->hydrator->extract($argument);
@@ -56,7 +57,8 @@ class ReflectionTest extends TestCase
 
     public function testNotStringOrObjectOnHydrate()
     {
-        $this->setExpectedException(InvalidArgumentException::class, 'Input must be a string or an object.');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Input must be a string or an object.');
 
         $argument = (int) 1;
         $this->hydrator->hydrate([ 'foo' => 'bar' ], $argument);

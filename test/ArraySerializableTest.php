@@ -40,8 +40,8 @@ class ArraySerializableTest extends TestCase
      */
     public function testHydratorExtractThrowsExceptionOnNonObjectParameter()
     {
-        $this->setExpectedException(
-            BadMethodCallException::class,
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage(
             'Zend\Hydrator\ArraySerializable::extract expects the provided object to implement getArrayCopy()'
         );
         $this->hydrator->extract('thisIsNotAnObject');
@@ -52,8 +52,8 @@ class ArraySerializableTest extends TestCase
      */
     public function testHydratorHydrateThrowsExceptionOnNonObjectParameter()
     {
-        $this->setExpectedException(
-            BadMethodCallException::class,
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage(
             'Zend\Hydrator\ArraySerializable::hydrate expects the provided object to implement'
             . ' exchangeArray() or populate()'
         );

@@ -36,8 +36,8 @@ class FilterCompositeTest extends TestCase
                 $key = 'foo';
             }
 
-            $this->setExpectedException(
-                InvalidArgumentException::class,
+            $this->expectException(InvalidArgumentException::class);
+            $this->expectExceptionMessage(
                 sprintf(
                     'The value of %s should be either a callable or an ' .
                     'instance of Zend\Hydrator\Filter\FilterInterface',

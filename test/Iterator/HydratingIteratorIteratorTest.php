@@ -13,6 +13,7 @@ use ArrayIterator;
 use ArrayObject;
 use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ArraySerializable;
+use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Hydrator\Iterator\HydratingIteratorIterator;
 
 class HydratingIteratorIteratorTest extends TestCase
@@ -57,7 +58,7 @@ class HydratingIteratorIteratorTest extends TestCase
 
     public function testThrowingInvalidArguementExceptionWhenSettingPrototypeToInvalidClass()
     {
-        $this->setExpectedException('Zend\Hydrator\Exception\InvalidArgumentException');
+        $this->expectException(InvalidArgumentException::class);
         $hydratingIterator = new HydratingIteratorIterator(
             new ArraySerializable(),
             new ArrayIterator(),
