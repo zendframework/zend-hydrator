@@ -37,7 +37,7 @@ class HydratorListenerTest extends TestCase
      */
     public function setUp()
     {
-        $this->hydrator = $this->getMock('Zend\Hydrator\HydratorInterface');
+        $this->hydrator = $this->createMock('Zend\Hydrator\HydratorInterface');
         $this->listener = new HydratorListener($this->hydrator);
     }
 
@@ -46,7 +46,7 @@ class HydratorListenerTest extends TestCase
      */
     public function testAttach()
     {
-        $eventManager = $this->getMock('Zend\EventManager\EventManagerInterface');
+        $eventManager = $this->createMock('Zend\EventManager\EventManagerInterface');
 
         $eventManager
             ->expects($this->exactly(2))

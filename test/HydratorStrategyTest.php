@@ -107,7 +107,7 @@ class HydratorStrategyTest extends TestCase
     ) {
         $hydrator = new ClassMethods($underscoreSeparatedKeys);
 
-        $strategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
+        $strategy = $this->createMock('Zend\Hydrator\Strategy\StrategyInterface');
 
         $entity = new TestAsset\ClassMethodsUnderscore();
         $value = $entity->getFooBar();

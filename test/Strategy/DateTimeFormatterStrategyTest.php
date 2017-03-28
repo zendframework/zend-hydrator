@@ -10,6 +10,7 @@
 namespace ZendTest\Hydrator\Strategy;
 
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
@@ -59,7 +60,9 @@ class DateTimeFormatterStrategyTest extends TestCase
 
     public function testAcceptsStringCastableDateTimeFormat()
     {
-        $format = $this->getMock('stdClass', ['__toString']);
+        $format = $this->getMockBuilder(stdClass::class)
+            ->setMethods(['__toString'])
+            ->getMock();
 
         $format->expects($this->once())->method('__toString')->will($this->returnValue('d/m/Y'));
 
