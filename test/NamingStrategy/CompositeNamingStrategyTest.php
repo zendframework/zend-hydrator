@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\NamingStrategy;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\NamingStrategy\CompositeNamingStrategy;
 use Zend\Hydrator\NamingStrategy\NamingStrategyInterface;
 
@@ -17,7 +18,7 @@ use Zend\Hydrator\NamingStrategy\NamingStrategyInterface;
  *
  * @covers \Zend\Hydrator\NamingStrategy\CompositeNamingStrategy
  */
-class CompositeNamingStrategyTest extends \PHPUnit_Framework_TestCase
+class CompositeNamingStrategyTest extends TestCase
 {
     public function testGetSameNameWhenNoNamingStrategyExistsForTheName()
     {

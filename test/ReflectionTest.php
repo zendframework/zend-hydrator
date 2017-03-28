@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use stdClass;
 use InvalidArgumentException;
 use Zend\Hydrator\Reflection;
@@ -18,7 +19,7 @@ use Zend\Hydrator\Reflection;
  *
  * @covers \Zend\Hydrator\Reflection
  */
-class ReflectionTest extends \PHPUnit_Framework_TestCase
+class ReflectionTest extends TestCase
 {
     /**
      * @var Reflection

@@ -9,7 +9,7 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase as TestCase;
 use Zend\Hydrator\Strategy\SerializableStrategy;
 use Zend\Serializer\Serializer;
 

@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Strategy\ExplodeStrategy;
 
 /**
@@ -16,7 +17,7 @@ use Zend\Hydrator\Strategy\ExplodeStrategy;
  *
  * @covers \Zend\Hydrator\Strategy\ExplodeStrategy
  */
-class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
+class ExplodeStrategyTest extends TestCase
 {
     /**
      * @dataProvider getValidHydratedValues

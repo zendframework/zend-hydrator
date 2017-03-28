@@ -9,7 +9,7 @@
 
 namespace ZendTest\Hydrator\Aggregate;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\Hydrator\Aggregate\ExtractEvent;
 use Zend\Hydrator\Aggregate\HydrateEvent;
@@ -18,7 +18,7 @@ use Zend\Hydrator\Aggregate\HydratorListener;
 /**
  * Unit tests for {@see HydratorListener}
  */
-class HydratorListenerTest extends PHPUnit_Framework_TestCase
+class HydratorListenerTest extends TestCase
 {
     /**
      * @var \Zend\Hydrator\HydratorInterface|\PHPUnit_Framework_MockObject_MockObject

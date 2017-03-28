@@ -9,10 +9,11 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\ClassMethods;
 
-class HydratorStrategyTest extends \PHPUnit_Framework_TestCase
+class HydratorStrategyTest extends TestCase
 {
     /**
      * The hydrator that is used during testing.

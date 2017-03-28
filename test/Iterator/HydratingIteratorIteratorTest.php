@@ -11,10 +11,11 @@ namespace ZendTest\Hydrator\Iterator;
 
 use ArrayIterator;
 use ArrayObject;
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ArraySerializable;
 use Zend\Hydrator\Iterator\HydratingIteratorIterator;
 
-class HydratingIteratorIteratorTest extends \PHPUnit_Framework_TestCase
+class HydratingIteratorIteratorTest extends TestCase
 {
     public function testHydratesObjectAndClonesOnCurrent()
     {

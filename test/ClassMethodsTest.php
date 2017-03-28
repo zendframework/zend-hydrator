@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\Exception\BadMethodCallException;
 use Zend\Hydrator\Exception\InvalidArgumentException;
@@ -22,7 +23,7 @@ use ZendTest\Hydrator\TestAsset\ArraySerializable;
  *
  * @covers \Zend\Hydrator\ClassMethods
  */
-class ClassMethodsTest extends \PHPUnit_Framework_TestCase
+class ClassMethodsTest extends TestCase
 {
     /**
      * @var ClassMethods

@@ -10,6 +10,7 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Exception\BadMethodCallException;
 use Zend\Hydrator\ArraySerializable;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
@@ -19,7 +20,7 @@ use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
  *
  * @covers \Zend\Hydrator\ArraySerializable
  */
-class ArraySerializableTest extends \PHPUnit_Framework_TestCase
+class ArraySerializableTest extends TestCase
 {
     /**
      * @var ArraySerializable

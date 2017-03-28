@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Strategy\BooleanStrategy;
 
 /**
@@ -16,7 +17,7 @@ use Zend\Hydrator\Strategy\BooleanStrategy;
  *
  * @covers \Zend\Hydrator\Strategy\BooleanStrategy
  */
-class BooleanStrategyTest extends \PHPUnit_Framework_TestCase
+class BooleanStrategyTest extends TestCase
 {
     public function testConstructorWithValidInteger()
     {

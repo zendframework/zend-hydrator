@@ -9,9 +9,10 @@
 
 namespace ZendTest\Hydrator\NamingStrategy;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\NamingStrategy\MapNamingStrategy;
 
-class MapNamingStrategyTest extends \PHPUnit_Framework_TestCase
+class MapNamingStrategyTest extends TestCase
 {
     public function testHydrateMap()
     {

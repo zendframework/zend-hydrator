@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
@@ -16,7 +17,7 @@ use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
  *
  * @covers \Zend\Hydrator\Strategy\DateTimeFormatterStrategy
  */
-class DateTimeFormatterStrategyTest extends \PHPUnit_Framework_TestCase
+class DateTimeFormatterStrategyTest extends TestCase
 {
     public function testHydrate()
     {
