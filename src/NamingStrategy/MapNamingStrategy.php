@@ -40,7 +40,7 @@ class MapNamingStrategy implements NamingStrategyInterface
     }
 
     /**
-     * Safelly flip mapping array.
+     * Safely flip mapping array.
      *
      * @param  array                    $array Array to flip
      * @return array                    Flipped array

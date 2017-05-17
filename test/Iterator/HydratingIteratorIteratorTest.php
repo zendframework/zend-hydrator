@@ -55,7 +55,7 @@ class HydratingIteratorIteratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(new ArrayObject($data[0]), $hydratingIterator->current());
     }
 
-    public function testThrowingInvalidArguementExceptionWhenSettingPrototypeToInvalidClass()
+    public function testThrowingInvalidArgumentExceptionWhenSettingPrototypeToInvalidClass()
     {
         $this->setExpectedException(InvalidArgumentException::class);
         $hydratingIterator = new HydratingIteratorIterator(
