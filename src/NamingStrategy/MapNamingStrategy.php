@@ -40,7 +40,7 @@ class MapNamingStrategy implements NamingStrategyInterface
     }
 
     /**
-     * Safelly flip mapping array.
+     * Safely flip mapping array.
      *
      * @param  array                    $array Array to flip
      * @return array                    Flipped array
@@ -49,7 +49,7 @@ class MapNamingStrategy implements NamingStrategyInterface
     protected function flipMapping(array $array)
     {
         array_walk($array, function ($value) {
-            if (!is_string($value) && !is_int($value)) {
+            if (! is_string($value) && ! is_int($value)) {
                 throw new InvalidArgumentException('Mapping array can\'t be flipped because of invalid value');
             }
         });

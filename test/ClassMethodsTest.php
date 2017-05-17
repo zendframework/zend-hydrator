@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\Exception\BadMethodCallException;
 use Zend\Hydrator\Exception\InvalidArgumentException;
@@ -22,7 +23,7 @@ use ZendTest\Hydrator\TestAsset\ArraySerializable;
  *
  * @covers \Zend\Hydrator\ClassMethods
  */
-class ClassMethodsTest extends \PHPUnit_Framework_TestCase
+class ClassMethodsTest extends TestCase
 {
     /**
      * @var ClassMethods
@@ -32,7 +33,7 @@ class ClassMethodsTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->hydrator = new ClassMethods();
     }
@@ -81,8 +82,8 @@ class ClassMethodsTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetOptionsThrowsInvalidArgumentException()
     {
-        $this->setExpectedException(
-            InvalidArgumentException::class,
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
             'The options parameter must be an array or a Traversable'
         );
         $this->hydrator->setOptions('invalid options');
@@ -106,8 +107,8 @@ class ClassMethodsTest extends \PHPUnit_Framework_TestCase
      */
     public function testExtractNonObjectThrowsBadMethodCallException()
     {
-        $this->setExpectedException(
-            BadMethodCallException::class,
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage(
             'Zend\Hydrator\ClassMethods::extract expects the provided $object to be a PHP object)'
         );
         $this->hydrator->extract('non-object');
@@ -118,8 +119,8 @@ class ClassMethodsTest extends \PHPUnit_Framework_TestCase
      */
     public function testHydrateNonObjectThrowsBadMethodCallException()
     {
-        $this->setExpectedException(
-            BadMethodCallException::class,
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage(
             'Zend\Hydrator\ClassMethods::hydrate expects the provided $object to be a PHP object)'
         );
         $this->hydrator->hydrate([], 'non-object');

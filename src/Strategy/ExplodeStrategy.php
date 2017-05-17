@@ -42,7 +42,7 @@ final class ExplodeStrategy implements StrategyInterface
      */
     private function setValueDelimiter($delimiter)
     {
-        if (!is_string($delimiter)) {
+        if (! is_string($delimiter)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects Delimiter to be string, %s provided instead',
                 __METHOD__,
@@ -74,7 +74,7 @@ final class ExplodeStrategy implements StrategyInterface
             return [];
         }
 
-        if (!(is_string($value) || is_numeric($value))) {
+        if (! (is_string($value) || is_numeric($value))) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects argument 1 to be string, %s provided instead',
                 __METHOD__,
@@ -100,7 +100,7 @@ final class ExplodeStrategy implements StrategyInterface
      */
     public function extract($value)
     {
-        if (!is_array($value)) {
+        if (! is_array($value)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects argument 1 to be array, %s provided instead',
                 __METHOD__,

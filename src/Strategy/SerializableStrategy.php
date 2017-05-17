@@ -70,7 +70,7 @@ class SerializableStrategy implements StrategyInterface
      */
     public function setSerializer($serializer)
     {
-        if (!is_string($serializer) && !$serializer instanceof SerializerAdapter) {
+        if (! is_string($serializer) && ! $serializer instanceof SerializerAdapter) {
             throw new InvalidArgumentException(sprintf(
                 '%s expects either a string serializer name or Zend\Serializer\Adapter\AdapterInterface instance; '
                 . 'received "%s"',

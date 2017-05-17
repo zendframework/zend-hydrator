@@ -9,7 +9,8 @@
 
 namespace ZendTest\Hydrator;
 
-use Zend\Hydrator\Exception\BadMethodCallException;
+use BadMethodCallException;
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ObjectProperty;
 use ZendTest\Hydrator\TestAsset\ClassWithPublicStaticProperties;
 use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyTestAsset;
@@ -19,7 +20,7 @@ use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyTestAsset;
  *
  * @covers \Zend\Hydrator\ObjectProperty
  */
-class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
+class ObjectPropertyTest extends TestCase
 {
     /**
      * @var ObjectProperty
@@ -39,7 +40,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
      */
     public function testHydratorExtractThrowsExceptionOnNonObjectParameter()
     {
-        $this->setExpectedException('BadMethodCallException');
+        $this->expectException(BadMethodCallException::class);
         $this->hydrator->extract('thisIsNotAnObject');
     }
 
@@ -48,7 +49,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
      */
     public function testHydratorHydrateThrowsExceptionOnNonObjectParameter()
     {
-        $this->setExpectedException('BadMethodCallException');
+        $this->expectException(BadMethodCallException::class);
         $this->hydrator->hydrate(['some' => 'data'], 'thisIsNotAnObject');
     }
 

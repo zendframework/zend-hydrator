@@ -179,7 +179,7 @@ class FilterComposite implements FilterInterface
      */
     private function validateFilter($filter, $name)
     {
-        if (!is_callable($filter) && !$filter instanceof FilterInterface) {
+        if (! is_callable($filter) && ! $filter instanceof FilterInterface) {
             throw new InvalidArgumentException(
                 sprintf(
                     'The value of %s should be either a callable or an ' .
