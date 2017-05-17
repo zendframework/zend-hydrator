@@ -21,6 +21,8 @@ use Zend\Hydrator\Reflection;
  */
 class ReflectionTest extends TestCase
 {
+    use HydratorTestTrait;
+
     /**
      * @var Reflection
      */
