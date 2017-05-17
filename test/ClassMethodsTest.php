@@ -32,7 +32,7 @@ class ClassMethodsTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->hydrator = new ClassMethods();
     }
