@@ -2,29 +2,17 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.3.0 - TBD
-
-### Added
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
 ## 2.2.2 - TBD
 
 ### Added
 
-- Nothing.
+### Changes
+
+- [#42](https://github.com/zendframework/zend-hydrator/pull/42) updates the
+  `ConfigProvider::getDependencies()` method to map the `HydratorPluginManager`
+  class to the `HydratorPluginManagerFactory` class, and make the
+  `HydratorManager` service an alias to the fully-qualified
+  `HydratorPluginManager` class.
 
 ### Deprecated
 
