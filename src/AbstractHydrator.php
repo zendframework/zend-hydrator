@@ -59,9 +59,9 @@ abstract class AbstractHydrator implements
     {
         if (isset($this->strategies[$name])) {
             return $this->strategies[$name];
-        } elseif ($this->hasNamingStrategy() &&
-            ($hydrated = $this->getNamingStrategy()->hydrate($name)) &&
-            isset($this->strategies[$hydrated])
+        } elseif ($this->hasNamingStrategy()
+            && ($hydrated = $this->getNamingStrategy()->hydrate($name))
+            && isset($this->strategies[$hydrated])
         ) {
             return $this->strategies[$hydrated];
         }
@@ -89,8 +89,8 @@ abstract class AbstractHydrator implements
             return true;
         }
 
-        if ($this->hasNamingStrategy() &&
-            array_key_exists($this->getNamingStrategy()->hydrate($name), $this->strategies)
+        if ($this->hasNamingStrategy()
+            && array_key_exists($this->getNamingStrategy()->hydrate($name), $this->strategies)
         ) {
             return true;
         }
