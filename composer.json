@@ -22,7 +22,7 @@
         "zendframework/zend-serializer": "^2.6.1",
         "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
         "zendframework/zend-filter": "^2.6",
-        "phpunit/phpunit": "^4.6",
+        "phpunit/phpunit": "^4.6 || ^5.2" ,
         "zendframework/zend-coding-standard": "~1.0.0"
     },
     "suggest": {
