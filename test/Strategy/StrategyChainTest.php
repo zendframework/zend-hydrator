@@ -9,13 +9,14 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Strategy\StrategyChain;
 use Zend\Hydrator\Strategy\ClosureStrategy;
 
 /**
  * @covers \Zend\Hydrator\Strategy\StrategyChain
  */
-class StrategyChainTest extends \PHPUnit_Framework_TestCase
+class StrategyChainTest extends TestCase
 {
     public function testEmptyStrategyChainReturnsOriginalValue()
     {

@@ -31,7 +31,7 @@ class Reflection extends AbstractHydrator
         $result = [];
         foreach (self::getReflProperties($object) as $property) {
             $propertyName = $this->extractName($property->getName(), $object);
-            if (!$this->filterComposite->filter($propertyName)) {
+            if (! $this->filterComposite->filter($propertyName)) {
                 continue;
             }
 
@@ -73,7 +73,7 @@ class Reflection extends AbstractHydrator
     {
         if (is_object($input)) {
             $input = get_class($input);
-        } elseif (!is_string($input)) {
+        } elseif (! is_string($input)) {
             throw new Exception\InvalidArgumentException('Input must be a string or an object.');
         }
 

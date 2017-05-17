@@ -9,13 +9,14 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Exception\RuntimeException;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Test\CommonPluginManagerTrait;
 
-class HydratorPluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
+class HydratorPluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;
 

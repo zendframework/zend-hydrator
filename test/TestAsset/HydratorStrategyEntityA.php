@@ -41,7 +41,7 @@ class HydratorStrategyEntityA implements InputFilterAwareInterface
 
     public function getInputFilter()
     {
-        if (!$this->inputFilter) {
+        if (! $this->inputFilter) {
             $input = new Input();
             $input->setName('entities');
             $input->setRequired(false);

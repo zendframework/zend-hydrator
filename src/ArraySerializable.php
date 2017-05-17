@@ -32,7 +32,7 @@ class ArraySerializable extends AbstractHydrator
         $filter = $this->getFilter();
 
         foreach ($data as $name => $value) {
-            if (!$filter->filter($name)) {
+            if (! $filter->filter($name)) {
                 unset($data[$name]);
                 continue;
             }

@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use stdClass;
 use InvalidArgumentException;
 use Zend\Hydrator\Reflection;
@@ -18,7 +19,7 @@ use Zend\Hydrator\Reflection;
  *
  * @covers \Zend\Hydrator\Reflection
  */
-class ReflectionTest extends \PHPUnit_Framework_TestCase
+class ReflectionTest extends TestCase
 {
     /**
      * @var Reflection
@@ -28,7 +29,7 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
     /**
      * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->hydrator = new Reflection();
     }
@@ -47,7 +48,8 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testNotStringOrObjectOnExtract()
     {
-        $this->setExpectedException(InvalidArgumentException::class, 'Input must be a string or an object.');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Input must be a string or an object.');
 
         $argument = (int) 1;
         $this->hydrator->extract($argument);
@@ -55,7 +57,8 @@ class ReflectionTest extends \PHPUnit_Framework_TestCase
 
     public function testNotStringOrObjectOnHydrate()
     {
-        $this->setExpectedException(InvalidArgumentException::class, 'Input must be a string or an object.');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Input must be a string or an object.');
 
         $argument = (int) 1;
         $this->hydrator->hydrate([ 'foo' => 'bar' ], $argument);

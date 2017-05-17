@@ -61,7 +61,7 @@ abstract class AbstractHydrator implements
             return $this->strategies[$name];
         }
 
-        if (!isset($this->strategies['*'])) {
+        if (! isset($this->strategies['*'])) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: no strategy by name of "%s", and no wildcard strategy present',
                 __METHOD__,
@@ -89,7 +89,7 @@ abstract class AbstractHydrator implements
      *
      * @param string $name The name of the strategy to register.
      * @param Strategy\StrategyInterface $strategy The strategy to register.
-     * @return HydratorInterface
+     * @return AbstractHydrator
      */
     public function addStrategy($name, Strategy\StrategyInterface $strategy)
     {

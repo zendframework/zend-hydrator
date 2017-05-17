@@ -9,10 +9,12 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
+use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\ObjectProperty;
 use Zend\Hydrator\Strategy\ClosureStrategy;
 
-class HydratorClosureStrategyTest extends \PHPUnit_Framework_TestCase
+class HydratorClosureStrategyTest extends TestCase
 {
     /**
      * The hydrator that is used during testing.
@@ -21,7 +23,7 @@ class HydratorClosureStrategyTest extends \PHPUnit_Framework_TestCase
      */
     private $hydrator;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->hydrator = new ObjectProperty();
     }
@@ -112,6 +114,6 @@ class HydratorClosureStrategyTest extends \PHPUnit_Framework_TestCase
         $this->hydrator->hydrate($values, $entity);
         $this->assertCount(3, (array) $entity);
 
-        $this->assertInstanceOf('ZendTest\Hydrator\TestAsset\HydratorClosureStrategyEntity', $entity->field3);
+        $this->assertInstanceOf(TestAsset\HydratorClosureStrategyEntity::class, $entity->field3);
     }
 }

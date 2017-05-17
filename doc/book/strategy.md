@@ -112,7 +112,7 @@ conversion of values.
 ### Zend\\Hydrator\\Strategy\\ExplodeStrategy 
 
 This strategy is a wrapper around PHP's `implode()` and `explode()` functions.
-The delemiter and a limit can be provided to the constructor; the limit will
+The delimiter and a limit can be provided to the constructor; the limit will
 only be used for `extract` operations.
 
 ### Zend\\Hydrator\\Strategy\\SerializableStrategy

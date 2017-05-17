@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ArraySerializable;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\ObjectProperty;
@@ -29,7 +30,7 @@ use ZendTest\Hydrator\TestAsset\ReflectionFilter;
 use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyAsset;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
 
-class HydratorTest extends \PHPUnit_Framework_TestCase
+class HydratorTest extends TestCase
 {
     /**
      * @var ClassMethodsCamelCase
@@ -61,7 +62,7 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
      */
     protected $reflection;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->classMethodsCamelCase = new ClassMethodsCamelCase();
         $this->classMethodsTitleCase = new ClassMethodsTitleCase();
@@ -289,9 +290,9 @@ class HydratorTest extends \PHPUnit_Framework_TestCase
         $hydrator->addStrategy('default', new DefaultStrategy());
         $hydrator->addStrategy('*', new SerializableStrategy('phpserialize'));
         $default = $hydrator->getStrategy('default');
-        $this->assertEquals(get_class($default), 'Zend\Hydrator\Strategy\DefaultStrategy');
+        $this->assertEquals(get_class($default), DefaultStrategy::class);
         $serializable = $hydrator->getStrategy('*');
-        $this->assertEquals(get_class($serializable), 'Zend\Hydrator\Strategy\SerializableStrategy');
+        $this->assertEquals(get_class($serializable), SerializableStrategy::class);
     }
 
     public function testUseWildStrategyByDefault()

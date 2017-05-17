@@ -16,7 +16,7 @@ use Zend\Hydrator\Exception\InvalidArgumentException;
 class NumberOfParameterFilter implements FilterInterface
 {
     /**
-     * The number of parameters beeing accepted
+     * The number of parameters being accepted
      * @var int
      */
     protected $numberOfParameters = null;
