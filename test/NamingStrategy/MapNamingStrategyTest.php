@@ -13,6 +13,9 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\NamingStrategy\MapNamingStrategy;
 
+/**
+ * @covers Zend\Hydrator\NamingStrategy\MapNamingStrategy<extended>
+ */
 class MapNamingStrategyTest extends TestCase
 {
     public function testHydrateMap()

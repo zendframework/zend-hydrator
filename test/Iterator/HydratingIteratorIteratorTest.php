@@ -16,6 +16,9 @@ use Zend\Hydrator\ArraySerializable;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Hydrator\Iterator\HydratingIteratorIterator;
 
+/**
+ * @covers Zend\Hydrator\Iterator\HydratingIteratorIterator<extended>
+ */
 class HydratingIteratorIteratorTest extends TestCase
 {
     public function testHydratesObjectAndClonesOnCurrent()

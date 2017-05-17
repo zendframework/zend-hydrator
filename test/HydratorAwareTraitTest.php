@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @requires PHP 5.4
+ * @covers Zend\Hydrator\HydratorAwareTrait<extended>
  */
 class HydratorAwareTraitTest extends TestCase
 {
