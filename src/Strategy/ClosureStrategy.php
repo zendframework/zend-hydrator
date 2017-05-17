@@ -59,7 +59,7 @@ class ClosureStrategy implements StrategyInterface
     public function __construct($extractFunc = null, $hydrateFunc = null)
     {
         if (isset($extractFunc)) {
-            if (!is_callable($extractFunc)) {
+            if (! is_callable($extractFunc)) {
                 throw new \Exception('$extractFunc must be callable');
             }
 
@@ -71,7 +71,7 @@ class ClosureStrategy implements StrategyInterface
         }
 
         if (isset($hydrateFunc)) {
-            if (!is_callable($hydrateFunc)) {
+            if (! is_callable($hydrateFunc)) {
                 throw new \Exception('$hydrateFunc must be callable');
             }
 

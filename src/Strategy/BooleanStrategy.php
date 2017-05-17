@@ -33,14 +33,14 @@ final class BooleanStrategy implements StrategyInterface
      */
     public function __construct($trueValue, $falseValue)
     {
-        if (!is_int($trueValue) && !is_string($trueValue)) {
+        if (! is_int($trueValue) && ! is_string($trueValue)) {
             throw new InvalidArgumentException(sprintf(
                 'Unable to instantiate BooleanStrategy. Expected int or string as $trueValue. %s was given',
                 is_object($trueValue) ? get_class($trueValue) : gettype($trueValue)
             ));
         }
 
-        if (!is_int($falseValue) && !is_string($falseValue)) {
+        if (! is_int($falseValue) && ! is_string($falseValue)) {
             throw new InvalidArgumentException(sprintf(
                 'Unable to instantiate BooleanStrategy. Expected int or string as $falseValue. %s was given',
                 is_object($falseValue) ? get_class($falseValue) : gettype($falseValue)
@@ -60,7 +60,7 @@ final class BooleanStrategy implements StrategyInterface
      */
     public function extract($value)
     {
-        if (!is_bool($value)) {
+        if (! is_bool($value)) {
             throw new InvalidArgumentException(sprintf(
                 'Unable to extract. Expected bool. %s was given.',
                 is_object($value) ? get_class($value) : gettype($value)
@@ -79,7 +79,7 @@ final class BooleanStrategy implements StrategyInterface
      */
     public function hydrate($value)
     {
-        if (!is_string($value) && !is_int($value)) {
+        if (! is_string($value) && ! is_int($value)) {
             throw new InvalidArgumentException(sprintf(
                 'Unable to hydrate. Expected string or int. %s was given.',
                 is_object($value) ? get_class($value) : gettype($value)
