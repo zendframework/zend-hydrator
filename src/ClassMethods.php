@@ -131,40 +131,11 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 
         // reset the hydrator's hydrator's cache for this object, as the filter may be per-instance
         if ($object instanceof Filter\FilterProviderInterface) {
-            $this->extractionMethodsCache[$objectClass] = null;
+            $this->resetMethodCache($objectClass);
         }
 
-        // pass 1 - finding out which properties can be extracted, with which methods (populate hydration cache)
-        if (! isset($this->extractionMethodsCache[$objectClass])) {
-            $this->extractionMethodsCache[$objectClass] = [];
-            $filter                                     = $this->filterComposite;
-            $methods                                    = get_class_methods($object);
-
-            if ($object instanceof Filter\FilterProviderInterface) {
-                $filter = new Filter\FilterComposite(
-                    [$object->getFilter()],
-                    [new Filter\MethodMatchFilter('getFilter')]
-                );
-            }
-
-            foreach ($methods as $method) {
-                $methodFqn = $objectClass . '::' . $method;
-
-                if (! ($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
-                    continue;
-                }
-
-                $attribute = $method;
-
-                if (strpos($method, 'get') === 0) {
-                    $attribute = substr($method, 3);
-                    if (!property_exists($object, $attribute)) {
-                        $attribute = lcfirst($attribute);
-                    }
-                }
-
-                $this->extractionMethodsCache[$objectClass][$method] = $attribute;
-            }
+        if (!isset($this->extractionMethodsCache[$objectClass])) {
+            $this->populateExtractionCache($object, $objectClass);
         }
 
         $values = [];
@@ -264,5 +235,108 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     private function resetCaches()
     {
         $this->hydrationMethodsCache = $this->extractionMethodsCache = [];
+    }
+
+    /**
+     * Finding out which properties can be extracted, with which methods
+     *
+     * @param $object
+     * @param $objectClass
+     */
+    private function populateExtractionCache($object, $objectClass)
+    {
+        $this->extractionMethodsCache[$objectClass] = [];
+        $methods = get_class_methods($object);
+
+        foreach ($methods as $methodName) {
+            $this->addMethodToExtractionCache($object, $objectClass, $methodName);
+        }
+    }
+
+    /**
+     * @param $object
+     * @return Filter\FilterComposite
+     */
+    private function getMethodFilter($object)
+    {
+        if ($object instanceof Filter\FilterProviderInterface) {
+            return $this->getFilterFrom($object);
+        }
+
+        return $this->filterComposite;
+    }
+
+    /**
+     * @param Filter\FilterProviderInterface $object
+     * @return Filter\FilterComposite
+     */
+    private function getFilterFrom(Filter\FilterProviderInterface $object)
+    {
+        return new Filter\FilterComposite([$object->getFilter()], [new Filter\MethodMatchFilter('getFilter')]);
+    }
+
+    /**
+     * @param object $object
+     * @param string $objectClass
+     * @param string $methodName
+     */
+    private function addMethodToExtractionCache($object, $objectClass, $methodName)
+    {
+        $methodFqn = $objectClass . '::' . $methodName;
+        // @todo this can be an performance issue. For every Method a new Filter is instantiated
+        $filter = $this->getMethodFilter($object);
+
+        if (!($filter->filter($methodFqn) && $this->callableMethodFilter->filter($methodFqn))) {
+            return;
+        }
+
+        $attribute = $this->extractAttribute($object, $methodName);
+
+        $this->extractionMethodsCache[$objectClass][$methodName] = $attribute;
+    }
+
+    /**
+     * @param object $object
+     * @param string $methodName
+     * @return string
+     */
+    private function extractAttribute($object, $methodName)
+    {
+        $attribute = $methodName;
+        if (!$this->isGetterMethod($methodName)) {
+            return $attribute;
+        }
+
+        $attribute = $this->extractAttributeFromMethodName($methodName);
+        if (!property_exists($object, $attribute)) {
+            $attribute = lcfirst($attribute);
+        }
+        return $attribute;
+    }
+
+    /**
+     * @param string $methodName
+     * @return bool
+     */
+    private function isGetterMethod($methodName)
+    {
+        return strpos($methodName, 'get') === 0;
+    }
+
+    /**
+     * @param string $methodName
+     * @return string
+     */
+    private function extractAttributeFromMethodName($methodName)
+    {
+        return substr($methodName, 3);
+    }
+
+    /**
+     * @param $objectClass
+     */
+    private function resetMethodCache($objectClass)
+    {
+        $this->extractionMethodsCache[$objectClass] = null;
     }
 }
