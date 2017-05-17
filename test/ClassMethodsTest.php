@@ -25,6 +25,8 @@ use ZendTest\Hydrator\TestAsset\ArraySerializable;
  */
 class ClassMethodsTest extends TestCase
 {
+    use HydratorTestTrait;
+
     /**
      * @var ClassMethods
      */

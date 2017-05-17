@@ -22,6 +22,8 @@ use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyTestAsset;
  */
 class ObjectPropertyTest extends TestCase
 {
+    use HydratorTestTrait;
+
     /**
      * @var ObjectProperty
      */
