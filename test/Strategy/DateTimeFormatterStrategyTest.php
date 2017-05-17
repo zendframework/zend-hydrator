@@ -47,7 +47,7 @@ class DateTimeFormatterStrategyTest extends \PHPUnit_Framework_TestCase
         $strategy = new DateTimeFormatterStrategy();
         $date = $strategy->extract(new \stdClass);
 
-        $this->assertInstanceOf('stdClass', $date);
+        $this->assertInstanceOf(\stdClass::class, $date);
     }
 
     public function testCanHydrateWithInvalidDateTime()
@@ -58,7 +58,7 @@ class DateTimeFormatterStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testAcceptsStringCastableDateTimeFormat()
     {
-        $format = $this->getMock('stdClass', ['__toString']);
+        $format = $this->getMock(\stdClass::class, ['__toString']);
 
         $format->expects($this->once())->method('__toString')->will($this->returnValue('d/m/Y'));
 

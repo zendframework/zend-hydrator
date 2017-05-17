@@ -39,7 +39,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
      */
     public function testHydratorExtractThrowsExceptionOnNonObjectParameter()
     {
-        $this->setExpectedException('BadMethodCallException');
+        $this->setExpectedException(BadMethodCallException::class);
         $this->hydrator->extract('thisIsNotAnObject');
     }
 
@@ -48,7 +48,7 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
      */
     public function testHydratorHydrateThrowsExceptionOnNonObjectParameter()
     {
-        $this->setExpectedException('BadMethodCallException');
+        $this->setExpectedException(BadMethodCallException::class);
         $this->hydrator->hydrate(['some' => 'data'], 'thisIsNotAnObject');
     }
 

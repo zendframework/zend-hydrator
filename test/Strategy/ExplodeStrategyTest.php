@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
+use Zend\Hydrator\Strategy\Exception\InvalidArgumentException;
 use Zend\Hydrator\Strategy\ExplodeStrategy;
 
 /**
@@ -40,7 +41,7 @@ class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
     {
         $strategy = new ExplodeStrategy();
 
-        $this->setExpectedException('Zend\Hydrator\Strategy\Exception\InvalidArgumentException');
+        $this->setExpectedException(InvalidArgumentException::class);
 
         $strategy->extract('');
     }
@@ -54,14 +55,14 @@ class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testGetExceptionWithEmptyDelimiter()
     {
-        $this->setExpectedException('Zend\Hydrator\Strategy\Exception\InvalidArgumentException');
+        $this->setExpectedException(InvalidArgumentException::class);
 
         new ExplodeStrategy('');
     }
 
     public function testGetExceptionWithInvalidDelimiter()
     {
-        $this->setExpectedException('Zend\Hydrator\Strategy\Exception\InvalidArgumentException');
+        $this->setExpectedException(InvalidArgumentException::class);
 
         new ExplodeStrategy([]);
     }
@@ -80,7 +81,7 @@ class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
         $strategy = new ExplodeStrategy();
 
         $this->setExpectedException(
-            'Zend\Hydrator\Strategy\Exception\InvalidArgumentException',
+            InvalidArgumentException::class,
             'Zend\Hydrator\Strategy\ExplodeStrategy::hydrate expects argument 1 to be string,'
             . ' array provided instead'
         );
@@ -93,7 +94,7 @@ class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
         $strategy = new ExplodeStrategy();
 
         $this->setExpectedException(
-            'Zend\Hydrator\Strategy\Exception\InvalidArgumentException',
+            InvalidArgumentException::class,
             'Zend\Hydrator\Strategy\ExplodeStrategy::hydrate expects argument 1 to be string,'
             . ' stdClass provided instead'
         );
@@ -106,7 +107,7 @@ class ExplodeStrategyTest extends \PHPUnit_Framework_TestCase
         $strategy = new ExplodeStrategy();
 
         $this->setExpectedException(
-            'Zend\Hydrator\Strategy\Exception\InvalidArgumentException',
+            InvalidArgumentException::class,
             'Zend\Hydrator\Strategy\ExplodeStrategy::extract expects argument 1 to be array,'
             . ' stdClass provided instead'
         );

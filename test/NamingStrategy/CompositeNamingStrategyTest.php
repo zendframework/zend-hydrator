@@ -22,7 +22,7 @@ class CompositeNamingStrategyTest extends \PHPUnit_Framework_TestCase
     public function testGetSameNameWhenNoNamingStrategyExistsForTheName()
     {
         $compositeNamingStrategy = new CompositeNamingStrategy([
-            'foo' => $this->getMock('Zend\Hydrator\NamingStrategy\NamingStrategyInterface')
+            'foo' => $this->getMock(NamingStrategyInterface::class)
         ]);
 
         $this->assertEquals('bar', $compositeNamingStrategy->hydrate('bar'));
@@ -32,7 +32,7 @@ class CompositeNamingStrategyTest extends \PHPUnit_Framework_TestCase
     public function testUseDefaultNamingStrategy()
     {
         /* @var $defaultNamingStrategy NamingStrategyInterface|\PHPUnit_Framework_MockObject_MockObject*/
-        $defaultNamingStrategy = $this->getMock('Zend\Hydrator\NamingStrategy\NamingStrategyInterface');
+        $defaultNamingStrategy = $this->getMock(NamingStrategyInterface::class);
         $defaultNamingStrategy->expects($this->at(0))
             ->method('hydrate')
             ->with('foo')
@@ -43,7 +43,7 @@ class CompositeNamingStrategyTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('foo'));
 
         $compositeNamingStrategy = new CompositeNamingStrategy(
-            ['bar' => $this->getMock('Zend\Hydrator\NamingStrategy\NamingStrategyInterface')],
+            ['bar' => $this->getMock(NamingStrategyInterface::class)],
             $defaultNamingStrategy
         );
         $this->assertEquals('Foo', $compositeNamingStrategy->hydrate('foo'));
@@ -52,7 +52,7 @@ class CompositeNamingStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testHydrate()
     {
-        $fooNamingStrategy = $this->getMock('Zend\Hydrator\NamingStrategy\NamingStrategyInterface');
+        $fooNamingStrategy = $this->getMock(NamingStrategyInterface::class);
         $fooNamingStrategy->expects($this->once())
             ->method('hydrate')
             ->with('foo')
@@ -63,7 +63,7 @@ class CompositeNamingStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testExtract()
     {
-        $fooNamingStrategy = $this->getMock('Zend\Hydrator\NamingStrategy\NamingStrategyInterface');
+        $fooNamingStrategy = $this->getMock(NamingStrategyInterface::class);
         $fooNamingStrategy->expects($this->once())
             ->method('extract')
             ->with('FOO')
