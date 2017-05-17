@@ -13,6 +13,9 @@ All notable changes to this project will be documented in this file, in reverse 
   class to the `HydratorPluginManagerFactory` class, and make the
   `HydratorManager` service an alias to the fully-qualified
   `HydratorPluginManager` class.
+- [#45](https://github.com/zendframework/zend-hydrator/pull/45) changes the
+  `ClassMethods` hydrator to take into account naming strategies when present,
+  making it act consistently with the other hydrators.
 
 ### Deprecated
 
