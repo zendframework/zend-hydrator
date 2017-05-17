@@ -13,7 +13,12 @@ use Zend\Hydrator\ObjectProperty;
 
 class HydratorObjectPropertyTest extends \PHPUnit_Framework_TestCase
 {
-    protected function setUp()
+    /**
+     * @var ObjectProperty
+     */
+    private $hydrator;
+
+    public function setUp()
     {
         $this->hydrator = new ObjectProperty();
     }
