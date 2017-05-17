@@ -12,6 +12,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\Hydrator\HydratorPluginManagerFactory;
+use Zend\Hydrator\Reflection;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class HydratorPluginManagerFactoryTest extends TestCase
@@ -69,5 +70,100 @@ class HydratorPluginManagerFactoryTest extends TestCase
 
         $hydrators = $factory->createService($container->reveal());
         $this->assertSame($hydrator, $hydrators->get('test'));
+    }
+
+    public function testConfiguresHydratorServicesWhenFound()
+    {
+        $hydrator = $this->prophesize(HydratorInterface::class)->reveal();
+        $config = [
+            'hydrators' => [
+                'aliases' => [
+                    'test' => Reflection::class,
+                ],
+                'factories' => [
+                    'test-too' => function ($container) use ($hydrator) {
+                        return $hydrator;
+                    },
+                ],
+            ],
+        ];
+
+        $container = $this->prophesize(ServiceLocatorInterface::class);
+        $container->willImplement(ContainerInterface::class);
+
+        $container->has('ServiceListener')->willReturn(false);
+        $container->has('config')->willReturn(true);
+        $container->get('config')->willReturn($config);
+
+        $factory = new HydratorPluginManagerFactory();
+        $hydrators = $factory($container->reveal(), 'HydratorManager');
+
+        $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
+        $this->assertTrue($hydrators->has('test'));
+        $this->assertInstanceOf(Reflection::class, $hydrators->get('test'));
+        $this->assertTrue($hydrators->has('test-too'));
+        $this->assertSame($hydrator, $hydrators->get('test-too'));
+    }
+
+    public function testDoesNotConfigureHydratorServicesWhenServiceListenerPresent()
+    {
+        $hydrator = $this->prophesize(HydratorInterface::class)->reveal();
+        $config = [
+            'hydrators' => [
+                'aliases' => [
+                    'test' => Reflection::class,
+                ],
+                'factories' => [
+                    'test-too' => function ($container) use ($hydrator) {
+                        return $hydrator;
+                    },
+                ],
+            ],
+        ];
+
+        $container = $this->prophesize(ServiceLocatorInterface::class);
+        $container->willImplement(ContainerInterface::class);
+
+        $container->has('ServiceListener')->willReturn(true);
+        $container->has('config')->shouldNotBeCalled();
+        $container->get('config')->shouldNotBeCalled();
+
+        $factory = new HydratorPluginManagerFactory();
+        $hydrators = $factory($container->reveal(), 'HydratorManager');
+
+        $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
+        $this->assertFalse($hydrators->has('test'));
+        $this->assertFalse($hydrators->has('test-too'));
+    }
+
+    public function testDoesNotConfigureHydratorServicesWhenConfigServiceNotPresent()
+    {
+        $container = $this->prophesize(ServiceLocatorInterface::class);
+        $container->willImplement(ContainerInterface::class);
+
+        $container->has('ServiceListener')->willReturn(false);
+        $container->has('config')->willReturn(false);
+        $container->get('config')->shouldNotBeCalled();
+
+        $factory = new HydratorPluginManagerFactory();
+        $hydrators = $factory($container->reveal(), 'HydratorManager');
+
+        $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
+    }
+
+    public function testDoesNotConfigureHydratorServicesWhenConfigServiceDoesNotContainHydratorsConfig()
+    {
+        $container = $this->prophesize(ServiceLocatorInterface::class);
+        $container->willImplement(ContainerInterface::class);
+
+        $container->has('ServiceListener')->willReturn(false);
+        $container->has('config')->willReturn(true);
+        $container->get('config')->willReturn(['foo' => 'bar']);
+
+        $factory = new HydratorPluginManagerFactory();
+        $hydrators = $factory($container->reveal(), 'HydratorManager');
+
+        $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
+        $this->assertFalse($hydrators->has('foo'));
     }
 }
