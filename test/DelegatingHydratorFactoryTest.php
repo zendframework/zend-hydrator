@@ -17,6 +17,9 @@ use Zend\Hydrator\DelegatingHydratorFactory;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
+/**
+ * @covers Zend\Hydrator\DelegatingHydratorFactory<extended>
+ */
 class DelegatingHydratorFactoryTest extends TestCase
 {
     public function testV2Factory()

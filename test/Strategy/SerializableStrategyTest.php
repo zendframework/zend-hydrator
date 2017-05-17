@@ -15,6 +15,9 @@ use Zend\Hydrator\Strategy\SerializableStrategy;
 use Zend\Serializer\Adapter\PhpSerialize;
 use Zend\Serializer\Serializer;
 
+/**
+ * @covers Zend\Hydrator\Strategy\SerializableStrategy<extended>
+ */
 class SerializableStrategyTest extends TestCase
 {
     public function testCannotUseBadArgumentSerializer()
