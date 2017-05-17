@@ -36,7 +36,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#59](https://github.com/zendframework/zend-hydrator/pull/59) fixes how the
+  `HydratorPluginManagerFactory` factory initializes the plugin manager
+  instance, ensuring it is injecting the relevant configuration from the
+  `config` service and thus seeding it with configured hydrator services. This
+  means that the `hydrators` configuration will now be honored in non-zend-mvc
+  contexts.
 
 ## 2.2.1 - 2016-04-18
 
