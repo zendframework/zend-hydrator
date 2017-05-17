@@ -9,13 +9,15 @@
 
 namespace ZendTest\Hydrator;
 
+use Zend\Hydrator\NamingStrategy\NamingStrategyInterface;
+use Zend\Hydrator\Strategy\StrategyInterface;
 use ZendTest\Hydrator\TestAsset\SimpleEntity;
 
 trait HydratorTestTrait
 {
     public function testHydrateWithNamingStrategyAndStrategy()
     {
-        $namingStrategy = $this->getMock('Zend\Hydrator\NamingStrategy\NamingStrategyInterface');
+        $namingStrategy = $this->createMock(NamingStrategyInterface::class);
         $namingStrategy
             ->expects($this->any())
             ->method('hydrate')
@@ -23,7 +25,7 @@ trait HydratorTestTrait
             ->will($this->returnValue('value'))
         ;
 
-        $strategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
+        $strategy = $this->createMock(StrategyInterface::class);
         $strategy
             ->expects($this->any())
             ->method('hydrate')
