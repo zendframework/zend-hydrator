@@ -10,13 +10,14 @@
 namespace ZendTest\Hydrator;
 
 use Interop\Container\ContainerInterface;
+use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use Zend\Hydrator\DelegatingHydrator;
 use Zend\Hydrator\DelegatingHydratorFactory;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class DelegatingHydratorFactoryTest extends \PHPUnit_Framework_TestCase
+class DelegatingHydratorFactoryTest extends TestCase
 {
     public function testV2Factory()
     {

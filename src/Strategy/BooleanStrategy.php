@@ -73,15 +73,19 @@ final class BooleanStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be hydrated by the hydrator.
      *
-     * @param  int|string $value The original value.
+     * @param  bool|int|string $value The original value.
      * @throws InvalidArgumentException
      * @return bool Returns the value that should be hydrated.
      */
     public function hydrate($value)
     {
+        if (is_bool($value)) {
+            return $value;
+        }
+
         if (! is_string($value) && ! is_int($value)) {
             throw new InvalidArgumentException(sprintf(
-                'Unable to hydrate. Expected string or int. %s was given.',
+                'Unable to hydrate. Expected bool, string or int. %s was given.',
                 is_object($value) ? get_class($value) : gettype($value)
             ));
         }

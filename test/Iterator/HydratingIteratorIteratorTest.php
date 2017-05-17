@@ -11,11 +11,12 @@ namespace ZendTest\Hydrator\Iterator;
 
 use ArrayIterator;
 use ArrayObject;
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ArraySerializable;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Hydrator\Iterator\HydratingIteratorIterator;
 
-class HydratingIteratorIteratorTest extends \PHPUnit_Framework_TestCase
+class HydratingIteratorIteratorTest extends TestCase
 {
     public function testHydratesObjectAndClonesOnCurrent()
     {
@@ -57,7 +58,7 @@ class HydratingIteratorIteratorTest extends \PHPUnit_Framework_TestCase
 
     public function testThrowingInvalidArgumentExceptionWhenSettingPrototypeToInvalidClass()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $hydratingIterator = new HydratingIteratorIterator(
             new ArraySerializable(),
             new ArrayIterator(),

@@ -10,7 +10,7 @@
 namespace ZendTest\Hydrator\Aggregate;
 
 use ArrayObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\Hydrator\Aggregate\AggregateHydrator;
 use Zend\Hydrator\Aggregate\ExtractEvent;
@@ -23,7 +23,7 @@ use ZendTest\Hydrator\TestAsset\AggregateObject;
 /**
  * Integration tests {@see AggregateHydrator}
  */
-class AggregateHydratorFunctionalTest extends PHPUnit_Framework_TestCase
+class AggregateHydratorFunctionalTest extends TestCase
 {
     /**
      * @var AggregateHydrator

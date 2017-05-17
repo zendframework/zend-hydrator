@@ -9,7 +9,7 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase as TestCase;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Hydrator\Strategy\SerializableStrategy;
 use Zend\Serializer\Adapter\PhpSerialize;
@@ -19,7 +19,7 @@ class SerializableStrategyTest extends TestCase
 {
     public function testCannotUseBadArgumentSerializer()
     {
-        $this->setExpectedException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $serializerStrategy = new SerializableStrategy(false);
     }
 

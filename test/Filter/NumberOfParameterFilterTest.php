@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\Filter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Filter\NumberOfParameterFilter;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
@@ -17,7 +18,7 @@ use Zend\Hydrator\Exception\InvalidArgumentException;
  *
  * @covers \Zend\Hydrator\Filter\NumberOfParameterFilter
  */
-class NumberOfParameterFilterTest extends \PHPUnit_Framework_TestCase
+class NumberOfParameterFilterTest extends TestCase
 {
     /**
      * @group 6083
@@ -44,8 +45,8 @@ class NumberOfParameterFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterPropertyDoesNotExist()
     {
-        $this->setExpectedException(
-            InvalidArgumentException::class,
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(
             'Method ZendTest\Hydrator\Filter\NumberOfParameterFilterTest::methodDoesNotExist doesn\'t exist'
         );
         $filter = new NumberOfParameterFilter(1);

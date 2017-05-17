@@ -10,6 +10,7 @@
 
 namespace ZendTest\Hydrator;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Exception\BadMethodCallException;
 use Zend\Hydrator\ArraySerializable;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
@@ -19,7 +20,7 @@ use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
  *
  * @covers \Zend\Hydrator\ArraySerializable
  */
-class ArraySerializableTest extends \PHPUnit_Framework_TestCase
+class ArraySerializableTest extends TestCase
 {
     /**
      * @var ArraySerializable
@@ -39,8 +40,8 @@ class ArraySerializableTest extends \PHPUnit_Framework_TestCase
      */
     public function testHydratorExtractThrowsExceptionOnNonObjectParameter()
     {
-        $this->setExpectedException(
-            BadMethodCallException::class,
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage(
             'Zend\Hydrator\ArraySerializable::extract expects the provided object to implement getArrayCopy()'
         );
         $this->hydrator->extract('thisIsNotAnObject');
@@ -51,8 +52,8 @@ class ArraySerializableTest extends \PHPUnit_Framework_TestCase
      */
     public function testHydratorHydrateThrowsExceptionOnNonObjectParameter()
     {
-        $this->setExpectedException(
-            BadMethodCallException::class,
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage(
             'Zend\Hydrator\ArraySerializable::hydrate expects the provided object to implement'
             . ' exchangeArray() or populate()'
         );
