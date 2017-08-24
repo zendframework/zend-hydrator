@@ -2,27 +2,15 @@ sudo: false
 
 language: php
 
-branches:
-  except:
-    - /^release-.*$/
-    - /^ghgfk-.*$/
-
 cache:
   directories:
     - $HOME/.composer/cache
-    - $HOME/.local
-    - zf-mkdoc-theme
 
 env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - COVERAGE_DEPS="satooshi/php-coveralls"
     - LEGACY_DEPS="phpunit/phpunit"
-    - SITE_URL=https://zendframework.github.io/zend-hydrator
-    - GH_USER_NAME="Matthew Weier O'Phinney"
-    - GH_USER_EMAIL=matthew@weierophinney.net
-    - GH_REF=github.com/zendframework/zend-hydrator.git
-    - secure: "xMnwSntQA+rIsQIIklwziEROWMlF9vsq7L1BOJwnNMFmfImnn/2RxHdqqtQ6q7npsHioUqn23YZyFTLCGZiM7SLcBQndiW1Qmgz8VE2hk1ur+d2PIewu7v3aTgOOB+igK0Re43ZQKX/Vl2C92IlBmilyWzFBqE81kdw0NmxHq8QqpNAgnTkYaye4MOiW+giLtdkCSHHYn6/zmOgc0A630X7YKy7Ru+bYGGXXVb2jzq7mdapE0XZpgjFkYiwwOgA8AQLwWJF87QwaGrdeej1PbAInQDoeMWf9o2C5Ezl57+IWJfR6yTs29zFDUXo6hcWyQ4Rurpgei0Jt30LDZohZ4xY0LZkJ0wochprh5riXmQ2cM/i/RvQjQ2hgJOcDHyUPYfaoyD4CRgA1KvkjD7dRypQ03cPyjHXluZat+ZQkFMa6W5K/M2brGLRhW3echko3/1riMEzFshhqMO7RtZ9GeHg8fNxlgJFZI6R8KvIE+pM7OiZUdPYlfqOSZKr2kxhF2mJQ+a7I3EguLc2cgvu4c8IL34dOrmInhsj5kkIapLpiEIyN0G8rV6oI/nHXYBDgrEckjozjAkdOkInf/TowRNODQmrR7eUeBJCLPbRHFcY5aE4cGGGl7J1KM6rx2vV9Boc3KTxY0+cC9JegR8X7UaqGLqTSJ7k5FyapoxfYSJA="
 
 matrix:
   include:
@@ -32,13 +20,9 @@ matrix:
     - php: 5.6
       env:
         - DEPS=locked
-        - TEST_COVERAGE=true
-        - DEPLOY_DOCS="$(if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then echo -n 'true' ; else echo -n 'false' ; fi)"
-        - PATH="$HOME/.local/bin:$PATH"
     - php: 5.6
       env:
         - DEPS=latest
-        - TEST_COVERAGE=true
     - php: 7
       env:
         - DEPS=lowest
@@ -46,6 +30,7 @@ matrix:
       env:
         - DEPS=locked
         - CHECK_CS=true
+        - TEST_COVERAGE=true
     - php: 7
       env:
         - DEPS=latest
@@ -81,9 +66,8 @@ matrix:
     - php: nightly
 
 before_install:
-  - travis_retry composer self-update
   - if [[ $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
-  - composer validate
+  - travis_retry composer self-update
 
 install:
   - travis_retry composer install $COMPOSER_ARGS --ignore-platform-reqs
@@ -91,24 +75,14 @@ install:
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
-  - stty cols 120
-  - COLUMNS=120 composer show
+  - stty cols 120 && composer show
 
 script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; else composer test ; fi
-  - if [[ $CHECK_CS == 'true' ]]; then ./vendor/bin/phpcs ; fi
-  - if [[ $DEPLOY_DOCS == "true" && "$TRAVIS_TEST_RESULT" == "0" ]]; then wget -O theme-installer.sh "https://raw.githubusercontent.com/zendframework/zf-mkdoc-theme/master/theme-installer.sh" ; chmod 755 theme-installer.sh ; ./theme-installer.sh ; fi
-
-after_success:
-  - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; ./zf-mkdoc-theme/deploy.sh ; echo "Completed deploying documentation" ; fi
+  - if [[ $CS_CHECK == 'true' ]]; then composer cs-check ; fi
 
 after_script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer upload-coverage ; fi
 
 notifications:
   email: false
-  slack:
-    rooms:
-      - secure: "0ftJmJvsmTRZFIT9TqVoiueNkyP8ntoE64wbYhn0+MFkifiLo8X+xXjCY7oF3uIzLcp8MIXEe4jXLJlMkceqB3d0adjbNWgxLW5aVL5sStUq+9hQRIM7wJsOnGnurKxx9Cqb/7oXom+WylY1dkN8F9ImhfrcC+HcQsFeyrbfvG8YkodEpFNo8rK84q0IjqxayLLdZvTlTQgmhozNnkfhN/zEboHW5tVXYWLyB71ny8SVl6JPs+xTfkQIT3OfOaYSElRO00vC00TrZ4aozwjmtZ37MvauAgmYgH5GiljUIzhoPxS6V65RSHucVK9IdMdsCOF5LlGqPPGe3i4VhPsbYZcDXwl9M7ac3/fy8QOoh5nCodtqeeGv1DQO+zEObMGws/U2J7l2apGjx7lYNXhcDFkS8IHhEF1bQKAnXTtt8f5FmtQ41ZWeEW98Sc5qrORRQTbv33jD+JzgweLGnK+7mQdwuDbUoWhOVb1lLWQeuEyjhsXaUu8mH8jRvlgLbLWc8cuncJMnwUr0iw4g1qFY4RxPvKgGbp4CwTgsk5xKrg9aOEWQyjzM8bP5lz2OnPentr2PjQKPxqiYrgbYo48kTrXYgXrZjvXYP4KsIcJQQ/q35c2/+kr2x193GqOv3jLyMiUNxgUqFZD7h9xZ8FWgl9BSkRkPpDrS9OskTFIvcns="
-    on_success: change
-    on_failure: always
