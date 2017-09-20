@@ -17,6 +17,21 @@ All notable changes to this project will be documented in this file, in reverse 
   still be identified and used to inject he `HydratorPluginManager`. However, we
   recommend updating your `Module` classes to use the new interface instead.
 
+- [#44](https://github.com/zendframework/zend-hydrator/pull/44) adds
+  `Zend\Hydrator\Strategy\CollectionStrategy`. This class allows you to provide
+  a single hydrator to use with an array of objects or data that represent the
+  same type.
+
+  From the patch, if the "users" property of an object you will hydrate is
+  expected to be an array of items of a type `User`, you could do the following:
+
+  ```php
+  $hydrator->addStrategy('users', new CollectionStrategy(
+      new ReflectionHydrator(),
+      User::class
+  ));
+  ```
+
 ### Changed
 
 - [#44](https://github.com/zendframework/zend-hydrator/pull/44) updates the
