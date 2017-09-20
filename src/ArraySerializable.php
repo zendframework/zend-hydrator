@@ -68,6 +68,10 @@ class ArraySerializable extends AbstractHydrator
         }
 
         if (is_callable([$object, 'exchangeArray'])) {
+            if(is_callable([$object, 'getArrayCopy'])) {
+                $original = $object->getArrayCopy($object);
+                $replacement = array_merge($original, $replacement);
+            }
             $object->exchangeArray($replacement);
         } elseif (is_callable([$object, 'populate'])) {
             $object->populate($replacement);

@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Exception\BadMethodCallException;
 use Zend\Hydrator\ArraySerializable;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
+use ZendTest\Hydrator\TestAsset\ArraySerializableNoGetArrayCopy as ArraySerializableAssetNoGetArrayCopy;
 
 /**
  * Unit tests for {@see ArraySerializable}
@@ -92,5 +93,42 @@ class ArraySerializableTest extends TestCase
         $object = $this->hydrator->hydrate($data, new ArraySerializableAsset());
 
         $this->assertSame($data, $object->getArrayCopy());
+    }
+
+    /**
+     * Verifies that when an object already has properties,
+     * these properties are preserved when it's hydrated with new data
+     * existing properties should get overwritten
+     */
+    public function testWillPreserveOriginalPropsAtHydration()
+    {
+        $original = new ArraySerializableAsset();
+
+        $data = [
+            'bar' => 'foo1'
+        ];
+
+        $expected = array_merge($original->getArrayCopy(), $data);
+
+        $actual = $this->hydrator->hydrate($data, $original);
+
+        $this->assertSame($expected, $actual->getArrayCopy());
+    }
+
+    /**
+     * To preserve backwards compatibility, if getArrayCopy() is not implemented
+     * by the to-be hydrated object, simply exchange the array
+     */
+    public function testWillReplaceArrayIfNoGetArrayCopy() {
+        $original = new ArraySerializableAssetNoGetArrayCopy();
+
+        $data = [
+            'bar' => 'foo1'
+        ];
+
+        $expected = $data;
+
+        $actual = $this->hydrator->hydrate($data, $original);
+        $this->assertSame($expected, $actual->getData());
     }
 }
