@@ -14,7 +14,6 @@ use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Exception\BadMethodCallException;
 use Zend\Hydrator\ArraySerializable;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
-use ZendTest\Hydrator\TestAsset\ArraySerializableNoGetArrayCopy as ArraySerializableAssetNoGetArrayCopy;
 
 /**
  * Unit tests for {@see ArraySerializable}
@@ -121,10 +120,10 @@ class ArraySerializableTest extends TestCase
      */
     public function testWillReplaceArrayIfNoGetArrayCopy()
     {
-        $original = new ArraySerializableAssetNoGetArrayCopy();
+        $original = new \ZendTest\Hydrator\TestAsset\ArraySerializableNoGetArrayCopy();
 
         $data = [
-            'bar' => 'foo1'
+                'bar' => 'foo1'
         ];
 
         $expected = $data;
