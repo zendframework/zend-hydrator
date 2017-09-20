@@ -26,6 +26,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
+### Changed
+
+- Nothing.
+
 ### Deprecated
 
 - Nothing.
@@ -36,7 +40,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#65](https://github.com/zendframework/zend-hydrator/pull/65) fixes the
+  hydration behavior of the `ArraySerializable` hydrator when using
+  `exchangeArray()`. Previously, the method would clear any existing values from
+  the instance, which is problematic when a partial update is provided as values
+  not in the update would disappear. The class now pulls the original values,
+  and recursively merges the replacement with those values.
 
 ## 2.2.2 - 2017-05-17
 
