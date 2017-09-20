@@ -237,7 +237,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
                 $setterName = 'set' . ucfirst($this->hydrateName($property, $data));
 
                 $this->hydrationMethodsCache[$propertyFqn] = is_callable([$object, $setterName])
-                    && (!$this->methodExistsCheck || method_exists($object, $setterName))
+                    && (! $this->methodExistsCheck || method_exists($object, $setterName))
                     ? $setterName
                     : false;
             }
