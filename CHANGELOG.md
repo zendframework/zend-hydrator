@@ -17,6 +17,17 @@ All notable changes to this project will be documented in this file, in reverse 
   still be identified and used to inject he `HydratorPluginManager`. However, we
   recommend updating your `Module` classes to use the new interface instead.
 
+### Changed
+
+- [#44](https://github.com/zendframework/zend-hydrator/pull/44) updates the
+  `ClassMethods` hydrator to add a second, optional, boolean argument to the
+  constructor, `$methodExistsCheck`, and a related method
+  `setMethodExistsCheck()`. These allow you to specify a flag indicating whether
+  or not the name of a property must directly map to a _defined_ method, versus
+  one that may be called via `__call()`. The default value of the flag is
+  `false`, which retains the previous behavior of not checking if the method is
+  defined. Set the flag to `true` to make the check more strict.
+
 ### Deprecated
 
 - Nothing.
