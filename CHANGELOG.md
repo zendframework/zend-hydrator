@@ -2,6 +2,62 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.3.0 - TBD
+
+### Added
+
+- [#27](https://github.com/zendframework/zend-hydrator/pull/27) adds the
+  interface `Zend\Hydrator\HydratorProviderInterface` for use with the
+  zend-modulemanager `ServiceListener` implementation, and updates the
+  `HydratorManager` definition for the `ServiceListener` to typehint on this new
+  interface instead of the one provided in zend-modulemanager.
+
+  Users implementing the zend-modulemanager `Zend\ModuleManger\Feature\HydratorProviderInterface`
+  will be unaffected, as the method it defines, `getHydratorConfig()`, will
+  still be identified and used to inject he `HydratorPluginManager`. However, we
+  recommend updating your `Module` classes to use the new interface instead.
+
+- [#44](https://github.com/zendframework/zend-hydrator/pull/44) adds
+  `Zend\Hydrator\Strategy\CollectionStrategy`. This class allows you to provide
+  a single hydrator to use with an array of objects or data that represent the
+  same type.
+
+  From the patch, if the "users" property of an object you will hydrate is
+  expected to be an array of items of a type `User`, you could do the following:
+
+  ```php
+  $hydrator->addStrategy('users', new CollectionStrategy(
+      new ReflectionHydrator(),
+      User::class
+  ));
+  ```
+
+- [#63](https://github.com/zendframework/zend-hydrator/pull/63) adds support for
+  PHP 7.2.
+
+### Changed
+
+- [#44](https://github.com/zendframework/zend-hydrator/pull/44) updates the
+  `ClassMethods` hydrator to add a second, optional, boolean argument to the
+  constructor, `$methodExistsCheck`, and a related method
+  `setMethodExistsCheck()`. These allow you to specify a flag indicating whether
+  or not the name of a property must directly map to a _defined_ method, versus
+  one that may be called via `__call()`. The default value of the flag is
+  `false`, which retains the previous behavior of not checking if the method is
+  defined. Set the flag to `true` to make the check more strict.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#63](https://github.com/zendframework/zend-hydrator/pull/63) removes support for HHVM.
+
+### Fixed
+
+- Nothing.
+
 ## 2.2.3 - 2017-09-20
 
 ### Added

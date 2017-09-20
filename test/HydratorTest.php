@@ -486,4 +486,14 @@ class HydratorTest extends TestCase
 
         $this->assertEquals($data['foo'], 'bar');
     }
+
+    public function testHydratorClassMethodsWithMagicMethodSetterAndMethodExistsCheck()
+    {
+        $hydrator = new ClassMethods(false, true);
+        $object = new ClassMethodsMagicMethodSetter();
+        $hydrator->hydrate(['foo' => 'bar'], $object);
+        $data = $hydrator->extract($object);
+
+        $this->assertNull($data['foo']);
+    }
 }
