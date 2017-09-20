@@ -1,14 +1,13 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
 namespace Zend\Hydrator\Strategy;
 
+use ReflectionClass;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\Exception;
 
@@ -32,11 +31,11 @@ class CollectionStrategy implements StrategyInterface
      */
     public function __construct(HydratorInterface $objectHydrator, $objectClassName)
     {
-        if (!\is_string($objectClassName) || !\class_exists($objectClassName)) {
-            throw new Exception\InvalidArgumentException(\sprintf(
-               'Object class name needs to the name of an existing class, got "%s" instead.',
-               \is_object($objectClassName) ? \get_class($objectClassName) : \gettype($objectClassName)
-           ));
+        if (! is_string($objectClassName) || ! class_exists($objectClassName)) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Object class name needs to the name of an existing class, got "%s" instead.',
+                is_object($objectClassName) ? get_class($objectClassName) : gettype($objectClassName)
+            ));
         }
 
         $this->objectHydrator = $objectHydrator;
@@ -52,19 +51,19 @@ class CollectionStrategy implements StrategyInterface
      */
     public function extract($value)
     {
-        if (!\is_array($value)) {
-            throw new Exception\InvalidArgumentException(\sprintf(
-               'Value needs to be an array, got "%s" instead.',
-               \is_object($value) ? \get_class($value) : \gettype($value)
+        if (! is_array($value)) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Value needs to be an array, got "%s" instead.',
+                is_object($value) ? get_class($value) : gettype($value)
             ));
         }
 
-        return \array_map(function ($object) {
-            if (!$object instanceof $this->objectClassName) {
+        return array_map(function ($object) {
+            if (! $object instanceof $this->objectClassName) {
                 throw new Exception\InvalidArgumentException(sprintf(
-                   'Value needs to be an instance of "%s", got "%s" instead.',
-                   $this->objectClassName,
-                   \is_object($object) ? \get_class($object) : \gettype($object)
+                    'Value needs to be an instance of "%s", got "%s" instead.',
+                    $this->objectClassName,
+                    is_object($object) ? get_class($object) : gettype($object)
                 ));
             }
 
@@ -81,16 +80,16 @@ class CollectionStrategy implements StrategyInterface
      */
     public function hydrate($value)
     {
-        if (!\is_array($value)) {
+        if (! is_array($value)) {
             throw new Exception\InvalidArgumentException(sprintf(
-               'Value needs to be an array, got "%s" instead.',
-               \is_object($value) ? \get_class($value) : \gettype($value)
+                'Value needs to be an array, got "%s" instead.',
+                is_object($value) ? get_class($value) : gettype($value)
             ));
         }
 
-        $reflection = new \ReflectionClass($this->objectClassName);
+        $reflection = new ReflectionClass($this->objectClassName);
 
-        return \array_map(function ($data) use ($reflection) {
+        return array_map(function ($data) use ($reflection) {
             return $this->objectHydrator->hydrate(
                 $data,
                 $reflection->newInstanceWithoutConstructor()

@@ -1,16 +1,17 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
 namespace ZendTest\Hydrator\Strategy;
 
-use Zend\Hydrator\HydratorInterface;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use stdClass;
 use Zend\Hydrator\Exception;
+use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\Reflection;
 use Zend\Hydrator\Strategy\CollectionStrategy;
 use Zend\Hydrator\Strategy\StrategyInterface;
@@ -21,13 +22,13 @@ use ZendTest\Hydrator\TestAsset;
  *
  * @covers \Zend\Hydrator\Strategy\CollectionStrategy
  */
-class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
+class CollectionStrategyTest extends TestCase
 {
     public function testImplementsStrategyInterface()
     {
-        $reflection = new \ReflectionClass(CollectionStrategy::class);
+        $reflection = new ReflectionClass(CollectionStrategy::class);
 
-        $this->assertTrue($reflection->implementsInterface(StrategyInterface::class), \sprintf(
+        $this->assertTrue($reflection->implementsInterface(StrategyInterface::class), sprintf(
             'Failed to assert that "%s" implements "%s"',
             CollectionStrategy::class,
             StrategyInterface::class
@@ -41,14 +42,15 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorRejectsInvalidObjectClassName($objectClassName)
     {
-        $this->setExpectedException(Exception\InvalidArgumentException::class, \sprintf(
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage(sprintf(
             'Object class name needs to the name of an existing class, got "%s" instead.',
-            \is_object($objectClassName) ? \get_class($objectClassName) : \gettype($objectClassName)
+            is_object($objectClassName) ? get_class($objectClassName) : gettype($objectClassName)
         ));
 
         new CollectionStrategy(
             $this->createHydratorMock(),
-           $objectClassName
+            $objectClassName
         );
     }
 
@@ -58,21 +60,19 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
     public function providerInvalidObjectClassName()
     {
         $values = [
-            'array' => [],
-            'boolean-false' => false,
-            'boolean-true' => true,
-            'float' => \mt_rand() / \mt_getrandmax(),
-            'integer' => \mt_rand(),
-            'null' => null,
-            'object' => new \stdClass(),
-            'resource' => \fopen(__FILE__, 'r'),
+            'array'                     => [],
+            'boolean-false'             => false,
+            'boolean-true'              => true,
+            'float'                     => mt_rand() / mt_getrandmax(),
+            'integer'                   => mt_rand(),
+            'null'                      => null,
+            'object'                    => new stdClass(),
+            'resource'                  => fopen(__FILE__, 'r'),
             'string-non-existent-class' => 'FooBarBaz9000',
         ];
 
         foreach ($values as $key => $value) {
-            yield $key => [
-                $value,
-            ];
+            yield $key => [$value];
         }
     }
 
@@ -88,9 +88,10 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
             TestAsset\User::class
         );
 
-        $this->setExpectedException(Exception\InvalidArgumentException::class, \sprintf(
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage(sprintf(
             'Value needs to be an array, got "%s" instead.',
-            \is_object($value) ? \get_class($value) : \gettype($value)
+            is_object($value) ? get_class($value) : gettype($value)
         ));
 
         $strategy->extract($value);
@@ -102,20 +103,18 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
     public function providerInvalidValueForExtraction()
     {
         $values = [
-            'boolean-false' => false,
-            'boolean-true' => true,
-            'float' => \mt_rand() / \mt_getrandmax(),
-            'integer' => \mt_rand(),
-            'null' => null,
-            'object' => new \stdClass(),
-            'resource' => \fopen(__FILE__, 'r'),
+            'boolean-false'             => false,
+            'boolean-true'              => true,
+            'float'                     => mt_rand() / mt_getrandmax(),
+            'integer'                   => mt_rand(),
+            'null'                      => null,
+            'object'                    => new stdClass(),
+            'resource'                  => fopen(__FILE__, 'r'),
             'string-non-existent-class' => 'FooBarBaz9000',
         ];
 
         foreach ($values as $key => $value) {
-            yield $key => [
-                $value,
-            ];
+            yield $key => [$value];
         }
     }
 
@@ -126,19 +125,18 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
      */
     public function testExtractRejectsInvalidObject($object)
     {
-        $value = [
-            $object,
-        ];
+        $value = [$object];
 
         $strategy = new CollectionStrategy(
             $this->createHydratorMock(),
             TestAsset\User::class
         );
 
-        $this->setExpectedException(Exception\InvalidArgumentException::class, \sprintf(
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage(sprintf(
             'Value needs to be an instance of "%s", got "%s" instead.',
             TestAsset\User::class,
-            \is_object($object) ? \get_class($object) : \gettype($object)
+            is_object($object) ? get_class($object) : gettype($object)
         ));
 
         $strategy->extract($value);
@@ -150,20 +148,18 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
     public function providerInvalidObjectForExtraction()
     {
         $values = [
-            'boolean-false' => false,
-            'boolean-true' => true,
-            'float' => \mt_rand() / \mt_getrandmax(),
-            'integer' => \mt_rand(),
-            'null' => null,
-            'object-but-not-instance-of-object-class' => new \stdClass(),
-            'resource' => \fopen(__FILE__, 'r'),
-            'string-non-existent-class' => 'FooBarBaz9000',
+            'boolean-false'                           => false,
+            'boolean-true'                            => true,
+            'float'                                   => mt_rand() / mt_getrandmax(),
+            'integer'                                 => mt_rand(),
+            'null'                                    => null,
+            'object-but-not-instance-of-object-class' => new stdClass(),
+            'resource'                                => fopen(__FILE__, 'r'),
+            'string-non-existent-class'               => 'FooBarBaz9000',
         ];
 
         foreach ($values as $key => $value) {
-            yield $key => [
-                $value,
-            ];
+            yield $key => [$value];
         }
     }
 
@@ -176,13 +172,13 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
         ];
 
         $extraction = function (TestAsset\User $value) {
-            return \spl_object_hash($value);
+            return spl_object_hash($value);
         };
 
         $hydrator = $this->createHydratorMock();
 
         $hydrator
-            ->expects($this->exactly(\count($value)))
+            ->expects($this->exactly(count($value)))
             ->method('extract')
             ->willReturnCallback($extraction);
 
@@ -191,10 +187,7 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
             TestAsset\User::class
         );
 
-        $expected = \array_map(
-            $extraction,
-            $value
-        );
+        $expected = array_map($extraction, $value);
 
         $this->assertSame($expected, $strategy->extract($value));
     }
@@ -211,9 +204,10 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
             TestAsset\User::class
         );
 
-        $this->setExpectedException(Exception\InvalidArgumentException::class, \sprintf(
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage(sprintf(
             'Value needs to be an array, got "%s" instead.',
-            \is_object($value) ? \get_class($value) : \gettype($value)
+            is_object($value) ? get_class($value) : gettype($value)
         ));
 
         $strategy->hydrate($value);
@@ -225,32 +219,26 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
     public function providerInvalidValueForHydration()
     {
         $values = [
-            'boolean-false' => false,
-            'boolean-true' => true,
-            'float' => \mt_rand() / \mt_getrandmax(),
-            'integer' => \mt_rand(),
-            'null' => null,
-            'object' => new \stdClass(),
-            'resource' => \fopen(__FILE__, 'r'),
+            'boolean-false'             => false,
+            'boolean-true'              => true,
+            'float'                     => mt_rand() / mt_getrandmax(),
+            'integer'                   => mt_rand(),
+            'null'                      => null,
+            'object'                    => new stdClass(),
+            'resource'                  => fopen(__FILE__, 'r'),
             'string-non-existent-class' => 'FooBarBaz9000',
         ];
 
         foreach ($values as $key => $value) {
-            yield $key => [
-                $value,
-            ];
+            yield $key => [$value];
         }
     }
 
     public function testHydrateUsesHydratorToHydrateValues()
     {
         $value = [
-            [
-                'name' => 'Suzie Q.',
-            ],
-            [
-                'name' => 'John Doe',
-            ],
+            ['name' => 'Suzie Q.'],
+            ['name' => 'John Doe'],
         ];
 
         $hydration = function ($data) {
@@ -269,7 +257,7 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
         $hydrator = $this->createHydratorMock();
 
         $hydrator
-            ->expects($this->exactly(\count($value)))
+            ->expects($this->exactly(count($value)))
             ->method('hydrate')
             ->willReturnCallback($hydration);
 
@@ -278,10 +266,7 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
             TestAsset\User::class
         );
 
-        $expected = \array_map(
-            $hydration,
-            $value
-        );
+        $expected = array_map($hydration, $value);
 
         $this->assertEquals($expected, $strategy->hydrate($value));
     }
@@ -291,6 +276,6 @@ class CollectionStrategyTest extends \PHPUnit_Framework_TestCase
      */
     private function createHydratorMock()
     {
-        return $this->getMock(HydratorInterface::class);
+        return $this->createMock(HydratorInterface::class);
     }
 }
