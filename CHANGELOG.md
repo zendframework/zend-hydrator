@@ -6,7 +6,16 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#27](https://github.com/zendframework/zend-hydrator/pull/27) adds the
+  interface `Zend\Hydrator\HydratorProviderInterface` for use with the
+  zend-modulemanager `ServiceListener` implementation, and updates the
+  `HydratorManager` definition for the `ServiceListener` to typehint on this new
+  interface instead of the one provided in zend-modulemanager.
+
+  Users implementing the zend-modulemanager `Zend\ModuleManger\Feature\HydratorProviderInterface`
+  will be unaffected, as the method it defines, `getHydratorConfig()`, will
+  still be identified and used to inject he `HydratorPluginManager`. However, we
+  recommend updating your `Module` classes to use the new interface instead.
 
 ### Deprecated
 
