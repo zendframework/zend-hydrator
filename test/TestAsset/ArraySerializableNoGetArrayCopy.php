@@ -37,7 +37,8 @@ class ArraySerializableNoGetArrayCopy
     /**
      * Returns the internal data
      */
-    public function getData() {
+    public function getData()
+    {
         return $this->data;
     }
 }

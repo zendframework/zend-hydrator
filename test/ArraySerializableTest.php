@@ -119,7 +119,8 @@ class ArraySerializableTest extends TestCase
      * To preserve backwards compatibility, if getArrayCopy() is not implemented
      * by the to-be hydrated object, simply exchange the array
      */
-    public function testWillReplaceArrayIfNoGetArrayCopy() {
+    public function testWillReplaceArrayIfNoGetArrayCopy()
+    {
         $original = new ArraySerializableAssetNoGetArrayCopy();
 
         $data = [
