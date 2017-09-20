@@ -55,6 +55,8 @@ final class ExplodeStrategy implements StrategyInterface
         }
 
         $this->valueDelimiter = $delimiter;
+
+        return $this;
     }
 
     /**
