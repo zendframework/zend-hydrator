@@ -32,6 +32,9 @@ All notable changes to this project will be documented in this file, in reverse 
   ));
   ```
 
+- [#63](https://github.com/zendframework/zend-hydrator/pull/63) adds support for
+  PHP 7.2.
+
 ### Changed
 
 - [#44](https://github.com/zendframework/zend-hydrator/pull/44) updates the
@@ -49,7 +52,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#63](https://github.com/zendframework/zend-hydrator/pull/63) removes support for HHVM.
 
 ### Fixed
 
