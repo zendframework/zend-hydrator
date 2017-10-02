@@ -98,6 +98,8 @@ class ArraySerializableTest extends TestCase
      * Verifies that when an object already has properties,
      * these properties are preserved when it's hydrated with new data
      * existing properties should get overwritten
+     *
+     * @group 65
      */
     public function testWillPreserveOriginalPropsAtHydration()
     {
@@ -117,6 +119,8 @@ class ArraySerializableTest extends TestCase
     /**
      * To preserve backwards compatibility, if getArrayCopy() is not implemented
      * by the to-be hydrated object, simply exchange the array
+     *
+     * @group 65
      */
     public function testWillReplaceArrayIfNoGetArrayCopy()
     {
@@ -130,5 +134,43 @@ class ArraySerializableTest extends TestCase
 
         $actual = $this->hydrator->hydrate($data, $original);
         $this->assertSame($expected, $actual->getData());
+    }
+
+    public function arrayDataProvider()
+    {
+        // @codingStandardsIgnoreStart
+        return [
+            //               [ existing data,  submitted data,                   expected ]
+            'empty'       => [['what-exists'], [],                               []],
+            'replacement' => [['what-exists'], ['zend-hydrator', 'zend-stdlib'], ['zend-hydrator', 'zend-stdlib']],
+            'partial'     => [['what-exists'], ['what-exists', 'zend-hydrator'], ['what-exists', 'zend-hydrator']],
+        ];
+        // @codingStandardsIgnoreEnd
+    }
+
+    /**
+     * #65 ensures that hydration will merge data into the existing object.
+     * However, #66 notes that there's an issue with this when it comes to data
+     * representing arrays: if the original array had data, but the submitted
+     * one _removes_ data, then no change occurs. Ideally, in these cases, the
+     * submitted value should _replace_ the original.
+     *
+     * @group 66
+     * @dataProvider arrayDataProvider
+     */
+    public function testHydrationWillReplaceNestedArrayData($start, $submit, $expected)
+    {
+        $original = new ArraySerializableAsset();
+        $original->exchangeArray([
+            'tags' => $start,
+        ]);
+
+        $data = ['tags' => $submit];
+
+        $actual = $this->hydrator->hydrate($data, $original);
+
+        $final = $original->getArrayCopy();
+
+        $this->assertSame($expected, $final['tags']);
     }
 }
