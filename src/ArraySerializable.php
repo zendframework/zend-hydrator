@@ -9,8 +9,6 @@
 
 namespace Zend\Hydrator;
 
-use Zend\Stdlib\ArrayUtils;
-
 class ArraySerializable extends AbstractHydrator
 {
     /**
@@ -74,7 +72,7 @@ class ArraySerializable extends AbstractHydrator
             // remain following population.
             if (is_callable([$object, 'getArrayCopy'])) {
                 $original = $object->getArrayCopy($object);
-                $replacement = ArrayUtils::merge($original, $replacement);
+                $replacement = array_merge($original, $replacement);
             }
             $object->exchangeArray($replacement);
             return $object;
