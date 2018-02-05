@@ -132,6 +132,14 @@ class DateTimeFormatterStrategyTest extends TestCase
         $this->assertEquals($expectedValue, $extracted);
     }
 
+    public function testCanExtractWithCreateFromFormatEscapedSpecialCharacters()
+    {
+        $date = DateTime::createFromFormat('Y-m-d', '2018-02-05');
+        $strategy = new DateTimeFormatterStrategy('Y-m-d\\+');
+        $extracted = $strategy->extract($date);
+        $this->assertEquals('2018-02-05+', $extracted);
+    }
+
     public function formatsWithSpecialCharactersProvider()
     {
         return [

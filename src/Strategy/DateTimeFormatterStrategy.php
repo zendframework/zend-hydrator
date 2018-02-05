@@ -49,7 +49,8 @@ final class DateTimeFormatterStrategy implements StrategyInterface
     public function extract($value)
     {
         if ($value instanceof DateTimeInterface) {
-            return $value->format($this->format);
+            $extractionFormat = preg_replace('/(?<![\\\\])[+|!\*]/', '', $this->format);
+            return $value->format($extractionFormat);
         }
 
         return $value;
