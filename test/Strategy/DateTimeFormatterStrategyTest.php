@@ -9,6 +9,7 @@
 
 namespace ZendTest\Hydrator\Strategy;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
@@ -70,5 +71,32 @@ class DateTimeFormatterStrategyTest extends TestCase
 
         $this->assertEquals('26/04/2014', $strategy->extract(new \DateTime('2014-04-26')));
         $this->assertEquals('26/04/2015', $strategy->extract(new \DateTime('2015-04-26')));
+    }
+
+    public function testCanExtractAnyDateTimeInterface()
+    {
+        $dateMock = $this
+            ->getMockBuilder(DateTime::class)
+            ->getMock();
+
+        $format = 'Y-m-d';
+        $dateMock
+            ->expects($this->once())
+            ->method('format')
+            ->with($format);
+
+        $dateImmutableMock = $this
+            ->getMockBuilder(DateTime::class)
+            ->getMock();
+
+        $dateImmutableMock
+            ->expects($this->once())
+            ->method('format')
+            ->with($format);
+
+        $strategy = new DateTimeFormatterStrategy($format);
+
+        $strategy->extract($dateMock);
+        $strategy->extract($dateImmutableMock);
     }
 }
