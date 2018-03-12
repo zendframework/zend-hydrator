@@ -10,6 +10,7 @@
 namespace ZendTest\Hydrator\Strategy;
 
 use DateTime;
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
@@ -86,7 +87,7 @@ class DateTimeFormatterStrategyTest extends TestCase
             ->with($format);
 
         $dateImmutableMock = $this
-            ->getMockBuilder(DateTime::class)
+            ->getMockBuilder(DateTimeImmutable::class)
             ->getMock();
 
         $dateImmutableMock
