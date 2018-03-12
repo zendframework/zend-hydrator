@@ -10,6 +10,7 @@
 namespace Zend\Hydrator\Strategy;
 
 use DateTime;
+use DateTimeInterface;
 use DateTimeZone;
 
 final class DateTimeFormatterStrategy implements StrategyInterface
@@ -47,7 +48,7 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      */
     public function extract($value)
     {
-        if ($value instanceof DateTime) {
+        if ($value instanceof DateTimeInterface) {
             return $value->format($this->format);
         }
 
