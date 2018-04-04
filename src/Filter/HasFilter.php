@@ -20,9 +20,6 @@ class HasFilter implements FilterInterface
             $pos = 0;
         }
 
-        if (substr($property, $pos, 3) === 'has') {
-            return true;
-        }
-        return false;
+        return substr($property, $pos, 3) === 'has';
     }
 }
