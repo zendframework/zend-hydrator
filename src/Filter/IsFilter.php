@@ -20,9 +20,6 @@ class IsFilter implements FilterInterface
             $pos = 0;
         }
 
-        if (substr($property, $pos, 2) === 'is') {
-            return true;
-        }
-        return false;
+        return substr($property, $pos, 2) === 'is';
     }
 }
