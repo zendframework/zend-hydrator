@@ -1,7 +1,7 @@
 # zend-hydrator
 
 [![Build Status](https://secure.travis-ci.org/zendframework/zend-hydrator.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-hydrator)
-[![Coverage Status](https://coveralls.io/repos/zendframework/zend-hydrator/badge.svg?branch=master)](https://coveralls.io/r/zendframework/zend-hydrator?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-hydrator/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-hydrator?branch=master)
 
 `Zend\Hydrator` provides utilities for mapping arrays to objects, and vice
 versa, including facilities for filtering which data is mapped as well as
