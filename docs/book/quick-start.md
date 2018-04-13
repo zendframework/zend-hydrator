@@ -104,7 +104,7 @@ $hydrators->setService('Artist', $artistHydrator);
 // Create the DelegatingHydrator and tell it to use our configured hydrator locator
 $delegating = new Zend\Hydrator\DelegatingHydrator($hydrators);
 
-// Now we can use $delegating to hydrate or extract any supported object    
+// Now we can use $delegating to hydrate or extract any supported object
 $array = $delegating->extract(new Artist);
 $artist = $delegating->hydrate($data, new Artist);
 ```

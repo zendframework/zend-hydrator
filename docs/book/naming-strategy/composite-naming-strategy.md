@@ -35,7 +35,7 @@ $foo->bar = 123;
 $foo->barBat = 42;
 
 print_r($foo); // Foo Object ( [bar] => 123 [barBat] => 42 )
-print_r($hydrator->extract($foo)); // Array ( [foo] => 123 [bar_bat] => 42 ) 
+print_r($hydrator->extract($foo)); // Array ( [foo] => 123 [bar_bat] => 42 )
 ```
 
 Unfortunately, the `CompositeNamingStrategy` can only be used for extraction as it will not know how
@@ -74,7 +74,7 @@ $foo->barBat = 42;
 $array = $hydrator->extract($foo);
 
 print_r($foo); // Foo Object ( [bar] => 123 [barBat] => 42 )
-print_r($array); // Array ( [foo] => 123 [bar_bat] => 42 ) 
+print_r($array); // Array ( [foo] => 123 [bar_bat] => 42 )
 
 $foo2 = new Foo();
 $hydrator->hydrate($array, $foo2);

@@ -98,7 +98,7 @@ This is a strategy that allows you to pass in options for:
 - `hydrate`, a callback to be called when hydrating a value, and
 - `extract`, a callback to be called when extracting a value.
 
-### Zend\\Hydrator\\Strategy\\DateTimeFormatterStrategy 
+### Zend\\Hydrator\\Strategy\\DateTimeFormatterStrategy
 
 `DateTimeFormatterStrategy` provides bidirectional conversion between strings
 and DateTime instances. The input and output formats can be provided as
@@ -109,7 +109,7 @@ constructor arguments.
 The `DefaultStrategy` simply proxies everything through, without performing any
 conversion of values.
 
-### Zend\\Hydrator\\Strategy\\ExplodeStrategy 
+### Zend\\Hydrator\\Strategy\\ExplodeStrategy
 
 This strategy is a wrapper around PHP's `implode()` and `explode()` functions.
 The delimiter and a limit can be provided to the constructor; the limit will
@@ -123,7 +123,7 @@ for `Zend\Serializer\Adapter\AdapterInterface` if you want to as well.
 
 ### Zend\\Hydrator\\Strategy\\StrategyChain
 
-This strategy takes an array of `StrategyInterface` instances and iterates 
+This strategy takes an array of `StrategyInterface` instances and iterates
 over them when performing `extract()` and `hydrate()` operations. Each operates
 on the return value of the previous, allowing complex operations based on
 smaller, single-purpose strategies.
