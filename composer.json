@@ -51,8 +51,8 @@
         "branch-alias": {
             "dev-release-1.0": "1.0.x-dev",
             "dev-release-1.1": "1.1.x-dev",
-            "dev-master": "2.3.x-dev",
-            "dev-develop": "2.4.x-dev"
+            "dev-master": "2.4.x-dev",
+            "dev-develop": "2.5.x-dev"
         },
         "zf": {
             "component": "Zend\\Hydrator",
