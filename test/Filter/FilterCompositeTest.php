@@ -62,34 +62,34 @@ class FilterCompositeTest extends TestCase
             [
                 ['foo' => 'bar'],
                 [],
-                'exception' => true
+                'exception' => true,
             ],
             [
                 [],
                 ['bar' => 'foo'],
-                'exception' => true
+                'exception' => true,
             ],
             [
                 ['foo' => ''],
                 ['bar' => ''],
-                'exception' => true
+                'exception' => true,
             ],
             [
-                ['foo' => new HasFilter],
-                ['bar' => new GetFilter],
-                'exception' => false
+                ['foo' => new HasFilter()],
+                ['bar' => new GetFilter()],
+                'exception' => false,
             ],
             [
                 [
-                    'foo1' => new HasFilter,
-                    'foo2' => new IsFilter,
+                    'foo1' => new HasFilter(),
+                    'foo2' => new IsFilter(),
                 ],
                 [
-                    'bar1' => new GetFilter,
-                    'bar2' => new NumberOfParameterFilter,
+                    'bar1' => new GetFilter(),
+                    'bar2' => new NumberOfParameterFilter(),
                 ],
-                'exception' => false
-            ]
+                'exception' => false,
+            ],
         ];
     }
 }
