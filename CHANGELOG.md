@@ -6,29 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
-## 2.3.2 - TBD
-
-### Added
-
-- Nothing.
+- [#70](https://github.com/zendframework/zend-hydrator/pull/70) updates the `DateTiemFormatterStrategy` to work with any `DateTimeInterface`,
+  and not just `DateTime`.
 
 ### Changed
 
