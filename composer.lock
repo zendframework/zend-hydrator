@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e8a90b90dd71dc4a5ef7e2afd7727af",
+    "content-hash": "a815a8d341a8df490f33547a951fd588",
     "packages": [
         {
             "name": "zendframework/zend-stdlib",
