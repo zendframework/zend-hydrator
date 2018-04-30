@@ -2,15 +2,17 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.3.2 - TBD
+## 2.4.0 - TBD
 
 ### Added
 
-- Nothing.
+- [#70](https://github.com/zendframework/zend-hydrator/pull/70) updates the `DateTimeFormatterStrategy` to work with any `DateTimeInterface`,
+  and not just `DateTime`.
 
 ### Changed
 
-- Nothing.
+- [#75](https://github.com/zendframework/zend-hydrator/pull/75) ensures continuous integration _requires_ PHP 7.2 tests to pass;
+  they already were.
 
 ### Deprecated
 
