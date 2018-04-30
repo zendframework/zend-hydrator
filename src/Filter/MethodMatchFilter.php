@@ -41,6 +41,7 @@ class MethodMatchFilter implements FilterInterface
         } else {
             $pos = 0;
         }
+
         if (substr($property, $pos) === $this->method) {
             return ! $this->exclude;
         }
