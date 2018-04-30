@@ -299,6 +299,6 @@ $extractedArray = $hydrator->extract(new Foo());
 excluded from extraction.
 
 > ### Note
-> 
+>
 > All pre-registered filters from the `ClassMethods` hydrator are ignored when
 > this interface is used.
