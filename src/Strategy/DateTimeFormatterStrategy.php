@@ -26,6 +26,11 @@ final class DateTimeFormatterStrategy implements StrategyInterface
     private $timezone;
 
     /**
+     * @var string
+     */
+    private $extractionFormat;
+
+    /**
      * Constructor
      *
      * @param string            $format
@@ -33,8 +38,9 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      */
     public function __construct($format = DateTime::RFC3339, DateTimeZone $timezone = null)
     {
-        $this->format   = (string) $format;
+        $this->format = (string) $format;
         $this->timezone = $timezone;
+        $this->extractionFormat = preg_replace('/(?<![\\\\])[+|!\*]/', '', $this->format);
     }
 
     /**
@@ -49,8 +55,7 @@ final class DateTimeFormatterStrategy implements StrategyInterface
     public function extract($value)
     {
         if ($value instanceof DateTimeInterface) {
-            $extractionFormat = preg_replace('/(?<![\\\\])[+|!\*]/', '', $this->format);
-            return $value->format($extractionFormat);
+            return $value->format($this->extractionFormat);
         }
 
         return $value;
