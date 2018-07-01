@@ -64,11 +64,10 @@ Usage involves instantiating the hydrator, and then passing information to it.
 use Zend\Hydrator;
 $hydrator = new Hydrator\ArraySerializable();
 
-$object = new ArrayObject(array());
+// To hydrate an object with an values in an array:
+$object = $hydrator->hydrate($data, new ArrayObject());
 
-$hydrator->hydrate($someData, $object);
-
-// or, if the object has data we want as an array:
+// or, going the other way and extracting the values from an object as an array:
 $data = $hydrator->extract($object);
 ```
 
