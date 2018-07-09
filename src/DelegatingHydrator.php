@@ -9,6 +9,7 @@
 
 namespace Zend\Hydrator;
 
+use ArrayAccess;
 use Interop\Container\ContainerInterface;
 
 class DelegatingHydrator implements HydratorInterface
@@ -31,8 +32,15 @@ class DelegatingHydrator implements HydratorInterface
     /**
      * {@inheritdoc}
      */
-    public function hydrate(array $data, $object)
+    public function hydrate($data, $object)
     {
+        if (! is_array($data) && ! ($data instanceof ArrayAccess)) {
+            throw new Exception\BadMethodCallException(sprintf(
+                '`%s` expects the provided `$data` to be a primitive array or an object implementing `ArrayAccess`)',
+                __METHOD__
+            ));
+        }
+
         return $this->getHydrator($object)->hydrate($data, $object);
     }
 

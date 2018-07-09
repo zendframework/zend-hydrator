@@ -9,14 +9,16 @@
 
 namespace Zend\Hydrator;
 
+use ArrayAccess;
+
 interface HydrationInterface
 {
     /**
      * Hydrate $object with the provided $data.
      *
-     * @param  array $data
+     * @param  array|ArrayAccess $data
      * @param  object $object
      * @return object
      */
-    public function hydrate(array $data, $object);
+    public function hydrate($data, $object);
 }

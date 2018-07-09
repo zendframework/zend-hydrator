@@ -9,9 +9,11 @@
 
 namespace Zend\Hydrator\Aggregate;
 
+use ArrayAccess;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
+use Zend\Hydrator\Exception;
 use Zend\Hydrator\HydratorInterface;
 
 /**
@@ -53,8 +55,15 @@ class AggregateHydrator implements HydratorInterface, EventManagerAwareInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate(array $data, $object)
+    public function hydrate($data, $object)
     {
+        if (! is_array($data) && ! ($data instanceof ArrayAccess)) {
+            throw new Exception\BadMethodCallException(sprintf(
+                '`%s` expects the provided `$data` to be a primitive array or an object implementing `ArrayAccess`)',
+                __METHOD__
+            ));
+        }
+
         $event = new HydrateEvent($this, $object, $data);
 
         $this->getEventManager()->triggerEvent($event);

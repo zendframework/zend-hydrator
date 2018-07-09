@@ -9,6 +9,7 @@
 
 namespace Zend\Hydrator;
 
+use ArrayAccess;
 use ReflectionClass;
 use ReflectionProperty;
 
@@ -67,8 +68,15 @@ class ObjectProperty extends AbstractHydrator
      *
      * @throws Exception\BadMethodCallException for a non-object $object
      */
-    public function hydrate(array $data, $object)
+    public function hydrate($data, $object)
     {
+        if (! is_array($data) && ! ($data instanceof ArrayAccess)) {
+            throw new Exception\BadMethodCallException(sprintf(
+                '`%s` expects the provided `$data` to be a primitive array or an object implementing `ArrayAccess`)',
+                __METHOD__
+            ));
+        }
+
         if (! is_object($object)) {
             throw new Exception\BadMethodCallException(
                 sprintf('%s expects the provided $object to be a PHP object)', __METHOD__)

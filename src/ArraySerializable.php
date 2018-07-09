@@ -9,6 +9,8 @@
 
 namespace Zend\Hydrator;
 
+use ArrayAccess;
+
 class ArraySerializable extends AbstractHydrator
 {
     /**
@@ -54,13 +56,20 @@ class ArraySerializable extends AbstractHydrator
      * Hydrates an object by passing $data to either its exchangeArray() or
      * populate() method.
      *
-     * @param  array $data
+     * @param  array|ArrayAccess $data
      * @param  object $object
      * @return object
      * @throws Exception\BadMethodCallException for an $object not implementing exchangeArray() or populate()
      */
-    public function hydrate(array $data, $object)
+    public function hydrate($data, $object)
     {
+        if (! is_array($data) && ! ($data instanceof ArrayAccess)) {
+            throw new Exception\BadMethodCallException(sprintf(
+                '`%s` expects the provided `$data` to be a primitive array or an object implementing `ArrayAccess`)',
+                __METHOD__
+            ));
+        }
+
         $replacement = [];
         foreach ($data as $key => $value) {
             $name = $this->hydrateName($key, $data);
