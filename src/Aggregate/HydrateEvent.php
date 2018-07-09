@@ -9,6 +9,7 @@
 
 namespace Zend\Hydrator\Aggregate;
 
+use ArrayAccess;
 use Zend\EventManager\Event;
 
 /**
@@ -30,16 +31,16 @@ class HydrateEvent extends Event
     protected $hydratedObject;
 
     /**
-     * @var array
+     * @var array|ArrayAccess
      */
     protected $hydrationData;
 
     /**
      * @param object $target
      * @param object $hydratedObject
-     * @param array  $hydrationData
+     * @param array|ArrayAccess $hydrationData
      */
-    public function __construct($target, $hydratedObject, array $hydrationData)
+    public function __construct($target, $hydratedObject, $hydrationData)
     {
         $this->target         = $target;
         $this->hydratedObject = $hydratedObject;
@@ -67,7 +68,7 @@ class HydrateEvent extends Event
     /**
      * Retrieves the data that is being used for hydration
      *
-     * @return array
+     * @return array|ArrayAccess
      */
     public function getHydrationData()
     {
@@ -75,9 +76,9 @@ class HydrateEvent extends Event
     }
 
     /**
-     * @param array $hydrationData
+     * @param array|ArrayAccess $hydrationData
      */
-    public function setHydrationData(array $hydrationData)
+    public function setHydrationData($hydrationData)
     {
         $this->hydrationData = $hydrationData;
     }

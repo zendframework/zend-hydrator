@@ -9,6 +9,7 @@
 
 namespace Zend\Hydrator;
 
+use ArrayAccess;
 use ReflectionClass;
 use ReflectionProperty;
 
@@ -45,12 +46,19 @@ class Reflection extends AbstractHydrator
     /**
      * Hydrate $object with the provided $data.
      *
-     * @param  array $data
+     * @param  array|ArrayAccess $data
      * @param  object $object
      * @return object
      */
-    public function hydrate(array $data, $object)
+    public function hydrate($data, $object)
     {
+        if (! is_array($data) && ! ($data instanceof ArrayAccess)) {
+            throw new Exception\BadMethodCallException(sprintf(
+                '`%s` expects the provided `$data` to be a primitive array or an object implementing `ArrayAccess`)',
+                __METHOD__
+            ));
+        }
+
         $reflProperties = self::getReflProperties($object);
         foreach ($data as $key => $value) {
             $name = $this->hydrateName($key, $data);

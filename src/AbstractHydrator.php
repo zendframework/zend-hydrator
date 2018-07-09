@@ -9,6 +9,7 @@
 
 namespace Zend\Hydrator;
 
+use ArrayAccess;
 use ArrayObject;
 
 abstract class AbstractHydrator implements
@@ -145,7 +146,7 @@ abstract class AbstractHydrator implements
      *
      * @param string $name The name of the strategy to use.
      * @param mixed $value The value that should be converted.
-     * @param array $data The whole data is optionally provided as context.
+     * @param array|ArrayAccess $data The whole data is optionally provided as context.
      * @return mixed
      */
     public function hydrateValue($name, $value, $data = null)
@@ -176,7 +177,7 @@ abstract class AbstractHydrator implements
      * Converts a value for hydration. If no naming strategy exists, the plain value is returned.
      *
      * @param string $name  The name to convert.
-     * @param array  $data  The whole data is optionally provided as context.
+     * @param array|ArrayAccess $data  The whole data is optionally provided as context.
      * @return mixed
      */
     public function hydrateName($name, $data = null)
