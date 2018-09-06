@@ -100,4 +100,17 @@ class DateTimeFormatterStrategyTest extends TestCase
         $strategy->extract($dateMock);
         $strategy->extract($dateImmutableMock);
     }
+
+    public function testCanHydrateWithDateTimeFallback()
+    {
+        $strategy = new DateTimeFormatterStrategy('Y-m-d', null, true);
+        $date = $strategy->hydrate('2018-09-06T12:10:30');
+
+        $this->assertSame('2018-09-06', $date->format('Y-m-d'));
+
+        $strategy = new DateTimeFormatterStrategy('Y-m-d', new \DateTimeZone('Europe/Prague'), true);
+        $date = $strategy->hydrate('2018-09-06T12:10:30');
+
+        $this->assertSame('Europe/Prague', $date->getTimezone()->getName());
+    }
 }
