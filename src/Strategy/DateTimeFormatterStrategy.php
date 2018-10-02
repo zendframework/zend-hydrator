@@ -35,7 +35,7 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      *
      * @param string            $format
      * @param DateTimeZone|null $timezone
-     * @param bool              $dateTimeFallback
+     * @param bool              $dateTimeFallback try to parse with DateTime when createFromFormat fails
      */
     public function __construct($format = DateTime::RFC3339, DateTimeZone $timezone = null, $dateTimeFallback = false)
     {
