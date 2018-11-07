@@ -104,6 +104,21 @@ This is a strategy that allows you to pass in options for:
 and DateTime instances. The input and output formats can be provided as
 constructor arguments.
 
+Constructor has third optional argument `$dateTimeFallback`.
+If enabled and createFromFormat method fails,
+given string is parsed by DateTime constructor.
+
+```php
+$strategy = new Zend\Hydrator\Strategy\DateTimeFormatterStrategy('Y-m-d H:i:s.uP');
+$hydrated1 = $strategy->hydrate('2016-03-04 10:29:40+01'); // value is not hydrated
+$hydrated2 = $strategy->hydrate('2016-03-04 10:29:40.123456+01'); // returns DateTime instance
+
+// both hydrated values are DateTime instances
+$strategy = new Zend\Hydrator\Strategy\DateTimeFormatterStrategy('Y-m-d H:i:s.uP', null, true);
+$hydrated1 = $strategy->hydrate('2016-03-04 10:29:40+01');
+$hydrated2 = $strategy->hydrate('2016-03-04 10:29:40.123456+01');
+```
+
 ### Zend\\Hydrator\\Strategy\\DefaultStrategy
 
 The `DefaultStrategy` simply proxies everything through, without performing any
