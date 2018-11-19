@@ -22,6 +22,7 @@ use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
  */
 class DateTimeFormatterStrategyTest extends TestCase
 {
+
     public function testHydrate()
     {
         $strategy = new DateTimeFormatterStrategy('Y-m-d');
@@ -99,5 +100,61 @@ class DateTimeFormatterStrategyTest extends TestCase
 
         $strategy->extract($dateMock);
         $strategy->extract($dateImmutableMock);
+    }
+
+    /**
+     * @param string $format
+     * @param string $expectedValue
+     *
+     * @dataProvider formatsWithSpecialCharactersProvider
+     */
+    public function testAcceptsCreateFromFormatSpecialCharacters($format, $expectedValue)
+    {
+        $strategy = new DateTimeFormatterStrategy($format);
+        $hydrated = $strategy->hydrate($expectedValue);
+
+        $this->assertInstanceOf(DateTime::class, $hydrated);
+        $this->assertEquals($expectedValue, $hydrated->format('Y-m-d'));
+    }
+
+    /**
+     * @param string $format
+     * @param string $expectedValue
+     *
+     * @dataProvider formatsWithSpecialCharactersProvider
+     */
+    public function testCanExtractWithCreateFromFormatSpecialCharacters($format, $expectedValue)
+    {
+        $date = DateTime::createFromFormat($format, $expectedValue);
+        $strategy = new DateTimeFormatterStrategy($format);
+        $extracted = $strategy->extract($date);
+
+        $this->assertEquals($expectedValue, $extracted);
+    }
+
+    public function testCanExtractWithCreateFromFormatEscapedSpecialCharacters()
+    {
+        $date = DateTime::createFromFormat('Y-m-d', '2018-02-05');
+        $strategy = new DateTimeFormatterStrategy('Y-m-d\\+');
+        $extracted = $strategy->extract($date);
+        $this->assertEquals('2018-02-05+', $extracted);
+    }
+
+    public function formatsWithSpecialCharactersProvider()
+    {
+        return [
+            [
+                '!Y-m-d',
+                '2018-02-05',
+            ],
+            [
+                'Y-m-d|',
+                '2018-02-05',
+            ],
+            [
+                'Y-m-d+',
+                '2018-02-05',
+            ],
+        ];
     }
 }
