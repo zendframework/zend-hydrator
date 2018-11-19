@@ -1,15 +1,15 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
 namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use stdClass;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter;
 
 /**
@@ -17,7 +17,7 @@ use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseF
  *
  * @covers Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter
  */
-class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
+class UnderscoreToCamelCaseFilterTest extends TestCase
 {
     /**
      * @dataProvider nonUnicodeProvider
@@ -64,7 +64,7 @@ class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterCamelCasesUnicodeStrings($string, $expected)
     {
-        if (!extension_loaded('mbstring')) {
+        if (! extension_loaded('mbstring')) {
             $this->markTestSkipped('Extension mbstring not available');
         }
 
@@ -147,15 +147,14 @@ class UnderscoreToCamelCaseFilterTest extends \PHPUnit_Framework_TestCase
     public function returnUnfilteredDataProvider()
     {
         return [
-            ['foo'],
-            [null],
-            [new \stdClass()]
+            'string' => ['foo'],
+            'null'   => [null],
+            'object' => [new stdClass()],
         ];
     }
 
     /**
      * @dataProvider returnUnfilteredDataProvider
-     * @return void
      */
     public function testReturnUnfiltered($input)
     {

@@ -1,9 +1,15 @@
 <?php
-
+/**
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
+ */
 
 namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
+use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use stdClass;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter;
 
 /**
@@ -11,7 +17,7 @@ use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreF
  *
  * @covers Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter
  */
-class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
+class CamelCaseToUnderscoreFilterTest extends TestCase
 {
     /**
      * @dataProvider nonUnicodeProvider
@@ -40,7 +46,7 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function testFilterUnderscoresUnicodeStrings($string, $expected)
     {
-        if (!extension_loaded('mbstring')) {
+        if (! extension_loaded('mbstring')) {
             $this->markTestSkipped('Extension mbstring not available');
         }
 
@@ -161,15 +167,14 @@ class CamelCaseToUnderscoreFilterTest extends \PHPUnit_Framework_TestCase
     public function returnUnfilteredDataProvider()
     {
         return [
-            ['underscore'],
-            [null],
-            [new \stdClass()]
+            'underscore' => ['underscore'],
+            'null'       => [null],
+            'object'     => [new stdClass()],
         ];
     }
 
     /**
      * @dataProvider returnUnfilteredDataProvider
-     * @return void
      */
     public function testReturnUnfiltered($input)
     {
