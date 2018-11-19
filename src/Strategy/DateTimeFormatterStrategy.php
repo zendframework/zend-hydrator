@@ -40,16 +40,25 @@ final class DateTimeFormatterStrategy implements StrategyInterface
     private $extractionFormat;
 
     /**
+     * Whether or not to allow hydration of values that do not follow the format exactly.
+     *
+     * @var bool
+     */
+    private $dateTimeFallback;
+
+    /**
      * Constructor
      *
      * @param string            $format
      * @param DateTimeZone|null $timezone
+     * @param bool              $dateTimeFallback try to parse with DateTime when createFromFormat fails
      */
-    public function __construct($format = DateTime::RFC3339, DateTimeZone $timezone = null)
+    public function __construct($format = DateTime::RFC3339, DateTimeZone $timezone = null, $dateTimeFallback = false)
     {
         $this->format = (string) $format;
         $this->timezone = $timezone;
         $this->extractionFormat = preg_replace('/(?<![\\\\])[+|!\*]/', '', $this->format);
+        $this->dateTimeFallback = (bool) $dateTimeFallback;
     }
 
     /**
@@ -75,7 +84,7 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      * {@inheritDoc}
      *
      * @param mixed|string $value
-     * @return mixed|DateTime
+     * @return mixed|DateTimeInterface
      */
     public function hydrate($value)
     {
@@ -86,6 +95,10 @@ final class DateTimeFormatterStrategy implements StrategyInterface
         $hydrated = $this->timezone
             ? DateTime::createFromFormat($this->format, $value, $this->timezone)
             : DateTime::createFromFormat($this->format, $value);
+
+        if ($hydrated === false && $this->dateTimeFallback) {
+            $hydrated = new DateTime($value, $this->timezone);
+        }
 
         return $hydrated ?: $value;
     }
