@@ -340,6 +340,11 @@ arguments at the constructor, which are used to define value maps for <code>true
 <p><code>DateTimeFormatterStrategy</code> provides bidirectional conversion between strings
 and DateTime instances. The input and output formats can be provided as
 constructor arguments.</p>
+<p>As of version 2.4.1, this strategy now allows <code>DateTime</code> formats that use <code>!</code> to
+prepend the format, or <code>|</code> or <code>+</code> to append it; these ensure that, during
+hydration, the new <code>DateTime</code> instance created will set the time element
+accordingly. As a specific example, <code>Y-m-d|</code> will drop the time component,
+ensuring comparisons are based on a midnight time value.</p>
 <h3 id="zend92hydrator92strategy92defaultstrategy">Zend\Hydrator\Strategy\DefaultStrategy</h3>
 <p>The <code>DefaultStrategy</code> simply proxies everything through, without performing any
 conversion of values.</p>
