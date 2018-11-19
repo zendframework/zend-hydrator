@@ -11,9 +11,20 @@ All notable changes to this project will be documented in this file, in reverse 
   the `DateTime` constructor will still result in a `DateTime` instance during
   hydration, even if the string does not follow the provided date-time format.
 
+- [#14](https://github.com/zendframework/zend-hydrator/pull/14) adds the following `final` classes:
+  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter`
+  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter`
+
 ### Changed
 
-- Nothing.
+- [#14](https://github.com/zendframework/zend-hydrator/pull/14) replaces usage of zend-filter with the hardcoded filters referenced in
+  the above section.
+
+- [#14](https://github.com/zendframework/zend-hydrator/pull/14) made the following visibility changes to `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy`:
+  - static property `$underscoreToStudlyCaseFilter` was renamed to `$underscoreToCamelCaseFilter` and marked `private`
+  - static property `$camelCaseToUnderscoreFilter` was marked `private`
+  - method `getCamelCaseToUnderscoreFilter` was marked `private`
+  - method `getUnderscoreToStudlyCaseFilter` was renamed to `getUnderscoreToCamelCaseFilter` and marked `private`
 
 ### Deprecated
 
@@ -272,31 +283,6 @@ All notable changes to this project will be documented in this file, in reverse 
   documentation from zend-stdlib, publishes it to
   https://zendframework.github.io/zend-hydrator/, and automates building and
   publishing the documentation.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- [#14](https://github.com/zendframework/zend-hydrator/pull/14) replaced usage of zend filters w/ hardcoded versions
-- The following visibility changes occurred to `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy`:
-  - static property `$underscoreToStudlyCaseFilter` was renamed to `$underscoreToCamelCaseFilter` and marked `private`
-  - static property `$camelCaseToUnderscoreFilter` was marked `private`
-  - method `getCamelCaseToUnderscoreFilter` was marked `private`
-  - method `getUnderscoreToStudlyCaseFilter` was renamed to `getUnderscoreToCamelCaseFilter` and marked `private`
-
-## 2.0.1 - TBD
-
-### Added
-
-- The following classes were marked `final`:
-  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter`
-  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter`
 
 ### Deprecated
 
