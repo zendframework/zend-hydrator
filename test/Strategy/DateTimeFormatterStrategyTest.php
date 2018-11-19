@@ -103,10 +103,9 @@ class DateTimeFormatterStrategyTest extends TestCase
     }
 
     /**
+     * @dataProvider formatsWithSpecialCharactersProvider
      * @param string $format
      * @param string $expectedValue
-     *
-     * @dataProvider formatsWithSpecialCharactersProvider
      */
     public function testAcceptsCreateFromFormatSpecialCharacters($format, $expectedValue)
     {
@@ -118,15 +117,14 @@ class DateTimeFormatterStrategyTest extends TestCase
     }
 
     /**
+     * @dataProvider formatsWithSpecialCharactersProvider
      * @param string $format
      * @param string $expectedValue
-     *
-     * @dataProvider formatsWithSpecialCharactersProvider
      */
     public function testCanExtractWithCreateFromFormatSpecialCharacters($format, $expectedValue)
     {
-        $date = DateTime::createFromFormat($format, $expectedValue);
-        $strategy = new DateTimeFormatterStrategy($format);
+        $date      = DateTime::createFromFormat($format, $expectedValue);
+        $strategy  = new DateTimeFormatterStrategy($format);
         $extracted = $strategy->extract($date);
 
         $this->assertEquals($expectedValue, $extracted);
@@ -134,8 +132,8 @@ class DateTimeFormatterStrategyTest extends TestCase
 
     public function testCanExtractWithCreateFromFormatEscapedSpecialCharacters()
     {
-        $date = DateTime::createFromFormat('Y-m-d', '2018-02-05');
-        $strategy = new DateTimeFormatterStrategy('Y-m-d\\+');
+        $date      = DateTime::createFromFormat('Y-m-d', '2018-02-05');
+        $strategy  = new DateTimeFormatterStrategy('Y-m-d\\+');
         $extracted = $strategy->extract($date);
         $this->assertEquals('2018-02-05+', $extracted);
     }
@@ -143,18 +141,9 @@ class DateTimeFormatterStrategyTest extends TestCase
     public function formatsWithSpecialCharactersProvider()
     {
         return [
-            [
-                '!Y-m-d',
-                '2018-02-05',
-            ],
-            [
-                'Y-m-d|',
-                '2018-02-05',
-            ],
-            [
-                'Y-m-d+',
-                '2018-02-05',
-            ],
+            '!-prepended' => ['!Y-m-d', '2018-02-05'],
+            '|-appended'  => ['Y-m-d|', '2018-02-05'],
+            '+-appended'  => ['Y-m-d+', '2018-02-05'],
         ];
     }
 }
