@@ -10,7 +10,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- [#69](https://github.com/zendframework/zend-hydrator/pull/69) adds support for special pre/post characters in formats passed to the
+  `DateTimeFormatterStrategy`. When used, the `DateTime` instances created
+  during hydration will (generally) omit the time element, allowing for more
+  accurate comparisons.
 
 ### Deprecated
 
