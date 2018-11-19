@@ -11,6 +11,7 @@ namespace ZendTest\Hydrator\Strategy;
 
 use DateTime;
 use DateTimeImmutable;
+use DateTimezone;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
@@ -28,7 +29,7 @@ class DateTimeFormatterStrategyTest extends TestCase
         $strategy = new DateTimeFormatterStrategy('Y-m-d');
         $this->assertEquals('2014-04-26', $strategy->hydrate('2014-04-26')->format('Y-m-d'));
 
-        $strategy = new DateTimeFormatterStrategy('Y-m-d', new \DateTimeZone('Asia/Kathmandu'));
+        $strategy = new DateTimeFormatterStrategy('Y-m-d', new DateTimeZone('Asia/Kathmandu'));
 
         $date = $strategy->hydrate('2014-04-26');
         $this->assertEquals('Asia/Kathmandu', $date->getTimezone()->getName());
@@ -145,5 +146,18 @@ class DateTimeFormatterStrategyTest extends TestCase
             '|-appended'  => ['Y-m-d|', '2018-02-05'],
             '+-appended'  => ['Y-m-d+', '2018-02-05'],
         ];
+    }
+
+    public function testCanHydrateWithDateTimeFallback()
+    {
+        $strategy = new DateTimeFormatterStrategy('Y-m-d', null, true);
+        $date = $strategy->hydrate('2018-09-06T12:10:30');
+
+        $this->assertSame('2018-09-06', $date->format('Y-m-d'));
+
+        $strategy = new DateTimeFormatterStrategy('Y-m-d', new DateTimeZone('Europe/Prague'), true);
+        $date = $strategy->hydrate('2018-09-06T12:10:30');
+
+        $this->assertSame('Europe/Prague', $date->getTimezone()->getName());
     }
 }
