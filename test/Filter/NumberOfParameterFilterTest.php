@@ -7,6 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator\Filter;
 
 use PHPUnit\Framework\TestCase;
@@ -47,7 +49,7 @@ class NumberOfParameterFilterTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            'Method ZendTest\Hydrator\Filter\NumberOfParameterFilterTest::methodDoesNotExist doesn\'t exist'
+            'Method ZendTest\Hydrator\Filter\NumberOfParameterFilterTest::methodDoesNotExist does not exist'
         );
         $filter = new NumberOfParameterFilter(1);
         $filter->filter(__CLASS__ . '::methodDoesNotExist');

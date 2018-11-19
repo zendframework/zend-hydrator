@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\Aggregate;
 
@@ -17,7 +17,7 @@ use Zend\EventManager\Event;
  */
 class HydrateEvent extends Event
 {
-    const EVENT_HYDRATE = 'hydrate';
+    public const EVENT_HYDRATE = 'hydrate';
 
     /**
      * {@inheritDoc}
@@ -37,7 +37,6 @@ class HydrateEvent extends Event
     /**
      * @param object $target
      * @param object $hydratedObject
-     * @param array  $hydrationData
      */
     public function __construct($target, $hydratedObject, array $hydrationData)
     {
@@ -59,17 +58,15 @@ class HydrateEvent extends Event
     /**
      * @param object $hydratedObject
      */
-    public function setHydratedObject($hydratedObject)
+    public function setHydratedObject($hydratedObject) : void
     {
         $this->hydratedObject = $hydratedObject;
     }
 
     /**
      * Retrieves the data that is being used for hydration
-     *
-     * @return array
      */
-    public function getHydrationData()
+    public function getHydrationData() : array
     {
         return $this->hydrationData;
     }
@@ -77,7 +74,7 @@ class HydrateEvent extends Event
     /**
      * @param array $hydrationData
      */
-    public function setHydrationData(array $hydrationData)
+    public function setHydrationData(array $hydrationData) : void
     {
         $this->hydrationData = $hydrationData;
     }

@@ -5,6 +5,8 @@
  * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 /**
@@ -14,17 +16,9 @@ final class CamelCaseToUnderscoreFilter
 {
     use StringSupportTrait;
 
-    /**
-     * @param  string $value
-     * @return string
-     */
-    public function filter($value)
+    public function filter(string $value) : string
     {
-        if (! is_scalar($value)) {
-            return $value;
-        }
-
-        list($pattern, $replacement) = $this->getPatternAndReplacement();
+        [$pattern, $replacement] = $this->getPatternAndReplacement();
         $filtered = preg_replace($pattern, $replacement, $value);
 
         $lowerFunction = $this->getLowerFunction();
@@ -35,7 +29,7 @@ final class CamelCaseToUnderscoreFilter
      * @return string[][] Array with two elements, first the patterns, then the
      *     replacements. Each element is an array of strings.
      */
-    private function getPatternAndReplacement()
+    private function getPatternAndReplacement() : array
     {
         return $this->hasPcreUnicodeSupport()
             ? [
@@ -64,10 +58,7 @@ final class CamelCaseToUnderscoreFilter
             ];
     }
 
-    /**
-     * @return callable
-     */
-    private function getLowerFunction()
+    private function getLowerFunction() : callable
     {
         return $this->hasMbStringSupport()
             ? function ($value) {

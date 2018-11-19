@@ -7,11 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use InvalidArgumentException;
+use TypeError;
 use Zend\Hydrator\Reflection;
 
 /**
@@ -48,21 +50,23 @@ class ReflectionTest extends TestCase
         $this->assertSame($object, $this->hydrator->hydrate(['foo' => 'bar'], $object));
     }
 
-    public function testNotStringOrObjectOnExtract()
+    public function testExtractRaisesExceptionForInvalidInput()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Input must be a string or an object.');
-
         $argument = (int) 1;
+
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('must be an object');
+
         $this->hydrator->extract($argument);
     }
 
-    public function testNotStringOrObjectOnHydrate()
+    public function testHydrateRaisesExceptionForInvalidArgument()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Input must be a string or an object.');
-
         $argument = (int) 1;
+
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('must be an object');
+
         $this->hydrator->hydrate([ 'foo' => 'bar' ], $argument);
     }
 }

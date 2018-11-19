@@ -7,6 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator\NamingStrategy;
 
 use PHPUnit\Framework\TestCase;
@@ -51,10 +53,8 @@ class IdentityNamingStrategyTest extends TestCase
     public function getTestedNames()
     {
         return [
-            [123],
-            [0],
-            ['foo'],
-            ['bar'],
+            'foo' => ['foo'],
+            'bar' => ['bar'],
         ];
     }
 }

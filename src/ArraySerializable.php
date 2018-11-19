@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
@@ -16,11 +16,9 @@ class ArraySerializable extends AbstractHydrator
      *
      * Extracts values via the object's getArrayCopy() method.
      *
-     * @param  object $object
-     * @return array
      * @throws Exception\BadMethodCallException for an $object not implementing getArrayCopy()
      */
-    public function extract($object)
+    public function extract(object $object) : array
     {
         if (! is_callable([$object, 'getArrayCopy'])) {
             throw new Exception\BadMethodCallException(
@@ -36,12 +34,15 @@ class ArraySerializable extends AbstractHydrator
                 unset($data[$name]);
                 continue;
             }
+
             $extractedName = $this->extractName($name, $object);
+
             // replace the original key with extracted, if differ
             if ($extractedName !== $name) {
                 unset($data[$name]);
                 $name = $extractedName;
             }
+
             $data[$name] = $this->extractValue($name, $value, $object);
         }
 
@@ -54,12 +55,11 @@ class ArraySerializable extends AbstractHydrator
      * Hydrates an object by passing $data to either its exchangeArray() or
      * populate() method.
      *
-     * @param  array $data
      * @param  object $object
      * @return object
      * @throws Exception\BadMethodCallException for an $object not implementing exchangeArray() or populate()
      */
-    public function hydrate(array $data, $object)
+    public function hydrate(array $data, object $object) : object
     {
         $replacement = [];
         foreach ($data as $key => $value) {

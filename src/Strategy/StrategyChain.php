@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\Strategy;
 
@@ -28,12 +28,7 @@ final class StrategyChain implements StrategyInterface
      */
     private $hydrationStrategies;
 
-    /**
-     * Constructor
-     *
-     * @param array|Traversable $extractionStrategies
-     */
-    public function __construct($extractionStrategies)
+    public function __construct(iterable $extractionStrategies)
     {
         $extractionStrategies = ArrayUtils::iteratorToArray($extractionStrategies);
         $this->extractionStrategies = array_map(
@@ -50,10 +45,10 @@ final class StrategyChain implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         foreach ($this->extractionStrategies as $strategy) {
-            $value = $strategy->extract($value);
+            $value = $strategy->extract($value, $object);
         }
 
         return $value;
@@ -62,10 +57,10 @@ final class StrategyChain implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data = null)
     {
         foreach ($this->hydrationStrategies as $strategy) {
-            $value = $strategy->hydrate($value);
+            $value = $strategy->hydrate($value, $data);
         }
 
         return $value;

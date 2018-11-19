@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
@@ -15,28 +15,21 @@ interface NamingStrategyEnabledInterface
      * Adds the given naming strategy
      *
      * @param NamingStrategy\NamingStrategyInterface $strategy The naming to register.
-     * @return self
      */
-    public function setNamingStrategy(NamingStrategy\NamingStrategyInterface $strategy);
+    public function setNamingStrategy(NamingStrategy\NamingStrategyInterface $strategy) : void;
 
     /**
      * Gets the naming strategy.
-     *
-     * @return NamingStrategy\NamingStrategyInterface
      */
-    public function getNamingStrategy();
+    public function getNamingStrategy() : NamingStrategy\NamingStrategyInterface;
 
     /**
      * Checks if a naming strategy exists.
-     *
-     * @return bool
      */
-    public function hasNamingStrategy();
+    public function hasNamingStrategy() : bool;
 
     /**
      * Removes the naming with the given name.
-     *
-     * @return self
      */
-    public function removeNamingStrategy();
+    public function removeNamingStrategy() : void;
 }

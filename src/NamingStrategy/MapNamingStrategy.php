@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\NamingStrategy;
 
@@ -28,12 +28,10 @@ class MapNamingStrategy implements NamingStrategyInterface
     protected $reverse = [];
 
     /**
-     * Initialize.
-     *
      * @param array $mapping Map for name conversion on hydration
      * @param array $reverse Reverse map for name conversion on extraction
      */
-    public function __construct(array $mapping, array $reverse = null)
+    public function __construct(array $mapping, ?array $reverse = null)
     {
         $this->mapping = $mapping;
         $this->reverse = $reverse ?: $this->flipMapping($mapping);
@@ -42,11 +40,11 @@ class MapNamingStrategy implements NamingStrategyInterface
     /**
      * Safely flip mapping array.
      *
-     * @param  array                    $array Array to flip
-     * @return array                    Flipped array
+     * @param  array $array Array to flip
+     * @return array Flipped array
      * @throws InvalidArgumentException
      */
-    protected function flipMapping(array $array)
+    protected function flipMapping(array $array) : array
     {
         array_walk($array, function ($value) {
             if (! is_string($value) && ! is_int($value)) {
@@ -59,11 +57,8 @@ class MapNamingStrategy implements NamingStrategyInterface
 
     /**
      * Converts the given name so that it can be extracted by the hydrator.
-     *
-     * @param  string $name The original name
-     * @return mixed  The hydrated name
      */
-    public function hydrate($name)
+    public function hydrate(string $name, ?array $data = null) : string
     {
         if (array_key_exists($name, $this->mapping)) {
             return $this->mapping[$name];
@@ -74,11 +69,8 @@ class MapNamingStrategy implements NamingStrategyInterface
 
     /**
      * Converts the given name so that it can be hydrated by the hydrator.
-     *
-     * @param  string $name The original name
-     * @return mixed  The extracted name
      */
-    public function extract($name)
+    public function extract(string $name, ?object $object = null) : string
     {
         if (array_key_exists($name, $this->reverse)) {
             return $this->reverse[$name];

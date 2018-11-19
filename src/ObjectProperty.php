@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
@@ -23,17 +23,9 @@ class ObjectProperty extends AbstractHydrator
      * {@inheritDoc}
      *
      * Extracts the accessible non-static properties of the given $object.
-     *
-     * @throws Exception\BadMethodCallException for a non-object $object
      */
-    public function extract($object)
+    public function extract(object $object) : array
     {
-        if (! is_object($object)) {
-            throw new Exception\BadMethodCallException(
-                sprintf('%s expects the provided $object to be a PHP object)', __METHOD__)
-            );
-        }
-
         $data   = get_object_vars($object);
         $filter = $this->getFilter();
 
@@ -64,18 +56,10 @@ class ObjectProperty extends AbstractHydrator
      * Hydrate an object by populating public properties
      *
      * Hydrates an object by setting public properties of the object.
-     *
-     * @throws Exception\BadMethodCallException for a non-object $object
      */
-    public function hydrate(array $data, $object)
+    public function hydrate(array $data, object $object) : object
     {
-        if (! is_object($object)) {
-            throw new Exception\BadMethodCallException(
-                sprintf('%s expects the provided $object to be a PHP object)', __METHOD__)
-            );
-        }
-
-        $properties = & self::$skippedPropertiesCache[get_class($object)];
+        $properties =& self::$skippedPropertiesCache[get_class($object)];
 
         if (! isset($properties)) {
             $reflection = new ReflectionClass($object);

@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link           http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright      Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license        http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\Filter;
 
@@ -24,24 +24,23 @@ class NumberOfParameterFilter implements FilterInterface
     /**
      * @param int $numberOfParameters Number of accepted parameters
      */
-    public function __construct($numberOfParameters = 0)
+    public function __construct(int $numberOfParameters = 0)
     {
         $this->numberOfParameters = (int) $numberOfParameters;
     }
 
     /**
-     * @param string $property the name of the property
-     * @return bool
      * @throws InvalidArgumentException
      */
-    public function filter($property)
+    public function filter(string $property) : bool
     {
         try {
             $reflectionMethod = new ReflectionMethod($property);
         } catch (ReflectionException $exception) {
-            throw new InvalidArgumentException(
-                "Method $property doesn't exist"
-            );
+            throw new InvalidArgumentException(sprintf(
+                'Method %s does not exist',
+                $property
+            ));
         }
 
         return $reflectionMethod->getNumberOfParameters() === $this->numberOfParameters;

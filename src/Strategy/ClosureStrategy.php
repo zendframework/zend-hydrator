@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\Strategy;
 
@@ -51,36 +51,13 @@ class ClosureStrategy implements StrategyInterface
      * ));
      * </code>
      *
-     * @param callable $extractFunc - anonymous function, that extract values
-     *     from object
-     * @param callable $hydrateFunc - anonymous function, that hydrate values
-     *     into object
+     * @param null|callable $extractFunc function for extracting values from an object
+     * @param null|callable $hydrateFunc function for hydrating values to an object
      */
-    public function __construct($extractFunc = null, $hydrateFunc = null)
+    public function __construct(?callable $extractFunc = null, ?callable $hydrateFunc = null)
     {
-        if (isset($extractFunc)) {
-            if (! is_callable($extractFunc)) {
-                throw new \Exception('$extractFunc must be callable');
-            }
-
-            $this->extractFunc = $extractFunc;
-        } else {
-            $this->extractFunc = function ($value) {
-                return $value;
-            };
-        }
-
-        if (isset($hydrateFunc)) {
-            if (! is_callable($hydrateFunc)) {
-                throw new \Exception('$hydrateFunc must be callable');
-            }
-
-            $this->hydrateFunc = $hydrateFunc;
-        } else {
-            $this->hydrateFunc = function ($value) {
-                return $value;
-            };
-        }
+        $this->extractFunc = $extractFunc;
+        $this->hydrateFunc = $hydrateFunc;
     }
 
     /**
@@ -90,11 +67,12 @@ class ClosureStrategy implements StrategyInterface
      * @param  array $object The object is optionally provided as context.
      * @return mixed Returns the value that should be extracted.
      */
-    public function extract($value, $object = null)
+    public function extract($value, ?object $object = null)
     {
         $func = $this->extractFunc;
-
-        return $func($value, $object);
+        return $func
+            ? $func($value, $object)
+            : $value;
     }
 
     /**
@@ -104,10 +82,11 @@ class ClosureStrategy implements StrategyInterface
      * @param  array $data  The whole data is optionally provided as context.
      * @return mixed Returns the value that should be hydrated.
      */
-    public function hydrate($value, $data = null)
+    public function hydrate($value, ?array $data = null)
     {
         $func = $this->hydrateFunc;
-
-        return $func($value, $data);
+        return $func
+            ? $func($value, $data)
+            : $value;
     }
 }

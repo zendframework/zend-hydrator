@@ -7,6 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator;
 
 use Interop\Container\ContainerInterface;
@@ -22,21 +24,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class DelegatingHydratorFactoryTest extends TestCase
 {
-    public function testV2Factory()
-    {
-        $hydrators = $this->prophesize(HydratorPluginManager::class)->reveal();
-        $prophesy = $this->prophesize(ServiceLocatorInterface::class);
-        $prophesy->willImplement(ContainerInterface::class);
-        $prophesy->has(HydratorPluginManager::class)->willReturn(true);
-        $prophesy->get(HydratorPluginManager::class)->willReturn($hydrators);
-
-        $factory = new DelegatingHydratorFactory();
-        $this->assertInstanceOf(
-            DelegatingHydrator::class,
-            $factory->createService($prophesy->reveal())
-        );
-    }
-
     public function testFactoryUsesContainerToSeedDelegatingHydratorWhenItIsAHydratorPluginManager()
     {
         $hydrators = $this->prophesize(HydratorPluginManager::class)->reveal();
@@ -92,11 +79,6 @@ class DelegatingHydratorFactoryTest extends TestCase
         $hydrators = $r->getValue($hydrator);
 
         $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
-
-        $property = method_exists($hydrators, 'configure')
-            ? 'creationContext' // v3
-            : 'serviceLocator'; // v2
-
-        $this->assertAttributeSame($container->reveal(), $property, $hydrators);
+        $this->assertAttributeSame($container->reveal(), 'creationContext', $hydrators);
     }
 }

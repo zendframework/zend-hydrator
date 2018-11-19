@@ -7,10 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator;
 
-use BadMethodCallException;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 use Zend\Hydrator\ObjectProperty;
 use ZendTest\Hydrator\TestAsset\ClassWithPublicStaticProperties;
 use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyTestAsset;
@@ -42,7 +44,7 @@ class ObjectPropertyTest extends TestCase
      */
     public function testHydratorExtractThrowsExceptionOnNonObjectParameter()
     {
-        $this->expectException(BadMethodCallException::class);
+        $this->expectException(TypeError::class);
         $this->hydrator->extract('thisIsNotAnObject');
     }
 
@@ -51,7 +53,7 @@ class ObjectPropertyTest extends TestCase
      */
     public function testHydratorHydrateThrowsExceptionOnNonObjectParameter()
     {
-        $this->expectException(BadMethodCallException::class);
+        $this->expectException(TypeError::class);
         $this->hydrator->hydrate(['some' => 'data'], 'thisIsNotAnObject');
     }
 

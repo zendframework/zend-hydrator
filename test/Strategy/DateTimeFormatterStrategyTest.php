@@ -7,6 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator\Strategy;
 
 use DateTime;
@@ -60,20 +62,6 @@ class DateTimeFormatterStrategyTest extends TestCase
     {
         $strategy = new DateTimeFormatterStrategy('d/m/Y');
         $this->assertSame('foo bar baz', $strategy->hydrate('foo bar baz'));
-    }
-
-    public function testAcceptsStringCastableDateTimeFormat()
-    {
-        $format = $this->getMockBuilder(stdClass::class)
-            ->setMethods(['__toString'])
-            ->getMock();
-
-        $format->expects($this->once())->method('__toString')->will($this->returnValue('d/m/Y'));
-
-        $strategy = new DateTimeFormatterStrategy($format);
-
-        $this->assertEquals('26/04/2014', $strategy->extract(new \DateTime('2014-04-26')));
-        $this->assertEquals('26/04/2015', $strategy->extract(new \DateTime('2015-04-26')));
     }
 
     public function testCanExtractAnyDateTimeInterface()

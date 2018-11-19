@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\NamingStrategy;
 
@@ -17,18 +17,14 @@ interface NamingStrategyInterface
     /**
      * Converts the given name so that it can be extracted by the hydrator.
      *
-     * @param string $name   The original name
-     * @param object $object (optional) The original object for context.
-     * @return mixed         The hydrated name
+     * @param array $data (optional) The original data for context.
      */
-    public function hydrate($name);
+    public function hydrate(string $name, ?array $data = null) : string;
 
     /**
      * Converts the given name so that it can be hydrated by the hydrator.
      *
-     * @param string $name The original name
-     * @param array  $data (optional) The original data for context.
-     * @return mixed The extracted name
+     * @param object $object (optional) The original object for context.
      */
-    public function extract($name);
+    public function extract(string $name, ?object $object = null) : string;
 }

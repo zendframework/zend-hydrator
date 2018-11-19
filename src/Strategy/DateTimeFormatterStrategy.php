@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\Strategy;
 
@@ -47,18 +47,17 @@ final class DateTimeFormatterStrategy implements StrategyInterface
     private $dateTimeFallback;
 
     /**
-     * Constructor
-     *
-     * @param string            $format
-     * @param DateTimeZone|null $timezone
-     * @param bool              $dateTimeFallback try to parse with DateTime when createFromFormat fails
+     * @param bool $dateTimeFallback try to parse with DateTime when createFromFormat fails
      */
-    public function __construct($format = DateTime::RFC3339, DateTimeZone $timezone = null, $dateTimeFallback = false)
-    {
-        $this->format = (string) $format;
-        $this->timezone = $timezone;
+    public function __construct(
+        string $format = DateTime::RFC3339,
+        ?DateTimeZone $timezone = null,
+        bool $dateTimeFallback = false
+    ) {
+        $this->format           = $format;
+        $this->timezone         = $timezone;
         $this->extractionFormat = preg_replace('/(?<![\\\\])[+|!\*]/', '', $this->format);
-        $this->dateTimeFallback = (bool) $dateTimeFallback;
+        $this->dateTimeFallback = $dateTimeFallback;
     }
 
     /**
@@ -69,7 +68,7 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      * @param mixed|DateTimeInterface $value
      * @return mixed|string
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         if ($value instanceof DateTimeInterface) {
             return $value->format($this->extractionFormat);
@@ -86,7 +85,7 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      * @param mixed|string $value
      * @return mixed|DateTimeInterface
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data = null)
     {
         if ($value === '' || $value === null) {
             return;

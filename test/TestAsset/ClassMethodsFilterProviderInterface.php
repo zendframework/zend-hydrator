@@ -7,9 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator\TestAsset;
 
 use Zend\Hydrator\Filter\FilterComposite;
+use Zend\Hydrator\Filter\FilterInterface;
 use Zend\Hydrator\Filter\FilterProviderInterface;
 use Zend\Hydrator\Filter\MethodMatchFilter;
 use Zend\Hydrator\Filter\GetFilter;
@@ -46,7 +49,7 @@ class ClassMethodsFilterProviderInterface implements FilterProviderInterface
         return "eventmanager";
     }
 
-    public function getFilter()
+    public function getFilter() : FilterInterface
     {
         $filterComposite = new FilterComposite();
 

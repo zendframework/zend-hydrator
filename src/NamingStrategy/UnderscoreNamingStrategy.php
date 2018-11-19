@@ -5,6 +5,8 @@
  * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Zend\Hydrator\NamingStrategy;
 
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter;
@@ -24,22 +26,16 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
 
     /**
      * Remove underscores and capitalize letters
-     *
-     * @param  string $name
-     * @return string
      */
-    public function hydrate($name)
+    public function hydrate(string $name, ?array $data = null) : string
     {
         return $this->getUnderscoreToCamelCaseFilter()->filter($name);
     }
 
     /**
      * Remove capitalized letters and prepend underscores.
-     *
-     * @param  string $name
-     * @return string
      */
-    public function extract($name)
+    public function extract(string $name, ?object $object = null) : string
     {
         return $this->getCamelCaseToUnderscoreFilter()->filter($name);
     }
@@ -47,7 +43,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
     /**
      * @return UnderscoreToCamelCaseFilter
      */
-    private function getUnderscoreToCamelCaseFilter()
+    private function getUnderscoreToCamelCaseFilter() : UnderscoreToCamelCaseFilter
     {
         if (! static::$underscoreToCamelCaseFilter) {
             static::$underscoreToCamelCaseFilter = new UnderscoreToCamelCaseFilter();
@@ -59,7 +55,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
     /**
      * @return CamelCaseToUnderscoreFilter
      */
-    private function getCamelCaseToUnderscoreFilter()
+    private function getCamelCaseToUnderscoreFilter() : CamelCaseToUnderscoreFilter
     {
         if (! static::$camelCaseToUnderscoreFilter) {
             static::$camelCaseToUnderscoreFilter = new CamelCaseToUnderscoreFilter();

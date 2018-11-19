@@ -7,6 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator\TestAsset;
 
 use Zend\Hydrator\Strategy\DefaultStrategy;
@@ -28,7 +30,7 @@ class HydratorStrategy extends DefaultStrategy
         $this->simulatedStorageDevice[] = new HydratorStrategyEntityB(333, 'CCC');
     }
 
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         $result = [];
         foreach ($value as $instance) {
@@ -37,7 +39,7 @@ class HydratorStrategy extends DefaultStrategy
         return $result;
     }
 
-    public function hydrate($value)
+    public function hydrate($value, ?array $data = null)
     {
         $result = $value;
         if (is_array($value)) {

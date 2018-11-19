@@ -7,6 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
@@ -27,7 +29,7 @@ class HydratorPluginManagerCompatibilityTest extends TestCase
 
     protected function getV2InvalidPluginException()
     {
-        return RuntimeException::class;
+        // no-op
     }
 
     protected function getInstanceOf()

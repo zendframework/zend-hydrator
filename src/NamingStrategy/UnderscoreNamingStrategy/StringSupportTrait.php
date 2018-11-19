@@ -5,6 +5,8 @@
  * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 use Zend\Stdlib\StringUtils;
@@ -20,10 +22,7 @@ trait StringSupportTrait
     /** @var bool */
     private $mbStringSupport;
 
-    /**
-     * @return bool
-     */
-    private function hasPcreUnicodeSupport()
+    private function hasPcreUnicodeSupport() : bool
     {
         if ($this->pcreUnicodeSupport === null) {
             $this->pcreUnicodeSupport = StringUtils::hasPcreUnicodeSupport();
@@ -31,10 +30,7 @@ trait StringSupportTrait
         return $this->pcreUnicodeSupport;
     }
 
-    /**
-     * @return bool
-     */
-    private function hasMbStringSupport()
+    private function hasMbStringSupport() : bool
     {
         if ($this->mbStringSupport === null) {
             $this->mbStringSupport = extension_loaded('mbstring');

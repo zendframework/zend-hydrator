@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
@@ -13,34 +13,21 @@ interface StrategyEnabledInterface
 {
     /**
      * Adds the given strategy under the given name.
-     *
-     * @param string $name The name of the strategy to register.
-     * @param Strategy\StrategyInterface $strategy The strategy to register.
-     * @return self
      */
-    public function addStrategy($name, Strategy\StrategyInterface $strategy);
+    public function addStrategy(string $name, Strategy\StrategyInterface $strategy) : void;
 
     /**
      * Gets the strategy with the given name.
-     *
-     * @param string $name The name of the strategy to get.
-     * @return Strategy\StrategyInterface
      */
-    public function getStrategy($name);
+    public function getStrategy(string $name) : Strategy\StrategyInterface;
 
     /**
      * Checks if the strategy with the given name exists.
-     *
-     * @param string $name The name of the strategy to check for.
-     * @return bool
      */
-    public function hasStrategy($name);
+    public function hasStrategy(string $name) : bool;
 
     /**
      * Removes the strategy with the given name.
-     *
-     * @param string $name The name of the strategy to remove.
-     * @return self
      */
-    public function removeStrategy($name);
+    public function removeStrategy(string $name) : void;
 }

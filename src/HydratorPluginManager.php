@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
@@ -48,18 +48,11 @@ class HydratorPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = [
-        ArraySerializable::class                => InvokableFactory::class,
-        ClassMethods::class                     => InvokableFactory::class,
-        DelegatingHydrator::class               => DelegatingHydratorFactory::class,
-        ObjectProperty::class                   => InvokableFactory::class,
-        Reflection::class                       => InvokableFactory::class,
-
-        // v2 normalized FQCNs
-        'zendhydratorarrayserializable'         => InvokableFactory::class,
-        'zendhydratorclassmethods'              => InvokableFactory::class,
-        'zendhydratordelegatinghydrator'        => DelegatingHydratorFactory::class,
-        'zendhydratorobjectproperty'            => InvokableFactory::class,
-        'zendhydratorreflection'                => InvokableFactory::class,
+        ArraySerializable::class  => InvokableFactory::class,
+        ClassMethods::class       => InvokableFactory::class,
+        DelegatingHydrator::class => DelegatingHydratorFactory::class,
+        ObjectProperty::class     => InvokableFactory::class,
+        Reflection::class         => InvokableFactory::class,
     ];
 
     /**
@@ -82,10 +75,9 @@ class HydratorPluginManager extends AbstractPluginManager
     protected $instanceOf = HydratorInterface::class;
 
     /**
-     * Validate the plugin is of the expected type (v3).
+     * Validate the plugin is of the expected type.
      *
-     * Checks that the filter loaded is either a valid callback or an instance
-     * of FilterInterface.
+     * Checks that the filter loaded is a valid hydrator.
      *
      * @param mixed $instance
      * @throws InvalidServiceException
@@ -98,20 +90,9 @@ class HydratorPluginManager extends AbstractPluginManager
         }
 
         throw new InvalidServiceException(sprintf(
-            'Plugin of type %s is invalid; must implement Zend\Hydrator\HydratorInterface',
-            (is_object($instance) ? get_class($instance) : gettype($instance))
+            'Plugin of type %s is invalid; must implement %s',
+            (is_object($instance) ? get_class($instance) : gettype($instance)),
+            HydratorInterface::class
         ));
-    }
-
-    /**
-     * {@inheritDoc} (v2)
-     */
-    public function validatePlugin($plugin)
-    {
-        try {
-            $this->validate($plugin);
-        } catch (InvalidServiceException $e) {
-            throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);
-        }
     }
 }

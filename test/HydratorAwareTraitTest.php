@@ -8,6 +8,8 @@
  * @package   Zend_Hydrator
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;

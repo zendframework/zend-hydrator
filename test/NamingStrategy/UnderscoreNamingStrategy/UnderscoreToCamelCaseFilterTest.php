@@ -5,6 +5,8 @@
  * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 use PHPUnit\Framework\TestCase;
@@ -142,24 +144,5 @@ class UnderscoreToCamelCaseFilterTest extends TestCase
                 'test_šuma'
             ]
         ];
-    }
-
-    public function returnUnfilteredDataProvider()
-    {
-        return [
-            'string' => ['foo'],
-            'null'   => [null],
-            'object' => [new stdClass()],
-        ];
-    }
-
-    /**
-     * @dataProvider returnUnfilteredDataProvider
-     */
-    public function testReturnUnfiltered($input)
-    {
-        $filter = new UnderscoreToCamelCaseFilter();
-
-        $this->assertEquals($input, $filter->filter($input));
     }
 }

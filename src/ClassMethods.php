@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
@@ -14,6 +14,21 @@ use Zend\Stdlib\ArrayUtils;
 
 class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 {
+    /**
+     * Flag defining whether array keys are underscore-separated (true) or camel case (false)
+     *
+     * @var bool
+     */
+    protected $underscoreSeparatedKeys = true;
+
+    /**
+     * Flag defining whether to check the setter method with method_exists to prevent the
+     * hydrator from calling __call during hydration
+     *
+     * @var bool
+     */
+    protected $methodExistsCheck = false;
+
     /**
      * Holds the names of the methods used for hydration, indexed by class::property name,
      * false if the hydration method is not callable/usable for hydration purposes
@@ -31,32 +46,17 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     private $extractionMethodsCache = [];
 
     /**
-     * Flag defining whether array keys are underscore-separated (true) or camel case (false)
-     *
-     * @var bool
-     */
-    protected $underscoreSeparatedKeys = true;
-
-    /**
-     * Flag defining whether to check the setter method with method_exists to prevent the
-     * hydrator from calling __call during hydration
-     *
-     * @var bool
-     */
-    protected $methodExistsCheck = false;
-
-    /**
      * @var Filter\FilterInterface
      */
     private $callableMethodFilter;
 
     /**
      * Define if extract values will use camel case or name with underscore
-     * @param bool|array $underscoreSeparatedKeys
      */
-    public function __construct($underscoreSeparatedKeys = true, $methodExistsCheck = false)
+    public function __construct(bool $underscoreSeparatedKeys = true, bool $methodExistsCheck = false)
     {
         parent::__construct();
+
         $this->setUnderscoreSeparatedKeys($underscoreSeparatedKeys);
         $this->setMethodExistsCheck($methodExistsCheck);
 
@@ -72,70 +72,47 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         );
     }
 
-    /**
-     * @param  array|Traversable                 $options
-     * @return ClassMethods
-     * @throws Exception\InvalidArgumentException
-     */
-    public function setOptions($options)
+    public function setOptions(iterable $options) : void
     {
         if ($options instanceof Traversable) {
             $options = ArrayUtils::iteratorToArray($options);
-        } elseif (! is_array($options)) {
-            throw new Exception\InvalidArgumentException(
-                'The options parameter must be an array or a Traversable'
-            );
         }
+
         if (isset($options['underscoreSeparatedKeys'])) {
             $this->setUnderscoreSeparatedKeys($options['underscoreSeparatedKeys']);
         }
+
         if (isset($options['methodExistsCheck'])) {
             $this->setMethodExistsCheck($options['methodExistsCheck']);
         }
-
-        return $this;
     }
 
-    /**
-     * @param  bool      $underscoreSeparatedKeys
-     * @return ClassMethods
-     */
-    public function setUnderscoreSeparatedKeys($underscoreSeparatedKeys)
+    public function setUnderscoreSeparatedKeys(bool $underscoreSeparatedKeys) : void
     {
-        $this->underscoreSeparatedKeys = (bool) $underscoreSeparatedKeys;
+        $this->underscoreSeparatedKeys = $underscoreSeparatedKeys;
 
         if ($this->underscoreSeparatedKeys) {
-            $this->setNamingStrategy(new NamingStrategy\UnderscoreNamingStrategy);
-        } elseif ($this->getNamingStrategy() instanceof NamingStrategy\UnderscoreNamingStrategy) {
-            $this->removeNamingStrategy();
+            $this->setNamingStrategy(new NamingStrategy\UnderscoreNamingStrategy());
+            return;
         }
 
-        return $this;
+        if ($this->hasNamingStrategy()) {
+            $this->removeNamingStrategy();
+            return;
+        }
     }
 
-    /**
-     * @return bool
-     */
-    public function getUnderscoreSeparatedKeys()
+    public function getUnderscoreSeparatedKeys() : bool
     {
         return $this->underscoreSeparatedKeys;
     }
 
-    /**
-     * @param  bool      $methodExistsCheck
-     * @return ClassMethods
-     */
-    public function setMethodExistsCheck($methodExistsCheck)
+    public function setMethodExistsCheck(bool $methodExistsCheck) : void
     {
-        $this->methodExistsCheck = (bool) $methodExistsCheck;
-
-        return $this;
+        $this->methodExistsCheck = $methodExistsCheck;
     }
 
-    /**
-     * @return bool
-     */
-    public function getMethodExistsCheck()
+    public function getMethodExistsCheck() : bool
     {
         return $this->methodExistsCheck;
     }
@@ -144,20 +121,9 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      * Extract values from an object with class methods
      *
      * Extracts the getter/setter of the given $object.
-     *
-     * @param  object                           $object
-     * @return array
-     * @throws Exception\BadMethodCallException for a non-object $object
      */
-    public function extract($object)
+    public function extract(object $object) : array
     {
-        if (! is_object($object)) {
-            throw new Exception\BadMethodCallException(sprintf(
-                '%s expects the provided $object to be a PHP object)',
-                __METHOD__
-            ));
-        }
-
         $objectClass = get_class($object);
 
         // reset the hydrator's hydrator's cache for this object, as the filter may be per-instance
@@ -213,21 +179,9 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      * Hydrate an object by populating getter/setter methods
      *
      * Hydrates an object by getter/setter methods of the object.
-     *
-     * @param  array                            $data
-     * @param  object                           $object
-     * @return object
-     * @throws Exception\BadMethodCallException for a non-object $object
      */
-    public function hydrate(array $data, $object)
+    public function hydrate(array $data, object $object) : object
     {
-        if (! is_object($object)) {
-            throw new Exception\BadMethodCallException(sprintf(
-                '%s expects the provided $object to be a PHP object)',
-                __METHOD__
-            ));
-        }
-
         $objectClass = get_class($object);
 
         foreach ($data as $property => $value) {
@@ -253,47 +207,43 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
     /**
      * {@inheritDoc}
      */
-    public function addFilter($name, $filter, $condition = Filter\FilterComposite::CONDITION_OR)
+    public function addFilter(string $name, $filter, int $condition = Filter\FilterComposite::CONDITION_OR) : void
     {
         $this->resetCaches();
-
-        return parent::addFilter($name, $filter, $condition);
+        parent::addFilter($name, $filter, $condition);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function removeFilter($name)
+    public function removeFilter(string $name) : void
     {
         $this->resetCaches();
-
-        return parent::removeFilter($name);
+        parent::removeFilter($name);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setNamingStrategy(NamingStrategy\NamingStrategyInterface $strategy)
+    public function setNamingStrategy(NamingStrategy\NamingStrategyInterface $strategy) : void
     {
         $this->resetCaches();
-
-        return parent::setNamingStrategy($strategy);
+        parent::setNamingStrategy($strategy);
     }
 
     /**
      * {@inheritDoc}
      */
-    public function removeNamingStrategy()
+    public function removeNamingStrategy() : void
     {
         $this->resetCaches();
-
-        return parent::removeNamingStrategy();
+        parent::removeNamingStrategy();
     }
 
     /**
      * Reset all local hydration/extraction caches
      */
-    private function resetCaches()
+    private function resetCaches() : void
     {
         $this->hydrationMethodsCache = $this->extractionMethodsCache = [];
     }

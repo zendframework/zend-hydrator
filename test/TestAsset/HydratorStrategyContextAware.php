@@ -7,6 +7,8 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator\TestAsset;
 
 use Zend\Hydrator\Strategy\DefaultStrategy;
@@ -16,13 +18,13 @@ class HydratorStrategyContextAware extends DefaultStrategy
     public $object;
     public $data;
 
-    public function extract($value, $object = null)
+    public function extract($value, ?object $object = null)
     {
         $this->object = $object;
         return $value;
     }
 
-    public function hydrate($value, $data = null)
+    public function hydrate($value, ?array $data = null)
     {
         $this->data = $data;
         return $value;

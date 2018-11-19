@@ -5,6 +5,8 @@
  * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 /**
@@ -14,17 +16,9 @@ final class UnderscoreToCamelCaseFilter
 {
     use StringSupportTrait;
 
-    /**
-     * @param  string $value
-     * @return string
-     */
-    public function filter($value)
+    public function filter(string $value) : string
     {
-        if (! is_scalar($value)) {
-            return $value;
-        }
-
-        list($pattern, $replacement) = $this->getPatternAndReplacement(
+        [$pattern, $replacement] = $this->getPatternAndReplacement(
             // a unicode safe way of converting characters to \x00\x00 notation
             preg_quote('_', '#')
         );
@@ -36,11 +30,10 @@ final class UnderscoreToCamelCaseFilter
     }
 
     /**
-     * @param string $pregQuotedSeparator
      * @return array Array with two items: the pattern to match, and the
      *     callback to use for replacement.
      */
-    private function getPatternAndReplacement($pregQuotedSeparator)
+    private function getPatternAndReplacement(string $pregQuotedSeparator) : array
     {
         return $this->hasPcreUnicodeSupport()
             ? $this->getUnicodePatternAndReplacement($pregQuotedSeparator)
@@ -55,11 +48,10 @@ final class UnderscoreToCamelCaseFilter
     }
 
     /**
-     * @param string $pregQuotedSeparator
      * @return array Array with two items: the pattern to match, and the
      *     callback to use for replacement.
      */
-    private function getUnicodePatternAndReplacement($pregQuotedSeparator)
+    private function getUnicodePatternAndReplacement(string $pregQuotedSeparator) : array
     {
         return $this->hasMbStringSupport()
             ? [
@@ -81,10 +73,7 @@ final class UnderscoreToCamelCaseFilter
             ];
     }
 
-    /**
-     * @return callable
-     */
-    private function getLcFirstFunction()
+    private function getLcFirstFunction() : callable
     {
         return $this->hasMbStringSupport()
             ? function ($value) {
