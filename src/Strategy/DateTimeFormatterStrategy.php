@@ -16,6 +16,8 @@ use DateTimeZone;
 final class DateTimeFormatterStrategy implements StrategyInterface
 {
     /**
+     * Format to use during hydration.
+     *
      * @var string
      */
     private $format;
@@ -26,6 +28,13 @@ final class DateTimeFormatterStrategy implements StrategyInterface
     private $timezone;
 
     /**
+     * Format to use during extraction.
+     *
+     * Removes any special anchor characters used to ensure that creation of a
+     * `DateTime` instance uses the formatted time string (which is useful
+     * during hydration).  These include `!` at the beginning of the string and
+     * `|` at the end.
+     *
      * @var string
      */
     private $extractionFormat;
@@ -48,8 +57,7 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      *
      * Converts to date time string
      *
-     * @param mixed|DateTime $value
-     *
+     * @param mixed|DateTimeInterface $value
      * @return mixed|string
      */
     public function extract($value)
@@ -67,7 +75,6 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      * {@inheritDoc}
      *
      * @param mixed|string $value
-     *
      * @return mixed|DateTime
      */
     public function hydrate($value)
@@ -76,11 +83,9 @@ final class DateTimeFormatterStrategy implements StrategyInterface
             return;
         }
 
-        if ($this->timezone) {
-            $hydrated = DateTime::createFromFormat($this->format, $value, $this->timezone);
-        } else {
-            $hydrated = DateTime::createFromFormat($this->format, $value);
-        }
+        $hydrated = $this->timezone
+            ? DateTime::createFromFormat($this->format, $value, $this->timezone)
+            : DateTime::createFromFormat($this->format, $value);
 
         return $hydrated ?: $value;
     }
