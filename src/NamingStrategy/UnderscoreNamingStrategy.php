@@ -1,27 +1,26 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
 namespace Zend\Hydrator\NamingStrategy;
 
-use Zend\Filter\FilterChain;
+use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter;
+use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter;
 
 class UnderscoreNamingStrategy implements NamingStrategyInterface
 {
     /**
-     * @var FilterChain|null
+     * @var CamelCaseToUnderscoreFilter|null
      */
-    protected static $camelCaseToUnderscoreFilter;
+    private static $camelCaseToUnderscoreFilter;
 
     /**
-     * @var FilterChain|null
+     * @var UnderscoreToCamelCaseFilter|null
      */
-    protected static $underscoreToStudlyCaseFilter;
+    private static $underscoreToCamelCaseFilter;
 
     /**
      * Remove underscores and capitalize letters
@@ -31,7 +30,7 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
      */
     public function hydrate($name)
     {
-        return $this->getUnderscoreToStudlyCaseFilter()->filter($name);
+        return $this->getUnderscoreToCamelCaseFilter()->filter($name);
     }
 
     /**
@@ -46,35 +45,26 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
     }
 
     /**
-     * @return FilterChain
+     * @return UnderscoreToCamelCaseFilter
      */
-    protected function getUnderscoreToStudlyCaseFilter()
+    private function getUnderscoreToCamelCaseFilter()
     {
-        if (static::$underscoreToStudlyCaseFilter instanceof FilterChain) {
-            return static::$underscoreToStudlyCaseFilter;
+        if (! static::$underscoreToCamelCaseFilter) {
+            static::$underscoreToCamelCaseFilter = new UnderscoreToCamelCaseFilter();
         }
 
-        $filter = new FilterChain();
-
-        $filter->attachByName('WordUnderscoreToStudlyCase');
-
-        return static::$underscoreToStudlyCaseFilter = $filter;
+        return static::$underscoreToCamelCaseFilter;
     }
 
     /**
-     * @return FilterChain
+     * @return CamelCaseToUnderscoreFilter
      */
-    protected function getCamelCaseToUnderscoreFilter()
+    private function getCamelCaseToUnderscoreFilter()
     {
-        if (static::$camelCaseToUnderscoreFilter instanceof FilterChain) {
-            return static::$camelCaseToUnderscoreFilter;
+        if (! static::$camelCaseToUnderscoreFilter) {
+            static::$camelCaseToUnderscoreFilter = new CamelCaseToUnderscoreFilter();
         }
 
-        $filter = new FilterChain();
-
-        $filter->attachByName('WordCamelCaseToUnderscore');
-        $filter->attachByName('StringToLower');
-
-        return static::$camelCaseToUnderscoreFilter = $filter;
+        return static::$camelCaseToUnderscoreFilter;
     }
 }
