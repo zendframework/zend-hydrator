@@ -104,6 +104,12 @@ This is a strategy that allows you to pass in options for:
 and DateTime instances. The input and output formats can be provided as
 constructor arguments.
 
+As of version 2.4.1, this strategy now allows `DateTime` formats that use `!` to
+prepend the format, or `|` or `+` to append it; these ensure that, during
+hydration, the new `DateTime` instance created will set the time element
+accordingly. As a specific example, `Y-m-d|` will drop the time component,
+ensuring comparisons are based on a midnight time value.
+
 ### Zend\\Hydrator\\Strategy\\DefaultStrategy
 
 The `DefaultStrategy` simply proxies everything through, without performing any
