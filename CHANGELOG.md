@@ -6,7 +6,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#79](https://github.com/zendframework/zend-hydrator/pull/79) adds a third, optional parameter to the `DateTimeFormatterStrategy` constructor.
+  The parameter is a boolean, and, when enabled, a string that can be parsed by
+  the `DateTime` constructor will still result in a `DateTime` instance during
+  hydration, even if the string does not follow the provided date-time format.
 
 ### Changed
 
