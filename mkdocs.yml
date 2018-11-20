@@ -1,7 +1,7 @@
 docs_dir: docs/book
 site_dir: docs/html
 pages:
-    - index.md
+    - Home: index.md
     - "Quick Start": quick-start.md
     - Reference:
       - "Filters": filter.md
@@ -13,6 +13,5 @@ pages:
         - "Underscore Mapping": naming-strategy/underscore-naming-strategy.md
         - "Composite": naming-strategy/composite-naming-strategy.md
 site_name: zend-hydrator
-site_description: zend-hydrator
+site_description: "Serialize objects to arrays, and vice versa"
 repo_url: 'https://github.com/zendframework/zend-hydrator'
-copyright: 'Copyright (c) 2005-2018 <a href="https://www.zend.com/">Zend Technologies USA Inc.</a>'
