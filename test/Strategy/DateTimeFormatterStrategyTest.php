@@ -16,6 +16,7 @@ use DateTimeImmutable;
 use DateTimezone;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Zend\Hydrator\Strategy\Exception\InvalidArgumentException;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
 
 /**
@@ -147,5 +148,50 @@ class DateTimeFormatterStrategyTest extends TestCase
         $date = $strategy->hydrate('2018-09-06T12:10:30');
 
         $this->assertSame('Europe/Prague', $date->getTimezone()->getName());
+    }
+
+    public function invalidValuesForHydration() : iterable
+    {
+        return [
+            'zero'       => [0],
+            'int'        => [1],
+            'zero-float' => [0.0],
+            'float'      => [1.1],
+            'array'      => [['2018-11-20']],
+            'object'     => [(object) ['date' => '2018-11-20']],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidValuesForHydration
+     * @param mixed $value
+     */
+    public function testHydrateRaisesExceptionIfValueIsInvalid($value)
+    {
+        $strategy = new DateTimeFormatterStrategy('Y-m-d');
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $strategy->hydrate($value);
+    }
+
+    public function validUnhydratableValues() : iterable
+    {
+        return [
+            'empty string' => [''],
+            'null'         => [null],
+            'date-time'    => [new DateTimeImmutable('now')],
+        ];
+    }
+
+    /**
+     * @dataProvider validUnhydratableValues
+     * @param mixed $value
+     */
+    public function testReturnsValueVerbatimUnderSpecificConditions($value)
+    {
+        $strategy = new DateTimeFormatterStrategy('Y-m-d');
+        $hydrated = $strategy->hydrate($value);
+        $this->assertSame($value, $hydrated);
     }
 }

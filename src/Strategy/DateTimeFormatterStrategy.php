@@ -87,8 +87,15 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      */
     public function hydrate($value, ?array $data = null)
     {
-        if ($value === '' || $value === null) {
-            return;
+        if ($value === '' || $value === null || $value instanceof DateTimeInterface) {
+            return $value;
+        }
+
+        if (! is_string($value)) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Unable to hydrate. Expected null, string, or DateTimeInterface; %s was given.',
+                is_object($value) ? get_class($value) : gettype($value)
+            ));
         }
 
         $hydrated = $this->timezone
@@ -96,7 +103,9 @@ final class DateTimeFormatterStrategy implements StrategyInterface
             : DateTime::createFromFormat($this->format, $value);
 
         if ($hydrated === false && $this->dateTimeFallback) {
-            $hydrated = new DateTime($value, $this->timezone);
+            $hydrated = $this->timezone
+                ? new DateTime($value, $this->timezone)
+                : new DateTime($value);
         }
 
         return $hydrated ?: $value;
