@@ -27,8 +27,8 @@ class SerializableStrategy implements StrategyInterface
 
     /**
      *
-     * @param mixed $serializer string or SerializerAdapter
-     * @param mixed $serializerOptions
+     * @param string|SerializerAdapter $serializer
+     * @param null|iterable $serializerOptions
      */
     public function __construct($serializer, ?iterable $serializerOptions = null)
     {
@@ -88,9 +88,9 @@ class SerializableStrategy implements StrategyInterface
     {
         if (is_string($this->serializer)) {
             $options = $this->getSerializerOptions();
-            $this->setSerializer(SerializerFactory::factory($this->serializer, $options));
+            $this->serializer = SerializerFactory::factory($this->serializer, $options);
         } elseif (null === $this->serializer) {
-            $this->setSerializer(SerializerFactory::getDefaultAdapter());
+            $this->serializer = SerializerFactory::getDefaultAdapter();
         }
 
         return $this->serializer;

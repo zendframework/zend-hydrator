@@ -40,6 +40,7 @@ class HydrateEvent extends Event
      */
     public function __construct($target, $hydratedObject, array $hydrationData)
     {
+        parent::__construct();
         $this->target         = $target;
         $this->hydratedObject = $hydratedObject;
         $this->hydrationData  = $hydrationData;

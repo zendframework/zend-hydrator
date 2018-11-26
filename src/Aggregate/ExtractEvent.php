@@ -40,6 +40,7 @@ class ExtractEvent extends Event
      */
     public function __construct($target, $extractionObject)
     {
+        parent::__construct();
         $this->target           = $target;
         $this->extractionObject = $extractionObject;
     }

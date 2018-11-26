@@ -2,3 +2,7 @@ parameters:
     level: 7
     paths:
         - src/
+    ignoreErrors:
+        - '#Array \(array\<array\<string\|null\>\>\) does not accept null.#'
+        - '#Parameter \#1 \$configInstanceOrParentLocator.*?Psr\\Container\\ContainerInterface given\.#'
+        - '#Result of [|&]{2} is always (true|false)#'

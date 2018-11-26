@@ -56,8 +56,17 @@ final class DateTimeFormatterStrategy implements StrategyInterface
     ) {
         $this->format           = $format;
         $this->timezone         = $timezone;
-        $this->extractionFormat = preg_replace('/(?<![\\\\])[+|!\*]/', '', $this->format);
         $this->dateTimeFallback = $dateTimeFallback;
+
+        $extractionFormat = preg_replace('/(?<![\\\\])[+|!\*]/', '', $this->format);
+        if (null === $extractionFormat) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                'Format provided (%s) contains invalid characters; please verify the format',
+                $format
+            ));
+        }
+
+        $this->extractionFormat = $extractionFormat;
     }
 
     /**

@@ -27,7 +27,7 @@ abstract class AbstractHydrator implements
     /**
      * An instance of NamingStrategy\NamingStrategyInterface
      *
-     * @var NamingStrategy\NamingStrategyInterface
+     * @var null|NamingStrategy\NamingStrategyInterface
      */
     protected $namingStrategy;
 
@@ -84,17 +84,17 @@ abstract class AbstractHydrator implements
      */
     public function hasStrategy(string $name) : bool
     {
-        if (array_key_exists($name, $this->strategies)) {
+        if ($this->strategies->offsetExists($name)) {
             return true;
         }
 
         if ($this->hasNamingStrategy()
-            && array_key_exists($this->getNamingStrategy()->hydrate($name), $this->strategies)
+            && $this->strategies->offsetExists($this->getNamingStrategy()->hydrate($name))
         ) {
             return true;
         }
 
-        return array_key_exists('*', $this->strategies);
+        return $this->strategies->offsetExists('*');
     }
 
     /**
@@ -155,11 +155,11 @@ abstract class AbstractHydrator implements
     /**
      * Convert a name for extraction. If no naming strategy exists, the plain value is returned.
      *
-     * @param  string $name    The name to convert.
-     * @param  null   $object  The object is optionally provided as context.
+     * @param  string      $name    The name to convert.
+     * @param  null|object $object  The object is optionally provided as context.
      * @return mixed
      */
-    public function extractName(string $name, $object = null)
+    public function extractName(string $name, ?object $object = null)
     {
         if ($this->hasNamingStrategy()) {
             $name = $this->getNamingStrategy()->extract($name, $object);
@@ -249,9 +249,16 @@ abstract class AbstractHydrator implements
 
     /**
      * Gets the naming strategy.
+     *
+     * @throws Exception\DomainException if no naming strategy is registered.
      */
     public function getNamingStrategy() : NamingStrategy\NamingStrategyInterface
     {
+        if (null === $this->namingStrategy) {
+            throw new Exception\DomainException(
+                'Missing naming strategy; call hasNamingStrategy() to test for presence first'
+            );
+        }
         return $this->namingStrategy;
     }
 

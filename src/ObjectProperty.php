@@ -15,7 +15,7 @@ use ReflectionProperty;
 class ObjectProperty extends AbstractHydrator
 {
     /**
-     * @var array[] indexed by class name and then property name
+     * @var (null|array)[] indexed by class name and then property name
      */
     private static $skippedPropertiesCache = [];
 
@@ -59,9 +59,9 @@ class ObjectProperty extends AbstractHydrator
      */
     public function hydrate(array $data, object $object) : object
     {
-        $properties =& self::$skippedPropertiesCache[get_class($object)];
+        $properties =& self::$skippedPropertiesCache[get_class($object)] ?? null;
 
-        if (! isset($properties)) {
+        if (null === $properties) {
             $reflection = new ReflectionClass($object);
             $properties = array_fill_keys(
                 array_map(

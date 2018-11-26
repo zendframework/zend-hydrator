@@ -20,7 +20,7 @@ class ClosureStrategy implements StrategyInterface
      * };
      * </code>
      *
-     * @var callable
+     * @var null|callable
      */
     protected $extractFunc = null;
 
@@ -33,7 +33,7 @@ class ClosureStrategy implements StrategyInterface
      * };
      * </code>
      *
-     * @var callable
+     * @var null|callable
      */
     protected $hydrateFunc = null;
 
@@ -63,8 +63,8 @@ class ClosureStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be extracted by the hydrator.
      *
-     * @param  mixed $value  The original value.
-     * @param  array $object The object is optionally provided as context.
+     * @param  mixed       $value  The original value.
+     * @param  null|object $object The object is optionally provided as context.
      * @return mixed Returns the value that should be extracted.
      */
     public function extract($value, ?object $object = null)

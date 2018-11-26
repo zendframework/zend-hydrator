@@ -22,7 +22,7 @@ class AggregateHydrator implements HydratorInterface, EventManagerAwareInterface
     public const DEFAULT_PRIORITY = 1;
 
     /**
-     * @var EventManagerInterface|null
+     * @var EventManagerInterface
      */
     protected $eventManager;
 

@@ -16,7 +16,8 @@ class Reflection extends AbstractHydrator
 {
     /**
      * Simple in-memory array cache of ReflectionProperties used.
-     * @var ReflectionProperty[]
+     *
+     * @var ReflectionProperty[][]
      */
     protected static $reflProperties = [];
 
