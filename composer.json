@@ -20,8 +20,10 @@
         "zendframework/zend-stdlib": "^3.2.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.4.4",
         "phpspec/prophecy": "^1.7.5",
+        "phpstan/phpstan": "^0.10.5",
+        "phpstan/phpstan-strict-rules": "^0.10.1",
+        "phpunit/phpunit": "^7.4.4",
         "zendframework/zend-coding-standard": "~1.0.0",
         "zendframework/zend-eventmanager": "^3.2.1",
         "zendframework/zend-serializer": "^2.9",
@@ -58,6 +60,7 @@
         }
     },
     "scripts": {
+        "analyse": "phpstan analyse --no-progress -c phpstan.neon",
         "check": [
             "@cs-check",
             "@test"
