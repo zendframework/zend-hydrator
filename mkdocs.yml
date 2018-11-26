@@ -1,6 +1,6 @@
 docs_dir: docs/book
 site_dir: docs/html
-nav:
+pages:
     - Home: index.md
     - "Quick Start": v3/quick-start.md
     - Reference:
