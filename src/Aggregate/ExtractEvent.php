@@ -34,11 +34,7 @@ class ExtractEvent extends Event
      */
     protected $extractedData = [];
 
-    /**
-     * @param object $target
-     * @param object $extractionObject
-     */
-    public function __construct($target, $extractionObject)
+    public function __construct(object $target, object $extractionObject)
     {
         parent::__construct();
         $this->target           = $target;
@@ -47,18 +43,13 @@ class ExtractEvent extends Event
 
     /**
      * Retrieves the object from which data is extracted
-     *
-     * @return object
      */
-    public function getExtractionObject()
+    public function getExtractionObject() : object
     {
         return $this->extractionObject;
     }
 
-    /**
-     * @param object $extractionObject
-     */
-    public function setExtractionObject($extractionObject) : void
+    public function setExtractionObject(object $extractionObject) : void
     {
         $this->extractionObject = $extractionObject;
     }
@@ -81,8 +72,6 @@ class ExtractEvent extends Event
 
     /**
      * Merge provided data with the extracted data
-     *
-     * @param array $additionalData
      */
     public function mergeExtractedData(array $additionalData) : void
     {
