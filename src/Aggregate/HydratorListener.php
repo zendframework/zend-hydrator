@@ -25,9 +25,6 @@ class HydratorListener extends AbstractListenerAggregate
      */
     protected $hydrator;
 
-    /**
-     * @param HydratorInterface $hydrator
-     */
     public function __construct(HydratorInterface $hydrator)
     {
         $this->hydrator = $hydrator;
@@ -46,9 +43,8 @@ class HydratorListener extends AbstractListenerAggregate
      * Callback to be used when {@see HydrateEvent::EVENT_HYDRATE} is triggered
      *
      * @internal
-     * @return object
      */
-    public function onHydrate(HydrateEvent $event)
+    public function onHydrate(HydrateEvent $event) : object
     {
         $object = $this->hydrator->hydrate($event->getHydrationData(), $event->getHydratedObject());
         $event->setHydratedObject($object);
