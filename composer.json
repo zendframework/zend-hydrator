@@ -60,7 +60,7 @@
         }
     },
     "scripts": {
-        "analyse": "phpstan analyse --no-progress -c phpstan.neon",
+        "analyse": "phpstan analyse --no-progress",
         "check": [
             "@cs-check",
             "@test"
