@@ -20,7 +20,7 @@ class ArraySerializable extends AbstractHydrator
      */
     public function extract(object $object) : array
     {
-        if (! method_exists($object, 'getArrayCopy')) {
+        if (! method_exists($object, 'getArrayCopy') || ! is_callable([$object, 'getArrayCopy'])) {
             throw new Exception\BadMethodCallException(
                 sprintf('%s expects the provided object to implement getArrayCopy()', __METHOD__)
             );
@@ -67,10 +67,10 @@ class ArraySerializable extends AbstractHydrator
             $replacement[$name] = $this->hydrateValue($name, $value, $data);
         }
 
-        if (method_exists($object, 'exchangeArray')) {
+        if (method_exists($object, 'exchangeArray') && is_callable([$object, 'exchangeArray'])) {
             // Ensure any previously populated values not in the replacement
             // remain following population.
-            if (method_exists($object, 'getArrayCopy')) {
+            if (method_exists($object, 'getArrayCopy') && is_callable([$object, 'getArrayCopy'])) {
                 $original = $object->getArrayCopy($object);
                 $replacement = array_merge($original, $replacement);
             }
@@ -78,7 +78,7 @@ class ArraySerializable extends AbstractHydrator
             return $object;
         }
 
-        if (method_exists($object, 'populate')) {
+        if (method_exists($object, 'populate') && is_callable([$object, 'populate'])) {
             $object->populate($replacement);
             return $object;
         }
