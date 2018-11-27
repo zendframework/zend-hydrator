@@ -9,6 +9,9 @@ declare(strict_types=1);
 
 namespace Zend\Hydrator\Filter;
 
+use function strpos;
+use function substr;
+
 class GetFilter implements FilterInterface
 {
     public function filter(string $property) : bool

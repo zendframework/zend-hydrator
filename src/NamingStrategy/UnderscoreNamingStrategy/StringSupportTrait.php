@@ -11,6 +11,8 @@ namespace Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 use Zend\Stdlib\StringUtils;
 
+use function extension_loaded;
+
 /**
  * @internal
  */

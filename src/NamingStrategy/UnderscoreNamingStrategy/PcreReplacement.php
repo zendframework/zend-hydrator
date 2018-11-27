@@ -9,6 +9,11 @@ declare(strict_types=1);
 
 namespace Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
+/**
+ * Describe a PCRE pattern and a callback for providing a replacement.
+ *
+ * @internal
+ */
 class PcreReplacement
 {
     /**

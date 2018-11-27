@@ -13,6 +13,13 @@ use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
 
+use function gettype;
+use function get_class;
+use function is_object;
+use function is_string;
+use function preg_replace;
+use function sprintf;
+
 final class DateTimeFormatterStrategy implements StrategyInterface
 {
     /**

@@ -12,6 +12,8 @@ namespace Zend\Hydrator\Strategy;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 
+use function array_map;
+
 final class StrategyChain implements StrategyInterface
 {
     /**

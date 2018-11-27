@@ -13,6 +13,8 @@ use ReflectionException;
 use ReflectionMethod;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
+use function sprintf;
+
 class NumberOfParameterFilter implements FilterInterface
 {
     /**

@@ -9,6 +9,11 @@ declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
+use function array_merge;
+use function is_callable;
+use function method_exists;
+use function sprintf;
+
 class ArraySerializable extends AbstractHydrator
 {
     /**

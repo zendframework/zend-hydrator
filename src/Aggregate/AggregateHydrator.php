@@ -14,6 +14,8 @@ use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\Hydrator\HydratorInterface;
 
+use function get_class;
+
 /**
  * Aggregate hydrator that composes multiple hydrators via events
  */

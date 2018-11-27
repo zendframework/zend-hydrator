@@ -9,6 +9,11 @@ declare(strict_types=1);
 
 namespace Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
+use function mb_strtolower;
+use function preg_replace;
+use function preg_replace_callback;
+use function strtolower;
+
 /**
  * @internal
  */

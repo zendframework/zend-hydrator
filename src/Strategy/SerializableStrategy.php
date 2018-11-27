@@ -13,6 +13,13 @@ use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Serializer\Adapter\AdapterInterface as SerializerAdapter;
 use Zend\Serializer\Serializer as SerializerFactory;
 
+use function gettype;
+use function get_class;
+use function is_array;
+use function is_object;
+use function is_string;
+use function sprintf;
+
 class SerializableStrategy implements StrategyInterface
 {
     /**
@@ -74,7 +81,7 @@ class SerializableStrategy implements StrategyInterface
                 '%s expects either a string serializer name or Zend\Serializer\Adapter\AdapterInterface instance; '
                 . 'received "%s"',
                 __METHOD__,
-                (is_object($serializer) ? get_class($serializer) : gettype($serializer))
+                is_object($serializer) ? get_class($serializer) : gettype($serializer)
             ));
         }
         $this->serializer = $serializer;

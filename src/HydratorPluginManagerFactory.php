@@ -12,6 +12,8 @@ namespace Zend\Hydrator;
 use Psr\Container\ContainerInterface;
 use Zend\ServiceManager\Config;
 
+use function is_array;
+
 class HydratorPluginManagerFactory
 {
     /**

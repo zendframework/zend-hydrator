@@ -12,6 +12,15 @@ namespace Zend\Hydrator;
 use Traversable;
 use Zend\Stdlib\ArrayUtils;
 
+use function get_class;
+use function get_class_methods;
+use function is_callable;
+use function lcfirst;
+use function method_exists;
+use function property_exists;
+use function strpos;
+use function substr;
+
 class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 {
     /**

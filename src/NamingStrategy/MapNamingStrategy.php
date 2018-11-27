@@ -11,6 +11,12 @@ namespace Zend\Hydrator\NamingStrategy;
 
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
+use function array_flip;
+use function array_key_exists;
+use function array_walk;
+use function is_int;
+use function is_string;
+
 class MapNamingStrategy implements NamingStrategyInterface
 {
     /**

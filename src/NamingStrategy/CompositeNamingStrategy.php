@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace Zend\Hydrator\NamingStrategy;
 
+use function array_map;
+
 final class CompositeNamingStrategy implements NamingStrategyInterface
 {
     /**

@@ -12,6 +12,10 @@ namespace Zend\Hydrator\Filter;
 use ArrayObject;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
+use function array_walk;
+use function is_callable;
+use function sprintf;
+
 class FilterComposite implements FilterInterface
 {
     /**

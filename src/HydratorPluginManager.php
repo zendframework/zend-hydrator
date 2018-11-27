@@ -13,6 +13,11 @@ use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
+use function gettype;
+use function get_class;
+use function is_object;
+use function sprintf;
+
 /**
  * Plugin manager implementation for hydrators.
  *

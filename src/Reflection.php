@@ -12,6 +12,8 @@ namespace Zend\Hydrator;
 use ReflectionClass;
 use ReflectionProperty;
 
+use function get_class;
+
 class Reflection extends AbstractHydrator
 {
     /**

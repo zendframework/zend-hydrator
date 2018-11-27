@@ -14,6 +14,9 @@ use ReflectionMethod;
 use ReflectionParameter;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
+use function array_filter;
+use function sprintf;
+
 /**
  * Filter that includes methods which have no parameters or only optional parameters
  */

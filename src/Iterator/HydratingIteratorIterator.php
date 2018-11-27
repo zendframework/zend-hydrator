@@ -14,6 +14,10 @@ use IteratorIterator;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Hydrator\HydratorInterface;
 
+use function class_exists;
+use function is_object;
+use function sprintf;
+
 class HydratingIteratorIterator extends IteratorIterator implements HydratingIteratorInterface
 {
     /**

@@ -11,6 +11,8 @@ namespace Zend\Hydrator;
 
 use ArrayObject;
 
+use function sprintf;
+
 abstract class AbstractHydrator implements
     HydratorInterface,
     StrategyEnabledInterface,

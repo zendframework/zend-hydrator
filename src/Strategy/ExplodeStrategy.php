@@ -9,6 +9,16 @@ declare(strict_types=1);
 
 namespace Zend\Hydrator\Strategy;
 
+use function explode;
+use function gettype;
+use function get_class;
+use function implode;
+use function is_array;
+use function is_numeric;
+use function is_object;
+use function is_string;
+use function sprintf;
+
 final class ExplodeStrategy implements StrategyInterface
 {
     /**

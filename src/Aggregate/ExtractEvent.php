@@ -11,6 +11,8 @@ namespace Zend\Hydrator\Aggregate;
 
 use Zend\EventManager\Event;
 
+use function array_merge;
+
 /**
  * Event triggered when the {@see AggregateHydrator} extracts
  * data from an object
