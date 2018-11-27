@@ -16,20 +16,20 @@ class MapNamingStrategy implements NamingStrategyInterface
     /**
      * Map for hydrate name conversion.
      *
-     * @var array
+     * @var string[]
      */
     protected $mapping = [];
 
     /**
      * Reversed map for extract name conversion.
      *
-     * @var array
+     * @var string[]
      */
     protected $reverse = [];
 
     /**
-     * @param array $mapping Map for name conversion on hydration
-     * @param array $reverse Reverse map for name conversion on extraction
+     * @param string[]      $mapping Map for name conversion on hydration
+     * @param null|string[] $reverse Reverse map for name conversion on extraction
      */
     public function __construct(array $mapping, ?array $reverse = null)
     {
@@ -40,8 +40,8 @@ class MapNamingStrategy implements NamingStrategyInterface
     /**
      * Safely flip mapping array.
      *
-     * @param  array $array Array to flip
-     * @return array Flipped array
+     * @param  string[] $array Array to flip
+     * @return string[] Flipped array
      * @throws InvalidArgumentException
      */
     protected function flipMapping(array $array) : array
@@ -57,6 +57,8 @@ class MapNamingStrategy implements NamingStrategyInterface
 
     /**
      * Converts the given name so that it can be extracted by the hydrator.
+     *
+     * {@inheritDoc}
      */
     public function hydrate(string $name, ?array $data = null) : string
     {
@@ -69,6 +71,8 @@ class MapNamingStrategy implements NamingStrategyInterface
 
     /**
      * Converts the given name so that it can be hydrated by the hydrator.
+     *
+     * {@inheritDoc}
      */
     public function extract(string $name, ?object $object = null) : string
     {

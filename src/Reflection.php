@@ -23,6 +23,8 @@ class Reflection extends AbstractHydrator
 
     /**
      * Extract values from an object
+     *
+     * {@inheritDoc}
      */
     public function extract(object $object) : array
     {
@@ -42,6 +44,8 @@ class Reflection extends AbstractHydrator
 
     /**
      * Hydrate $object with the provided $data.
+     *
+     * {@inheritDoc}
      */
     public function hydrate(array $data, object $object) : object
     {

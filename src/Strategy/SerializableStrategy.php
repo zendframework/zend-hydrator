@@ -21,14 +21,14 @@ class SerializableStrategy implements StrategyInterface
     protected $serializer;
 
     /**
-     * @var array
+     * @var mixed[]
      */
     protected $serializerOptions = [];
 
     /**
      *
      * @param string|SerializerAdapter $serializer
-     * @param null|iterable $serializerOptions
+     * @param null|mixed[] $serializerOptions
      */
     public function __construct($serializer, ?iterable $serializerOptions = null)
     {
@@ -41,8 +41,7 @@ class SerializableStrategy implements StrategyInterface
     /**
      * Serialize the given value so that it can be extracted by the hydrator.
      *
-     * @param mixed $value The original value.
-     * @return mixed Returns the value that should be extracted.
+     * {@inheritDoc}
      */
     public function extract($value, ?object $object = null)
     {
@@ -53,8 +52,7 @@ class SerializableStrategy implements StrategyInterface
     /**
      * Unserialize the given value so that it can be hydrated by the hydrator.
      *
-     * @param mixed $value The original value.
-     * @return mixed Returns the value that should be hydrated.
+     * {@inheritDoc}
      */
     public function hydrate($value, ?array $data = null)
     {
@@ -99,6 +97,8 @@ class SerializableStrategy implements StrategyInterface
 
     /**
      * Set configuration options for instantiating a serializer adapter
+     *
+     * @param mixed[] $serializerOptions
      */
     public function setSerializerOptions(iterable $serializerOptions) : void
     {
@@ -109,6 +109,8 @@ class SerializableStrategy implements StrategyInterface
 
     /**
      * Get configuration options for instantiating a serializer adapter
+     *
+     * @return mixed[]
      */
     public function getSerializerOptions() : array
     {

@@ -12,7 +12,7 @@ namespace Zend\Hydrator\NamingStrategy;
 final class CompositeNamingStrategy implements NamingStrategyInterface
 {
     /**
-     * @var array
+     * @var NamingStrategyInterface[]
      */
     private $namingStrategies = [];
 

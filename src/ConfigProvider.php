@@ -13,6 +13,8 @@ class ConfigProvider
 {
     /**
      * Return configuration for this component.
+     *
+     * @return mixed[]
      */
     public function __invoke() : array
     {
@@ -23,6 +25,8 @@ class ConfigProvider
 
     /**
      * Return dependency mappings for this component.
+     *
+     * @return string[][]
      */
     public function getDependencyConfig() : array
     {

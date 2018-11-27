@@ -37,6 +37,8 @@ class FilterComposite implements FilterInterface
     /**
      * We can pass a list of OR/AND filters through construct
      *
+     * @param callable[]|FilterInterface[] $orFilters
+     * @param callable[]|FilterInterface[] $andFilters
      * @throws InvalidArgumentException
      */
     public function __construct(array $orFilters = [], array $andFilters = [])
@@ -64,9 +66,9 @@ class FilterComposite implements FilterInterface
      * );
      * </code>
      *
-     * @param  mixed $filter
-     * @param  int   $condition Can be either FilterComposite::CONDITION_OR
-     *     or FilterComposite::CONDITION_AND
+     * @param  callable|FilterInterface $filter
+     * @param  int                      $condition Can be either
+     *     FilterComposite::CONDITION_OR or FilterComposite::CONDITION_AND
      * @throws InvalidArgumentException
      */
     public function addFilter(string $name, $filter, int $condition = self::CONDITION_OR) : void

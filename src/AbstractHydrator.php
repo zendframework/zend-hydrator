@@ -20,7 +20,7 @@ abstract class AbstractHydrator implements
     /**
      * The list with strategies that this hydrator has.
      *
-     * @var ArrayObject
+     * @var ArrayObject<Strategy\StrategyInterface>
      */
     protected $strategies;
 
@@ -170,8 +170,8 @@ abstract class AbstractHydrator implements
     /**
      * Converts a value for hydration. If no naming strategy exists, the plain value is returned.
      *
-     * @param  string $name  The name to convert.
-     * @param  array  $data  The whole data is optionally provided as context.
+     * @param  string       $name  The name to convert.
+     * @param  null|mixed[] $data  The whole data is optionally provided as context.
      */
     public function hydrateName(string $name, ?array $data = null) : string
     {

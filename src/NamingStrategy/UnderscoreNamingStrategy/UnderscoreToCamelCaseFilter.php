@@ -18,59 +18,49 @@ final class UnderscoreToCamelCaseFilter
 
     public function filter(string $value) : string
     {
-        [$pattern, $replacement] = $this->getPatternAndReplacement(
+        $pcreInfo = $this->getPatternAndReplacement(
             // a unicode safe way of converting characters to \x00\x00 notation
             preg_quote('_', '#')
         );
 
-        $filtered = preg_replace_callback($pattern, $replacement, $value);
+        $filtered = preg_replace_callback(
+            $pcreInfo->pattern,
+            $pcreInfo->replacement,
+            $value
+        );
 
         $lcFirstFunction = $this->getLcFirstFunction();
         return $lcFirstFunction($filtered);
     }
 
-    /**
-     * @return array Array with two items: the pattern to match, and the
-     *     callback to use for replacement.
-     */
-    private function getPatternAndReplacement(string $pregQuotedSeparator) : array
+    private function getPatternAndReplacement(string $pregQuotedSeparator) : PcreReplacement
     {
         return $this->hasPcreUnicodeSupport()
             ? $this->getUnicodePatternAndReplacement($pregQuotedSeparator)
-            : [
-                // pattern
+            : new PcreReplacement(
                 '#(' . $pregQuotedSeparator . ')([\S]{1})#',
-                // replacement
                 function ($matches) {
                     return strtoupper($matches[2]);
-                },
-            ];
+                }
+            );
     }
 
-    /**
-     * @return array Array with two items: the pattern to match, and the
-     *     callback to use for replacement.
-     */
-    private function getUnicodePatternAndReplacement(string $pregQuotedSeparator) : array
+    private function getUnicodePatternAndReplacement(string $pregQuotedSeparator) : PcreReplacement
     {
         return $this->hasMbStringSupport()
-            ? [
-                // pattern
+            ? new PcreReplacement(
                 '#(' . $pregQuotedSeparator . ')(\P{Z}{1})#u',
-                // replacement
                 function ($matches) {
                     return mb_strtoupper($matches[2], 'UTF-8');
-                },
-            ]
-            : [
-                // pattern
+                }
+            )
+            : new PcreReplacement(
                 '#(' . $pregQuotedSeparator . ')'
                     . '([^\p{Z}\p{Ll}]{1}|[a-zA-Z]{1})#u',
-                // replacement
                 function ($matches) {
                     return strtoupper($matches[2]);
-                },
-            ];
+                }
+            );
     }
 
     private function getLcFirstFunction() : callable

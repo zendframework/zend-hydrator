@@ -72,6 +72,9 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         );
     }
 
+    /**
+     * @param mixed[] $options
+     */
     public function setOptions(iterable $options) : void
     {
         if ($options instanceof Traversable) {
@@ -121,6 +124,8 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      * Extract values from an object with class methods
      *
      * Extracts the getter/setter of the given $object.
+     *
+     * {@inheritDoc}
      */
     public function extract(object $object) : array
     {
@@ -183,6 +188,8 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      * Hydrate an object by populating getter/setter methods
      *
      * Hydrates an object by getter/setter methods of the object.
+     *
+     * {@inheritDoc}
      */
     public function hydrate(array $data, object $object) : object
     {

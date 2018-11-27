@@ -30,10 +30,13 @@ class HydrateEvent extends Event
     protected $hydratedObject;
 
     /**
-     * @var array
+     * @var mixed[] Data being used to hydrate the $hydratedObject
      */
     protected $hydrationData;
 
+    /**
+     * @param mixed[] $hydrationData Data being used to hydrate the $hydratedObject
+     */
     public function __construct(object $target, object $hydratedObject, array $hydrationData)
     {
         parent::__construct();
@@ -57,12 +60,17 @@ class HydrateEvent extends Event
 
     /**
      * Retrieves the data that is being used for hydration
+     *
+     * @return mixed[]
      */
     public function getHydrationData() : array
     {
         return $this->hydrationData;
     }
 
+    /**
+     * @param mixed[] $hydrationData
+     */
     public function setHydrationData(array $hydrationData) : void
     {
         $this->hydrationData = $hydrationData;

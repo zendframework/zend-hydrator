@@ -44,7 +44,7 @@ class CollectionStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be extracted by the hydrator.
      *
-     * @param array $value The original value.
+     * @param  mixed[] $value The original value.
      * @throws Exception\InvalidArgumentException
      * @return mixed Returns the value that should be extracted.
      */
@@ -73,9 +73,9 @@ class CollectionStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be hydrated by the hydrator.
      *
-     * @param array $value The original value.
+     * @param  mixed[] $value The original value.
      * @throws Exception\InvalidArgumentException
-     * @return mixed Returns the value that should be hydrated.
+     * @return object[] Returns the value that should be hydrated.
      */
     public function hydrate($value, ?array $data = null)
     {

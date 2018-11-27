@@ -20,9 +20,9 @@ class ObjectProperty extends AbstractHydrator
     private static $skippedPropertiesCache = [];
 
     /**
-     * {@inheritDoc}
-     *
      * Extracts the accessible non-static properties of the given $object.
+     *
+     * {@inheritDoc}
      */
     public function extract(object $object) : array
     {
@@ -51,11 +51,11 @@ class ObjectProperty extends AbstractHydrator
     }
 
     /**
-     * {@inheritDoc}
-     *
      * Hydrate an object by populating public properties
      *
      * Hydrates an object by setting public properties of the object.
+     *
+     * {@inheritDoc}
      */
     public function hydrate(array $data, object $object) : object
     {

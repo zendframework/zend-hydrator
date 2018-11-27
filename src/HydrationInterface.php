@@ -13,6 +13,8 @@ interface HydrationInterface
 {
     /**
      * Hydrate $object with the provided $data.
+     *
+     * @param mixed[] $data
      */
     public function hydrate(array $data, object $object) : object;
 }

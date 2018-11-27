@@ -17,7 +17,7 @@ interface NamingStrategyInterface
     /**
      * Converts the given name so that it can be extracted by the hydrator.
      *
-     * @param array $data (optional) The original data for context.
+     * @param null|mixed[] $data (optional) The original data for context.
      */
     public function hydrate(string $name, ?array $data = null) : string;
 

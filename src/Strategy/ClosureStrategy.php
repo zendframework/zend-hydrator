@@ -63,9 +63,7 @@ class ClosureStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be extracted by the hydrator.
      *
-     * @param  mixed       $value  The original value.
-     * @param  null|object $object The object is optionally provided as context.
-     * @return mixed Returns the value that should be extracted.
+     * {@inheritDoc}
      */
     public function extract($value, ?object $object = null)
     {
@@ -78,9 +76,7 @@ class ClosureStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be hydrated by the hydrator.
      *
-     * @param  mixed $value The original value.
-     * @param  array $data  The whole data is optionally provided as context.
-     * @return mixed Returns the value that should be hydrated.
+     * {@inheritDoc}
      */
     public function hydrate($value, ?array $data = null)
     {

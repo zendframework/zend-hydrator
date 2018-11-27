@@ -55,6 +55,7 @@ class HydratorListener extends AbstractListenerAggregate
      * Callback to be used when {@see ExtractEvent::EVENT_EXTRACT} is triggered
      *
      * @internal
+     * @return mixed[]
      */
     public function onExtract(ExtractEvent $event) : array
     {

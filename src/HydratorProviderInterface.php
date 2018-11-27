@@ -13,6 +13,9 @@ interface HydratorProviderInterface
 {
     /**
      * Provide plugin manager configuration for hydrators.
+     *
+     * @see    https://docs.zendframework.com/zend-expressive/v3/features/container/config/#the-format
+     * @return mixed[][]
      */
     public function getHydratorConfig() : array;
 }

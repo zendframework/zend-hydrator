@@ -28,6 +28,9 @@ final class StrategyChain implements StrategyInterface
      */
     private $hydrationStrategies;
 
+    /**
+     * @param StrategyInterface[] $extractionStrategies
+     */
     public function __construct(iterable $extractionStrategies)
     {
         $extractionStrategies = ArrayUtils::iteratorToArray($extractionStrategies);

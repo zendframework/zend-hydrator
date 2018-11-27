@@ -15,6 +15,8 @@ class Module
 {
     /**
      * Return default zend-hydrator configuration for zend-mvc applications.
+     *
+     * @return mixed[]
      */
     public function getConfig() : array
     {

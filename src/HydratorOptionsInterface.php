@@ -11,5 +11,8 @@ namespace Zend\Hydrator;
 
 interface HydratorOptionsInterface
 {
+    /**
+     * @param mixed[] $options
+     */
     public function setOptions(iterable $options) : void;
 }

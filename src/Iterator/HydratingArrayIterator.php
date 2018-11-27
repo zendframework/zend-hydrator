@@ -25,6 +25,7 @@ class HydratingArrayIterator extends HydratingIteratorIterator
     protected $prototype;
 
     /**
+     * @param mixed[]       $data Data being used to hydrate the $prototype
      * @param string|object $prototype Object, or class name to use for prototype.
      */
     public function __construct(HydratorInterface $hydrator, array $data, $prototype)

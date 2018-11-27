@@ -23,7 +23,7 @@ class HydratorPluginManager extends AbstractPluginManager
     /**
      * Default aliases
      *
-     * @var array
+     * @var string[]
      */
     protected $aliases = [
         'arrayserializable'  => ArraySerializable::class,
@@ -45,7 +45,7 @@ class HydratorPluginManager extends AbstractPluginManager
     /**
      * Default factory-based adapters
      *
-     * @var array
+     * @var string[]|callable[]
      */
     protected $factories = [
         ArraySerializable::class  => InvokableFactory::class,

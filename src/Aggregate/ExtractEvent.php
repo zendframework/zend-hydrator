@@ -30,7 +30,7 @@ class ExtractEvent extends Event
     protected $extractionObject;
 
     /**
-     * @var array
+     * @var mixed[] Data being extracted from the $extractionObject
      */
     protected $extractedData = [];
 
@@ -56,6 +56,8 @@ class ExtractEvent extends Event
 
     /**
      * Retrieves the data that has been extracted
+     *
+     * @return mixed[]
      */
     public function getExtractedData() : array
     {
@@ -63,7 +65,7 @@ class ExtractEvent extends Event
     }
 
     /**
-     * @param array $extractedData
+     * @param mixed[] $extractedData
      */
     public function setExtractedData(array $extractedData) : void
     {
@@ -72,6 +74,8 @@ class ExtractEvent extends Event
 
     /**
      * Merge provided data with the extracted data
+     *
+     * @param mixed[] $additionalData
      */
     public function mergeExtractedData(array $additionalData) : void
     {
