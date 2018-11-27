@@ -41,7 +41,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      * A map of extraction methods to property name to be used during extraction, indexed
      * by class name and method name
      *
-     * @var (null|string)[][]
+     * @var null[]|string[][]
      */
     private $extractionMethodsCache = [];
 
@@ -165,6 +165,10 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         }
 
         $values = [];
+
+        if (null === $this->extractionMethodsCache[$objectClass]) {
+            return $values;
+        }
 
         // pass 2 - actually extract data
         foreach ($this->extractionMethodsCache[$objectClass] as $methodName => $attributeName) {
