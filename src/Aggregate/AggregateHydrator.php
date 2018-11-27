@@ -41,9 +41,7 @@ class AggregateHydrator implements HydratorInterface, EventManagerAwareInterface
     public function extract(object $object) : array
     {
         $event = new ExtractEvent($this, $object);
-
         $this->getEventManager()->triggerEvent($event);
-
         return $event->getExtractedData();
     }
 
@@ -53,9 +51,7 @@ class AggregateHydrator implements HydratorInterface, EventManagerAwareInterface
     public function hydrate(array $data, object $object) : object
     {
         $event = new HydrateEvent($this, $object, $data);
-
         $this->getEventManager()->triggerEvent($event);
-
         return $event->getHydratedObject();
     }
 
