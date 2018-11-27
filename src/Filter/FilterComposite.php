@@ -64,9 +64,9 @@ class FilterComposite implements FilterInterface
      * );
      * </code>
      *
-     * @param  callable|FilterInterface $filter
-     * @param  int                      $condition Can be either
-     *     FilterComposite::CONDITION_OR or FilterComposite::CONDITION_AND
+     * @param  mixed $filter
+     * @param  int   $condition Can be either FilterComposite::CONDITION_OR
+     *     or FilterComposite::CONDITION_AND
      * @throws InvalidArgumentException
      */
     public function addFilter(string $name, $filter, int $condition = self::CONDITION_OR) : void
@@ -159,8 +159,10 @@ class FilterComposite implements FilterInterface
     }
 
     /**
-     * @param FilterInterface|callable $filter
-     * @throws InvalidArgumentException
+     * @param mixed $filter Filters should be callable or
+     *     FilterInterface instances.
+     * @throws InvalidArgumentException if $filter is neither a
+     *     callable nor FilterInterface
      */
     private function validateFilter($filter, string $name) : void
     {

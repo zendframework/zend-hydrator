@@ -65,7 +65,8 @@ class SerializableStrategy implements StrategyInterface
     /**
      * Set serializer
      *
-     * @param  string|SerializerAdapter $serializer
+     * @param  mixed $serializer Should be a string or
+     *     SerializerAdapter instance
      * @throws InvalidArgumentException for invalid $serializer values
      */
     public function setSerializer($serializer) : void
