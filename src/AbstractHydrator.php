@@ -250,14 +250,15 @@ abstract class AbstractHydrator implements
     /**
      * Gets the naming strategy.
      *
-     * @throws Exception\DomainException if no naming strategy is registered.
+     * If no naming strategy is registered, registers the
+     * `IdentityNamingStrategy`, which acts essentially as a no-op.
+     *
+     * {@inheritDoc}
      */
     public function getNamingStrategy() : NamingStrategy\NamingStrategyInterface
     {
         if (null === $this->namingStrategy) {
-            throw new Exception\DomainException(
-                'Missing naming strategy; call hasNamingStrategy() to test for presence first'
-            );
+            $this->namingStrategy = new NamingStrategy\IdentityNamingStrategy();
         }
         return $this->namingStrategy;
     }
