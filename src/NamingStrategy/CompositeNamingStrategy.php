@@ -45,10 +45,7 @@ final class CompositeNamingStrategy implements NamingStrategyInterface
      */
     public function extract(string $name, ?object $object = null) : string
     {
-        $strategy = isset($this->namingStrategies[$name])
-            ? $this->namingStrategies[$name]
-            : $this->defaultNamingStrategy;
-
+        $strategy = $this->namingStrategies[$name] ?? $this->defaultNamingStrategy;
         return $strategy->extract($name);
     }
 
@@ -57,10 +54,7 @@ final class CompositeNamingStrategy implements NamingStrategyInterface
      */
     public function hydrate(string $name, ?array $data = null) : string
     {
-        $strategy = isset($this->namingStrategies[$name])
-            ? $this->namingStrategies[$name]
-            : $this->defaultNamingStrategy;
-
+        $strategy = $this->namingStrategies[$name] ?? $this->defaultNamingStrategy;
         return $strategy->hydrate($name);
     }
 }
