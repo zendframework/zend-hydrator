@@ -14,7 +14,7 @@ trait HydratorAwareTrait
     /**
      * Hydrator instance
      *
-     * @var HydratorInterface
+     * @var null|HydratorInterface
      */
     protected $hydrator = null;
 
