@@ -38,7 +38,7 @@ final class ArrayMapNamingStrategy implements NamingStrategyInterface
      */
     public function hydrate(string $name, ?array $data = null) : string
     {
-        return isset($this->hydrationMap[$name]) ? $this->hydrationMap[$name] : $name;
+        return $this->hydrationMap[$name] ?? $name;
     }
 
     /**
@@ -46,6 +46,6 @@ final class ArrayMapNamingStrategy implements NamingStrategyInterface
      */
     public function extract(string $name, ?object $object = null) : string
     {
-        return isset($this->extractionMap[$name]) ? $this->extractionMap[$name] : $name;
+        return $this->extractionMap[$name] ?? $name;
     }
 }
