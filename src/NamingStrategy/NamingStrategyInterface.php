@@ -24,7 +24,7 @@ interface NamingStrategyInterface
     /**
      * Converts the given name so that it can be hydrated by the hydrator.
      *
-     * @param object $object The original object for context.
+     * @param null|object $object The original object for context.
      */
     public function extract(string $name, ?object $object = null) : string;
 }
