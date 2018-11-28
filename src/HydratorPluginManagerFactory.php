@@ -17,7 +17,14 @@ use function is_array;
 class HydratorPluginManagerFactory
 {
     /**
-     * {@inheritDoc}
+     * Create a HydratorPluginManager instance.
+     *
+     * If the `config` service is available, and the top-level key `hydrators`
+     * exists and is an array, that value will be used to configure the plugin
+     * manager. In such cases, the array should follow standard container
+     * configuration.
+     *
+     * @see https://docs.zendframework.com/zend-expressive/v3/features/container/config/
      */
     public function __invoke(ContainerInterface $container, string $name, array $options = []) : HydratorPluginManager
     {
