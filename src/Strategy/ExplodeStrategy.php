@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Zend\Hydrator\Strategy;
 
 use function explode;
-use function gettype;
 use function get_class;
+use function gettype;
 use function implode;
 use function is_array;
 use function is_numeric;

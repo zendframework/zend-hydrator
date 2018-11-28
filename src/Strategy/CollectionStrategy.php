@@ -15,8 +15,8 @@ use Zend\Hydrator\Exception;
 
 use function array_map;
 use function class_exists;
-use function gettype;
 use function get_class;
+use function gettype;
 use function is_array;
 use function is_object;
 use function sprintf;
