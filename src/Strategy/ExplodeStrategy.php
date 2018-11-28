@@ -40,7 +40,7 @@ final class ExplodeStrategy implements StrategyInterface
     public function __construct(string $delimiter = ',', ?int $explodeLimit = null)
     {
         $this->setValueDelimiter($delimiter);
-        $this->explodeLimit = ($explodeLimit === null) ? null : $explodeLimit;
+        $this->explodeLimit = $explodeLimit;
     }
 
     /**
