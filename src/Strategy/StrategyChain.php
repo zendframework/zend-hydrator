@@ -9,7 +9,6 @@ declare(strict_types=1);
 
 namespace Zend\Hydrator\Strategy;
 
-use Traversable;
 use Zend\Stdlib\ArrayUtils;
 
 use function array_map;
