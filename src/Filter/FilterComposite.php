@@ -13,6 +13,7 @@ use ArrayObject;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 
 use function array_walk;
+use function count;
 use function is_callable;
 use function sprintf;
 

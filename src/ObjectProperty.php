@@ -14,6 +14,7 @@ use ReflectionProperty;
 
 use function array_fill_keys;
 use function array_map;
+use function get_class;
 use function get_object_vars;
 
 class ObjectProperty extends AbstractHydrator

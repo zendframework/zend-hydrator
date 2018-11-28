@@ -20,6 +20,7 @@ use function method_exists;
 use function property_exists;
 use function strpos;
 use function substr;
+use function ucfirst;
 
 class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
 {

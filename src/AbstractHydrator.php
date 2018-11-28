@@ -130,11 +130,9 @@ abstract class AbstractHydrator implements
      */
     public function extractValue(string $name, $value, ?object $object = null)
     {
-        if ($this->hasStrategy($name)) {
-            $strategy = $this->getStrategy($name);
-            $value = $strategy->extract($value, $object);
-        }
-        return $value;
+        return $this->hasStrategy($name)
+            ? $this->getStrategy($name)->extract($value, $object)
+            : $value;
     }
 
     /**
@@ -147,11 +145,9 @@ abstract class AbstractHydrator implements
      */
     public function hydrateValue(string $name, $value, ?array $data = null)
     {
-        if ($this->hasStrategy($name)) {
-            $strategy = $this->getStrategy($name);
-            $value = $strategy->hydrate($value, $data);
-        }
-        return $value;
+        return $this->hasStrategy($name)
+            ? $this->getStrategy($name)->hydrate($value, $data)
+            : $value;
     }
 
     /**
@@ -163,10 +159,9 @@ abstract class AbstractHydrator implements
      */
     public function extractName(string $name, ?object $object = null)
     {
-        if ($this->hasNamingStrategy()) {
-            $name = $this->getNamingStrategy()->extract($name, $object);
-        }
-        return $name;
+        return $this->hasNamingStrategy()
+            ? $this->getNamingStrategy()->extract($name, $object)
+            : $name;
     }
 
     /**
@@ -177,10 +172,9 @@ abstract class AbstractHydrator implements
      */
     public function hydrateName(string $name, ?array $data = null) : string
     {
-        if ($this->hasNamingStrategy()) {
-            $name = $this->getNamingStrategy()->hydrate($name, $data);
-        }
-        return $name;
+        return $this->hasNamingStrategy()
+            ? $this->getNamingStrategy()->hydrate($name, $data)
+            : $name;
     }
 
     /**

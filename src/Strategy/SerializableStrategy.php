@@ -18,6 +18,7 @@ use function get_class;
 use function is_array;
 use function is_object;
 use function is_string;
+use function iterator_to_array;
 use function sprintf;
 
 class SerializableStrategy implements StrategyInterface

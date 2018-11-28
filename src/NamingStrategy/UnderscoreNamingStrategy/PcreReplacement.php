@@ -28,7 +28,7 @@ class PcreReplacement
 
     public function __construct(string $pattern, callable $replacement)
     {
-        $this->pattern = $pattern;
+        $this->pattern     = $pattern;
         $this->replacement = $replacement;
     }
 }

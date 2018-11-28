@@ -96,7 +96,7 @@ class HydratorPluginManager extends AbstractPluginManager
 
         throw new InvalidServiceException(sprintf(
             'Plugin of type %s is invalid; must implement %s',
-            (is_object($instance) ? get_class($instance) : gettype($instance)),
+            is_object($instance) ? get_class($instance) : gettype($instance),
             HydratorInterface::class
         ));
     }

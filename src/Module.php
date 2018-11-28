@@ -32,8 +32,8 @@ class Module
      */
     public function init(ModuleManager $moduleManager) : void
     {
-        $event = $moduleManager->getEvent();
-        $container = $event->getParam('ServiceManager');
+        $event           = $moduleManager->getEvent();
+        $container       = $event->getParam('ServiceManager');
         $serviceListener = $container->get('ServiceListener');
 
         $serviceListener->addServiceManager(
