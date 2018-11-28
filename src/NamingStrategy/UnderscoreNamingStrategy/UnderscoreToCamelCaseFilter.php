@@ -76,8 +76,7 @@ final class UnderscoreToCamelCaseFilter
     {
         return $this->hasMbStringSupport()
             ? function ($value) {
-                return mb_strtolower($value[0], 'UTF-8')
-                    . substr($value, 1, strlen($value) - 1);
+                return mb_strtolower($value[0], 'UTF-8') . substr($value, 1);
             }
             : 'lcfirst';
     }
