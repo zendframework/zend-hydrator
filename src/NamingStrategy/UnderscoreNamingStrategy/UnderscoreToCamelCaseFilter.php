@@ -14,7 +14,6 @@ use function mb_strtolower;
 use function mb_strtoupper;
 use function preg_quote;
 use function preg_replace_callback;
-use function strlen;
 use function strtoupper;
 use function substr;
 

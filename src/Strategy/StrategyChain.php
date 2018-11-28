@@ -12,6 +12,7 @@ namespace Zend\Hydrator\Strategy;
 use Zend\Stdlib\ArrayUtils;
 
 use function array_map;
+use function array_reverse;
 
 final class StrategyChain implements StrategyInterface
 {

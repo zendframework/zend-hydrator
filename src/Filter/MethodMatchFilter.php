@@ -16,15 +16,17 @@ class MethodMatchFilter implements FilterInterface
 {
     /**
      * The method to exclude
+     *
      * @var string
      */
-    protected $method = null;
+    protected $method;
 
     /**
      * Either an exclude or an include
+     *
      * @var bool
      */
-    protected $exclude = null;
+    protected $exclude;
 
     /**
      * @param string $method The method to exclude or include
@@ -32,7 +34,7 @@ class MethodMatchFilter implements FilterInterface
      */
     public function __construct(string $method, bool $exclude = true)
     {
-        $this->method = $method;
+        $this->method  = $method;
         $this->exclude = $exclude;
     }
 

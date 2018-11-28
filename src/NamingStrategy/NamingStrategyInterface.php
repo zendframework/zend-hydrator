@@ -17,14 +17,14 @@ interface NamingStrategyInterface
     /**
      * Converts the given name so that it can be extracted by the hydrator.
      *
-     * @param null|mixed[] $data (optional) The original data for context.
+     * @param null|mixed[] $data The original data for context.
      */
     public function hydrate(string $name, ?array $data = null) : string;
 
     /**
      * Converts the given name so that it can be hydrated by the hydrator.
      *
-     * @param object $object (optional) The original object for context.
+     * @param object $object The original object for context.
      */
     public function extract(string $name, ?object $object = null) : string;
 }

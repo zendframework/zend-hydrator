@@ -40,9 +40,6 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
         return $this->getCamelCaseToUnderscoreFilter()->filter($name);
     }
 
-    /**
-     * @return UnderscoreToCamelCaseFilter
-     */
     private function getUnderscoreToCamelCaseFilter() : UnderscoreToCamelCaseFilter
     {
         if (! static::$underscoreToCamelCaseFilter) {
@@ -52,9 +49,6 @@ class UnderscoreNamingStrategy implements NamingStrategyInterface
         return static::$underscoreToCamelCaseFilter;
     }
 
-    /**
-     * @return CamelCaseToUnderscoreFilter
-     */
     private function getCamelCaseToUnderscoreFilter() : CamelCaseToUnderscoreFilter
     {
         if (! static::$camelCaseToUnderscoreFilter) {

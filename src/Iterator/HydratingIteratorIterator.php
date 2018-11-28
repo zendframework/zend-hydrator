@@ -44,6 +44,9 @@ class HydratingIteratorIterator extends IteratorIterator implements HydratingIte
 
     /**
      * @inheritdoc
+     *
+     * @throws InvalidArgumentException if $prototype is a string, but refers to
+     *     a non-existent class.
      */
     public function setPrototype($prototype) : void
     {

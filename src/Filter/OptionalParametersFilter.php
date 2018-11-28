@@ -33,6 +33,9 @@ class OptionalParametersFilter implements FilterInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @throws InvalidArgumentException if reflection fails due to the method
+     *     not existing.
      */
     public function filter(string $property) : bool
     {

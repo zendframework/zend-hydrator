@@ -22,7 +22,7 @@ class ClosureStrategy implements StrategyInterface
      *
      * @var null|callable
      */
-    protected $extractFunc = null;
+    protected $extractFunc;
 
     /**
      * Function, used in hydrate method, default:
@@ -35,7 +35,7 @@ class ClosureStrategy implements StrategyInterface
      *
      * @var null|callable
      */
-    protected $hydrateFunc = null;
+    protected $hydrateFunc;
 
     /**
      * You can describe how your values will extract and hydrate, like this:

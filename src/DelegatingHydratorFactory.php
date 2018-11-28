@@ -24,9 +24,6 @@ class DelegatingHydratorFactory
 
     /**
      * Locate and return a HydratorPluginManager instance.
-     *
-     * @param ContainerInterface $container
-     * @return HydratorPluginManager
      */
     private function marshalHydratorPluginManager(ContainerInterface $container) : HydratorPluginManager
     {

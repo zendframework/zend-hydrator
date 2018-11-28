@@ -34,7 +34,6 @@ class SerializableStrategy implements StrategyInterface
     protected $serializerOptions = [];
 
     /**
-     *
      * @param string|SerializerAdapter $serializer
      * @param null|mixed[] $serializerOptions
      */

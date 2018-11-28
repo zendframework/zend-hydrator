@@ -55,6 +55,7 @@ final class DateTimeFormatterStrategy implements StrategyInterface
 
     /**
      * @param bool $dateTimeFallback try to parse with DateTime when createFromFormat fails
+     * @throws Exception\InvalidArgumentException for invalid $format values
      */
     public function __construct(
         string $format = DateTime::RFC3339,
@@ -82,7 +83,9 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      * Converts to date time string
      *
      * @param mixed|DateTimeInterface $value
-     * @return mixed|string
+     * @return mixed|string If a non-DateTimeInterface $value is provided, it
+     *     will be returned unmodified; otherwise, it will be extracted to a
+     *     string.
      */
     public function extract($value, ?object $object = null)
     {
@@ -100,6 +103,8 @@ final class DateTimeFormatterStrategy implements StrategyInterface
      *
      * @param mixed|string $value
      * @return mixed|DateTimeInterface
+     * @throws Exception\InvalidArgumentException if $value is not null, not a
+     *     string, nor a DateTimeInterface.
      */
     public function hydrate($value, ?array $data = null)
     {

@@ -92,6 +92,7 @@ final class ExplodeStrategy implements StrategyInterface
      *
      * @param string[] $value The original value.
      * @return string|null
+     * @throws Exception\InvalidArgumentException for non-array $value values
      */
     public function extract($value, ?object $object = null)
     {
