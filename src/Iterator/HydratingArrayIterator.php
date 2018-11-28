@@ -15,16 +15,6 @@ use Zend\Hydrator\HydratorInterface;
 class HydratingArrayIterator extends HydratingIteratorIterator
 {
     /**
-     * @var HydratorInterface
-     */
-    protected $hydrator;
-
-    /**
-     * @var object
-     */
-    protected $prototype;
-
-    /**
      * @param mixed[]       $data Data being used to hydrate the $prototype
      * @param string|object $prototype Object, or class name to use for prototype.
      */
