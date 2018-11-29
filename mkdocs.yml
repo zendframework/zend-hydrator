@@ -1,18 +1,38 @@
 docs_dir: docs/book
 site_dir: docs/html
 pages:
-    - index.md
-    - "Quick Start": quick-start.md
+    - Home: index.md
+    - "Quick Start": v3/quick-start.md
     - Reference:
-      - "Filters": filter.md
-      - "Strategies": strategy.md
-      - "Aggregates": aggregate.md
+      - "Filters": v3/filter.md
+      - "Strategies": v3/strategy.md
+      - "Aggregates": v3/aggregate.md
       - "Naming Strategies":
-        - "Identity": naming-strategy/identity-naming-strategy.md
-        - "Mapping": naming-strategy/map-naming-strategy.md
-        - "Underscore Mapping": naming-strategy/underscore-naming-strategy.md
-        - "Composite": naming-strategy/composite-naming-strategy.md
+        - "Identity": v3/naming-strategy/identity-naming-strategy.md
+        - "Mapping": v3/naming-strategy/map-naming-strategy.md
+        - "Underscore Mapping": v3/naming-strategy/underscore-naming-strategy.md
+        - "Composite": v3/naming-strategy/composite-naming-strategy.md
+      - Migration: v3/migration.md
+    - v2:
+        - "Quick Start": v2/quick-start.md
+        - Reference:
+          - "Filters": v2/filter.md
+          - "Strategies": v2/strategy.md
+          - "Aggregates": v2/aggregate.md
+          - "Naming Strategies":
+            - "Identity": v2/naming-strategy/identity-naming-strategy.md
+            - "Mapping": v2/naming-strategy/map-naming-strategy.md
+            - "Underscore Mapping": v2/naming-strategy/underscore-naming-strategy.md
+            - "Composite": v2/naming-strategy/composite-naming-strategy.md
+    - "_hidden-legacy-page-links":
+        - "_quick_start": quick-start.md
+        - "_filters": filter.md
+        - "_strategies": strategy.md
+        - "_aggregates": aggregate.md
+        - "_naming_strategies-identity": naming-strategy/identity-naming-strategy.md
+        - "_naming_strategies-mapping": naming-strategy/map-naming-strategy.md
+        - "_naming_strategies-underscore_mapping": naming-strategy/underscore-naming-strategy.md
+        - "_naming_strategies-composite": naming-strategy/composite-naming-strategy.md
 site_name: zend-hydrator
-site_description: zend-hydrator
+site_description: "Serialize objects to arrays, and vice versa"
 repo_url: 'https://github.com/zendframework/zend-hydrator'
-copyright: 'Copyright (c) 2005-2018 <a href="https://www.zend.com/">Zend Technologies USA Inc.</a>'

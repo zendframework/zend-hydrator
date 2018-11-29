@@ -1,15 +1,25 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\Strategy;
 
 use ReflectionClass;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\Exception;
+
+use function array_map;
+use function class_exists;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
+use function sprintf;
 
 class CollectionStrategy implements StrategyInterface
 {
@@ -24,17 +34,14 @@ class CollectionStrategy implements StrategyInterface
     private $objectClassName;
 
     /**
-     * @param HydratorInterface $objectHydrator
-     * @param string $objectClassName
-     *
      * @throws Exception\InvalidArgumentException
      */
-    public function __construct(HydratorInterface $objectHydrator, $objectClassName)
+    public function __construct(HydratorInterface $objectHydrator, string $objectClassName)
     {
-        if (! is_string($objectClassName) || ! class_exists($objectClassName)) {
+        if (! class_exists($objectClassName)) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'Object class name needs to the name of an existing class, got "%s" instead.',
-                is_object($objectClassName) ? get_class($objectClassName) : gettype($objectClassName)
+                'Object class name needs to be the name of an existing class, got "%s" instead.',
+                $objectClassName
             ));
         }
 
@@ -45,11 +52,11 @@ class CollectionStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be extracted by the hydrator.
      *
-     * @param array $value The original value.
+     * @param  mixed[] $value The original value.
      * @throws Exception\InvalidArgumentException
      * @return mixed Returns the value that should be extracted.
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         if (! is_array($value)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -74,11 +81,11 @@ class CollectionStrategy implements StrategyInterface
     /**
      * Converts the given value so that it can be hydrated by the hydrator.
      *
-     * @param array $value The original value.
+     * @param  mixed[] $value The original value.
      * @throws Exception\InvalidArgumentException
-     * @return mixed Returns the value that should be hydrated.
+     * @return object[] Returns the value that should be hydrated.
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data = null)
     {
         if (! is_array($value)) {
             throw new Exception\InvalidArgumentException(sprintf(

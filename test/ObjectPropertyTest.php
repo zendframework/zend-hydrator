@@ -1,16 +1,16 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator;
 
-use BadMethodCallException;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 use Zend\Hydrator\ObjectProperty;
 use ZendTest\Hydrator\TestAsset\ClassWithPublicStaticProperties;
 use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyTestAsset;
@@ -42,7 +42,7 @@ class ObjectPropertyTest extends TestCase
      */
     public function testHydratorExtractThrowsExceptionOnNonObjectParameter()
     {
-        $this->expectException(BadMethodCallException::class);
+        $this->expectException(TypeError::class);
         $this->hydrator->extract('thisIsNotAnObject');
     }
 
@@ -51,7 +51,7 @@ class ObjectPropertyTest extends TestCase
      */
     public function testHydratorHydrateThrowsExceptionOnNonObjectParameter()
     {
-        $this->expectException(BadMethodCallException::class);
+        $this->expectException(TypeError::class);
         $this->hydrator->hydrate(['some' => 'data'], 'thisIsNotAnObject');
     }
 

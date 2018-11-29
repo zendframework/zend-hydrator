@@ -1,17 +1,16 @@
 <?php
-
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\Exception\BadMethodCallException;
+use TypeError;
 use Zend\Hydrator\ArraySerializable;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
 
@@ -42,10 +41,8 @@ class ArraySerializableTest extends TestCase
      */
     public function testHydratorExtractThrowsExceptionOnNonObjectParameter()
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage(
-            'Zend\Hydrator\ArraySerializable::extract expects the provided object to implement getArrayCopy()'
-        );
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('must be an object');
         $this->hydrator->extract('thisIsNotAnObject');
     }
 
@@ -54,11 +51,8 @@ class ArraySerializableTest extends TestCase
      */
     public function testHydratorHydrateThrowsExceptionOnNonObjectParameter()
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage(
-            'Zend\Hydrator\ArraySerializable::hydrate expects the provided object to implement'
-            . ' exchangeArray() or populate()'
-        );
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('must be an object');
         $this->hydrator->hydrate(['some' => 'data'], 'thisIsNotAnObject');
     }
 

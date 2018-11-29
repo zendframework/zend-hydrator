@@ -1,17 +1,25 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\Strategy;
 
 use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Serializer\Adapter\AdapterInterface as SerializerAdapter;
 use Zend\Serializer\Serializer as SerializerFactory;
+
+use function gettype;
+use function get_class;
+use function is_array;
+use function is_object;
+use function is_string;
+use function iterator_to_array;
+use function sprintf;
 
 class SerializableStrategy implements StrategyInterface
 {
@@ -21,16 +29,15 @@ class SerializableStrategy implements StrategyInterface
     protected $serializer;
 
     /**
-     * @var array
+     * @var mixed[]
      */
     protected $serializerOptions = [];
 
     /**
-     *
-     * @param mixed $serializer string or SerializerAdapter
-     * @param mixed $serializerOptions
+     * @param string|SerializerAdapter $serializer
+     * @param null|mixed[] $serializerOptions
      */
-    public function __construct($serializer, $serializerOptions = null)
+    public function __construct($serializer, ?iterable $serializerOptions = null)
     {
         $this->setSerializer($serializer);
         if ($serializerOptions) {
@@ -41,10 +48,9 @@ class SerializableStrategy implements StrategyInterface
     /**
      * Serialize the given value so that it can be extracted by the hydrator.
      *
-     * @param mixed $value The original value.
-     * @return mixed Returns the value that should be extracted.
+     * {@inheritDoc}
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         $serializer = $this->getSerializer();
         return $serializer->serialize($value);
@@ -53,10 +59,9 @@ class SerializableStrategy implements StrategyInterface
     /**
      * Unserialize the given value so that it can be hydrated by the hydrator.
      *
-     * @param mixed $value The original value.
-     * @return mixed Returns the value that should be hydrated.
+     * {@inheritDoc}
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data = null)
     {
         $serializer = $this->getSerializer();
         return $serializer->unserialize($value);
@@ -65,35 +70,33 @@ class SerializableStrategy implements StrategyInterface
     /**
      * Set serializer
      *
-     * @param  string|SerializerAdapter $serializer
-     * @return SerializableStrategy
+     * @param  mixed $serializer Should be a string or
+     *     SerializerAdapter instance
+     * @throws InvalidArgumentException for invalid $serializer values
      */
-    public function setSerializer($serializer)
+    public function setSerializer($serializer) : void
     {
         if (! is_string($serializer) && ! $serializer instanceof SerializerAdapter) {
             throw new InvalidArgumentException(sprintf(
                 '%s expects either a string serializer name or Zend\Serializer\Adapter\AdapterInterface instance; '
                 . 'received "%s"',
                 __METHOD__,
-                (is_object($serializer) ? get_class($serializer) : gettype($serializer))
+                is_object($serializer) ? get_class($serializer) : gettype($serializer)
             ));
         }
         $this->serializer = $serializer;
-        return $this;
     }
 
     /**
      * Get serializer
-     *
-     * @return SerializerAdapter
      */
-    public function getSerializer()
+    public function getSerializer() : SerializerAdapter
     {
         if (is_string($this->serializer)) {
             $options = $this->getSerializerOptions();
-            $this->setSerializer(SerializerFactory::factory($this->serializer, $options));
+            $this->serializer = SerializerFactory::factory($this->serializer, $options);
         } elseif (null === $this->serializer) {
-            $this->setSerializer(SerializerFactory::getDefaultAdapter());
+            $this->serializer = SerializerFactory::getDefaultAdapter();
         }
 
         return $this->serializer;
@@ -102,21 +105,21 @@ class SerializableStrategy implements StrategyInterface
     /**
      * Set configuration options for instantiating a serializer adapter
      *
-     * @param  mixed $serializerOptions
-     * @return SerializableStrategy
+     * @param mixed[] $serializerOptions
      */
-    public function setSerializerOptions($serializerOptions)
+    public function setSerializerOptions(iterable $serializerOptions) : void
     {
-        $this->serializerOptions = $serializerOptions;
-        return $this;
+        $this->serializerOptions = is_array($serializerOptions)
+            ? $serializerOptions
+            : iterator_to_array($serializerOptions);
     }
 
     /**
      * Get configuration options for instantiating a serializer adapter
      *
-     * @return mixed
+     * @return mixed[]
      */
-    public function getSerializerOptions()
+    public function getSerializerOptions() : array
     {
         return $this->serializerOptions;
     }

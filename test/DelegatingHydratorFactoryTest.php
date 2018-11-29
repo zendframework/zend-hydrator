@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator;
 
@@ -22,21 +22,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  */
 class DelegatingHydratorFactoryTest extends TestCase
 {
-    public function testV2Factory()
-    {
-        $hydrators = $this->prophesize(HydratorPluginManager::class)->reveal();
-        $prophesy = $this->prophesize(ServiceLocatorInterface::class);
-        $prophesy->willImplement(ContainerInterface::class);
-        $prophesy->has(HydratorPluginManager::class)->willReturn(true);
-        $prophesy->get(HydratorPluginManager::class)->willReturn($hydrators);
-
-        $factory = new DelegatingHydratorFactory();
-        $this->assertInstanceOf(
-            DelegatingHydrator::class,
-            $factory->createService($prophesy->reveal())
-        );
-    }
-
     public function testFactoryUsesContainerToSeedDelegatingHydratorWhenItIsAHydratorPluginManager()
     {
         $hydrators = $this->prophesize(HydratorPluginManager::class)->reveal();
@@ -92,11 +77,6 @@ class DelegatingHydratorFactoryTest extends TestCase
         $hydrators = $r->getValue($hydrator);
 
         $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
-
-        $property = method_exists($hydrators, 'configure')
-            ? 'creationContext' // v3
-            : 'serviceLocator'; // v2
-
-        $this->assertAttributeSame($container->reveal(), $property, $hydrators);
+        $this->assertAttributeSame($container->reveal(), 'creationContext', $hydrators);
     }
 }

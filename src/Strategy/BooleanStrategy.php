@@ -1,15 +1,23 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\Strategy;
 
 use Zend\Hydrator\Exception\InvalidArgumentException;
+
+use function get_class;
+use function gettype;
+use function is_bool;
+use function is_int;
+use function is_object;
+use function is_string;
+use function sprintf;
 
 /**
  * This Strategy extracts and hydrates int and string values to Boolean values
@@ -58,7 +66,7 @@ final class BooleanStrategy implements StrategyInterface
      * @throws InvalidArgumentException
      * @return int|string Returns the value that should be extracted.
      */
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         if (! is_bool($value)) {
             throw new InvalidArgumentException(sprintf(
@@ -77,7 +85,7 @@ final class BooleanStrategy implements StrategyInterface
      * @throws InvalidArgumentException
      * @return bool Returns the value that should be hydrated.
      */
-    public function hydrate($value)
+    public function hydrate($value, ?array $data = null)
     {
         if (is_bool($value)) {
             return $value;

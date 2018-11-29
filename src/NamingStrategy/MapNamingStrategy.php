@@ -1,39 +1,43 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\NamingStrategy;
 
 use Zend\Hydrator\Exception\InvalidArgumentException;
+
+use function array_flip;
+use function array_key_exists;
+use function array_walk;
+use function is_int;
+use function is_string;
 
 class MapNamingStrategy implements NamingStrategyInterface
 {
     /**
      * Map for hydrate name conversion.
      *
-     * @var array
+     * @var string[]
      */
     protected $mapping = [];
 
     /**
      * Reversed map for extract name conversion.
      *
-     * @var array
+     * @var string[]
      */
     protected $reverse = [];
 
     /**
-     * Initialize.
-     *
-     * @param array $mapping Map for name conversion on hydration
-     * @param array $reverse Reverse map for name conversion on extraction
+     * @param string[]      $mapping Map for name conversion on hydration
+     * @param null|string[] $reverse Reverse map for name conversion on extraction
      */
-    public function __construct(array $mapping, array $reverse = null)
+    public function __construct(array $mapping, ?array $reverse = null)
     {
         $this->mapping = $mapping;
         $this->reverse = $reverse ?: $this->flipMapping($mapping);
@@ -42,11 +46,11 @@ class MapNamingStrategy implements NamingStrategyInterface
     /**
      * Safely flip mapping array.
      *
-     * @param  array                    $array Array to flip
-     * @return array                    Flipped array
+     * @param  string[] $array Array to flip
+     * @return string[] Flipped array
      * @throws InvalidArgumentException
      */
-    protected function flipMapping(array $array)
+    protected function flipMapping(array $array) : array
     {
         array_walk($array, function ($value) {
             if (! is_string($value) && ! is_int($value)) {
@@ -60,10 +64,9 @@ class MapNamingStrategy implements NamingStrategyInterface
     /**
      * Converts the given name so that it can be extracted by the hydrator.
      *
-     * @param  string $name The original name
-     * @return mixed  The hydrated name
+     * {@inheritDoc}
      */
-    public function hydrate($name)
+    public function hydrate(string $name, ?array $data = null) : string
     {
         if (array_key_exists($name, $this->mapping)) {
             return $this->mapping[$name];
@@ -75,10 +78,9 @@ class MapNamingStrategy implements NamingStrategyInterface
     /**
      * Converts the given name so that it can be hydrated by the hydrator.
      *
-     * @param  string $name The original name
-     * @return mixed  The extracted name
+     * {@inheritDoc}
      */
-    public function extract($name)
+    public function extract(string $name, ?object $object = null) : string
     {
         if (array_key_exists($name, $this->reverse)) {
             return $this->reverse[$name];

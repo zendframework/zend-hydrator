@@ -1,15 +1,16 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator\Strategy;
 
 use PHPUnit\Framework\TestCase;
+use TypeError;
 use Zend\Hydrator\Strategy\Exception\InvalidArgumentException;
 use Zend\Hydrator\Strategy\ExplodeStrategy;
 
@@ -63,7 +64,7 @@ class ExplodeStrategyTest extends TestCase
 
     public function testGetExceptionWithInvalidDelimiter()
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(TypeError::class);
 
         new ExplodeStrategy([]);
     }
@@ -73,7 +74,7 @@ class ExplodeStrategyTest extends TestCase
         $strategy = new ExplodeStrategy('-', 2);
         $this->assertSame(['foo', 'bar-baz-bat'], $strategy->hydrate('foo-bar-baz-bat'));
 
-        $strategy = new ExplodeStrategy('-', '3');
+        $strategy = new ExplodeStrategy('-', 3);
         $this->assertSame(['foo', 'bar', 'baz-bat'], $strategy->hydrate('foo-bar-baz-bat'));
     }
 
@@ -137,20 +138,21 @@ class ExplodeStrategyTest extends TestCase
      */
     public function getValidHydratedValues()
     {
+        // @codingStandardsIgnoreStart
         return [
-            [null, ',', []],
-            ['', ',', ['']],
-            ['foo', ',', ['foo']],
-            ['foo,bar', ',', ['foo', 'bar']],
-            ['foo.bar', '.', ['foo', 'bar']],
-            ['foo.bar', ',', ['foo.bar']],
-            [123, ',', ['123']],
-            [123, '2', ['1', '3']],
-            [123.456, ',', ['123.456']],
-            [123.456, '.', ['123', '456']],
-            ['foo,bar,dev,null', ',', ['foo', 'bar', 'dev', 'null']],
-            ['foo;bar;dev;null', ';', ['foo', 'bar', 'dev', 'null']],
-            ['', ',', ['']],
+            'null-comma'                              => [null, ',', []],
+            'empty-comma'                             => ['', ',', ['']],
+            'string without delimiter-comma'          => ['foo', ',', ['foo']],
+            'string with delimiter-comma'             => ['foo,bar', ',', ['foo', 'bar']],
+            'string with delimiter-period'            => ['foo.bar', '.', ['foo', 'bar']],
+            'string with mismatched delimiter-comma'  => ['foo.bar', ',', ['foo.bar']],
+            'integer-comma'                           => [123, ',', ['123']],
+            'integer-numeric delimiter'               => [123, '2', ['1', '3']],
+            'integer with mismatched delimiter-comma' => [123.456, ',', ['123.456']],
+            'float-period'                            => [123.456, '.', ['123', '456']],
+            'string containing null-comma'            => ['foo,bar,dev,null', ',', ['foo', 'bar', 'dev', 'null']],
+            'string containing null-semicolon'        => ['foo;bar;dev;null', ';', ['foo', 'bar', 'dev', 'null']],
         ];
+        // @codingStandardsIgnoreEnd
     }
 }

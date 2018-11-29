@@ -1,18 +1,17 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
+use TypeError;
 use Zend\Hydrator\ClassMethods;
-use Zend\Hydrator\Exception\BadMethodCallException;
-use Zend\Hydrator\Exception\InvalidArgumentException;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCaseMissing;
 use ZendTest\Hydrator\TestAsset\ClassMethodsOptionalParameters;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCase;
@@ -82,12 +81,10 @@ class ClassMethodsTest extends TestCase
     /**
      * Verifies the options must be an array or Traversable
      */
-    public function testSetOptionsThrowsInvalidArgumentException()
+    public function testSetOptionsThrowsException()
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage(
-            'The options parameter must be an array or a Traversable'
-        );
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('must be iterable');
         $this->hydrator->setOptions('invalid options');
     }
 
@@ -105,26 +102,22 @@ class ClassMethodsTest extends TestCase
     }
 
     /**
-     * Verifies a BadMethodCallException is thrown for extracting a non-object
+     * Verifies a TypeError is thrown for extracting a non-object
      */
-    public function testExtractNonObjectThrowsBadMethodCallException()
+    public function testExtractNonObjectThrowsTypeError()
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage(
-            'Zend\Hydrator\ClassMethods::extract expects the provided $object to be a PHP object)'
-        );
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('must be an object');
         $this->hydrator->extract('non-object');
     }
 
     /**
-     * Verifies a BadMethodCallException is thrown for hydrating a non-object
+     * Verifies a TypeError is thrown for hydrating a non-object
      */
-    public function testHydrateNonObjectThrowsBadMethodCallException()
+    public function testHydrateNonObjectThrowsTypeError()
     {
-        $this->expectException(BadMethodCallException::class);
-        $this->expectExceptionMessage(
-            'Zend\Hydrator\ClassMethods::hydrate expects the provided $object to be a PHP object)'
-        );
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('must be an object');
         $this->hydrator->hydrate([], 'non-object');
     }
 }

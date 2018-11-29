@@ -1,9 +1,11 @@
 <?php
 /**
- * @link      http://github.com/zendframework/zend-hydrator for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2016-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
@@ -12,9 +14,9 @@ class ConfigProvider
     /**
      * Return configuration for this component.
      *
-     * @return array
+     * @return mixed[]
      */
-    public function __invoke()
+    public function __invoke() : array
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
@@ -24,9 +26,9 @@ class ConfigProvider
     /**
      * Return dependency mappings for this component.
      *
-     * @return array
+     * @return string[][]
      */
-    public function getDependencyConfig()
+    public function getDependencyConfig() : array
     {
         return [
             'aliases' => [
