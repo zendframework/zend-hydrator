@@ -16,13 +16,12 @@ namespace Zend\Hydrator;
 
 interface ExtractionInterface
 {
-    /
+    /**
      * Extract values from an object
      *
-     * @param  object $object
-     * @return array
+     * @return mixed[]
      */
-    public function extract($object);
+    public function extract(object $object) : array;
 }
 ```
 
@@ -33,14 +32,12 @@ namespace Zend\Hydrator;
 
 interface HydrationInterface
 {
-    /
+    /**
      * Hydrate $object with the provided $data.
      *
-     * @param  array $data
-     * @param  object $object
-     * @return object
+     * @param mixed[] $data
      */
-    public function hydrate(array $data, $object);
+    public function hydrate(array $data, object $object) : object;
 }
 ```
 
@@ -81,7 +78,11 @@ Follows the definition of `ArrayObject`. Objects must implement either the `exch
 ### Zend\\Hydrator\\ClassMethods
 
 Any data key matching a setter method will be called in order to hydrate; any method matching a
-getter method will be called for extraction.
+getter method will be called for extraction, according to the following rules:
+
+- `is*()`, `has*()`, and `get*()` methods will be extracted, and the method
+  prefix will be removed from the property name.
+- `set*()` methods will be used when hydrating properties.
 
 ### Zend\\Hydrator\\DelegatingHydrator
 
@@ -104,8 +105,8 @@ $hydrators->setService('Artist', $artistHydrator);
 $delegating = new Zend\Hydrator\DelegatingHydrator($hydrators);
 
 // Now we can use $delegating to hydrate or extract any supported object
-$array = $delegating->extract(new Artist);
-$artist = $delegating->hydrate($data, new Artist);
+$array  = $delegating->extract(new Artist());
+$artist = $delegating->hydrate($data, new Artist());
 ```
 
 ### Zend\\Hydrator\\ObjectProperty
