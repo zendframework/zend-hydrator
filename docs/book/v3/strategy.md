@@ -1,87 +1,84 @@
 # Zend\\Hydrator\\Strategy
 
-You can add `Zend\Hydrator\Strategy\StrategyInterface` to any of the hydrators
-(except if it extends `Zend\Hydrator\AbstractHydrator` or implements
-`Zend\Hydrator\HydratorInterface` and `Zend\Hydrator\Strategy\StrategyEnabledInterface`)
-to manipulate the way how they behave on `extract()` and `hydrate()` for
-specific key / value pairs. This is the interface that needs to be implemented:
+You can compose `Zend\Hydrator\Strategy\StrategyInterface` instances in any of
+the hydrators to manipulate the way they behave on `extract()` and `hydrate()`
+for specific key/value pairs. The interface offers the following definitions:
 
 ```php
 namespace Zend\Hydrator\Strategy;
 
 interface StrategyInterface
 {
-     /**
-      * Converts the given value so that it can be extracted by the hydrator.
-      *
-      * @param mixed $value The original value.
-      * @return mixed Returns the value that should be extracted.
-      */
-     public function extract($value);
+    /**
+     * Converts the given value so that it can be extracted by the hydrator.
+     *
+     * @param  mixed       $value The original value.
+     * @param  null|object $object (optional) The original object for context.
+     * @return mixed       Returns the value that should be extracted.
+     */
+    public function extract($value, ?object $object = null);
 
-     /**
-      * Converts the given value so that it can be hydrated by the hydrator.
-      *
-      * @param mixed $value The original value.
-      * @return mixed Returns the value that should be hydrated.
-      */
-     public function hydrate($value);
+    /**
+     * Converts the given value so that it can be hydrated by the hydrator.
+     *
+     * @param  mixed      $value The original value.
+     * @param  null|array $data (optional) The original data for context.
+     * @return mixed      Returns the value that should be hydrated.
+     */
+    public function hydrate($value, ?array $data = null);
 }
 ```
 
-This interface is similar to `Zend\Hydrator\HydratorInterface`; the reason
-is that strategies provide a proxy implementation for `hydrate()` and `extract()`.
+This interface is similar to what the `Zend\Hydrator\ExtractionInterface` and
+`Zend\Hydrator\HydrationInterface` provide; the reason is that strategies
+provide a proxy implementation for `hydrate()` and `extract()` on individual
+values. For this reason, their return types are listed as mixed, versus as
+`array` and `object`, respectively.
 
 ## Adding strategies to the hydrators
 
-To allow strategies within your hydrator, `Zend\Hydrator\Strategy\StrategyEnabledInterface`
-provides the following methods:
+This package provides the interface `Zend\Hydrator\Strategy\StrategyEnabledInterface`.
+Hydrators can implement this interface, and then call on its `getStrategy()`
+method in order to extract or hydrate individual values. The interface has the
+following definition:
 
 ```php
 namespace Zend\Hydrator\Strategy;
-
-use Zend\Hydrator\Strategy\StrategyInterface;
 
 interface StrategyEnabledInterface
 {
     /**
      * Adds the given strategy under the given name.
-     *
-     * @param string $name The name of the strategy to register.
-     * @param StrategyInterface $strategy The strategy to register.
-     * @return HydratorInterface
      */
-    public function addStrategy($name, StrategyInterface $strategy);
+    public function addStrategy(string $name, StrategyInterface $strategy) : void;
 
     /**
      * Gets the strategy with the given name.
-     *
-     * @param string $name The name of the strategy to get.
-     * @return StrategyInterface
      */
-    public function getStrategy($name);
+    public function getStrategy(string $name) : StrategyInterface;
 
     /**
      * Checks if the strategy with the given name exists.
-     *
-     * @param string $name The name of the strategy to check for.
-     * @return bool
      */
-    public function hasStrategy($name);
+    public function hasStrategy(string $name) : bool;
 
     /**
      * Removes the strategy with the given name.
-     *
-     * @param string $name The name of the strategy to remove.
-     * @return HydratorInterface
      */
-    public function removeStrategy($name);
+    public function removeStrategy(string $name) : void;
 }
 ```
 
-Every hydrator shipped by default provides this functionality;
-`AbstractHydrator` fully implements it as well. As such, if you want to use this
-functionality in your own hydrators, you should extend `AbstractHydrator`.
+We provide a default implementation of the interface as part of
+`Zend\Hydrator\AbstractHydrator`; it uses an array property to store and
+retrieve strategies by name when extracting and hydrating values. Since all
+shipped hydrators are based on `AbstractHydrator`, they share these
+capabilities.
+
+Additionally, the functionality that consumes strategies within
+`AbstractHydrator` also contains checks if a naming strategy is composed, and,
+if present, will use it to translate the property name prior to looking up a
+  strategy for it.
 
 ## Available implementations
 
@@ -104,11 +101,11 @@ This is a strategy that allows you to pass in options for:
 and DateTime instances. The input and output formats can be provided as
 constructor arguments.
 
-As of version 2.4.1, this strategy now allows `DateTime` formats that use `!` to
-prepend the format, or `|` or `+` to append it; these ensure that, during
-hydration, the new `DateTime` instance created will set the time element
-accordingly. As a specific example, `Y-m-d|` will drop the time component,
-ensuring comparisons are based on a midnight time value.
+The strategy allows `DateTime` formats that use `!` to prepend the format, or
+`|` or `+` to append it; these ensure that, during hydration, the new `DateTime`
+instance created will set the time element accordingly. As a specific example,
+`Y-m-d|` will drop the time component, ensuring comparisons are based on a
+midnight time value.
 
 ### Zend\\Hydrator\\Strategy\\DefaultStrategy
 

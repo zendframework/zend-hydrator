@@ -15,13 +15,9 @@ namespace Zend\Hydrator\Filter;
 interface FilterInterface
 {
     /**
-     * Should return true, if the given filter
-     * does not match
-     *
-     * @param string $property The name of the property
-     * @return bool
+     * Should return true, if the given filter does not match.
      */
-    public function filter($property);
+    public function filter(string $property) : bool;
 }
 ```
 
@@ -66,97 +62,28 @@ parameters, simply add the number to the constructor. The default value is 0. If
 the method has more or fewer parameters than what the filter accepts, it will be
 omitted.
 
-## Remove filters
-
-If you want to tell e.g. the `ClassMethods` hydrator, to not extract methods that start with `is`,
-remove the related filter:
-
-```php
-$hydrator = new ClassMethods(false);
-$hydrator->removeFilter('is');
-```
-
-After performing the above, the key/value pairs for `is` methods will not end up
-in your extracted array anymore. The filters can be used in any hydrator, but
-the `ClassMethods` hydrator is the only one, that has pre-registered filters:
-
-```php
-$this->filterComposite->addFilter('is', new IsFilter());
-$this->filterComposite->addFilter('has', new HasFilter());
-$this->filterComposite->addFilter('get', new GetFilter());
-$this->filterComposite->addFilter(
-    'parameter',
-    new NumberOfParameterFilter(),
-    FilterComposite::CONDITION_AND
-);
-```
-
-If these are not appropriate for your object, you can unregister them as shown
-in the previous example.
-
-## Add filters
-
-You can add filters to any hydrator that extends the `AbstractHydrator`. Filters
-can either implement `FilterInterface`, or simply be PHP callables:
-
-```php
-$hydrator->addFilter('len', function($property) {
-    if (strlen($property) !== 3) {
-        return false;
-    }
-    return true;
-});
-```
-
-By default, every filter you add will be added with a conditional `or`. If you
-want to add it with `and` (as the `NumberOfParameterFilter` that is added to the
-`ClassMethods` hydrator by default), provide the conditon as the third argument
-to `addFilter`:
-
-```php
-$hydrator->addFilter('len', function($property) {
-    if (strlen($property) !== 3) {
-        return false;
-    }
-    return true;
-}, FilterComposite::CONDITION_AND);
-```
-
-One common use case for filters is to omit getters for values that you do not
-want to represent, such as a service manager instance:
-
-```php
-$hydrator->addFilter(
-  'servicemanager',
-  new MethodMatchFilter('getServiceManager'),
-  FilterComposite::CONDITION_AND
-);
-```
-
-The example above will exclude the `getServiceManager()` method and the
-`servicemanager` key from extraction, even if the `get` filter wants to add it.
-
 ## Use FilterComposite for complex filters
 
-`FilterComposite` implements `FilterInterface` as well, so you can add it as
-a regular filter to the hydrator. One benefit of this implementation is that you
+`FilterComposite` implements `FilterInterface` as well, so you can add it as a
+regular filter to the hydrator. One benefit of this implementation is that you
 can add the filters with a condition and accomplish complex requirements using
-different composites with different conditions. You can pass the following
+different filters with different conditions. You can pass the following
 conditions to the 3rd parameter, when you add a filter:
 
 ### Zend\\Hydrator\\Filter\\FilterComposite::CONDITION\_OR
 
-At the given level of the composite, at least one filter in that condition block
-has to return true to extract the value.
+At the given level of the composite, at least one filter set using
+`CONDITION_OR` must return true to extract the value.
 
 ### Zend\\Hydrator\\Filter\\FilterComposite::CONDITION\_AND
 
-At the given level of the composite, all filters in that condition block must
-return true to extract the value.
+At the given level of the composite, **all** filters set using `CONDITION_AND`
+must return true to extract the value.
 
 ### FilterComposite Examples
 
-This composition will have a similar logic as the if below:
+To illustrate how conditions apply when composing filters, consider the
+following set of filters:
 
 ```php
 $composite = new FilterComposite();
@@ -166,7 +93,11 @@ $composite->addFilter('two', $condition2);
 $composite->addFilter('three', $condition3);
 $composite->addFilter('four', $condition4, FilterComposite::CONDITION_AND);
 $composite->addFilter('five', $condition5, FilterComposite::CONDITION_AND);
+```
 
+The above is roughly equivalent to the following conditional:
+
+```
 // This is what's happening internally
 if (
      ($condition1
@@ -176,12 +107,12 @@ if (
         && $condition5
      )
 ) {
-    //do extraction
+    // do extraction
 }
 ```
 
-If you only have one condition (e.g., only an `and` or `or`) block, the other
-one will be completely ignored.
+If you only have one condition block (e.g., only `AND` or `OR` filters), the
+other condition type will be completely ignored.
 
 A bit more complex filter can look like this:
 
@@ -201,7 +132,7 @@ $composite->addFilter(
 $hydrator->addFilter('excludes', $composite, FilterComposite::CONDITION_AND);
 
 // Internal
-if (( // default composite inside the hydrator
+if (( // default composite inside the ClassMethods hydrator:
         ($getFilter
             || $hasFilter
             || $isFilter
@@ -222,8 +153,8 @@ extracted, except for `getServiceManager()` and `getEventManager()`.
 
 ## Using the provider interface
 
-`FilterProviderInterface` allows you to configure the behavior of the hydrator
-inside your objects.
+`Zend\Hydrator\Filter\FilterProviderInterface` allows you to configure the
+behavior of the hydrator inside your objects.
 
 ```php
 namespace Zend\Hydrator\Filter;
@@ -301,4 +232,127 @@ excluded from extraction.
 > ### Note
 >
 > All pre-registered filters from the `ClassMethods` hydrator are ignored when
-> this interface is used.
+> this interface is used. More on those methods below.
+
+## Filter-enabled hydrators and the composite filter
+
+Hydrators can indicate they are filter-enabled by implementing
+`Zend\Hydrator\Filter\FilterEnabledInterface`:
+
+```php
+namespace Zend\Hydrator\Filter;
+
+interface FilterEnabledInterface extends FilterProviderInterface
+{
+    /**
+     * Add a new filter to take care of what needs to be hydrated.
+     * To exclude e.g. the method getServiceLocator:
+     *
+     * <code>
+     * $composite->addFilter(
+     *     "servicelocator",
+     *     function ($property) {
+     *         [$class, $method] = explode('::', $property, 2);
+     *         return $method !== 'getServiceLocator';
+     *     },
+     *     FilterComposite::CONDITION_AND
+     * );
+     * </code>
+     *
+     * @param string $name Index in the composite
+     * @param callable|FilterInterface $filter
+     */
+    public function addFilter(string $name, $filter, int $condition = FilterComposite::CONDITION_OR) : void;
+
+    /**
+     * Check whether a specific filter exists at key $name or not
+     *
+     * @param string $name Index in the composite
+     */
+    public function hasFilter(string $name) : bool;
+
+    /**
+     * Remove a filter from the composition.
+     *
+     * To not extract "has" methods, you simply need to unregister it
+     *
+     * <code>
+     * $filterComposite->removeFilter('has');
+     * </code>
+     */
+    public function removeFilter(string $name) : void;
+}
+```
+
+> Note that the interface extends `FilterProviderInterface`, which means it also
+> includes the `getFilter()` method.
+
+The `FilterEnabledInterface` makes the assumption that the class will be backed
+by a `Zend\Hydrator\Filter\FilterComposite`; the various `addFilter()`,
+`hasFilter()`, and `removeFilter()` methods are expected to proxy to a
+`FilterComposite` instance.
+
+`AbstractHydrator`, on which all the hydrators shipped in this package are
+built, implements `FilterEnabledInterface`. Of the hydrators shipped, only one,
+`ClassMethods`, defines any filters from the outset. Its constructor includes
+the following:
+
+```php
+$this->filterComposite->addFilter('is', new IsFilter());
+$this->filterComposite->addFilter('has', new HasFilter());
+$this->filterComposite->addFilter('get', new GetFilter());
+$this->filterComposite->addFilter(
+    'parameter',
+    new NumberOfParameterFilter(),
+    FilterComposite::CONDITION_AND
+);
+```
+
+### Remove filters
+
+If you want to tell a filter-enabled hydrator such as `ClassMethods` not to
+extract methods that start with `is`, remove the related filter:
+
+```php
+$hydrator = new ClassMethods(false);
+$hydrator->removeFilter('is');
+```
+
+After performing the above, the key/value pairs for `is` methods will no longer
+end up in your extracted array.
+
+### Add filters
+
+You can add filters using the `addFilter()` method. Filters can either implement
+`FilterInterface`, or simply be PHP callables:
+
+```php
+$hydrator->addFilter('len', function($property) {
+    return strlen($property) === 3;
+});
+```
+
+By default, every filter you add will be added with a conditional `OR`. If you
+want to add it with `AND` (such as the `ClassMethods` hydrator does with its
+composed `NumberOfParameterFilter`, demonstrated above) provide the conditon as
+the third argument to `addFilter`:
+
+```php
+$hydrator->addFilter('len', function($property) {
+    return strlen($property) === 3;
+}, FilterComposite::CONDITION_AND);
+```
+
+One common use case for filters is to omit getters for values that you do not
+want to represent, such as a service manager instance:
+
+```php
+$hydrator->addFilter(
+    'servicemanager',
+    new MethodMatchFilter('getServiceManager'),
+    FilterComposite::CONDITION_AND
+);
+```
+
+The example above will exclude the `getServiceManager()` method and the
+`servicemanager` key from extraction, even if the `get` filter wants to add it.
