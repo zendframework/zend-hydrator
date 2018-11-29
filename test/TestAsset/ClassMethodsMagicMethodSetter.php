@@ -9,6 +9,10 @@ declare(strict_types=1);
 
 namespace ZendTest\Hydrator\TestAsset;
 
+use function strlen;
+use function strtolower;
+use function substr;
+
 class ClassMethodsMagicMethodSetter
 {
     protected $foo;

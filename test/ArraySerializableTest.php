@@ -14,6 +14,8 @@ use TypeError;
 use Zend\Hydrator\ArraySerializable;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
 
+use function array_merge;
+
 /**
  * Unit tests for {@see ArraySerializable}
  *

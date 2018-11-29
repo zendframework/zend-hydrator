@@ -11,6 +11,8 @@ namespace ZendTest\Hydrator\TestAsset;
 
 use Zend\Hydrator\Strategy\DefaultStrategy;
 
+use function is_array;
+
 class HydratorStrategy extends DefaultStrategy
 {
     /**

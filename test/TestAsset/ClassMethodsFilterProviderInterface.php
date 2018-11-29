@@ -12,8 +12,8 @@ namespace ZendTest\Hydrator\TestAsset;
 use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\Filter\FilterInterface;
 use Zend\Hydrator\Filter\FilterProviderInterface;
-use Zend\Hydrator\Filter\MethodMatchFilter;
 use Zend\Hydrator\Filter\GetFilter;
+use Zend\Hydrator\Filter\MethodMatchFilter;
 
 class ClassMethodsFilterProviderInterface implements FilterProviderInterface
 {

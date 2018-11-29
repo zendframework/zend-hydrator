@@ -13,8 +13,8 @@ use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Serializer\Adapter\AdapterInterface as SerializerAdapter;
 use Zend\Serializer\Serializer as SerializerFactory;
 
-use function gettype;
 use function get_class;
+use function gettype;
 use function is_array;
 use function is_object;
 use function is_string;

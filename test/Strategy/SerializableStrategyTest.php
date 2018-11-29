@@ -15,6 +15,8 @@ use Zend\Hydrator\Strategy\SerializableStrategy;
 use Zend\Serializer\Adapter\PhpSerialize;
 use Zend\Serializer\Serializer;
 
+use function get_class;
+
 /**
  * @covers Zend\Hydrator\Strategy\SerializableStrategy<extended>
  */

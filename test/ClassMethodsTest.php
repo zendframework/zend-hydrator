@@ -12,10 +12,10 @@ namespace ZendTest\Hydrator;
 use PHPUnit\Framework\TestCase;
 use TypeError;
 use Zend\Hydrator\ClassMethods;
+use ZendTest\Hydrator\TestAsset\ArraySerializable;
+use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCase;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCaseMissing;
 use ZendTest\Hydrator\TestAsset\ClassMethodsOptionalParameters;
-use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCase;
-use ZendTest\Hydrator\TestAsset\ArraySerializable;
 
 /**
  * Unit tests for {@see ClassMethods}

@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\HydratorInterface;
 
 class HydratorStrategyTest extends TestCase
 {

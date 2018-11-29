@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace ZendTest\Hydrator\Filter;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\Filter\NumberOfParameterFilter;
 use Zend\Hydrator\Exception\InvalidArgumentException;
+use Zend\Hydrator\Filter\NumberOfParameterFilter;
 
 /**
  * Unit tests for {@see NumberOfParameterFilter}

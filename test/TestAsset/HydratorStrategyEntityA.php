@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace ZendTest\Hydrator\TestAsset;
 
+use function get_object_vars;
+
 class HydratorStrategyEntityA
 {
     public $entities; // public to make testing easier!

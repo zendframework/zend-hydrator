@@ -12,23 +12,27 @@ namespace ZendTest\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ArraySerializable;
 use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\ObjectProperty;
 use Zend\Hydrator\Reflection;
-use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\Strategy\DefaultStrategy;
 use Zend\Hydrator\Strategy\SerializableStrategy;
+use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCase;
-use ZendTest\Hydrator\TestAsset\ClassMethodsTitleCase;
+use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCaseMissing;
 use ZendTest\Hydrator\TestAsset\ClassMethodsFilterProviderInterface;
+use ZendTest\Hydrator\TestAsset\ClassMethodsInvalidParameter;
 use ZendTest\Hydrator\TestAsset\ClassMethodsMagicMethodSetter;
 use ZendTest\Hydrator\TestAsset\ClassMethodsProtectedSetter;
+use ZendTest\Hydrator\TestAsset\ClassMethodsTitleCase;
 use ZendTest\Hydrator\TestAsset\ClassMethodsUnderscore;
-use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCaseMissing;
-use ZendTest\Hydrator\TestAsset\ClassMethodsInvalidParameter;
+use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyAsset;
 use ZendTest\Hydrator\TestAsset\Reflection as ReflectionAsset;
 use ZendTest\Hydrator\TestAsset\ReflectionFilter;
-use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyAsset;
-use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
+
+use function explode;
+use function get_class;
+use function strlen;
 
 class HydratorTest extends TestCase
 {

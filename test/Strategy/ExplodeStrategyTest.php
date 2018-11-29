@@ -14,6 +14,8 @@ use TypeError;
 use Zend\Hydrator\Strategy\Exception\InvalidArgumentException;
 use Zend\Hydrator\Strategy\ExplodeStrategy;
 
+use function is_numeric;
+
 /**
  * Tests for {@see ExplodeStrategy}
  *

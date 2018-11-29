@@ -11,7 +11,6 @@ namespace ZendTest\Hydrator\Aggregate;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Zend\EventManager\EventManagerInterface;
 use Zend\Hydrator\Aggregate\ExtractEvent;
 use Zend\Hydrator\Aggregate\HydrateEvent;
 use Zend\Hydrator\Aggregate\HydratorListener;

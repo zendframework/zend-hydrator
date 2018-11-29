@@ -15,7 +15,6 @@ use ReflectionProperty;
 use Zend\Hydrator\DelegatingHydrator;
 use Zend\Hydrator\DelegatingHydratorFactory;
 use Zend\Hydrator\HydratorPluginManager;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * @covers Zend\Hydrator\DelegatingHydratorFactory<extended>
