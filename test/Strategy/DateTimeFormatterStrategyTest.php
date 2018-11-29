@@ -13,9 +13,8 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimezone;
 use PHPUnit\Framework\TestCase;
-use stdClass;
-use Zend\Hydrator\Strategy\Exception\InvalidArgumentException;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
+use Zend\Hydrator\Strategy\Exception\InvalidArgumentException;
 
 /**
  * Tests for {@see DateTimeFormatterStrategy}

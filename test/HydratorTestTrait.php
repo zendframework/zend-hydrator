@@ -13,6 +13,9 @@ use Zend\Hydrator\NamingStrategy\NamingStrategyInterface;
 use Zend\Hydrator\Strategy\StrategyInterface;
 use ZendTest\Hydrator\TestAsset\SimpleEntity;
 
+use function get_class;
+use function sprintf;
+
 trait HydratorTestTrait
 {
     public function testHydrateWithNamingStrategyAndStrategy()

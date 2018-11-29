@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace ZendTest\Hydrator\Strategy;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\Strategy\StrategyChain;
 use Zend\Hydrator\Strategy\ClosureStrategy;
+use Zend\Hydrator\Strategy\StrategyChain;
 
 /**
  * @covers \Zend\Hydrator\Strategy\StrategyChain

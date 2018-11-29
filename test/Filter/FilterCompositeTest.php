@@ -10,12 +10,14 @@ declare(strict_types=1);
 namespace ZendTest\Hydrator\Filter;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\Exception\InvalidArgumentException;
+use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\Filter\GetFilter;
 use Zend\Hydrator\Filter\HasFilter;
 use Zend\Hydrator\Filter\IsFilter;
 use Zend\Hydrator\Filter\NumberOfParameterFilter;
+
+use function sprintf;
 
 /**
  * Unit tests for {@see FilterComposite}

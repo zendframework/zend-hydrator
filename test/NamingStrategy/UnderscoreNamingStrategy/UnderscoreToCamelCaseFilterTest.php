@@ -11,8 +11,9 @@ namespace ZendTest\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use stdClass;
 use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter;
+
+use function extension_loaded;
 
 /**
  * Tests for {@see UnderscoreToCamelCaseFilter}

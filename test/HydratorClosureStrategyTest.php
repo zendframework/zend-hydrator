@@ -14,6 +14,8 @@ use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\ObjectProperty;
 use Zend\Hydrator\Strategy\ClosureStrategy;
 
+use function sprintf;
+
 class HydratorClosureStrategyTest extends TestCase
 {
     /**

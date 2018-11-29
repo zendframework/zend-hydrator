@@ -10,8 +10,8 @@ declare(strict_types=1);
 namespace Zend\Hydrator\Strategy;
 
 use ReflectionClass;
-use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\Exception;
+use Zend\Hydrator\HydratorInterface;
 
 use function array_map;
 use function class_exists;

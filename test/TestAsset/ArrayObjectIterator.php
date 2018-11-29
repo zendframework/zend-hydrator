@@ -9,6 +9,12 @@ declare(strict_types=1);
 
 namespace ZendTest\Hydrator\TestAsset;
 
+use function current;
+use function is_array;
+use function key;
+use function next;
+use function reset;
+
 class ArrayObjectIterator implements \Iterator
 {
 

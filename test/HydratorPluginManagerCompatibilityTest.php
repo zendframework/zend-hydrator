@@ -10,7 +10,6 @@ declare(strict_types=1);
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\Exception\RuntimeException;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\ServiceManager;

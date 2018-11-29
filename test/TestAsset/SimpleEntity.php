@@ -9,6 +9,8 @@ declare(strict_types=1);
 
 namespace ZendTest\Hydrator\TestAsset;
 
+use function array_key_exists;
+
 class SimpleEntity
 {
     public $value;

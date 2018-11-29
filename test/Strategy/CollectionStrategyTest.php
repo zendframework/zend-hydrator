@@ -20,6 +20,17 @@ use Zend\Hydrator\Strategy\CollectionStrategy;
 use Zend\Hydrator\Strategy\StrategyInterface;
 use ZendTest\Hydrator\TestAsset;
 
+use function array_map;
+use function count;
+use function fopen;
+use function get_class;
+use function gettype;
+use function is_object;
+use function mt_getrandmax;
+use function mt_rand;
+use function spl_object_hash;
+use function sprintf;
+
 /**
  * Tests for {@see CollectionStrategy}
  *
