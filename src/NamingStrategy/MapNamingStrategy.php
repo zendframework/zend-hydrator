@@ -53,16 +53,16 @@ final class MapNamingStrategy implements NamingStrategyInterface
             ));
         }
 
-        if (null === $extractionMap) {
+        if (null === $extractionMap && is_array($hydrationMap)) {
             $extractionMap = $this->flipMapping($hydrationMap);
         }
 
-        if (null === $hydrationMap) {
+        if (null === $hydrationMap && is_array($extractionMap)) {
             $hydrationMap = $this->flipMapping($extractionMap);
         }
 
-        $this->extractionMap = $extractionMap;
-        $this->hydrationMap  = $hydrationMap;
+        $this->extractionMap = (array) $extractionMap;
+        $this->hydrationMap  = (array) $hydrationMap;
     }
 
     /**
