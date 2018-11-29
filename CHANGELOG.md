@@ -17,6 +17,27 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported PHP version to 7.2.
+
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported zend-eventmanager version to 3.2.1. zend-eventmanager
+  is only required if you are using the `AggregateHydrator`.
+
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported zend-serializer version to 2.9.0. zend-serializer is
+  only required if you are using the `SerializableStrategy`.
+
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported zend-servicemanager version to 3.3.2.
+  zend-servicemanager is only required if you are using the
+  `HydratorPluginManager` or `DelegatingHydrator`. This change means that
+  some service names supported by zend-servicemanager v2 will no longer work.
+  When in doubt, use the fully qualified class name, or the class name minus the
+  namespace, with correct casing.
+
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) adds scalar and object typehints, both to parameters and return values, wherever
+  possible. For consumers, this should pose no discernable change. **For those
+  implementing interfaces or extending classes from this package, updates will
+  be necessary to ensure your code will run.** [See the migration guide for
+  details](https://docs.zendframework.com/zend-hydrator/v3/migration/).
+
 - [#14](https://github.com/zendframework/zend-hydrator/pull/14) replaces usage of zend-filter with the hardcoded filters referenced in
   the above section.
 
