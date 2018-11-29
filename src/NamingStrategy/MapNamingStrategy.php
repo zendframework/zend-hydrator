@@ -9,38 +9,80 @@ declare(strict_types=1);
 
 namespace Zend\Hydrator\NamingStrategy;
 
-use Zend\Hydrator\Exception\InvalidArgumentException;
+use Zend\Hydrator\Exception;
 
 use function array_flip;
 use function array_key_exists;
 use function array_walk;
 use function is_int;
 use function is_string;
+use function sprintf;
 
-class MapNamingStrategy implements NamingStrategyInterface
+final class MapNamingStrategy implements NamingStrategyInterface
 {
     /**
-     * Map for hydrate name conversion.
-     *
      * @var string[]
      */
-    protected $mapping = [];
+    private $extractionMap = [];
 
     /**
-     * Reversed map for extract name conversion.
-     *
      * @var string[]
      */
-    protected $reverse = [];
+    private $hydrationMap = [];
 
     /**
-     * @param string[]      $mapping Map for name conversion on hydration
-     * @param null|string[] $reverse Reverse map for name conversion on extraction
+     * @param null|string[] $hydrationMap A map of string keys and values for
+     *     translation of hydrated field names. If not provided, the result of
+     *     an array_flip($extractionMap) will be used.
+     * @param null|string[] $extractionMap A map of string keys and values for
+     *     translation of extracted field names. If not provided, the result of
+     *     an array_flip($hydrationMap) will be used.
+     * @throws Exception\InvalidArgumentException if neither $hydrationMap nor
+     *     $extractionMap are provided.
+     * @throws Exception\InvalidArgumentException when flipping either the
+     *     $hydrationMap or $extractionMap, and any value is a non-string,
+     *     non-int value.
      */
-    public function __construct(array $mapping, ?array $reverse = null)
+    public function __construct(?array $hydrationMap = null, ?array $extractionMap = null)
     {
-        $this->mapping = $mapping;
-        $this->reverse = $reverse ?: $this->flipMapping($mapping);
+        if (null === $hydrationMap && null === $extractionMap) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '%s requires one or both of an array $hydrationMap and array $extractionMap;'
+                . ' neither provided',
+                __CLASS__
+            ));
+        }
+
+        if (null === $extractionMap) {
+            $extractionMap = $this->flipMapping($hydrationMap);
+        }
+
+        if (null === $hydrationMap) {
+            $hydrationMap = $this->flipMapping($extractionMap);
+        }
+
+        $this->extractionMap = $extractionMap;
+        $this->hydrationMap  = $hydrationMap;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function extract(string $name, ?object $object = null) : string
+    {
+        return array_key_exists($name, $this->extractionMap)
+            ? $this->extractionMap[$name]
+            : $name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function hydrate(string $name, ?array $data = null) : string
+    {
+        return array_key_exists($name, $this->hydrationMap)
+            ? $this->hydrationMap[$name]
+            : $name;
     }
 
     /**
@@ -48,44 +90,19 @@ class MapNamingStrategy implements NamingStrategyInterface
      *
      * @param  string[] $array Array to flip
      * @return string[] Flipped array
-     * @throws InvalidArgumentException
+     * @throws Exception\InvalidArgumentException if any value of the $array is
+     *     a non-string, non-int value.
      */
-    protected function flipMapping(array $array) : array
+    private function flipMapping(array $array) : array
     {
         array_walk($array, function ($value) {
             if (! is_string($value) && ! is_int($value)) {
-                throw new InvalidArgumentException('Mapping array can\'t be flipped because of invalid value');
+                throw new Exception\InvalidArgumentException(
+                    'Mapping array can not be flipped because of invalid value'
+                );
             }
         });
 
         return array_flip($array);
-    }
-
-    /**
-     * Converts the given name so that it can be extracted by the hydrator.
-     *
-     * {@inheritDoc}
-     */
-    public function hydrate(string $name, ?array $data = null) : string
-    {
-        if (array_key_exists($name, $this->mapping)) {
-            return $this->mapping[$name];
-        }
-
-        return $name;
-    }
-
-    /**
-     * Converts the given name so that it can be hydrated by the hydrator.
-     *
-     * {@inheritDoc}
-     */
-    public function extract(string $name, ?object $object = null) : string
-    {
-        if (array_key_exists($name, $this->reverse)) {
-            return $this->reverse[$name];
-        }
-
-        return $name;
     }
 }

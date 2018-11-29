@@ -9,50 +9,93 @@ declare(strict_types=1);
 
 namespace ZendTest\Hydrator\NamingStrategy;
 
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use Zend\Hydrator\Exception;
 use Zend\Hydrator\NamingStrategy\MapNamingStrategy;
 
 /**
- * @covers Zend\Hydrator\NamingStrategy\MapNamingStrategy<extended>
+ * Tests for {@see MapNamingStrategy}
+ *
+ * @covers \Zend\Hydrator\NamingStrategy\MapNamingStrategy
  */
 class MapNamingStrategyTest extends TestCase
 {
-    public function testHydrateMap()
+    public function testConstructorRaisesExceptionIfNoExtractionOrHydrationMapProvided()
     {
-        $namingStrategy = new MapNamingStrategy(['foo' => 'bar']);
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('requires one or both of an array $hydrationMap and array $extractionMap');
 
-        $this->assertEquals('bar', $namingStrategy->hydrate('foo'));
-        $this->assertEquals('foo', $namingStrategy->extract('bar'));
+        new MapNamingStrategy();
     }
 
-    public function testHydrateAndExtractMaps()
+    public function invalidMapValues() : iterable
     {
-        $namingStrategy = new MapNamingStrategy(
-            ['foo' => 'foo-hydrated'],
-            ['bar' => 'bar-extracted']
-        );
-
-        $this->assertEquals('foo-hydrated', $namingStrategy->hydrate('foo'));
-        $this->assertEquals('bar-extracted', $namingStrategy->extract('bar'));
+        yield 'null'       => [null];
+        yield 'true'       => [true];
+        yield 'false'      => [false];
+        yield 'zero-float' => [0.0];
+        yield 'float'      => [1.1];
+        yield 'array'      => [['foo']];
+        yield 'object'     => [(object) ['foo' => 'bar']];
     }
 
-    public function testSingleMapInvalidValue()
+    /**
+     * @dataProvider invalidMapValues
+     * @param mixed $invalidValue
+     */
+    public function testConstructorRaisesExceptionWhenFlippingHydrationMapForInvalidValues($invalidValue)
     {
-        $this->expectException(InvalidArgumentException::class);
-        new MapNamingStrategy(['foo' => 3.1415]);
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('can not be flipped');
+
+        new MapNamingStrategy(['foo' => $invalidValue]);
     }
 
-    public function testReturnSpecifiedValue()
+    /**
+     * @dataProvider invalidMapValues
+     * @param mixed $invalidValue
+     */
+    public function testConstructorRaisesExceptionWhenFlippingExtractionMapForInvalidValues($invalidValue)
     {
-        $namingStrategy = new MapNamingStrategy(
-            [ 'foo' => 'foo-hydrated'],
-            [ 'bar' => 'bar-extracted']
-        );
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('can not be flipped');
 
-        $name = 'foobar';
+        new MapNamingStrategy(null, ['foo' => $invalidValue]);
+    }
 
-        $this->assertEquals($name, $namingStrategy->extract($name));
-        $this->assertEquals($name, $namingStrategy->hydrate($name));
+    public function testExtractReturnsVerbatimWhenEmptyExtractionMapProvided()
+    {
+        $strategy = new MapNamingStrategy(null, []);
+        $this->assertEquals('some_stuff', $strategy->extract('some_stuff'));
+    }
+
+    public function testHydrateReturnsVerbatimWhenEmptyHydrationMapProvided()
+    {
+        $strategy = new MapNamingStrategy([]);
+        $this->assertEquals('some_stuff', $strategy->hydrate('some_stuff'));
+    }
+
+    public function testExtractUsesProvidedExtractionMap()
+    {
+        $strategy = new MapNamingStrategy(null, ['stuff3' => 'stuff4']);
+        $this->assertEquals('stuff4', $strategy->extract('stuff3'));
+    }
+
+    public function testExtractUsesFlippedHydrationMapWhenNoExtractionMapProvided()
+    {
+        $strategy = new MapNamingStrategy(['stuff3' => 'stuff4']);
+        $this->assertEquals('stuff3', $strategy->extract('stuff4'));
+    }
+
+    public function testHydrateUsesProvidedHydrationMap()
+    {
+        $strategy = new MapNamingStrategy(['stuff3' => 'stuff4']);
+        $this->assertEquals('stuff4', $strategy->hydrate('stuff3'));
+    }
+
+    public function testHydrateUsesFlippedExtractionMapWhenNoHydrationMapProvided()
+    {
+        $strategy = new MapNamingStrategy(null, ['foo' => 'bar']);
+        $this->assertEquals('foo', $strategy->hydrate('bar'));
     }
 }
