@@ -38,7 +38,7 @@ To allow strategies within your hydrator, `Zend\Hydrator\Strategy\StrategyEnable
 provides the following methods:
 
 ```php
-namespace Zend\Hydrator;
+namespace Zend\Hydrator\Strategy;
 
 use Zend\Hydrator\Strategy\StrategyInterface;
 

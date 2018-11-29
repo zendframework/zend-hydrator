@@ -15,9 +15,9 @@ use function sprintf;
 
 abstract class AbstractHydrator implements
     HydratorInterface,
-    StrategyEnabledInterface,
-    FilterEnabledInterface,
-    NamingStrategyEnabledInterface
+    Strategy\StrategyEnabledInterface,
+    Filter\FilterEnabledInterface,
+    NamingStrategy\NamingStrategyEnabledInterface
 {
     /**
      * The list with strategies that this hydrator has.

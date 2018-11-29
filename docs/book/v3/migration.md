@@ -30,6 +30,14 @@ The minimum supported version of zend-serializer (used by the
 The minimum supported version of zend-servicemanager (used by the
 `HydratorPluginManager`) is now 3.3.2.
 
+## Renamed interfaces
+
+The following interfaces were renamed:
+
+- `Zend\Hydrator\FilterEnabledInterface` becomes `Zend\Hydrator\Filter\FilterEnabledInterface`.
+- `Zend\Hydrator\NamingStrategyEnabledInterface` becomes `Zend\Hydrator\NamingStrategy\NamingStrategyEnabledInterface`.
+- `Zend\Hydrator\StrategyEnabledInterface` becomes `Zend\Hydrator\Strategy\StrategyEnabledInterface`.
+
 ## Interface changes
 
 Each of the interfaces provided by this package have been updated to add
@@ -38,7 +46,7 @@ on parameters and return values. These include:
 
 - `Zend\Hydrator\ExtractionInterface`:
   - `extract($object)` becomes `extract(object $object) : array`
-- `Zend\Hydrator\FilterEnabledInterface`:
+- `Zend\Hydrator\Filter\FilterEnabledInterface` (was `Zend\Hydrator\FilterEnabledInterface`):
   - `addFilter($name, $filter, $condition = Zend\Hydrator\Filter\FilterComposite::CONDITION_OR)` becomes `addFilter(string $name, $filter, int $condition = Zend\Hydrator\Filter\FilterComposite::CONDITION_OR) : void`
   - `hasFilter($name)` becomes `hasFilter(string $name) : bool`
   - `removeFilter($name)` becomes `removeFilter(string $name) : void`
@@ -53,11 +61,11 @@ on parameters and return values. These include:
   - `setOptions($options)` becomes `setOptions(iterable $options) : void`
 - `Zend\Hydrator\HydratorProviderInterface`:
   - `getHydratorConfig()` becomes `getHydratorConfig() : array`
-- `Zend\Hydrator\NamingStrategyEnabledInterface`:
+- `Zend\Hydrator\NamingStrategy\NamingStrategyEnabledInterface` (was `Zend\Hydrator\NamingStrategyEnabledInterface`):
   - `setNamingStrategy(Zend\Hydrator\NamingStrategy\NamingStrategyInterface $strategy)` becomes `setNamingStrategy(Zend\Hydrator\NamingStrategy\NamingStrategyInterface $strategy) : void`
   - `getNamingStrategy()` becomes `getNamingStrategy() : Zend\Hydrator\NamingStrategy\NamingStrategyInterface`
   - `removeNamingStrategy()` becomes `removeNamingStrategy() : void`
-- `Zend\Hydrator\StrategyEnabledInterface`:
+- `Zend\Hydrator\Strategy\StrategyEnabledInterface` (was `Zend\Hydrator\StrategyEnabledInterface`):
   - `addStrategy($name, Zend\Hydrator\Strategy\StrategyInterface $strategy)` becomes `addStrategy(string $name, Zend\Hydrator\Strategy\StrategyInterface $strategy) : void`
   - `getStrategy($name)` becomes `getStrategy(string $name) : Zend\Hydrator\Strategy\StrategyInterface`
   - `hasStrategy($name)` becomes `hasStrategy(string $name) : bool`
