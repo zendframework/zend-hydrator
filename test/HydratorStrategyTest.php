@@ -12,6 +12,7 @@ namespace ZendTest\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\HydratorInterface;
+use Zend\Hydrator\Strategy\StrategyInterface;
 
 class HydratorStrategyTest extends TestCase
 {
@@ -107,7 +108,7 @@ class HydratorStrategyTest extends TestCase
     ) {
         $hydrator = new ClassMethods($underscoreSeparatedKeys);
 
-        $strategy = $this->createMock('Zend\Hydrator\Strategy\StrategyInterface');
+        $strategy = $this->createMock(StrategyInterface::class);
 
         $entity = new TestAsset\ClassMethodsUnderscore();
         $value = $entity->getFooBar();
