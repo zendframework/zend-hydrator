@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace ZendTest\Hydrator\NamingStrategy;
 
+use Error;
 use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\Exception;
 use Zend\Hydrator\NamingStrategy\MapNamingStrategy;
@@ -88,15 +89,15 @@ class MapNamingStrategyTest extends TestCase
         MapNamingStrategy::createFromHydrationMap([$invalidKey => 'foo']);
     }
 
-    public function testExtractReturnsVerbatimWhenNoExtractionMapProvided()
+    public function testExtractReturnsVerbatimWhenEmptyExtractionMapProvided()
     {
-        $strategy = new MapNamingStrategy();
+        $strategy = MapNamingStrategy::createFromExtractionMap([]);
         $this->assertEquals('some_stuff', $strategy->extract('some_stuff'));
     }
 
-    public function testHydrateReturnsVerbatimWhenNoHydrationMapProvided()
+    public function testHydrateReturnsVerbatimWhenEmptyHydrationMapProvided()
     {
-        $strategy = new MapNamingStrategy([]);
+        $strategy = MapNamingStrategy::createFromHydrationMap([]);
         $this->assertEquals('some_stuff', $strategy->hydrate('some_stuff'));
     }
 

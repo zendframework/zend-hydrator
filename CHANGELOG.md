@@ -17,19 +17,20 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- [#82](https://github.com/zendframework/zend-hydrator/pull/82) changes `Zend\Hydrator\NamingStrategy\MapNamingStrategy` in the following ways:
-  - The constructor is removed. If you instantiate an instance using
-    `new MapNamingStrategy(...)`, the strategy will act as a no-op.
+- [#82](https://github.com/zendframework/zend-hydrator/pull/82) and [#85](https://github.com/zendframework/zend-hydrator/pull/85) change `Zend\Hydrator\NamingStrategy\MapNamingStrategy`
+- in the following ways:
   - The class is now marked `final`.
-  - The class offers three new named constructors:
-  - `MapNamingStrategy::createFromExtractionMap(array $extractionMap) : MapNamingStrategy`
-    will use the provided extraction map for extraction operations, and flip it
-    for hydration operations.
-  - `MapNamingStrategy::createFromHydrationMap(array $hydrationMap) : MapNamingStrategy`
-    will use the provided hydration map for hydration operations, and flip it
-    for extraction operations.
-  - `MapNamingStrategy::createFromAssymetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy`
-    will use the appropriate map based on the requested operation.
+  - The constructor is marked private. You can no longer instantiate it directly.
+  - The class offers three new named constructors; one of these MUST be used to
+    create an instance, as the constructor is now final:
+    - `MapNamingStrategy::createFromExtractionMap(array $extractionMap) : MapNamingStrategy`
+      will use the provided extraction map for extraction operations, and flip it
+      for hydration operations.
+    - `MapNamingStrategy::createFromHydrationMap(array $hydrationMap) : MapNamingStrategy`
+      will use the provided hydration map for hydration operations, and flip it
+      for extraction operations.
+    - `MapNamingStrategy::createFromAssymetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy`
+      will use the appropriate map based on the requested operation.
 
 - [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported PHP version to 7.2.
 

@@ -78,6 +78,19 @@ final class MapNamingStrategy implements NamingStrategyInterface
     }
 
     /**
+     * Do not allow direct instantiation of this class.
+     *
+     * Users should use one of the named constructors:
+     *
+     * - createFromExtractionMap()
+     * - createFromHydrationMap()
+     * - createFromAssymetricMap()
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Safely flip mapping array.
      *
      * @param  string[] $array Array to flip
