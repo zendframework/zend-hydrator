@@ -36,17 +36,9 @@ abstract class AbstractHydrator implements
     /**
      * Composite to filter the methods, that need to be hydrated
      *
-     * @var Filter\FilterComposite
+     * @var null|Filter\FilterComposite
      */
     protected $filterComposite;
-
-    /**
-     * Initializes a new instance of this class.
-     */
-    public function __construct()
-    {
-        $this->filterComposite = new Filter\FilterComposite();
-    }
 
     /**
      * Gets the strategy with the given name.
@@ -181,7 +173,7 @@ abstract class AbstractHydrator implements
      */
     public function getFilter() : Filter\FilterInterface
     {
-        return $this->filterComposite;
+        return $this->getCompositeFilter();
     }
 
     /**
@@ -205,7 +197,7 @@ abstract class AbstractHydrator implements
      */
     public function addFilter(string $name, $filter, int $condition = Filter\FilterComposite::CONDITION_OR) : void
     {
-        $this->filterComposite->addFilter($name, $filter, $condition);
+        $this->getCompositeFilter()->addFilter($name, $filter, $condition);
     }
 
     /**
@@ -215,7 +207,7 @@ abstract class AbstractHydrator implements
      */
     public function hasFilter(string $name) : bool
     {
-        return $this->filterComposite->hasFilter($name);
+        return $this->getCompositeFilter()->hasFilter($name);
     }
 
     /**
@@ -229,7 +221,7 @@ abstract class AbstractHydrator implements
      */
     public function removeFilter(string $name) : void
     {
-        $this->filterComposite->removeFilter($name);
+        $this->getCompositeFilter()->removeFilter($name);
     }
 
     /**
@@ -272,5 +264,23 @@ abstract class AbstractHydrator implements
     public function removeNamingStrategy() : void
     {
         $this->namingStrategy = null;
+    }
+
+    /**
+     * Lazy-load the composite filter instance.
+     *
+     * If no instance is yet registerd for the $filterComposite property, this
+     * method will lazy load one.
+     *
+     * @throws Exception\DomainException if composed $filterComposite is not a
+     *     Filter\FilterComposite instance, nor null.
+     */
+    protected function getCompositeFilter() : Filter\FilterComposite
+    {
+        if (! $this->filterComposite) {
+            $this->filterComposite = new Filter\FilterComposite();
+        }
+
+        return $this->filterComposite;
     }
 }

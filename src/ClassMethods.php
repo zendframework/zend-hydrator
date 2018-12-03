@@ -65,17 +65,16 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      */
     public function __construct(bool $underscoreSeparatedKeys = true, bool $methodExistsCheck = false)
     {
-        parent::__construct();
-
         $this->setUnderscoreSeparatedKeys($underscoreSeparatedKeys);
         $this->setMethodExistsCheck($methodExistsCheck);
 
         $this->callableMethodFilter = new Filter\OptionalParametersFilter();
 
-        $this->filterComposite->addFilter('is', new Filter\IsFilter());
-        $this->filterComposite->addFilter('has', new Filter\HasFilter());
-        $this->filterComposite->addFilter('get', new Filter\GetFilter());
-        $this->filterComposite->addFilter(
+        $compositeFilter = $this->getCompositeFilter();
+        $compositeFilter->addFilter('is', new Filter\IsFilter());
+        $compositeFilter->addFilter('has', new Filter\HasFilter());
+        $compositeFilter->addFilter('get', new Filter\GetFilter());
+        $compositeFilter->addFilter(
             'parameter',
             new Filter\OptionalParametersFilter(),
             Filter\FilterComposite::CONDITION_AND
@@ -149,7 +148,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
         // pass 1 - finding out which properties can be extracted, with which methods (populate hydration cache)
         if (! isset($this->extractionMethodsCache[$objectClass])) {
             $this->extractionMethodsCache[$objectClass] = [];
-            $filter                                     = $this->filterComposite;
+            $filter                                     = $this->getCompositeFilter();
             $methods                                    = get_class_methods($object);
 
             if ($object instanceof Filter\FilterProviderInterface) {
