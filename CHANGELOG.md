@@ -17,6 +17,20 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
+- [#82](https://github.com/zendframework/zend-hydrator/pull/82) changes `Zend\Hydrator\NamingStrategy\MapNamingStrategy` in the following ways:
+  - The constructor is removed. If you instantiate an instance using
+    `new MapNamingStrategy(...)`, the strategy will act as a no-op.
+  - The class is now marked `final`.
+  - The class offers three new named constructors:
+  - `MapNamingStrategy::createFromExtractionMap(array $extractionMap) : MapNamingStrategy`
+    will use the provided extraction map for extraction operations, and flip it
+    for hydration operations.
+  - `MapNamingStrategy::createFromHydrationMap(array $hydrationMap) : MapNamingStrategy`
+    will use the provided hydration map for hydration operations, and flip it
+    for extraction operations.
+  - `MapNamingStrategy::createFromAssymetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy`
+    will use the appropriate map based on the requested operation.
+
 - [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported PHP version to 7.2.
 
 - [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported zend-eventmanager version to 3.2.1. zend-eventmanager
@@ -53,7 +67,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#82](https://github.com/zendframework/zend-hydrator/pull/82) removes `Zend\Hydrator\NamingStrategy\ArrayMapNamingStrategy`. The functionality
+  it provided has been merged into `Zend\Hydrator\NamingStrategy\MapNamingStrategy`;
+  use `MapNamingStrategy::createFromExtractionMap()` to create an instance that
+  has the same functionality as `ArrayMapNamingStrategy` previously provided.
 
 ### Fixed
 
