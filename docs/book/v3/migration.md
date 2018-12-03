@@ -190,8 +190,8 @@ In the first two cases, the constructor will flip the arrays for purposes of the
 opposite interaction; e.g., using `createFromExtractionMap()` will create a
 hydration map based on an `array_flip()` of the extraction map provided.
 
-If you instantiate the naming strategy without these methods, it will act as a
-no-op for purposes of both extraction and hydration.
+**You MUST use one of these methods to create an instance,** as the constructor
+is now marked `private`.
 
 ## HydratorPluginManager
 
