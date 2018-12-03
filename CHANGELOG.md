@@ -17,8 +17,14 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
+- [#83](https://github.com/zendframework/zend-hydrator/pull/83) renames `Zend\Hydrator\FilterEnabledInterface` to `Zend\Hydrator\Filter\FilterEnabledInterface` (new namespace).
+
+- [#83](https://github.com/zendframework/zend-hydrator/pull/83) renames `Zend\Hydrator\NamingStrategyEnabledInterface` to `Zend\Hydrator\NamingStrategy\NamingStrategyEnabledInterface` (new namespace).
+
+- [#83](https://github.com/zendframework/zend-hydrator/pull/83) renames `Zend\Hydrator\StrategyEnabledInterface` to `Zend\Hydrator\Strategy\StrategyEnabledInterface` (new namespace).
+
 - [#82](https://github.com/zendframework/zend-hydrator/pull/82) and [#85](https://github.com/zendframework/zend-hydrator/pull/85) change `Zend\Hydrator\NamingStrategy\MapNamingStrategy`
-- in the following ways:
+  in the following ways:
   - The class is now marked `final`.
   - The constructor is marked private. You can no longer instantiate it directly.
   - The class offers three new named constructors; one of these MUST be used to
@@ -67,6 +73,9 @@ All notable changes to this project will be documented in this file, in reverse 
 - Nothing.
 
 ### Removed
+
+- [#83](https://github.com/zendframework/zend-hydrator/pull/83) removes the constructor in `Zend\Hydrator\AbstractHydrator`. All
+  initialization is now either performed via property definitions or lazy-loading.
 
 - [#82](https://github.com/zendframework/zend-hydrator/pull/82) removes `Zend\Hydrator\NamingStrategy\ArrayMapNamingStrategy`. The functionality
   it provided has been merged into `Zend\Hydrator\NamingStrategy\MapNamingStrategy`;

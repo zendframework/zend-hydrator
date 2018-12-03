@@ -33,7 +33,7 @@ class Reflection extends AbstractHydrator
         $result = [];
         foreach (self::getReflProperties($object) as $property) {
             $propertyName = $this->extractName($property->getName(), $object);
-            if (! $this->filterComposite->filter($propertyName)) {
+            if (! $this->getCompositeFilter()->filter($propertyName)) {
                 continue;
             }
 

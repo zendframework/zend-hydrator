@@ -7,21 +7,19 @@
 
 declare(strict_types=1);
 
-namespace Zend\Hydrator;
+namespace Zend\Hydrator\NamingStrategy;
 
 interface NamingStrategyEnabledInterface
 {
     /**
      * Adds the given naming strategy
-     *
-     * @param NamingStrategy\NamingStrategyInterface $strategy The naming to register.
      */
-    public function setNamingStrategy(NamingStrategy\NamingStrategyInterface $strategy) : void;
+    public function setNamingStrategy(NamingStrategyInterface $strategy) : void;
 
     /**
      * Gets the naming strategy.
      */
-    public function getNamingStrategy() : NamingStrategy\NamingStrategyInterface;
+    public function getNamingStrategy() : NamingStrategyInterface;
 
     /**
      * Checks if a naming strategy exists.

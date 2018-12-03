@@ -7,9 +7,9 @@
 
 declare(strict_types=1);
 
-namespace Zend\Hydrator;
+namespace Zend\Hydrator\Filter;
 
-interface FilterEnabledInterface extends Filter\FilterProviderInterface
+interface FilterEnabledInterface extends FilterProviderInterface
 {
     /**
      * Add a new filter to take care of what needs to be hydrated.
@@ -30,9 +30,9 @@ interface FilterEnabledInterface extends Filter\FilterProviderInterface
      * </code>
      *
      * @param string $name Index in the composite
-     * @param callable|Filter\FilterInterface $filter
+     * @param callable|FilterInterface $filter
      */
-    public function addFilter(string $name, $filter, int $condition = Filter\FilterComposite::CONDITION_OR) : void;
+    public function addFilter(string $name, $filter, int $condition = FilterComposite::CONDITION_OR) : void;
 
     /**
      * Check whether a specific filter exists at key $name or not

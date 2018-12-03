@@ -7,19 +7,19 @@
 
 declare(strict_types=1);
 
-namespace Zend\Hydrator;
+namespace Zend\Hydrator\Strategy;
 
 interface StrategyEnabledInterface
 {
     /**
      * Adds the given strategy under the given name.
      */
-    public function addStrategy(string $name, Strategy\StrategyInterface $strategy) : void;
+    public function addStrategy(string $name, StrategyInterface $strategy) : void;
 
     /**
      * Gets the strategy with the given name.
      */
-    public function getStrategy(string $name) : Strategy\StrategyInterface;
+    public function getStrategy(string $name) : StrategyInterface;
 
     /**
      * Checks if the strategy with the given name exists.
