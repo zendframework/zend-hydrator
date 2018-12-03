@@ -22,9 +22,9 @@ abstract class AbstractHydrator implements
     /**
      * The list with strategies that this hydrator has.
      *
-     * @var ArrayObject<Strategy\StrategyInterface>
+     * @var Strategy\StrategyInterface[]
      */
-    protected $strategies;
+    protected $strategies = [];
 
     /**
      * An instance of NamingStrategy\NamingStrategyInterface
@@ -45,7 +45,6 @@ abstract class AbstractHydrator implements
      */
     public function __construct()
     {
-        $this->strategies = new ArrayObject();
         $this->filterComposite = new Filter\FilterComposite();
     }
 
@@ -86,17 +85,17 @@ abstract class AbstractHydrator implements
      */
     public function hasStrategy(string $name) : bool
     {
-        if ($this->strategies->offsetExists($name)) {
+        if (isset($this->strategies[$name])) {
             return true;
         }
 
         if ($this->hasNamingStrategy()
-            && $this->strategies->offsetExists($this->getNamingStrategy()->hydrate($name))
+            && isset($this->strategies[$this->getNamingStrategy()->hydrate($name)])
         ) {
             return true;
         }
 
-        return $this->strategies->offsetExists('*');
+        return isset($this->strategies['*']);
     }
 
     /**
