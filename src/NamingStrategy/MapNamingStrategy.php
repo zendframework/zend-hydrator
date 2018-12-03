@@ -12,57 +12,53 @@ namespace Zend\Hydrator\NamingStrategy;
 use Zend\Hydrator\Exception;
 
 use function array_flip;
-use function array_key_exists;
 use function array_walk;
-use function is_int;
 use function is_string;
-use function sprintf;
 
 final class MapNamingStrategy implements NamingStrategyInterface
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $extractionMap = [];
 
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private $hydrationMap = [];
 
     /**
-     * @param null|string[] $hydrationMap A map of string keys and values for
-     *     translation of hydrated field names. If not provided, the result of
-     *     an array_flip($extractionMap) will be used.
-     * @param null|string[] $extractionMap A map of string keys and values for
-     *     translation of extracted field names. If not provided, the result of
-     *     an array_flip($hydrationMap) will be used.
-     * @throws Exception\InvalidArgumentException if neither $hydrationMap nor
-     *     $extractionMap are provided.
-     * @throws Exception\InvalidArgumentException when flipping either the
-     *     $hydrationMap or $extractionMap, and any value is a non-string,
-     *     non-int value.
+     * @param array<string, string> $extractionMap
      */
-    public function __construct(?array $hydrationMap = null, ?array $extractionMap = null)
+    public static function createFromExtractionMap(array $extractionMap) : self
     {
-        if (null === $hydrationMap && null === $extractionMap) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s requires one or both of an array $hydrationMap and array $extractionMap;'
-                . ' neither provided',
-                __CLASS__
-            ));
-        }
+        $strategy = new self();
+        $strategy->extractionMap = $extractionMap;
+        $strategy->hydrationMap  = $strategy->flipMapping($extractionMap);
+        return $strategy;
+    }
 
-        if (null === $extractionMap && is_array($hydrationMap)) {
-            $extractionMap = $this->flipMapping($hydrationMap);
-        }
+    /**
+     * @param array<string, string> $hydrationMap
+     */
+    public static function createFromHydrationMap(array $hydrationMap) : self
+    {
+        $strategy = new self();
+        $strategy->hydrationMap  = $hydrationMap;
+        $strategy->extractionMap = $strategy->flipMapping($hydrationMap);
+        return $strategy;
+    }
 
-        if (null === $hydrationMap && is_array($extractionMap)) {
-            $hydrationMap = $this->flipMapping($extractionMap);
-        }
-
-        $this->extractionMap = (array) $extractionMap;
-        $this->hydrationMap  = (array) $hydrationMap;
+    /**
+     * @param array<string, string> $extractionMap
+     * @param array<string, string> $hydrationMap
+     */
+    public function createFromAssymetricMap(array $extractionMap, array $hydrationMap) : self
+    {
+        $strategy = new self();
+        $strategy->extractionMap = $extractionMap;
+        $strategy->hydrationMap  = $hydrationMap;
+        return $strategy;
     }
 
     /**
@@ -70,9 +66,7 @@ final class MapNamingStrategy implements NamingStrategyInterface
      */
     public function extract(string $name, ?object $object = null) : string
     {
-        return array_key_exists($name, $this->extractionMap)
-            ? $this->extractionMap[$name]
-            : $name;
+        return $this->extractionMap[$name] ?? $name;
     }
 
     /**
@@ -80,9 +74,7 @@ final class MapNamingStrategy implements NamingStrategyInterface
      */
     public function hydrate(string $name, ?array $data = null) : string
     {
-        return array_key_exists($name, $this->hydrationMap)
-            ? $this->hydrationMap[$name]
-            : $name;
+        return $this->hydrationMap[$name] ?? $name;
     }
 
     /**
@@ -91,14 +83,20 @@ final class MapNamingStrategy implements NamingStrategyInterface
      * @param  string[] $array Array to flip
      * @return string[] Flipped array
      * @throws Exception\InvalidArgumentException if any value of the $array is
-     *     a non-string, non-int value.
+     *     a non-string or empty string value or key.
      */
     private function flipMapping(array $array) : array
     {
-        array_walk($array, function ($value) {
-            if (! is_string($value) && ! is_int($value)) {
+        array_walk($array, function ($value, $key) {
+            if (! is_string($value) || $value === '') {
                 throw new Exception\InvalidArgumentException(
                     'Mapping array can not be flipped because of invalid value'
+                );
+            }
+
+            if (! is_string($key) || $key === '') {
+                throw new Exception\InvalidArgumentException(
+                    'Mapping array can not be flipped because of invalid key'
                 );
             }
         });
