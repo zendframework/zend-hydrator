@@ -145,10 +145,6 @@ typehints:
 - `Zend\Hydrator\NamingStrategy\CompositeNamingStrategy`:
   - `__construct(array $strategies, Zend\Hydrator\NamingStrategy\NamingStrategyInterface $defaultNamingStrategy = null)` becomes `__construct(array $strategies, ?Zend\Hydrator\NamingStrategy\NamingStrategyInterface $defaultNamingStrategy = null)`
 
-- `Zend\Hydrator\NamingStrategy\MapNamingStrategy`:
-  - `__construct(array $mapping, array $reverse = null)` becomes `__construct(?array $hydrationMap = null, ?array $extractionMap = null)`
-    ([see below for details](#arraymapnamingstrategy-and-mapnamingstrategy-merged))
-
 - `Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter`:
   - `filter($value)` becomes `filter(string $value) : string`
 
@@ -181,32 +177,21 @@ typehints:
 
 `ArrayMapNamingStrategy` and `MapNamingStrategy` were performing essentially the
 same duties, but in reverse. As such, for version 3, we have merged the two into
-`MapNamingStrategy`. That class now takes two constructor arguments:
+`MapNamingStrategy`. To accommodate the three different use cases, we provide
+three "named constructors":
 
 ```php
-function (?array $hydrationMap = null, ?array $extractionMap = null)
+public static function createFromExtractionMap(array $extractionMap) : MapNamingStrategy;
+public static function createFromHydrationMap(array $hydrationMap) : MapNamingStrategy;
+public static function createFromAssymetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy;
 ```
 
-Passing a single array value to the first argument results in the same behavior
-as was present in `MapNamingStrategy` previously:
+In the first two cases, the constructor will flip the arrays for purposes of the
+opposite interaction; e.g., using `createFromExtractionMap()` will create a
+hydration map based on an `array_flip()` of the extraction map provided.
 
-```php
-$namingStrategy = new MapNamingStrategy($hydrationMap);
-```
-
-Passing a single array value to the second argument results in the same behavior
-as was present in `ArrayMapNamingStrategy` previously:
-
-```php
-$namingStrategy = new MapNamingStrategy(null, $extractionMap);
-```
-
-Passing two arrays to the constructor results in the behavior present in
-`MapNamingStrategy` previously when providing two arrays:
-
-```php
-$namingStrategy = new MapNamingStrategy($hydrationMap, $extractionMap);
-```
+If you instantiate the naming strategy without these methods, it will act as a
+no-op for purposes of both extraction and hydration.
 
 ## HydratorPluginManager
 
