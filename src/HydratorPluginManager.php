@@ -23,7 +23,7 @@ use function sprintf;
  *
  * Enforces that adapters retrieved are instances of HydratorInterface
  */
-class HydratorPluginManager extends AbstractPluginManager
+class HydratorPluginManager extends AbstractPluginManager implements HydratorPluginManagerInterface
 {
     /**
      * Default aliases

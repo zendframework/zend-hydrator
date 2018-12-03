@@ -25,10 +25,10 @@ class DelegatingHydratorFactory
     /**
      * Locate and return a HydratorPluginManager instance.
      */
-    private function marshalHydratorPluginManager(ContainerInterface $container) : HydratorPluginManager
+    private function marshalHydratorPluginManager(ContainerInterface $container) : ContainerInterface
     {
         // Already one? Return it.
-        if ($container instanceof HydratorPluginManager) {
+        if ($container instanceof HydratorPluginManagerInterface) {
             return $container;
         }
 
