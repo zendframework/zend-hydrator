@@ -16,7 +16,7 @@ use Zend\Hydrator\Aggregate\AggregateHydrator;
 use Zend\Hydrator\Aggregate\ExtractEvent;
 use Zend\Hydrator\Aggregate\HydrateEvent;
 use Zend\Hydrator\ArraySerializableHydrator;
-use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethodsHydrator;
 use Zend\Hydrator\HydratorInterface;
 use ZendTest\Hydrator\TestAsset\AggregateObject;
 
@@ -91,7 +91,7 @@ class AggregateHydratorFunctionalTest extends TestCase
      */
     public function testExtractWithMultipleHydrators()
     {
-        $this->hydrator->add(new ClassMethods());
+        $this->hydrator->add(new ClassMethodsHydrator());
         $this->hydrator->add(new ArraySerializableHydrator());
 
         $object = new AggregateObject();
@@ -109,7 +109,7 @@ class AggregateHydratorFunctionalTest extends TestCase
      */
     public function testHydrateWithMultipleHydrators()
     {
-        $this->hydrator->add(new ClassMethods());
+        $this->hydrator->add(new ClassMethodsHydrator());
         $this->hydrator->add(new ArraySerializableHydrator());
 
         $object = new AggregateObject();

@@ -11,7 +11,7 @@ namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ArraySerializableHydrator;
-use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethodsHydrator;
 use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\ObjectProperty;
 use Zend\Hydrator\Reflection;
@@ -118,7 +118,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsCamelCase()
     {
-        $hydrator = new ClassMethods(false);
+        $hydrator = new ClassMethodsHydrator(false);
         $datas = $hydrator->extract($this->classMethodsCamelCase);
         $this->assertTrue(isset($datas['fooBar']));
         $this->assertEquals($datas['fooBar'], '1');
@@ -154,7 +154,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsTitleCase()
     {
-        $hydrator = new ClassMethods(false);
+        $hydrator = new ClassMethodsHydrator(false);
         $datas = $hydrator->extract($this->classMethodsTitleCase);
         $this->assertTrue(isset($datas['FooBar']));
         $this->assertEquals($datas['FooBar'], '1');
@@ -190,7 +190,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsUnderscore()
     {
-        $hydrator = new ClassMethods(true);
+        $hydrator = new ClassMethodsHydrator(true);
         $datas = $hydrator->extract($this->classMethodsUnderscore);
         $this->assertTrue(isset($datas['foo_bar']));
         $this->assertEquals($datas['foo_bar'], '1');
@@ -230,7 +230,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsUnderscoreWithUnderscoreUpperCasedHydrateDataKeys()
     {
-        $hydrator = new ClassMethods(true);
+        $hydrator = new ClassMethodsHydrator(true);
         $datas = $hydrator->extract($this->classMethodsUnderscore);
         $test = $hydrator->hydrate(
             [
@@ -254,7 +254,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsOptions()
     {
-        $hydrator = new ClassMethods();
+        $hydrator = new ClassMethodsHydrator();
         $this->assertTrue($hydrator->getUnderscoreSeparatedKeys());
         $hydrator->setOptions(['underscoreSeparatedKeys' => false]);
         $this->assertFalse($hydrator->getUnderscoreSeparatedKeys());
@@ -264,7 +264,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsIgnoresInvalidValues()
     {
-        $hydrator = new ClassMethods(true);
+        $hydrator = new ClassMethodsHydrator(true);
         $data = [
             'foo_bar' => '1',
             'foo_bar_baz' => '2',
@@ -276,7 +276,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsDefaultBehaviorIsConvertUnderscoreToCamelCase()
     {
-        $hydrator = new ClassMethods();
+        $hydrator = new ClassMethodsHydrator();
         $datas = $hydrator->extract($this->classMethodsUnderscore);
         $this->assertTrue(isset($datas['foo_bar']));
         $this->assertEquals($datas['foo_bar'], '1');
@@ -290,7 +290,7 @@ class HydratorTest extends TestCase
 
     public function testRetrieveWildStrategyAndOther()
     {
-        $hydrator = new ClassMethods();
+        $hydrator = new ClassMethodsHydrator();
         $hydrator->addStrategy('default', new DefaultStrategy());
         $hydrator->addStrategy('*', new SerializableStrategy('phpserialize'));
         $default = $hydrator->getStrategy('default');
@@ -301,7 +301,7 @@ class HydratorTest extends TestCase
 
     public function testUseWildStrategyByDefault()
     {
-        $hydrator = new ClassMethods();
+        $hydrator = new ClassMethodsHydrator();
         $datas = $hydrator->extract($this->classMethodsUnderscore);
         $this->assertEquals($datas['foo_bar'], '1');
         $hydrator->addStrategy('*', new SerializableStrategy('phpserialize'));
@@ -311,7 +311,7 @@ class HydratorTest extends TestCase
 
     public function testUseWildStrategyAndOther()
     {
-        $hydrator = new ClassMethods();
+        $hydrator = new ClassMethodsHydrator();
         $datas = $hydrator->extract($this->classMethodsUnderscore);
         $this->assertEquals($datas['foo_bar'], '1');
         $hydrator->addStrategy('foo_bar', new DefaultStrategy());
@@ -323,7 +323,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsCamelCaseWithSetterMissing()
     {
-        $hydrator = new ClassMethods(false);
+        $hydrator = new ClassMethodsHydrator(false);
 
         $datas = $hydrator->extract($this->classMethodsCamelCaseMissing);
         $this->assertTrue(isset($datas['fooBar']));
@@ -338,7 +338,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsManipulateFilter()
     {
-        $hydrator = new ClassMethods(false);
+        $hydrator = new ClassMethodsHydrator(false);
         $datas = $hydrator->extract($this->classMethodsCamelCase);
 
         $this->assertTrue(isset($datas['fooBar']));
@@ -362,7 +362,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsWithCustomFilter()
     {
-        $hydrator = new ClassMethods(false);
+        $hydrator = new ClassMethodsHydrator(false);
         $datas = $hydrator->extract($this->classMethodsCamelCase);
         $hydrator->addFilter(
             "exclude",
@@ -453,7 +453,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsWithInvalidNumberOfParameters()
     {
-        $hydrator = new ClassMethods(false);
+        $hydrator = new ClassMethodsHydrator(false);
         $datas = $hydrator->extract($this->classMethodsInvalidParameter);
 
         $this->assertTrue($datas['hasBar']);
@@ -463,7 +463,7 @@ class HydratorTest extends TestCase
 
     public function testObjectBasedFilters()
     {
-        $hydrator = new ClassMethods(false);
+        $hydrator = new ClassMethodsHydrator(false);
         $foo = new ClassMethodsFilterProviderInterface();
         $data = $hydrator->extract($foo);
         $this->assertArrayNotHasKey("filter", $data);
@@ -473,7 +473,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsWithProtectedSetter()
     {
-        $hydrator = new ClassMethods(false);
+        $hydrator = new ClassMethodsHydrator(false);
         $object = new ClassMethodsProtectedSetter();
         $hydrator->hydrate(['foo' => 'bar', 'bar' => 'BAR'], $object);
         $data = $hydrator->extract($object);
@@ -483,7 +483,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsWithMagicMethodSetter()
     {
-        $hydrator = new ClassMethods(false);
+        $hydrator = new ClassMethodsHydrator(false);
         $object = new ClassMethodsMagicMethodSetter();
         $hydrator->hydrate(['foo' => 'bar'], $object);
         $data = $hydrator->extract($object);
@@ -493,7 +493,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorClassMethodsWithMagicMethodSetterAndMethodExistsCheck()
     {
-        $hydrator = new ClassMethods(false, true);
+        $hydrator = new ClassMethodsHydrator(false, true);
         $object = new ClassMethodsMagicMethodSetter();
         $hydrator->hydrate(['foo' => 'bar'], $object);
         $data = $hydrator->extract($object);

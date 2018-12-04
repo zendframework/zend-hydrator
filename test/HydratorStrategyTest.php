@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethodsHydrator;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\Strategy\StrategyInterface;
 
@@ -25,7 +25,7 @@ class HydratorStrategyTest extends TestCase
 
     protected function setUp()
     {
-        $this->hydrator = new ClassMethods();
+        $this->hydrator = new ClassMethodsHydrator();
     }
 
     public function testAddingStrategy()
@@ -106,7 +106,7 @@ class HydratorStrategyTest extends TestCase
         $underscoreSeparatedKeys,
         $formFieldKey
     ) {
-        $hydrator = new ClassMethods($underscoreSeparatedKeys);
+        $hydrator = new ClassMethodsHydrator($underscoreSeparatedKeys);
 
         $strategy = $this->createMock(StrategyInterface::class);
 

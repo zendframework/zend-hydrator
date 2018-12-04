@@ -22,7 +22,7 @@ use function strpos;
 use function substr;
 use function ucfirst;
 
-class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
+class ClassMethodsHydrator extends AbstractHydrator implements HydratorOptionsInterface
 {
     /**
      * Flag defining whether array keys are underscore-separated (true) or camel case (false)
