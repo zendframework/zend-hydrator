@@ -47,11 +47,11 @@ All notable changes to this project will be documented in this file, in reverse 
   When in doubt, use the fully qualified class name, or the class name minus the
   namespace, with correct casing.
 
-- [#80](https://github.com/zendframework/zend-hydrator/pull/80) adds scalar and object typehints, both to parameters and return values, wherever
-  possible. For consumers, this should pose no discernable change. **For those
-  implementing interfaces or extending classes from this package, updates will
-  be necessary to ensure your code will run.** [See the migration guide for
-  details](https://docs.zendframework.com/zend-hydrator/v3/migration/).
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) adds scalar typehints both to parameters and return values, and object
+  typehints to parameters, wherever possible. For consumers, this should pose no
+  discernable change. **For those implementing interfaces or extending classes
+  from this package, updates will be necessary to ensure your code will run.**
+  [See the migration guide for details](https://docs.zendframework.com/zend-hydrator/v3/migration/).
 
 - [#14](https://github.com/zendframework/zend-hydrator/pull/14) replaces usage of zend-filter with the hardcoded filters referenced in
   the above section.

@@ -36,8 +36,11 @@ interface HydrationInterface
      * Hydrate $object with the provided $data.
      *
      * @param mixed[] $data
+     * @return object The implementation should return an object of any type.
+     *     By purposely omitting the return type from the signature,
+     *     implementations may choose to specify a more specific type.
      */
-    public function hydrate(array $data, object $object) : object;
+    public function hydrate(array $data, object $object);
 }
 ```
 
