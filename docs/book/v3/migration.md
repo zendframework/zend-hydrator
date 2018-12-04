@@ -222,4 +222,11 @@ is now marked `private`.
 This version removes support for zend-servicemanager v2 service names. Under
 zend-servicemanager v2, most special characters were removed, and the name
 normalized to all lowercase. Now, only fully qualified class names are mapped to
-factories, and short names (names omitting the namespace) are mapped as aliases.
+factories, and short names (names omitting the namespace and/or "Hydrator"
+suffix) are mapped as aliases.
+
+Additionally, version 3 ships a standalone, PSR-11 compliant version,
+`Zend\Hydrator\StandaloneHydratorPluginManager`. By default, the `HydratorManager`
+service alias will point to the `StandaloneHydratorPluginManager` if
+zend-servicemanager is not installed, and the `HydratorPluginManager` otherwise.
+See the [plugin managers chapter](plugin-managers.md) for more details.
