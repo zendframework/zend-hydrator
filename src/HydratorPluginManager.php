@@ -31,6 +31,10 @@ class HydratorPluginManager extends AbstractPluginManager
      * @var string[]
      */
     protected $aliases = [
+        ArraySerializable::class    => ArraySerializableHydrator::class,
+        ClassMethods::class         => ClassMethodsHydrator::class,
+        ObjectProperty::class       => ObjectPropertyHydrator::class,
+        Reflection::class           => ReflectionHydrator::class,
         'arrayserializable'         => ArraySerializableHydrator::class,
         'arraySerializable'         => ArraySerializableHydrator::class,
         'ArraySerializable'         => ArraySerializableHydrator::class,
