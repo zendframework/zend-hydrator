@@ -10,7 +10,7 @@ declare(strict_types=1);
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\ArraySerializable;
+use Zend\Hydrator\ArraySerializableHydrator;
 use Zend\Hydrator\ClassMethods;
 use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\ObjectProperty;
@@ -446,7 +446,7 @@ class HydratorTest extends TestCase
     {
         return [
             [new ObjectProperty(), new ObjectPropertyAsset],
-            [new ArraySerializable(), new ArraySerializableAsset],
+            [new ArraySerializableHydrator(), new ArraySerializableAsset],
             [new Reflection(), new ReflectionFilter]
         ];
     }

@@ -12,7 +12,7 @@ namespace ZendTest\Hydrator\Iterator;
 use ArrayIterator;
 use ArrayObject;
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\ArraySerializable;
+use Zend\Hydrator\ArraySerializableHydrator;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Hydrator\Iterator\HydratingIteratorIterator;
 
@@ -31,7 +31,7 @@ class HydratingIteratorIteratorTest extends TestCase
         $iterator = new ArrayIterator($data);
         $object   = new ArrayObject();
 
-        $hydratingIterator = new HydratingIteratorIterator(new ArraySerializable(), $iterator, $object);
+        $hydratingIterator = new HydratingIteratorIterator(new ArraySerializableHydrator(), $iterator, $object);
 
         $hydratingIterator->rewind();
         $this->assertEquals(new ArrayObject($data[0]), $hydratingIterator->current());
@@ -53,7 +53,7 @@ class HydratingIteratorIteratorTest extends TestCase
 
         $iterator = new ArrayIterator($data);
 
-        $hydratingIterator = new HydratingIteratorIterator(new ArraySerializable(), $iterator, '\ArrayObject');
+        $hydratingIterator = new HydratingIteratorIterator(new ArraySerializableHydrator(), $iterator, '\ArrayObject');
 
         $hydratingIterator->rewind();
         $this->assertEquals(new ArrayObject($data[0]), $hydratingIterator->current());
@@ -63,7 +63,7 @@ class HydratingIteratorIteratorTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $hydratingIterator = new HydratingIteratorIterator(
-            new ArraySerializable(),
+            new ArraySerializableHydrator(),
             new ArrayIterator(),
             'not a real class'
         );

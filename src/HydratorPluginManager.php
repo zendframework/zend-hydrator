@@ -31,20 +31,23 @@ class HydratorPluginManager extends AbstractPluginManager
      * @var string[]
      */
     protected $aliases = [
-        'arrayserializable'  => ArraySerializable::class,
-        'arraySerializable'  => ArraySerializable::class,
-        'ArraySerializable'  => ArraySerializable::class,
-        'classmethods'       => ClassMethods::class,
-        'classMethods'       => ClassMethods::class,
-        'ClassMethods'       => ClassMethods::class,
-        'delegatinghydrator' => DelegatingHydrator::class,
-        'delegatingHydrator' => DelegatingHydrator::class,
-        'DelegatingHydrator' => DelegatingHydrator::class,
-        'objectproperty'     => ObjectProperty::class,
-        'objectProperty'     => ObjectProperty::class,
-        'ObjectProperty'     => ObjectProperty::class,
-        'reflection'         => Reflection::class,
-        'Reflection'         => Reflection::class,
+        'arrayserializable'         => ArraySerializableHydrator::class,
+        'arraySerializable'         => ArraySerializableHydrator::class,
+        'ArraySerializable'         => ArraySerializableHydrator::class,
+        'arrayserializablehydrator' => ArraySerializableHydrator::class,
+        'arraySerializableHydrator' => ArraySerializableHydrator::class,
+        'ArraySerializableHydrator' => ArraySerializableHydrator::class,
+        'classmethods'              => ClassMethods::class,
+        'classMethods'              => ClassMethods::class,
+        'ClassMethods'              => ClassMethods::class,
+        'delegatinghydrator'        => DelegatingHydrator::class,
+        'delegatingHydrator'        => DelegatingHydrator::class,
+        'DelegatingHydrator'        => DelegatingHydrator::class,
+        'objectproperty'            => ObjectProperty::class,
+        'objectProperty'            => ObjectProperty::class,
+        'ObjectProperty'            => ObjectProperty::class,
+        'reflection'                => Reflection::class,
+        'Reflection'                => Reflection::class,
     ];
 
     /**
@@ -53,11 +56,11 @@ class HydratorPluginManager extends AbstractPluginManager
      * @var string[]|callable[]
      */
     protected $factories = [
-        ArraySerializable::class  => InvokableFactory::class,
-        ClassMethods::class       => InvokableFactory::class,
-        DelegatingHydrator::class => DelegatingHydratorFactory::class,
-        ObjectProperty::class     => InvokableFactory::class,
-        Reflection::class         => InvokableFactory::class,
+        ArraySerializableHydrator::class => InvokableFactory::class,
+        ClassMethods::class              => InvokableFactory::class,
+        DelegatingHydrator::class        => DelegatingHydratorFactory::class,
+        ObjectProperty::class            => InvokableFactory::class,
+        Reflection::class                => InvokableFactory::class,
     ];
 
     /**

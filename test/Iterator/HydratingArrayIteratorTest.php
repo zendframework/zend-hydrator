@@ -11,7 +11,7 @@ namespace ZendTest\Hydrator\Iterator;
 
 use ArrayObject;
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\ArraySerializable;
+use Zend\Hydrator\ArraySerializableHydrator;
 use Zend\Hydrator\Exception\InvalidArgumentException;
 use Zend\Hydrator\Iterator\HydratingArrayIterator;
 
@@ -29,7 +29,7 @@ class HydratingArrayIteratorTest extends TestCase
 
         $object   = new ArrayObject();
 
-        $hydratingIterator = new HydratingArrayIterator(new ArraySerializable(), $data, $object);
+        $hydratingIterator = new HydratingArrayIterator(new ArraySerializableHydrator(), $data, $object);
 
         $hydratingIterator->rewind();
         $this->assertEquals(new ArrayObject($data[0]), $hydratingIterator->current());
@@ -49,7 +49,7 @@ class HydratingArrayIteratorTest extends TestCase
             ['foo' => 'bar'],
         ];
 
-        $hydratingIterator = new HydratingArrayIterator(new ArraySerializable(), $data, '\ArrayObject');
+        $hydratingIterator = new HydratingArrayIterator(new ArraySerializableHydrator(), $data, '\ArrayObject');
 
         $hydratingIterator->rewind();
         $this->assertEquals(new ArrayObject($data[0]), $hydratingIterator->current());
@@ -58,6 +58,6 @@ class HydratingArrayIteratorTest extends TestCase
     public function testThrowingInvalidArgumentExceptionWhenSettingPrototypeToInvalidClass()
     {
         $this->expectException(InvalidArgumentException::class);
-        $hydratingIterator = new HydratingArrayIterator(new ArraySerializable(), [], 'not a real class');
+        $hydratingIterator = new HydratingArrayIterator(new ArraySerializableHydrator(), [], 'not a real class');
     }
 }
