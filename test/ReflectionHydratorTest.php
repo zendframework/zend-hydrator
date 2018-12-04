@@ -12,19 +12,19 @@ namespace ZendTest\Hydrator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
-use Zend\Hydrator\Reflection;
+use Zend\Hydrator\ReflectionHydrator;
 
 /**
- * Unit tests for {@see Reflection}
+ * Unit tests for {@see ReflectionHydrator}
  *
- * @covers \Zend\Hydrator\Reflection
+ * @covers \Zend\Hydrator\ReflectionHydrator
  */
-class ReflectionTest extends TestCase
+class ReflectionHydratorTest extends TestCase
 {
     use HydratorTestTrait;
 
     /**
-     * @var Reflection
+     * @var ReflectionHydrator
      */
     protected $hydrator;
 
@@ -33,7 +33,7 @@ class ReflectionTest extends TestCase
      */
     protected function setUp()
     {
-        $this->hydrator = new Reflection();
+        $this->hydrator = new ReflectionHydrator();
     }
 
     public function testCanExtract()

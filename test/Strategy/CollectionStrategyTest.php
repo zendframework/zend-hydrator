@@ -15,7 +15,7 @@ use stdClass;
 use TypeError;
 use Zend\Hydrator\Exception;
 use Zend\Hydrator\HydratorInterface;
-use Zend\Hydrator\Reflection;
+use Zend\Hydrator\ReflectionHydrator;
 use Zend\Hydrator\Strategy\CollectionStrategy;
 use Zend\Hydrator\Strategy\StrategyInterface;
 use ZendTest\Hydrator\TestAsset;
@@ -256,7 +256,7 @@ class CollectionStrategyTest extends TestCase
             static $hydrator;
 
             if (null === $hydrator) {
-                $hydrator = new Reflection();
+                $hydrator = new ReflectionHydrator();
             }
 
             return $hydrator->hydrate(

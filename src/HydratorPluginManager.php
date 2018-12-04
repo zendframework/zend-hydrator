@@ -52,8 +52,11 @@ class HydratorPluginManager extends AbstractPluginManager
         'objectpropertyhydrator'    => ObjectPropertyHydrator::class,
         'objectPropertyHydrator'    => ObjectPropertyHydrator::class,
         'ObjectPropertyHydrator'    => ObjectPropertyHydrator::class,
-        'reflection'                => Reflection::class,
-        'Reflection'                => Reflection::class,
+        'reflection'                => ReflectionHydrator::class,
+        'Reflection'                => ReflectionHydrator::class,
+        'reflectionhydrator'        => ReflectionHydrator::class,
+        'reflectionHydrator'        => ReflectionHydrator::class,
+        'ReflectionHydrator'        => ReflectionHydrator::class,
     ];
 
     /**
@@ -66,7 +69,7 @@ class HydratorPluginManager extends AbstractPluginManager
         ClassMethodsHydrator::class      => InvokableFactory::class,
         DelegatingHydrator::class        => DelegatingHydratorFactory::class,
         ObjectPropertyHydrator::class    => InvokableFactory::class,
-        Reflection::class                => InvokableFactory::class,
+        ReflectionHydrator::class        => InvokableFactory::class,
     ];
 
     /**

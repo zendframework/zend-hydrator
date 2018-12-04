@@ -14,7 +14,7 @@ use Zend\Hydrator\ArraySerializableHydrator;
 use Zend\Hydrator\ClassMethodsHydrator;
 use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\ObjectPropertyHydrator;
-use Zend\Hydrator\Reflection;
+use Zend\Hydrator\ReflectionHydrator;
 use Zend\Hydrator\Strategy\DefaultStrategy;
 use Zend\Hydrator\Strategy\SerializableStrategy;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
@@ -101,7 +101,7 @@ class HydratorTest extends TestCase
 
     public function testHydratorReflection()
     {
-        $hydrator = new Reflection;
+        $hydrator = new ReflectionHydrator();
         $datas    = $hydrator->extract($this->reflection);
         $this->assertTrue(isset($datas['foo']));
         $this->assertEquals($datas['foo'], '1');
@@ -447,7 +447,7 @@ class HydratorTest extends TestCase
         return [
             [new ObjectPropertyHydrator(), new ObjectPropertyAsset],
             [new ArraySerializableHydrator(), new ArraySerializableAsset],
-            [new Reflection(), new ReflectionFilter]
+            [new ReflectionHydrator(), new ReflectionFilter]
         ];
     }
 

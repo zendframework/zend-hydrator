@@ -14,7 +14,7 @@ use ReflectionProperty;
 
 use function get_class;
 
-class Reflection extends AbstractHydrator
+class ReflectionHydrator extends AbstractHydrator
 {
     /**
      * Simple in-memory array cache of ReflectionProperties used.
