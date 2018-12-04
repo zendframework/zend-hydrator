@@ -6,6 +6,17 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
+- [#87](https://github.com/zendframework/zend-hydrator/pull/87) adds `Zend\Hydrator\HydratorPluginManagerInterface` to allow
+  type-hinting on plugin manager implementations. The interface simply extends
+  the [PSR-11 ContainerInterface](https://www.php-fig.org/psr/psr-11/).
+
+- [#87](https://github.com/zendframework/zend-hydrator/pull/87) adds `Zend\Hydrator\StandaloneHydratorPluginManager` as an implementation
+  of each of `Psr\Container\ContainerInterface` and `Zend\Hydrator\HydratorPluginManagerInterface`,
+  along with a factory for creating it, `Zend\Hydrator\StandaloneHydratorPluginManagerFactory`.
+  It can act as a replacement for `Zend\Hydrator\HydratorPluginManager`, but
+  only supports the shipped hydrator implementations. See the [plugin manager documentation](https://docs.zendframework.com/zend-hydrator/v3/plugin-managers/)
+  for more details on usage.
+
 - [#79](https://github.com/zendframework/zend-hydrator/pull/79) adds a third, optional parameter to the `DateTimeFormatterStrategy` constructor.
   The parameter is a boolean, and, when enabled, a string that can be parsed by
   the `DateTime` constructor will still result in a `DateTime` instance during
@@ -27,6 +38,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
   Aliases resolving the original class name to the new class were also added to
   the `HydratorPluginManager` to ensure you can still obtain instances.
+
+- [#87](https://github.com/zendframework/zend-hydrator/pull/87) modifies `Zend\Hydrator\ConfigProvider` to add a factory entry for
+  `Zend\Hydrator\StandaloneHydratorPluginManager`.
+
+- [#87](https://github.com/zendframework/zend-hydrator/pull/87) modifies `Zend\Hydrator\ConfigProvider` to change the target of the
+  `HydratorManager` alias based on the presence of the zend-servicemanager
+  package; if the package is not available, the target points to
+  `Zend\Hydrator\StandaloneHydratorPluginManager` instead of
+  `Zend\Hydrator\HydratorPluginManager`.
 
 - [#83](https://github.com/zendframework/zend-hydrator/pull/83) renames `Zend\Hydrator\FilterEnabledInterface` to `Zend\Hydrator\Filter\FilterEnabledInterface` (new namespace).
 
