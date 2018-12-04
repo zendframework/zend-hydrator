@@ -11,21 +11,21 @@ namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
 use TypeError;
-use Zend\Hydrator\ObjectProperty;
+use Zend\Hydrator\ObjectPropertyHydrator;
 use ZendTest\Hydrator\TestAsset\ClassWithPublicStaticProperties;
 use ZendTest\Hydrator\TestAsset\ObjectProperty as ObjectPropertyTestAsset;
 
 /**
- * Unit tests for {@see ObjectProperty}
+ * Unit tests for {@see ObjectPropertyHydrator}
  *
- * @covers \Zend\Hydrator\ObjectProperty
+ * @covers \Zend\Hydrator\ObjectPropertyHydrator
  */
-class ObjectPropertyTest extends TestCase
+class ObjectPropertyHydratorTest extends TestCase
 {
     use HydratorTestTrait;
 
     /**
-     * @var ObjectProperty
+     * @var ObjectPropertyHydrator
      */
     private $hydrator;
 
@@ -34,7 +34,7 @@ class ObjectPropertyTest extends TestCase
      */
     protected function setUp()
     {
-        $this->hydrator = new ObjectProperty();
+        $this->hydrator = new ObjectPropertyHydrator();
     }
 
     /**

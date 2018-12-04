@@ -11,7 +11,7 @@ namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\HydratorInterface;
-use Zend\Hydrator\ObjectProperty;
+use Zend\Hydrator\ObjectPropertyHydrator;
 use Zend\Hydrator\Strategy\ClosureStrategy;
 
 use function sprintf;
@@ -27,7 +27,7 @@ class HydratorClosureStrategyTest extends TestCase
 
     protected function setUp()
     {
-        $this->hydrator = new ObjectProperty();
+        $this->hydrator = new ObjectPropertyHydrator();
     }
 
     public function testAddingStrategy()

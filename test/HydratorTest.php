@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\ArraySerializableHydrator;
 use Zend\Hydrator\ClassMethodsHydrator;
 use Zend\Hydrator\Filter\FilterComposite;
-use Zend\Hydrator\ObjectProperty;
+use Zend\Hydrator\ObjectPropertyHydrator;
 use Zend\Hydrator\Reflection;
 use Zend\Hydrator\Strategy\DefaultStrategy;
 use Zend\Hydrator\Strategy\SerializableStrategy;
@@ -445,7 +445,7 @@ class HydratorTest extends TestCase
     public function filterProvider()
     {
         return [
-            [new ObjectProperty(), new ObjectPropertyAsset],
+            [new ObjectPropertyHydrator(), new ObjectPropertyAsset],
             [new ArraySerializableHydrator(), new ArraySerializableAsset],
             [new Reflection(), new ReflectionFilter]
         ];
