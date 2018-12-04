@@ -17,6 +17,17 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
+- [#89](https://github.com/zendframework/zend-hydrator/pull/89) renames the various hydrators to use the "Hydrator" suffix:
+  - `ArraySerializable` becomes `ArraySerializableHydrator`
+  - `ClassMethods` becomes `ClassMethodsHydrator`
+  - `ObjectProperty` becomes `ObjectPropertyHydrator`
+  - `Reflection` becomes `ReflectionHydrator`
+  In each case, the original class was re-added to the repository as a
+  deprecated extension of the new class, to be removed in version 4.0.0.
+
+  Aliases resolving the original class name to the new class were also added to
+  the `HydratorPluginManager` to ensure you can still obtain instances.
+
 - [#83](https://github.com/zendframework/zend-hydrator/pull/83) renames `Zend\Hydrator\FilterEnabledInterface` to `Zend\Hydrator\Filter\FilterEnabledInterface` (new namespace).
 
 - [#83](https://github.com/zendframework/zend-hydrator/pull/83) renames `Zend\Hydrator\NamingStrategyEnabledInterface` to `Zend\Hydrator\NamingStrategy\NamingStrategyEnabledInterface` (new namespace).
@@ -70,7 +81,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Deprecated
 
-- Nothing.
+- [#89](https://github.com/zendframework/zend-hydrator/pull/89) deprecates the
+  following classes, which will be removed in 4.0.0:
+  - `Zend\Hydrator\ArraySerializable` (becomes `ArraySerializableHydrator`)
+  - `Zend\Hydrator\ClassMethods` (becomes `ClassMethodsHydrator`)
+  - `Zend\Hydrator\ObjectProperty` (becomes `ObjectPropertyHydrator`)
+  - `Zend\Hydrator\Reflection` (becomes `ReflectionHydrator`)
 
 ### Removed
 
