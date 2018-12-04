@@ -27,7 +27,7 @@ $namingStrategy = new Zend\Hydrator\NamingStrategy\CompositeNamingStrategy([
     'barBat' => $underscoreNamingStrategy,
 ]);
 
-$hydrator = new Zend\Hydrator\ObjectProperty();
+$hydrator = new Zend\Hydrator\ObjectPropertyHydrator();
 $hydrator->setNamingStrategy($namingStrategy);
 
 $foo = new Foo();
@@ -64,7 +64,7 @@ $namingStrategy = new Zend\Hydrator\NamingStrategy\CompositeNamingStrategy([
     'bar_bat' => $underscoreNamingStrategy,
 ]);
 
-$hydrator = new Zend\Hydrator\ObjectProperty();
+$hydrator = new Zend\Hydrator\ObjectPropertyHydrator();
 $hydrator->setNamingStrategy($namingStrategy);
 
 $foo = new Foo();

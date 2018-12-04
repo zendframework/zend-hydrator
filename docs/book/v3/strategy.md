@@ -121,8 +121,9 @@ only be used for `extract` operations.
 ### Zend\\Hydrator\\Strategy\\SerializableStrategy
 
 `SerializableStrategy` provides the functionality backing
-`Zend\Hydrator\ArraySerializable`. You can use it with custom implementations
-for `Zend\Serializer\Adapter\AdapterInterface` if you want to as well.
+`Zend\Hydrator\ArraySerializableHydrator`. You can use it with custom
+implementations for `Zend\Serializer\Adapter\AdapterInterface` if you want to as
+well.
 
 ### Zend\\Hydrator\\Strategy\\StrategyChain
 
@@ -190,7 +191,7 @@ $foo = new Foo();
 $foo->setFoo('bar');
 $foo->setBar('foo');
 
-$hydrator = new ClassMethods();
+$hydrator = new ClassMethodsHydrator();
 $hydrator->addStrategy('foo', new Rot13Strategy());
 ```
 

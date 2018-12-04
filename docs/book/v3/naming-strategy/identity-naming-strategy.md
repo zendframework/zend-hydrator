@@ -21,7 +21,7 @@ class Foo
 }
 
 $namingStrategy = new Zend\Hydrator\NamingStrategy\IdentityNamingStrategy();
-$hydrator = new Zend\Hydrator\ObjectProperty();
+$hydrator = new Zend\Hydrator\ObjectPropertyHydrator();
 $hydrator->setNamingStrategy($namingStrategy);
 
 $foo = new Foo();

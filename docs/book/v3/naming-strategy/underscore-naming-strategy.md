@@ -25,7 +25,7 @@ class Foo
     public $fooBar;
 }
 
-$hydrator = new Zend\Hydrator\ObjectProperty();
+$hydrator = new Zend\Hydrator\ObjectPropertyHydrator();
 $hydrator->setNamingStrategy(new Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy());
 
 $foo = new Foo();
