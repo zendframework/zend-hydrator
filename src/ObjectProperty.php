@@ -62,7 +62,7 @@ class ObjectProperty extends AbstractHydrator
      *
      * {@inheritDoc}
      */
-    public function hydrate(array $data, object $object) : object
+    public function hydrate(array $data, object $object)
     {
         $properties =& self::$skippedPropertiesCache[get_class($object)] ?? null;
 

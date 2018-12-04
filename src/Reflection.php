@@ -49,7 +49,7 @@ class Reflection extends AbstractHydrator
      *
      * {@inheritDoc}
      */
-    public function hydrate(array $data, object $object) : object
+    public function hydrate(array $data, object $object)
     {
         $reflProperties = self::getReflProperties($object);
         foreach ($data as $key => $value) {

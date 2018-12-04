@@ -51,7 +51,7 @@ on parameters and return values. These include:
   - `hasFilter($name)` becomes `hasFilter(string $name) : bool`
   - `removeFilter($name)` becomes `removeFilter(string $name) : void`
 - `Zend\Hydrator\HydrationInterface`:
-  - `hydrate(array $data, $object)` becomes `hydrate(array $data, object $object) : object`
+  - `hydrate(array $data, $object)` becomes `hydrate(array $data, object $object)`
 - `Zend\Hydrator\HydratorAwareInterface`:
   - `setHydrator(Zend\Hydrator\HydratorInterface $hydrator)` becomes `setHydrator(Zend\Hydrator\HydratorInterface $hydrator) : void`
   - `getHydrator()` becomes `getHydrator() : ?Zend\Hydrator\HydratorInterface`
