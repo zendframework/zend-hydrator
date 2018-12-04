@@ -64,7 +64,7 @@ class ArraySerializable extends AbstractHydrator
      * {@inheritDoc}
      * @throws Exception\BadMethodCallException for an $object not implementing exchangeArray() or populate()
      */
-    public function hydrate(array $data, object $object) : object
+    public function hydrate(array $data, object $object)
     {
         $replacement = [];
         foreach ($data as $key => $value) {

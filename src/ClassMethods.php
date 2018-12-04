@@ -201,7 +201,7 @@ class ClassMethods extends AbstractHydrator implements HydratorOptionsInterface
      *
      * {@inheritDoc}
      */
-    public function hydrate(array $data, object $object) : object
+    public function hydrate(array $data, object $object)
     {
         $objectClass = get_class($object);
 
