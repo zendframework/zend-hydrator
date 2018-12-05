@@ -28,19 +28,19 @@ returns false, you'll not see them again.
 
 ### Zend\\Hydrator\\Filter\\GetFilter
 
-This filter is used in the `ClassMethods` hydrator to decide which getters will
+This filter is used in the `ClassMethodsHydrator` to decide which getters will
 be extracted. It checks if the key to extract starts with `get` or the object
 contains a method beginning with `get` (e.g., `Zend\Foo\Bar::getFoo`).
 
 ### Zend\\Hydrator\\Filter\\HasFilter
 
-This filter is used in the `ClassMethods` hydrator to decide which `has` methods
+This filter is used in the `ClassMethodsHydrator` to decide which `has` methods
 will be extracted. It checks if the key to extract begins with `has` or the
 object contains a method beginning with `has` (e.g., `Zend\Foo\Bar::hasFoo`).
 
 ### Zend\\Hydrator\\Filter\\IsFilter
 
-This filter is used in the `ClassMethods` hydrator to decide which `is` methods
+This filter is used in the `ClassMethodsHydrator` to decide which `is` methods
 will be extracted. It checks if the key to extract begins with `is` or the
 object contains a method beginning with `is` (e.g., `Zend\Foo\Bar::isFoo`).
 
@@ -55,7 +55,7 @@ the behavior.
 
 ### Zend\\Hydrator\\Filter\\NumberOfParameterFilter
 
-This filter is used in the `ClassMethods` hydrator to check the number of
+This filter is used in the `ClassMethodsHydrator` to check the number of
 parameters. By convention, the `get`, `has` and `is` methods do not get any
 parameters - but it may happen. You can add your own number of required
 parameters, simply add the number to the constructor. The default value is 0. If
@@ -132,7 +132,7 @@ $composite->addFilter(
 $hydrator->addFilter('excludes', $composite, FilterComposite::CONDITION_AND);
 
 // Internal
-if (( // default composite inside the ClassMethods hydrator:
+if (( // default composite inside the ClassMethodsHydrator:
         ($getFilter
             || $hasFilter
             || $isFilter
@@ -148,7 +148,7 @@ if (( // default composite inside the ClassMethods hydrator:
 }
 ```
 
-If you perform this on the `ClassMethods` hydrator, all getters will get
+If you perform this on the `ClassMethodsHydrator`, all getters will get
 extracted, except for `getServiceManager()` and `getEventManager()`.
 
 ## Using the provider interface
@@ -222,7 +222,7 @@ Class Foo implements FilterProviderInterface
      }
 }
 
-$hydrator = new ClassMethods(false);
+$hydrator = new ClassMethodsHydrator(false);
 $extractedArray = $hydrator->extract(new Foo());
 ```
 
@@ -231,7 +231,7 @@ excluded from extraction.
 
 > ### Note
 >
-> All pre-registered filters from the `ClassMethods` hydrator are ignored when
+> All pre-registered filters from the `ClassMethodsHydrator` hydrator are ignored when
 > this interface is used. More on those methods below.
 
 ## Filter-enabled hydrators and the composite filter
@@ -294,8 +294,8 @@ by a `Zend\Hydrator\Filter\FilterComposite`; the various `addFilter()`,
 
 `AbstractHydrator`, on which all the hydrators shipped in this package are
 built, implements `FilterEnabledInterface`. Of the hydrators shipped, only one,
-`ClassMethods`, defines any filters from the outset. Its constructor includes
-the following:
+`ClassMethodsHydrator`, defines any filters from the outset. Its constructor
+includes the following:
 
 ```php
 $this->filterComposite->addFilter('is', new IsFilter());
@@ -310,11 +310,11 @@ $this->filterComposite->addFilter(
 
 ### Remove filters
 
-If you want to tell a filter-enabled hydrator such as `ClassMethods` not to
-extract methods that start with `is`, remove the related filter:
+If you want to tell a filter-enabled hydrator such as `ClassMethodsHydrator` not
+to extract methods that start with `is`, remove the related filter:
 
 ```php
-$hydrator = new ClassMethods(false);
+$hydrator = new ClassMethodsHydrator(false);
 $hydrator->removeFilter('is');
 ```
 
@@ -333,7 +333,7 @@ $hydrator->addFilter('len', function($property) {
 ```
 
 By default, every filter you add will be added with a conditional `OR`. If you
-want to add it with `AND` (such as the `ClassMethods` hydrator does with its
+want to add it with `AND` (such as the `ClassMethodsHydrator` does with its
 composed `NumberOfParameterFilter`, demonstrated above) provide the conditon as
 the third argument to `addFilter`:
 

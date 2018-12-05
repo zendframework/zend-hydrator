@@ -11,22 +11,22 @@ namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
 use TypeError;
-use Zend\Hydrator\ArraySerializable;
+use Zend\Hydrator\ArraySerializableHydrator;
 use ZendTest\Hydrator\TestAsset\ArraySerializable as ArraySerializableAsset;
 
 use function array_merge;
 
 /**
- * Unit tests for {@see ArraySerializable}
+ * Unit tests for {@see ArraySerializableHydrator}
  *
- * @covers \Zend\Hydrator\ArraySerializable
+ * @covers \Zend\Hydrator\ArraySerializableHydrator
  */
-class ArraySerializableTest extends TestCase
+class ArraySerializableHydratorTest extends TestCase
 {
     use HydratorTestTrait;
 
     /**
-     * @var ArraySerializable
+     * @var ArraySerializableHydrator
      */
     protected $hydrator;
 
@@ -35,7 +35,7 @@ class ArraySerializableTest extends TestCase
      */
     protected function setUp()
     {
-        $this->hydrator = new ArraySerializable();
+        $this->hydrator = new ArraySerializableHydrator();
     }
 
     /**

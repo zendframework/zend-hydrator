@@ -38,6 +38,22 @@ The following interfaces were renamed:
 - `Zend\Hydrator\NamingStrategyEnabledInterface` becomes `Zend\Hydrator\NamingStrategy\NamingStrategyEnabledInterface`.
 - `Zend\Hydrator\StrategyEnabledInterface` becomes `Zend\Hydrator\Strategy\StrategyEnabledInterface`.
 
+## Renamed classes
+
+The following classes were renamed:
+
+- `Zend\Hydrator\ArraySerializable` becomes `Zend\Hydrator\ArraySerializableHydrator`
+- `Zend\Hydrator\ClassMethods` becomes `Zend\Hydrator\ClassMethodsHydrator`
+- `Zend\Hydrator\ObjectProperty` becomes `Zend\Hydrator\ObjectPropertyHydrator`
+- `Zend\Hydrator\Reflection` becomes `Zend\Hydrator\ReflectionHydrator`
+
+In each case, a class named after the original has been created as a deprecated
+extension of the new class. This means you can continue to use the old class
+names, but only until version 4, at which point they will be removed.
+
+Additionally, aliases for the old class names have been added to the
+`HydratorPluginManager`, pointing to services named after the new class names.
+
 ## Interface changes
 
 Each of the interfaces provided by this package have been updated to add
@@ -118,7 +134,7 @@ typehints:
   - `onHydrate(HydrateEvent $event)` becomes `onHydrate(HydrateEvent $event) : object`
   - `onExtract(ExtractEvent $event)` becomes `onExtract(ExtractEvent $event) : array`
 
-- `Zend\Hydrator\ClassMethods`:
+- `Zend\Hydrator\ClassMethodsHydrator` (was `Zend\Hydrator\ClassMethods`):
   - `__construct($underscoreSeparatedKeys = true, $methodExistsCheck = false)` becomes `__construct(bool $underscoreSeparatedKeys = true, bool $methodExistsCheck = false)`
   - `setUnderscoreSeparatedKeys($underscoreSeparatedKeys)` becomes `setUnderscoreSeparatedKeys(bool $underscoreSeparatedKeys) : void`
   - `getUnderscoreSeparatedKeys()` becomes `getUnderscoreSeparatedKeys() : bool`

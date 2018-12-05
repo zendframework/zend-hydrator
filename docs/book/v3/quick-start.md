@@ -62,7 +62,7 @@ Usage involves instantiating the hydrator, and then passing information to it.
 
 ```php
 use Zend\Hydrator;
-$hydrator = new Hydrator\ArraySerializable();
+$hydrator = new Hydrator\ArraySerializableHydrator();
 
 // To hydrate an object from values in an array:
 $object = $hydrator->hydrate($data, new ArrayObject());
@@ -73,12 +73,12 @@ $data = $hydrator->extract($object);
 
 ## Available Implementations
 
-### Zend\\Hydrator\\ArraySerializable
+### Zend\\Hydrator\\ArraySerializableHydrator
 
 Follows the definition of `ArrayObject`. Objects must implement either the `exchangeArray()` or
 `populate()` methods to support hydration, and the `getArrayCopy()` method to support extraction.
 
-### Zend\\Hydrator\\ClassMethods
+### Zend\\Hydrator\\ClassMethodsHydrator
 
 Any data key matching a setter method will be called in order to hydrate; any method matching a
 getter method will be called for extraction, according to the following rules:
@@ -95,8 +95,8 @@ on.
 
 ```php
 // Instantiate each hydrator you wish to delegate to
-$albumHydrator = new Zend\Hydrator\ClassMethods;
-$artistHydrator = new Zend\Hydrator\ClassMethods;
+$albumHydrator = new Zend\Hydrator\ClassMethodsHydrator();
+$artistHydrator = new Zend\Hydrator\ClassMethodsHydrator();
 
 // Map the entity class name to the hydrator using the HydratorPluginManager.
 // In this case we have two entity classes, "Album" and "Artist".
@@ -112,14 +112,14 @@ $array  = $delegating->extract(new Artist());
 $artist = $delegating->hydrate($data, new Artist());
 ```
 
-### Zend\\Hydrator\\ObjectProperty
+### Zend\\Hydrator\\ObjectPropertyHydrator
 
 Any data key matching a publicly accessible property will be hydrated; any public properties
 will be used for extraction.
 
-### Zend\\Hydrator\\Reflection
+### Zend\\Hydrator\\ReflectionHyrator
 
-Similar to the `ObjectProperty` hydrator, but uses [PHP's reflection API](http://php.net/manual/en/intro.reflection.php)
+Similar to the `ObjectPropertyHydrator`, but uses [PHP's reflection API](http://php.net/manual/en/intro.reflection.php)
 to hydrate or extract properties of any visibility. Any data key matching an
 existing property will be hydrated; any existing properties will be used for
 extraction.

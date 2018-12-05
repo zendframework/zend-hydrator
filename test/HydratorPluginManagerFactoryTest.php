@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\Hydrator\HydratorPluginManagerFactory;
-use Zend\Hydrator\Reflection;
+use Zend\Hydrator\ReflectionHydrator;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class HydratorPluginManagerFactoryTest extends TestCase
@@ -52,7 +52,7 @@ class HydratorPluginManagerFactoryTest extends TestCase
         $config = [
             'hydrators' => [
                 'aliases' => [
-                    'test' => Reflection::class,
+                    'test' => ReflectionHydrator::class,
                 ],
                 'factories' => [
                     'test-too' => function ($container) use ($hydrator) {
@@ -74,7 +74,7 @@ class HydratorPluginManagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
         $this->assertTrue($hydrators->has('test'));
-        $this->assertInstanceOf(Reflection::class, $hydrators->get('test'));
+        $this->assertInstanceOf(ReflectionHydrator::class, $hydrators->get('test'));
         $this->assertTrue($hydrators->has('test-too'));
         $this->assertSame($hydrator, $hydrators->get('test-too'));
     }
@@ -85,7 +85,7 @@ class HydratorPluginManagerFactoryTest extends TestCase
         $config = [
             'hydrators' => [
                 'aliases' => [
-                    'test' => Reflection::class,
+                    'test' => ReflectionHydrator::class,
                 ],
                 'factories' => [
                     'test-too' => function ($container) use ($hydrator) {

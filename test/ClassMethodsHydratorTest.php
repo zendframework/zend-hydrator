@@ -11,23 +11,23 @@ namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
 use TypeError;
-use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethodsHydrator;
 use ZendTest\Hydrator\TestAsset\ArraySerializable;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCase;
 use ZendTest\Hydrator\TestAsset\ClassMethodsCamelCaseMissing;
 use ZendTest\Hydrator\TestAsset\ClassMethodsOptionalParameters;
 
 /**
- * Unit tests for {@see ClassMethods}
+ * Unit tests for {@see ClassMethodsHydrator}
  *
- * @covers \Zend\Hydrator\ClassMethods
+ * @covers \Zend\Hydrator\ClassMethodsHydrator
  */
-class ClassMethodsTest extends TestCase
+class ClassMethodsHydratorTest extends TestCase
 {
     use HydratorTestTrait;
 
     /**
-     * @var ClassMethods
+     * @var ClassMethodsHydrator
      */
     protected $hydrator;
 
@@ -36,7 +36,7 @@ class ClassMethodsTest extends TestCase
      */
     protected function setUp()
     {
-        $this->hydrator = new ClassMethods();
+        $this->hydrator = new ClassMethodsHydrator();
     }
 
     /**

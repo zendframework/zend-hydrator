@@ -91,7 +91,7 @@ $namingStrategy = Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromHydr
     'foo' => 'bar',
     'baz' => 'bash',
 ]);
-$hydrator = new Zend\Hydrator\ObjectProperty();
+$hydrator = new Zend\Hydrator\ObjectPropertyHydrator();
 $hydrator->setNamingStrategy($namingStrategy);
 
 $foo = new Foo();

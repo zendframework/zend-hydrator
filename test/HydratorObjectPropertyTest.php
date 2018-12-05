@@ -10,18 +10,18 @@ declare(strict_types=1);
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\ObjectProperty;
+use Zend\Hydrator\ObjectPropertyHydrator;
 
 class HydratorObjectPropertyTest extends TestCase
 {
     /**
-     * @var ObjectProperty
+     * @var ObjectPropertyHydrator
      */
     private $hydrator;
 
     public function setUp()
     {
-        $this->hydrator = new ObjectProperty();
+        $this->hydrator = new ObjectPropertyHydrator();
     }
 
     public function testMultipleInvocationsWithDifferentFiltersFindsAllProperties()
