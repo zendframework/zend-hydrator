@@ -26,9 +26,9 @@ class HydratorPluginManagerFactory
      *
      * @see https://docs.zendframework.com/zend-expressive/v3/features/container/config/
      */
-    public function __invoke(ContainerInterface $container, string $name, array $options = []) : HydratorPluginManager
+    public function __invoke(ContainerInterface $container, string $name, ?array $options = []) : HydratorPluginManager
     {
-        $pluginManager = new HydratorPluginManager($container, $options);
+        $pluginManager = new HydratorPluginManager($container, $options ?: []);
 
         // If this is in a zend-mvc application, the ServiceListener will inject
         // merged configuration during bootstrap.

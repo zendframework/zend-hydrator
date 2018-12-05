@@ -160,7 +160,7 @@ typehints:
 
 - `Zend\Hydrator\HydratorPluginManagerFactory`:
   - no longer implements `Zend\ServiceManager\FactoryInterface`
-  - `__invoke(Interop\Container\ContainerInterface $container, $requestedName, array $options = null)` becomes `__invoke(Psr\Container\ContainerInterface $container, string $name, array $options = []) : Zend\Hydrator\HydratorPluginManager`
+  - `__invoke(Interop\Container\ContainerInterface $container, $requestedName, array $options = null)` becomes `__invoke(Psr\Container\ContainerInterface $container, string $name, ?array $options = []) : Zend\Hydrator\HydratorPluginManager`
 
 - `Zend\Hydrator\Module`:
   - `getConfig()` becomes `getConfig() : array`
