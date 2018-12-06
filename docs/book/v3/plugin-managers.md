@@ -80,6 +80,8 @@ those factories capable of pulling application-level dependencies, you might do
 something like the following:
 
 ```php
+// In src/YourApplication/CustomHydratorPluginManager.php:
+
 namespace YourApplication;
 
 use Psr\Container\NotFoundExceptionInterface;
@@ -89,9 +91,7 @@ use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\HydratorPluginManagerInterface;
 use Zend\Hydrator\StandaloneHydratorPluginManager;
 
-class CustomHydratorPluginManager implements
-    ContainerInterface,
-    HydratorPluginManagerInterface
+class CustomHydratorPluginManager implements HydratorPluginManagerInterface
 {
     /** @var ContainerInterface */
     private $appContainer;
@@ -146,6 +146,14 @@ class CustomHydratorPluginManager implements
         $this->factories[$name] = $factory;
     }
 }
+```
+
+```php
+// In src/YourApplication/CustomHydratorPluginManagerFactory.php:
+
+namespace YourApplication;
+
+use Psr\Container\ContainerInterface;
 
 class CustomHydratorPluginManagerFactory
 {
@@ -175,8 +183,11 @@ class CustomHydratorPluginManagerFactory
         }
     }
 }
+```
 
+```php
 // in config/autoload/hydrators.global.php or similar:
+
 return [
     'dependencies' => [
         'aliases' => [
