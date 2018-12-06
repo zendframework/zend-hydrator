@@ -34,9 +34,7 @@ use function strtolower;
  * wire hydrators into your application container; or write your own
  * implementation.
  */
-final class StandaloneHydratorPluginManager implements
-    ContainerInterface,
-    HydratorPluginManagerInterface
+final class StandaloneHydratorPluginManager implements HydratorPluginManagerInterface
 {
     /**
      * To allow using the short name (class name without namespace), this maps
@@ -107,15 +105,6 @@ final class StandaloneHydratorPluginManager implements
 
     /**
      * Resolve a service name from an identifier.
-     *
-     * If $name is registered in $factories, the method returns it verbatim.
-     *
-     * Next it checks if the $name is registered verbatim in $aliases; if so,
-     * it returns the target of the alias.
-     *
-     * finally, it does a strtolower() on it and looks to see if it exists
-     * in the $aliases array; if so, it returns the target of the alias,
-     * otherwise it returns null indicating inability to resolve.
      */
     private function resolveName(string $name) : ?string
     {
@@ -127,7 +116,6 @@ final class StandaloneHydratorPluginManager implements
             return $this->aliases[$name];
         }
 
-        $alias = strtolower($name);
-        return $this->aliases[$alias] ?? null;
+        return $this->aliases[strtolower($name)] ?? null;
     }
 }
