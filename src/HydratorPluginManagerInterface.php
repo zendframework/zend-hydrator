@@ -11,6 +11,9 @@ namespace Zend\Hydrator;
 
 use Psr\Container\ContainerInterface;
 
+/**
+ * @method HydratorInterface get(string $id)
+ */
 interface HydratorPluginManagerInterface extends ContainerInterface
 {
 }
