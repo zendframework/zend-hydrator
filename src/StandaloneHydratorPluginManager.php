@@ -67,23 +67,18 @@ final class StandaloneHydratorPluginManager implements
      */
     private $factories = [];
 
-    /**
-     * @var callable Invokable factory for hydrators without dedicated factories.
-     */
-    private $invokableFactory;
-
     public function __construct()
     {
-        $this->invokableFactory = function (ContainerInterface $container, string $class) {
+        $invokableFactory = function (ContainerInterface $container, string $class) {
             return new $class();
         };
 
         $this->factories = [
-            ArraySerializableHydrator::class => $this->invokableFactory,
-            ClassMethodsHydrator::class      => $this->invokableFactory,
+            ArraySerializableHydrator::class => $invokableFactory,
+            ClassMethodsHydrator::class      => $invokableFactory,
             DelegatingHydrator::class        => new DelegatingHydratorFactory(),
-            ObjectPropertyHydrator::class    => $this->invokableFactory,
-            ReflectionHydrator::class        => $this->invokableFactory,
+            ObjectPropertyHydrator::class    => $invokableFactory,
+            ReflectionHydrator::class        => $invokableFactory,
         ];
     }
 

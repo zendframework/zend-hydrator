@@ -35,11 +35,6 @@ class StandaloneHydratorPluginManagerTest extends TestCase
         return $r->getValue($class);
     }
 
-    public function testInstantiationInitializesInvokableFactoryProperty()
-    {
-        $this->assertAttributeInstanceOf(Closure::class, 'invokableFactory', $this->manager);
-    }
-
     public function hydratorsWithoutConstructors() : iterable
     {
         yield 'ArraySerializable'               => [Hydrator\ArraySerializableHydrator::class];
@@ -61,11 +56,10 @@ class StandaloneHydratorPluginManagerTest extends TestCase
      */
     public function testInstantiationInitializesFactoriesForHydratorsWithoutConstructorArguments(string $class)
     {
-        $invokableFactory = $this->reflectProperty($this->manager, 'invokableFactory');
-        $factories        = $this->reflectProperty($this->manager, 'factories');
+        $factories = $this->reflectProperty($this->manager, 'factories');
 
         $this->assertArrayHasKey($class, $factories);
-        $this->assertSame($invokableFactory, $factories[$class]);
+        $this->assertInstanceOf(Closure::class, $factories[$class]);
     }
 
     public function testDelegatingHydratorFactoryIsInitialized()
