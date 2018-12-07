@@ -107,6 +107,22 @@ instance created will set the time element accordingly. As a specific example,
 `Y-m-d|` will drop the time component, ensuring comparisons are based on a
 midnight time value.
 
+Starting in version 3.0, the constructor defines a third, optional argument,
+`$dateTimeFallback`.  If enabled and hydration fails, the given string is parsed
+by the `DateTime` constructor, as demonstrated below:
+
+```php
+// Previous behavior:
+$strategy = new Zend\Hydrator\Strategy\DateTimeFormatterStrategy('Y-m-d H:i:s.uP');
+$hydrated1 = $strategy->hydrate('2016-03-04 10:29:40.123456+01'); // Format is the same; returns DateTime instance
+$hydrated2 = $strategy->hydrate('2016-03-04 10:29:40+01');        // Format is different; value is not hydrated
+
+// Using new $dateTimeFallback flag; both values are hydrated:
+$strategy = new Zend\Hydrator\Strategy\DateTimeFormatterStrategy('Y-m-d H:i:s.uP', null, true);
+$hydrated1 = $strategy->hydrate('2016-03-04 10:29:40.123456+01');
+$hydrated2 = $strategy->hydrate('2016-03-04 10:29:40+01');
+```
+
 ### Zend\\Hydrator\\Strategy\\DefaultStrategy
 
 The `DefaultStrategy` simply proxies everything through, without performing any
