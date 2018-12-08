@@ -13,6 +13,7 @@ pages:
         - "Mapping": v3/naming-strategy/map-naming-strategy.md
         - "Underscore Mapping": v3/naming-strategy/underscore-naming-strategy.md
         - "Composite": v3/naming-strategy/composite-naming-strategy.md
+      - "Plugin Managers": v3/plugin-managers.md
       - Migration: v3/migration.md
     - v2:
         - "Quick Start": v2/quick-start.md

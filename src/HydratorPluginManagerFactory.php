@@ -12,7 +12,9 @@ namespace Zend\Hydrator;
 use Psr\Container\ContainerInterface;
 use Zend\ServiceManager\Config;
 
+use function class_exists;
 use function is_array;
+use function sprintf;
 
 class HydratorPluginManagerFactory
 {
@@ -25,9 +27,22 @@ class HydratorPluginManagerFactory
      * configuration.
      *
      * @see https://docs.zendframework.com/zend-expressive/v3/features/container/config/
+     * @throws Exception\DomainException if zend-servicemanager is not installed.
      */
     public function __invoke(ContainerInterface $container, string $name, ?array $options = []) : HydratorPluginManager
     {
+        if (! class_exists(Config::class)) {
+            throw new Exception\DomainException(sprintf(
+                '%s requires the zendframework/zend-servicemanager package, which is not installed.'
+                . ' If you do not want to install that package, you can use the %s instead;'
+                . ' however, that version does not have support for the "hydrators"'
+                . ' configuration outside of aliases, invokables, and factories. If you'
+                . ' need those features, please install zendframework/zend-servicemanager.',
+                HydratorPluginManager::class,
+                StandaloneHydratorPluginManager::class
+            ));
+        }
+
         $pluginManager = new HydratorPluginManager($container, $options ?: []);
 
         // If this is in a zend-mvc application, the ServiceListener will inject
