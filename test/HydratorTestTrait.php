@@ -46,4 +46,31 @@ trait HydratorTestTrait
             sprintf('Hydrator: %s', get_class($this->hydrator))
         );
     }
+
+    public function testExtractWithNamingStrategyAndStrategy()
+    {
+        $entity = new SimpleEntity();
+        $entity->setValue('foo');
+
+        $namingStrategy = $this->createMock(NamingStrategyInterface::class);
+        $namingStrategy
+            ->expects($this->any())
+            ->method('extract')
+            ->with($this->anything())
+            ->will($this->returnValue('extractedName'));
+
+        $strategy = $this->createMock(StrategyInterface::class);
+        $strategy
+            ->expects($this->any())
+            ->method('extract')
+            ->with($this->anything())
+            ->will($this->returnValue('extractedValue'));
+
+        $this->hydrator->setNamingStrategy($namingStrategy);
+        $this->hydrator->addStrategy('extractedName', $strategy);
+
+        $data = $this->hydrator->extract($entity);
+
+        $this->assertSame(['extractedName' => 'extractedValue'], $data);
+    }
 }
