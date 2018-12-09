@@ -11,6 +11,8 @@ namespace Zend\Hydrator;
 
 use Zend\ServiceManager\ServiceManager;
 
+use function class_exists;
+
 class ConfigProvider
 {
     /**
