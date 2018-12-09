@@ -9,8 +9,6 @@ declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
-use ArrayObject;
-
 use function sprintf;
 
 abstract class AbstractHydrator implements
