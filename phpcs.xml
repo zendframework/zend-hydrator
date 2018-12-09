@@ -2,6 +2,14 @@
 <ruleset name="Zend Framework coding standard">
     <rule ref="./vendor/zendframework/zend-coding-standard/ruleset.xml"/>
 
+    <!-- trigger user deprecated error in the following files -->
+    <rule ref="PSR1.Files.SideEffects.FoundWithSymbols">
+        <exclude-pattern>src/ArraySerializable.php</exclude-pattern>
+        <exclude-pattern>src/ClassMethods.php</exclude-pattern>
+        <exclude-pattern>src/ObjectProperty.php</exclude-pattern>
+        <exclude-pattern>src/Reflection.php</exclude-pattern>
+    </rule>
+
     <!-- Paths to check -->
     <file>src</file>
     <file>test</file>
