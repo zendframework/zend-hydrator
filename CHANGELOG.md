@@ -101,7 +101,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Deprecated
 
-- [#89](https://github.com/zendframework/zend-hydrator/pull/89) deprecates the
+- [#89](https://github.com/zendframework/zend-hydrator/pull/89) and
+  [#93](https://github.com/zendframework/zend-hydrator/pull/93) deprecate the
   following classes, which will be removed in 4.0.0:
   - `Zend\Hydrator\ArraySerializable` (becomes `ArraySerializableHydrator`)
   - `Zend\Hydrator\ClassMethods` (becomes `ClassMethodsHydrator`)
