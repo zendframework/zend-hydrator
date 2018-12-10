@@ -49,10 +49,9 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-release-1.0": "1.0.x-dev",
-            "dev-release-1.1": "1.1.x-dev",
-            "dev-master": "2.4.x-dev",
-            "dev-develop": "3.0.x-dev"
+            "dev-release-2.4": "2.4.x-dev",
+            "dev-master": "3.0.x-dev",
+            "dev-develop": "3.1.x-dev"
         },
         "zf": {
             "component": "Zend\\Hydrator",

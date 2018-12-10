@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1eec08621ca4e320147250387db8f037",
+    "content-hash": "bf4bd8e0fd8fd1089801873a62f65833",
     "packages": [
         {
             "name": "zendframework/zend-stdlib",
