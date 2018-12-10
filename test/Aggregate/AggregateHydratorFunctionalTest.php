@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator\Aggregate;
 
@@ -15,8 +15,8 @@ use stdClass;
 use Zend\Hydrator\Aggregate\AggregateHydrator;
 use Zend\Hydrator\Aggregate\ExtractEvent;
 use Zend\Hydrator\Aggregate\HydrateEvent;
-use Zend\Hydrator\ArraySerializable;
-use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\ArraySerializableHydrator;
+use Zend\Hydrator\ClassMethodsHydrator;
 use Zend\Hydrator\HydratorInterface;
 use ZendTest\Hydrator\TestAsset\AggregateObject;
 
@@ -91,8 +91,8 @@ class AggregateHydratorFunctionalTest extends TestCase
      */
     public function testExtractWithMultipleHydrators()
     {
-        $this->hydrator->add(new ClassMethods());
-        $this->hydrator->add(new ArraySerializable());
+        $this->hydrator->add(new ClassMethodsHydrator());
+        $this->hydrator->add(new ArraySerializableHydrator());
 
         $object = new AggregateObject();
 
@@ -109,8 +109,8 @@ class AggregateHydratorFunctionalTest extends TestCase
      */
     public function testHydrateWithMultipleHydrators()
     {
-        $this->hydrator->add(new ClassMethods());
-        $this->hydrator->add(new ArraySerializable());
+        $this->hydrator->add(new ClassMethodsHydrator());
+        $this->hydrator->add(new ArraySerializableHydrator());
 
         $object = new AggregateObject();
 
@@ -138,7 +138,7 @@ class AggregateHydratorFunctionalTest extends TestCase
             $event->stopPropagation();
         };
 
-        $this->hydrator->add(new ArraySerializable());
+        $this->hydrator->add(new ArraySerializableHydrator());
         $this->hydrator->getEventManager()->attach(ExtractEvent::EVENT_EXTRACT, $callback, 1000);
 
         $this->assertSame(['Ravenous Bugblatter Beast of Traal'], $this->hydrator->extract($object));
@@ -157,7 +157,7 @@ class AggregateHydratorFunctionalTest extends TestCase
             $event->stopPropagation();
         };
 
-        $this->hydrator->add(new ArraySerializable());
+        $this->hydrator->add(new ArraySerializableHydrator());
         $this->hydrator->getEventManager()->attach(HydrateEvent::EVENT_HYDRATE, $callback, 1000);
 
         $this->assertSame($swappedObject, $this->hydrator->hydrate(['president' => 'Zaphod'], $object));
@@ -171,7 +171,7 @@ class AggregateHydratorFunctionalTest extends TestCase
     public function getHydratorSet()
     {
         return [
-            [new ArraySerializable(), new ArrayObject(['zaphod' => 'beeblebrox']), ['arthur' => 'dent']],
+            [new ArraySerializableHydrator(), new ArrayObject(['zaphod' => 'beeblebrox']), ['arthur' => 'dent']],
         ];
     }
 }

@@ -1,9 +1,11 @@
 <?php
 /**
- * @link      http://github.com/zendframework/zend-hydrator for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator;
 
@@ -12,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Zend\Hydrator\HydratorInterface;
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\Hydrator\HydratorPluginManagerFactory;
-use Zend\Hydrator\Reflection;
+use Zend\Hydrator\ReflectionHydrator;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 class HydratorPluginManagerFactoryTest extends TestCase
@@ -24,14 +26,7 @@ class HydratorPluginManagerFactoryTest extends TestCase
 
         $hydrators = $factory($container, HydratorPluginManagerFactory::class);
         $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
-
-        if (method_exists($hydrators, 'configure')) {
-            // zend-servicemanager v3
-            $this->assertAttributeSame($container, 'creationContext', $hydrators);
-        } else {
-            // zend-servicemanager v2
-            $this->assertSame($container, $hydrators->getServiceLocator());
-        }
+        $this->assertAttributeSame($container, 'creationContext', $hydrators);
     }
 
     /**
@@ -51,34 +46,13 @@ class HydratorPluginManagerFactoryTest extends TestCase
         $this->assertSame($hydrator, $hydrators->get('test'));
     }
 
-    /**
-     * @depends testFactoryReturnsPluginManager
-     */
-    public function testFactoryConfiguresPluginManagerUnderServiceManagerV2()
-    {
-        $container = $this->prophesize(ServiceLocatorInterface::class);
-        $container->willImplement(ContainerInterface::class);
-
-        $hydrator = $this->prophesize(HydratorInterface::class)->reveal();
-
-        $factory = new HydratorPluginManagerFactory();
-        $factory->setCreationOptions([
-            'services' => [
-                'test' => $hydrator,
-            ],
-        ]);
-
-        $hydrators = $factory->createService($container->reveal());
-        $this->assertSame($hydrator, $hydrators->get('test'));
-    }
-
     public function testConfiguresHydratorServicesWhenFound()
     {
         $hydrator = $this->prophesize(HydratorInterface::class)->reveal();
         $config = [
             'hydrators' => [
                 'aliases' => [
-                    'test' => Reflection::class,
+                    'test' => ReflectionHydrator::class,
                 ],
                 'factories' => [
                     'test-too' => function ($container) use ($hydrator) {
@@ -100,7 +74,7 @@ class HydratorPluginManagerFactoryTest extends TestCase
 
         $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
         $this->assertTrue($hydrators->has('test'));
-        $this->assertInstanceOf(Reflection::class, $hydrators->get('test'));
+        $this->assertInstanceOf(ReflectionHydrator::class, $hydrators->get('test'));
         $this->assertTrue($hydrators->has('test-too'));
         $this->assertSame($hydrator, $hydrators->get('test-too'));
     }
@@ -111,7 +85,7 @@ class HydratorPluginManagerFactoryTest extends TestCase
         $config = [
             'hydrators' => [
                 'aliases' => [
-                    'test' => Reflection::class,
+                    'test' => ReflectionHydrator::class,
                 ],
                 'factories' => [
                     'test-too' => function ($container) use ($hydrator) {

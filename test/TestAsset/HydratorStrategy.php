@@ -1,15 +1,17 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator\TestAsset;
 
 use Zend\Hydrator\Strategy\DefaultStrategy;
+
+use function is_array;
 
 class HydratorStrategy extends DefaultStrategy
 {
@@ -28,7 +30,7 @@ class HydratorStrategy extends DefaultStrategy
         $this->simulatedStorageDevice[] = new HydratorStrategyEntityB(333, 'CCC');
     }
 
-    public function extract($value)
+    public function extract($value, ?object $object = null)
     {
         $result = [];
         foreach ($value as $instance) {
@@ -37,7 +39,7 @@ class HydratorStrategy extends DefaultStrategy
         return $result;
     }
 
-    public function hydrate($value)
+    public function hydrate($value, ?array $data = null)
     {
         $result = $value;
         if (is_array($value)) {

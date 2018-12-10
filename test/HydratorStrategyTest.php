@@ -1,17 +1,18 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
+use Zend\Hydrator\ClassMethodsHydrator;
 use Zend\Hydrator\HydratorInterface;
-use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\Strategy\StrategyInterface;
 
 class HydratorStrategyTest extends TestCase
 {
@@ -24,7 +25,7 @@ class HydratorStrategyTest extends TestCase
 
     protected function setUp()
     {
-        $this->hydrator = new ClassMethods();
+        $this->hydrator = new ClassMethodsHydrator();
     }
 
     public function testAddingStrategy()
@@ -105,9 +106,9 @@ class HydratorStrategyTest extends TestCase
         $underscoreSeparatedKeys,
         $formFieldKey
     ) {
-        $hydrator = new ClassMethods($underscoreSeparatedKeys);
+        $hydrator = new ClassMethodsHydrator($underscoreSeparatedKeys);
 
-        $strategy = $this->createMock('Zend\Hydrator\Strategy\StrategyInterface');
+        $strategy = $this->createMock(StrategyInterface::class);
 
         $entity = new TestAsset\ClassMethodsUnderscore();
         $value = $entity->getFooBar();

@@ -1,19 +1,20 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator\Strategy;
 
 use DateTime;
 use DateTimeImmutable;
+use DateTimezone;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 use Zend\Hydrator\Strategy\DateTimeFormatterStrategy;
+use Zend\Hydrator\Strategy\Exception\InvalidArgumentException;
 
 /**
  * Tests for {@see DateTimeFormatterStrategy}
@@ -28,7 +29,7 @@ class DateTimeFormatterStrategyTest extends TestCase
         $strategy = new DateTimeFormatterStrategy('Y-m-d');
         $this->assertEquals('2014-04-26', $strategy->hydrate('2014-04-26')->format('Y-m-d'));
 
-        $strategy = new DateTimeFormatterStrategy('Y-m-d', new \DateTimeZone('Asia/Kathmandu'));
+        $strategy = new DateTimeFormatterStrategy('Y-m-d', new DateTimeZone('Asia/Kathmandu'));
 
         $date = $strategy->hydrate('2014-04-26');
         $this->assertEquals('Asia/Kathmandu', $date->getTimezone()->getName());
@@ -59,20 +60,6 @@ class DateTimeFormatterStrategyTest extends TestCase
     {
         $strategy = new DateTimeFormatterStrategy('d/m/Y');
         $this->assertSame('foo bar baz', $strategy->hydrate('foo bar baz'));
-    }
-
-    public function testAcceptsStringCastableDateTimeFormat()
-    {
-        $format = $this->getMockBuilder(stdClass::class)
-            ->setMethods(['__toString'])
-            ->getMock();
-
-        $format->expects($this->once())->method('__toString')->will($this->returnValue('d/m/Y'));
-
-        $strategy = new DateTimeFormatterStrategy($format);
-
-        $this->assertEquals('26/04/2014', $strategy->extract(new \DateTime('2014-04-26')));
-        $this->assertEquals('26/04/2015', $strategy->extract(new \DateTime('2015-04-26')));
     }
 
     public function testCanExtractAnyDateTimeInterface()
@@ -145,5 +132,63 @@ class DateTimeFormatterStrategyTest extends TestCase
             '|-appended'  => ['Y-m-d|', '2018-02-05'],
             '+-appended'  => ['Y-m-d+', '2018-02-05'],
         ];
+    }
+
+    public function testCanHydrateWithDateTimeFallback()
+    {
+        $strategy = new DateTimeFormatterStrategy('Y-m-d', null, true);
+        $date = $strategy->hydrate('2018-09-06T12:10:30');
+
+        $this->assertSame('2018-09-06', $date->format('Y-m-d'));
+
+        $strategy = new DateTimeFormatterStrategy('Y-m-d', new DateTimeZone('Europe/Prague'), true);
+        $date = $strategy->hydrate('2018-09-06T12:10:30');
+
+        $this->assertSame('Europe/Prague', $date->getTimezone()->getName());
+    }
+
+    public function invalidValuesForHydration() : iterable
+    {
+        return [
+            'zero'       => [0],
+            'int'        => [1],
+            'zero-float' => [0.0],
+            'float'      => [1.1],
+            'array'      => [['2018-11-20']],
+            'object'     => [(object) ['date' => '2018-11-20']],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidValuesForHydration
+     * @param mixed $value
+     */
+    public function testHydrateRaisesExceptionIfValueIsInvalid($value)
+    {
+        $strategy = new DateTimeFormatterStrategy('Y-m-d');
+
+        $this->expectException(InvalidArgumentException::class);
+
+        $strategy->hydrate($value);
+    }
+
+    public function validUnhydratableValues() : iterable
+    {
+        return [
+            'empty string' => [''],
+            'null'         => [null],
+            'date-time'    => [new DateTimeImmutable('now')],
+        ];
+    }
+
+    /**
+     * @dataProvider validUnhydratableValues
+     * @param mixed $value
+     */
+    public function testReturnsValueVerbatimUnderSpecificConditions($value)
+    {
+        $strategy = new DateTimeFormatterStrategy('Y-m-d');
+        $hydrated = $strategy->hydrate($value);
+        $this->assertSame($value, $hydrated);
     }
 }

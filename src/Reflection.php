@@ -1,95 +1,28 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
-use ReflectionClass;
-use ReflectionProperty;
+use function sprintf;
+use function trigger_error;
 
-class Reflection extends AbstractHydrator
+use const E_USER_DEPRECATED;
+
+trigger_error(sprintf(
+    'Class %s is deprecated, please use %s instead',
+    Reflection::class,
+    ReflectionHydrator::class
+), E_USER_DEPRECATED);
+
+/**
+ * @deprecated since 3.0.0; to be removed in 4.0.0. Use ReflectionHydrator instead.
+ */
+class Reflection extends ReflectionHydrator
 {
-    /**
-     * Simple in-memory array cache of ReflectionProperties used.
-     * @var ReflectionProperty[]
-     */
-    protected static $reflProperties = [];
-
-    /**
-     * Extract values from an object
-     *
-     * @param  object $object
-     * @return array
-     */
-    public function extract($object)
-    {
-        $result = [];
-        foreach (self::getReflProperties($object) as $property) {
-            $propertyName = $this->extractName($property->getName(), $object);
-            if (! $this->filterComposite->filter($propertyName)) {
-                continue;
-            }
-
-            $value = $property->getValue($object);
-            $result[$propertyName] = $this->extractValue($propertyName, $value, $object);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Hydrate $object with the provided $data.
-     *
-     * @param  array $data
-     * @param  object $object
-     * @return object
-     */
-    public function hydrate(array $data, $object)
-    {
-        $reflProperties = self::getReflProperties($object);
-        foreach ($data as $key => $value) {
-            $name = $this->hydrateName($key, $data);
-            if (isset($reflProperties[$name])) {
-                $reflProperties[$name]->setValue($object, $this->hydrateValue($name, $value, $data));
-            }
-        }
-        return $object;
-    }
-
-    /**
-     * Get a reflection properties from in-memory cache and lazy-load if
-     * class has not been loaded.
-     *
-     * @param  string|object $input
-     * @throws Exception\InvalidArgumentException
-     * @return ReflectionProperty[]
-     */
-    protected static function getReflProperties($input)
-    {
-        if (is_object($input)) {
-            $input = get_class($input);
-        } elseif (! is_string($input)) {
-            throw new Exception\InvalidArgumentException('Input must be a string or an object.');
-        }
-
-        if (isset(static::$reflProperties[$input])) {
-            return static::$reflProperties[$input];
-        }
-
-        static::$reflProperties[$input] = [];
-        $reflClass                      = new ReflectionClass($input);
-        $reflProperties                 = $reflClass->getProperties();
-
-        foreach ($reflProperties as $property) {
-            $property->setAccessible(true);
-            static::$reflProperties[$input][$property->getName()] = $property;
-        }
-
-        return static::$reflProperties[$input];
-    }
 }

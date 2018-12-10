@@ -16,23 +16,23 @@
         "forum": "https://discourse.zendframework.com/c/questions/components"
     },
     "require": {
-        "php": "^5.6 || ^7.0",
-        "zendframework/zend-stdlib": "^3.0"
+        "php": "^7.2",
+        "zendframework/zend-stdlib": "^3.2.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.2",
+        "phpspec/prophecy": "^1.7.5",
+        "phpstan/phpstan": "^0.10.5",
+        "phpunit/phpunit": "^7.5",
         "zendframework/zend-coding-standard": "~1.0.0",
-        "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
-        "zendframework/zend-filter": "^2.6",
-        "zendframework/zend-inputfilter": "^2.6",
-        "zendframework/zend-serializer": "^2.6.1",
-        "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3"
+        "zendframework/zend-eventmanager": "^3.2.1",
+        "zendframework/zend-modulemanager": "^2.8",
+        "zendframework/zend-serializer": "^2.9",
+        "zendframework/zend-servicemanager": "^3.3.2"
     },
     "suggest": {
-        "zendframework/zend-eventmanager": "^2.6.2 || ^3.0, to support aggregate hydrator usage",
-        "zendframework/zend-filter": "^2.6, to support naming strategy hydrator usage",
-        "zendframework/zend-serializer": "^2.6.1, to use the SerializableStrategy",
-        "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3, to support hydrator plugin manager usage"
+        "zendframework/zend-eventmanager": "^3.2, to support aggregate hydrator usage",
+        "zendframework/zend-serializer": "^2.9, to use the SerializableStrategy",
+        "zendframework/zend-servicemanager": "^3.3, to support hydrator plugin manager usage"
     },
     "autoload": {
         "psr-4": {
@@ -49,10 +49,9 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-release-1.0": "1.0.x-dev",
-            "dev-release-1.1": "1.1.x-dev",
-            "dev-master": "2.4.x-dev",
-            "dev-develop": "3.0.x-dev"
+            "dev-release-2.4": "2.4.x-dev",
+            "dev-master": "3.0.x-dev",
+            "dev-develop": "3.1.x-dev"
         },
         "zf": {
             "component": "Zend\\Hydrator",
@@ -60,6 +59,7 @@
         }
     },
     "scripts": {
+        "analyse": "phpstan analyse --no-progress",
         "check": [
             "@cs-check",
             "@test"

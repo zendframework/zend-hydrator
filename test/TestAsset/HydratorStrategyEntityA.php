@@ -1,23 +1,19 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator\TestAsset;
 
-use Zend\InputFilter\Input;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterInterface;
-use Zend\InputFilter\InputFilterAwareInterface;
+use function get_object_vars;
 
-class HydratorStrategyEntityA implements InputFilterAwareInterface
+class HydratorStrategyEntityA
 {
     public $entities; // public to make testing easier!
-    private $inputFilter; // used to test forms
 
     public function __construct()
     {
@@ -37,25 +33,6 @@ class HydratorStrategyEntityA implements InputFilterAwareInterface
     public function setEntities($entities)
     {
         $this->entities = $entities;
-    }
-
-    public function getInputFilter()
-    {
-        if (! $this->inputFilter) {
-            $input = new Input();
-            $input->setName('entities');
-            $input->setRequired(false);
-
-            $this->inputFilter = new InputFilter();
-            $this->inputFilter->add($input);
-        }
-
-        return $this->inputFilter;
-    }
-
-    public function setInputFilter(InputFilterInterface $inputFilter)
-    {
-        $this->inputFilter = $inputFilter;
     }
 
     // Add the getArrayCopy method so we can test the ArraySerializable hydrator:

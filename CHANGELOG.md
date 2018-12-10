@@ -2,6 +2,127 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 3.0.0 - 2018-12-10
+
+### Added
+
+- [#87](https://github.com/zendframework/zend-hydrator/pull/87) adds `Zend\Hydrator\HydratorPluginManagerInterface` to allow
+  type-hinting on plugin manager implementations. The interface simply extends
+  the [PSR-11 ContainerInterface](https://www.php-fig.org/psr/psr-11/).
+
+- [#87](https://github.com/zendframework/zend-hydrator/pull/87) adds `Zend\Hydrator\StandaloneHydratorPluginManager` as an implementation
+  of each of `Psr\Container\ContainerInterface` and `Zend\Hydrator\HydratorPluginManagerInterface`,
+  along with a factory for creating it, `Zend\Hydrator\StandaloneHydratorPluginManagerFactory`.
+  It can act as a replacement for `Zend\Hydrator\HydratorPluginManager`, but
+  only supports the shipped hydrator implementations. See the [plugin manager documentation](https://docs.zendframework.com/zend-hydrator/v3/plugin-managers/)
+  for more details on usage.
+
+- [#79](https://github.com/zendframework/zend-hydrator/pull/79) adds a third, optional parameter to the `DateTimeFormatterStrategy` constructor.
+  The parameter is a boolean, and, when enabled, a string that can be parsed by
+  the `DateTime` constructor will still result in a `DateTime` instance during
+  hydration, even if the string does not follow the provided date-time format.
+
+- [#14](https://github.com/zendframework/zend-hydrator/pull/14) adds the following `final` classes:
+  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter`
+  - `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter`
+
+### Changed
+
+- [#89](https://github.com/zendframework/zend-hydrator/pull/89) renames the various hydrators to use the "Hydrator" suffix:
+  - `ArraySerializable` becomes `ArraySerializableHydrator`
+  - `ClassMethods` becomes `ClassMethodsHydrator`
+  - `ObjectProperty` becomes `ObjectPropertyHydrator`
+  - `Reflection` becomes `ReflectionHydrator`
+  In each case, the original class was re-added to the repository as a
+  deprecated extension of the new class, to be removed in version 4.0.0.
+
+  Aliases resolving the original class name to the new class were also added to
+  the `HydratorPluginManager` to ensure you can still obtain instances.
+
+- [#87](https://github.com/zendframework/zend-hydrator/pull/87) modifies `Zend\Hydrator\ConfigProvider` to add a factory entry for
+  `Zend\Hydrator\StandaloneHydratorPluginManager`.
+
+- [#87](https://github.com/zendframework/zend-hydrator/pull/87) modifies `Zend\Hydrator\ConfigProvider` to change the target of the
+  `HydratorManager` alias based on the presence of the zend-servicemanager
+  package; if the package is not available, the target points to
+  `Zend\Hydrator\StandaloneHydratorPluginManager` instead of
+  `Zend\Hydrator\HydratorPluginManager`.
+
+- [#83](https://github.com/zendframework/zend-hydrator/pull/83) renames `Zend\Hydrator\FilterEnabledInterface` to `Zend\Hydrator\Filter\FilterEnabledInterface` (new namespace).
+
+- [#83](https://github.com/zendframework/zend-hydrator/pull/83) renames `Zend\Hydrator\NamingStrategyEnabledInterface` to `Zend\Hydrator\NamingStrategy\NamingStrategyEnabledInterface` (new namespace).
+
+- [#83](https://github.com/zendframework/zend-hydrator/pull/83) renames `Zend\Hydrator\StrategyEnabledInterface` to `Zend\Hydrator\Strategy\StrategyEnabledInterface` (new namespace).
+
+- [#82](https://github.com/zendframework/zend-hydrator/pull/82) and [#85](https://github.com/zendframework/zend-hydrator/pull/85) change `Zend\Hydrator\NamingStrategy\MapNamingStrategy`
+  in the following ways:
+  - The class is now marked `final`.
+  - The constructor is marked private. You can no longer instantiate it directly.
+  - The class offers three new named constructors; one of these MUST be used to
+    create an instance, as the constructor is now final:
+    - `MapNamingStrategy::createFromExtractionMap(array $extractionMap) : MapNamingStrategy`
+      will use the provided extraction map for extraction operations, and flip it
+      for hydration operations.
+    - `MapNamingStrategy::createFromHydrationMap(array $hydrationMap) : MapNamingStrategy`
+      will use the provided hydration map for hydration operations, and flip it
+      for extraction operations.
+    - `MapNamingStrategy::createFromAssymetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy`
+      will use the appropriate map based on the requested operation.
+
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported PHP version to 7.2.
+
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported zend-eventmanager version to 3.2.1. zend-eventmanager
+  is only required if you are using the `AggregateHydrator`.
+
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported zend-serializer version to 2.9.0. zend-serializer is
+  only required if you are using the `SerializableStrategy`.
+
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) bumps the minimum supported zend-servicemanager version to 3.3.2.
+  zend-servicemanager is only required if you are using the
+  `HydratorPluginManager` or `DelegatingHydrator`. This change means that
+  some service names supported by zend-servicemanager v2 will no longer work.
+  When in doubt, use the fully qualified class name, or the class name minus the
+  namespace, with correct casing.
+
+- [#80](https://github.com/zendframework/zend-hydrator/pull/80) adds scalar typehints both to parameters and return values, and object
+  typehints to parameters, wherever possible. For consumers, this should pose no
+  discernable change. **For those implementing interfaces or extending classes
+  from this package, updates will be necessary to ensure your code will run.**
+  [See the migration guide for details](https://docs.zendframework.com/zend-hydrator/v3/migration/).
+
+- [#14](https://github.com/zendframework/zend-hydrator/pull/14) replaces usage of zend-filter with the hardcoded filters referenced in
+  the above section.
+
+- [#14](https://github.com/zendframework/zend-hydrator/pull/14) made the following visibility changes to `\Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy`:
+  - static property `$underscoreToStudlyCaseFilter` was renamed to `$underscoreToCamelCaseFilter` and marked `private`
+  - static property `$camelCaseToUnderscoreFilter` was marked `private`
+  - method `getCamelCaseToUnderscoreFilter` was marked `private`
+  - method `getUnderscoreToStudlyCaseFilter` was renamed to `getUnderscoreToCamelCaseFilter` and marked `private`
+
+### Deprecated
+
+- [#89](https://github.com/zendframework/zend-hydrator/pull/89) and
+  [#93](https://github.com/zendframework/zend-hydrator/pull/93) deprecate the
+  following classes, which will be removed in 4.0.0:
+  - `Zend\Hydrator\ArraySerializable` (becomes `ArraySerializableHydrator`)
+  - `Zend\Hydrator\ClassMethods` (becomes `ClassMethodsHydrator`)
+  - `Zend\Hydrator\ObjectProperty` (becomes `ObjectPropertyHydrator`)
+  - `Zend\Hydrator\Reflection` (becomes `ReflectionHydrator`)
+
+### Removed
+
+- [#83](https://github.com/zendframework/zend-hydrator/pull/83) removes the constructor in `Zend\Hydrator\AbstractHydrator`. All
+  initialization is now either performed via property definitions or lazy-loading.
+
+- [#82](https://github.com/zendframework/zend-hydrator/pull/82) removes `Zend\Hydrator\NamingStrategy\ArrayMapNamingStrategy`. The functionality
+  it provided has been merged into `Zend\Hydrator\NamingStrategy\MapNamingStrategy`;
+  use `MapNamingStrategy::createFromExtractionMap()` to create an instance that
+  has the same functionality as `ArrayMapNamingStrategy` previously provided.
+
+### Fixed
+
+- Nothing.
+
 ## 2.4.1 - 2018-11-19
 
 ### Added

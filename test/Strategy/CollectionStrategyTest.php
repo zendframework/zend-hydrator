@@ -5,17 +5,31 @@
  * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\Hydrator\Strategy;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use stdClass;
+use TypeError;
 use Zend\Hydrator\Exception;
 use Zend\Hydrator\HydratorInterface;
-use Zend\Hydrator\Reflection;
+use Zend\Hydrator\ReflectionHydrator;
 use Zend\Hydrator\Strategy\CollectionStrategy;
 use Zend\Hydrator\Strategy\StrategyInterface;
 use ZendTest\Hydrator\TestAsset;
+
+use function array_map;
+use function count;
+use function fopen;
+use function get_class;
+use function gettype;
+use function is_object;
+use function mt_getrandmax;
+use function mt_rand;
+use function spl_object_hash;
+use function sprintf;
 
 /**
  * Tests for {@see CollectionStrategy}
@@ -40,13 +54,13 @@ class CollectionStrategyTest extends TestCase
      *
      * @param mixed $objectClassName
      */
-    public function testConstructorRejectsInvalidObjectClassName($objectClassName)
-    {
-        $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage(sprintf(
-            'Object class name needs to the name of an existing class, got "%s" instead.',
-            is_object($objectClassName) ? get_class($objectClassName) : gettype($objectClassName)
-        ));
+    public function testConstructorRejectsInvalidObjectClassName(
+        $objectClassName,
+        string $expectedExceptionType,
+        string $expectedExceptionMessage
+    ) {
+        $this->expectException($expectedExceptionType);
+        $this->expectExceptionMessage($expectedExceptionMessage);
 
         new CollectionStrategy(
             $this->createHydratorMock(),
@@ -54,26 +68,21 @@ class CollectionStrategyTest extends TestCase
         );
     }
 
-    /**
-     * @return \Generator
-     */
-    public function providerInvalidObjectClassName()
+    public function providerInvalidObjectClassName() : array
     {
-        $values = [
-            'array'                     => [],
-            'boolean-false'             => false,
-            'boolean-true'              => true,
-            'float'                     => mt_rand() / mt_getrandmax(),
-            'integer'                   => mt_rand(),
-            'null'                      => null,
-            'object'                    => new stdClass(),
-            'resource'                  => fopen(__FILE__, 'r'),
-            'string-non-existent-class' => 'FooBarBaz9000',
+        // @codingStandardsIgnoreStart
+        return [
+            'array'                     => [[], TypeError::class, 'must be of the type string'],
+            'boolean-false'             => [false, TypeError::class, 'must be of the type string'],
+            'boolean-true'              => [true, TypeError::class, 'must be of the type string'],
+            'float'                     => [mt_rand() / mt_getrandmax(), TypeError::class, 'must be of the type string'],
+            'integer'                   => [mt_rand(), TypeError::class, 'must be of the type string'],
+            'null'                      => [null, TypeError::class, 'must be of the type string'],
+            'object'                    => [new stdClass(), TypeError::class, 'must be of the type string'],
+            'resource'                  => [fopen(__FILE__, 'r'), TypeError::class, 'must be of the type string'],
+            'string-non-existent-class' => ['FooBarBaz9000', Exception\InvalidArgumentException::class, 'class name needs to be the name of an existing class'],
         ];
-
-        foreach ($values as $key => $value) {
-            yield $key => [$value];
-        }
+        // @codingStandardsIgnoreEnd
     }
 
     /**
@@ -172,7 +181,9 @@ class CollectionStrategyTest extends TestCase
         ];
 
         $extraction = function (TestAsset\User $value) {
-            return spl_object_hash($value);
+            return [
+                'value' => spl_object_hash($value)
+            ];
         };
 
         $hydrator = $this->createHydratorMock();
@@ -245,7 +256,7 @@ class CollectionStrategyTest extends TestCase
             static $hydrator;
 
             if (null === $hydrator) {
-                $hydrator = new Reflection();
+                $hydrator = new ReflectionHydrator();
             }
 
             return $hydrator->hydrate(

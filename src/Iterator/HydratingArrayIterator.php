@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator\Iterator;
 
@@ -15,18 +15,7 @@ use Zend\Hydrator\HydratorInterface;
 class HydratingArrayIterator extends HydratingIteratorIterator
 {
     /**
-     * @var HydratorInterface
-     */
-    protected $hydrator;
-
-    /**
-     * @var object
-     */
-    protected $prototype;
-
-    /**
-     * @param HydratorInterface $hydrator
-     * @param array $data
+     * @param mixed[]       $data Data being used to hydrate the $prototype
      * @param string|object $prototype Object, or class name to use for prototype.
      */
     public function __construct(HydratorInterface $hydrator, array $data, $prototype)

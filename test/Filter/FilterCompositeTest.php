@@ -1,21 +1,23 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator\Filter;
 
 use PHPUnit\Framework\TestCase;
-use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\Exception\InvalidArgumentException;
+use Zend\Hydrator\Filter\FilterComposite;
 use Zend\Hydrator\Filter\GetFilter;
 use Zend\Hydrator\Filter\HasFilter;
 use Zend\Hydrator\Filter\IsFilter;
 use Zend\Hydrator\Filter\NumberOfParameterFilter;
+
+use function sprintf;
 
 /**
  * Unit tests for {@see FilterComposite}

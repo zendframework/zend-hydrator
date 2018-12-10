@@ -1,68 +1,34 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator;
 
 use PHPUnit\Framework\TestCase;
-use stdClass;
-use InvalidArgumentException;
 use Zend\Hydrator\Reflection;
+use Zend\Hydrator\ReflectionHydrator;
 
-/**
- * Unit tests for {@see Reflection}
- *
- * @covers \Zend\Hydrator\Reflection
- */
 class ReflectionTest extends TestCase
 {
-    use HydratorTestTrait;
-
-    /**
-     * @var Reflection
-     */
-    protected $hydrator;
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function setUp()
+    public function testTriggerUserDeprecatedError()
     {
-        $this->hydrator = new Reflection();
-    }
+        $test = (object) ['message' => false];
 
-    public function testCanExtract()
-    {
-        $this->assertSame([], $this->hydrator->extract(new stdClass()));
-    }
+        set_error_handler(function ($errno, $errstr) use ($test) {
+            $test->message = $errstr;
+            return true;
+        }, E_USER_DEPRECATED);
 
-    public function testCanHydrate()
-    {
-        $object = new stdClass();
+        $hydrator = new Reflection();
+        restore_error_handler();
 
-        $this->assertSame($object, $this->hydrator->hydrate(['foo' => 'bar'], $object));
-    }
-
-    public function testNotStringOrObjectOnExtract()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Input must be a string or an object.');
-
-        $argument = (int) 1;
-        $this->hydrator->extract($argument);
-    }
-
-    public function testNotStringOrObjectOnHydrate()
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Input must be a string or an object.');
-
-        $argument = (int) 1;
-        $this->hydrator->hydrate([ 'foo' => 'bar' ], $argument);
+        $this->assertInstanceOf(ReflectionHydrator::class, $hydrator);
+        $this->assertIsString($test->message);
+        $this->assertContains('is deprecated, please use', $test->message);
     }
 }

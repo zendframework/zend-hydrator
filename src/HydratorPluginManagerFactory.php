@@ -1,33 +1,48 @@
 <?php
 /**
- * @link      http://github.com/zendframework/zend-hydrator for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace Zend\Hydrator;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Zend\ServiceManager\Config;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
-class HydratorPluginManagerFactory implements FactoryInterface
+use function class_exists;
+use function is_array;
+use function sprintf;
+
+class HydratorPluginManagerFactory
 {
     /**
-     * zend-servicemanager v2 support for invocation options.
+     * Create a HydratorPluginManager instance.
      *
-     * @param array
-     */
-    protected $creationOptions;
-
-    /**
-     * {@inheritDoc}
+     * If the `config` service is available, and the top-level key `hydrators`
+     * exists and is an array, that value will be used to configure the plugin
+     * manager. In such cases, the array should follow standard container
+     * configuration.
      *
-     * @return HydratorPluginManager
+     * @see https://docs.zendframework.com/zend-expressive/v3/features/container/config/
+     * @throws Exception\DomainException if zend-servicemanager is not installed.
      */
-    public function __invoke(ContainerInterface $container, $name, array $options = null)
+    public function __invoke(ContainerInterface $container, string $name, ?array $options = []) : HydratorPluginManager
     {
+        if (! class_exists(Config::class)) {
+            throw new Exception\DomainException(sprintf(
+                '%s requires the zendframework/zend-servicemanager package, which is not installed.'
+                . ' If you do not want to install that package, you can use the %s instead;'
+                . ' however, that version does not have support for the "hydrators"'
+                . ' configuration outside of aliases, invokables, and factories. If you'
+                . ' need those features, please install zendframework/zend-servicemanager.',
+                HydratorPluginManager::class,
+                StandaloneHydratorPluginManager::class
+            ));
+        }
+
         $pluginManager = new HydratorPluginManager($container, $options ?: []);
 
         // If this is in a zend-mvc application, the ServiceListener will inject
@@ -52,26 +67,5 @@ class HydratorPluginManagerFactory implements FactoryInterface
         (new Config($config['hydrators']))->configureServiceManager($pluginManager);
 
         return $pluginManager;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return HydratorPluginManager
-     */
-    public function createService(ServiceLocatorInterface $container, $name = null, $requestedName = null)
-    {
-        return $this($container, $requestedName ?: HydratorPluginManager::class, $this->creationOptions);
-    }
-
-    /**
-     * zend-servicemanager v2 support for invocation options.
-     *
-     * @param array $options
-     * @return void
-     */
-    public function setCreationOptions(array $options)
-    {
-        $this->creationOptions = $options;
     }
 }

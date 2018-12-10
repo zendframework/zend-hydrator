@@ -1,11 +1,11 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/zend-hydrator for the canonical source repository
+ * @copyright Copyright (c) 2010-2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/zend-hydrator/blob/master/LICENSE.md New BSD License
  */
+
+declare(strict_types=1);
 
 namespace ZendTest\Hydrator\Aggregate;
 
@@ -39,7 +39,7 @@ class HydratorListenerTest extends TestCase
      */
     protected function setUp()
     {
-        $this->hydrator = $this->createMock('Zend\Hydrator\HydratorInterface');
+        $this->hydrator = $this->createMock(HydratorInterface::class);
         $this->listener = new HydratorListener($this->hydrator);
     }
 
@@ -48,7 +48,7 @@ class HydratorListenerTest extends TestCase
      */
     public function testAttach()
     {
-        $eventManager = $this->createMock('Zend\EventManager\EventManagerInterface');
+        $eventManager = $this->createMock(EventManagerInterface::class);
 
         $eventManager
             ->expects($this->exactly(2))
