@@ -22,7 +22,7 @@
     "require-dev": {
         "phpspec/prophecy": "^1.7.5",
         "phpstan/phpstan": "^0.10.5",
-        "phpunit/phpunit": "^7.4.4",
+        "phpunit/phpunit": "^7.5",
         "zendframework/zend-coding-standard": "~1.0.0",
         "zendframework/zend-eventmanager": "^3.2.1",
         "zendframework/zend-modulemanager": "^2.8",
