@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#97](https://github.com/zendframework/zend-hydrator/pull/97) adds missing `static` keyword to `Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromAsymmetricMap` while fixing misspelling.
 
 ## 3.0.0 - 2018-12-10
 
