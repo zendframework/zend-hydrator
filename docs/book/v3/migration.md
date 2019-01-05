@@ -207,7 +207,7 @@ three "named constructors":
 ```php
 public static function createFromExtractionMap(array $extractionMap) : MapNamingStrategy;
 public static function createFromHydrationMap(array $hydrationMap) : MapNamingStrategy;
-public static function createFromAssymetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy;
+public static function createFromAsymmetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy;
 ```
 
 In the first two cases, the constructor will flip the arrays for purposes of the
