@@ -52,19 +52,6 @@ final class MapNamingStrategy implements NamingStrategyInterface
     /**
      * @param array<string, string> $extractionMap
      * @param array<string, string> $hydrationMap
-     * @deprecated Use createFromAsymmetricMap
-     */
-    public static function createFromAssymetricMap(array $extractionMap, array $hydrationMap) : self
-    {
-        $strategy = new self();
-        $strategy->extractionMap = $extractionMap;
-        $strategy->hydrationMap  = $hydrationMap;
-        return $strategy;
-    }
-
-    /**
-     * @param array<string, string> $extractionMap
-     * @param array<string, string> $hydrationMap
      */
     public static function createFromAsymmetricMap(array $extractionMap, array $hydrationMap) : self
     {
