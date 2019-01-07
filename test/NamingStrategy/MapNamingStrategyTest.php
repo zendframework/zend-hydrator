@@ -124,4 +124,11 @@ class MapNamingStrategyTest extends TestCase
         $strategy = MapNamingStrategy::createFromExtractionMap(['foo' => 'bar']);
         $this->assertEquals('foo', $strategy->hydrate('bar'));
     }
+
+    public function testHydrateAndExtractUseAsymmetricMapProvided()
+    {
+        $strategy = MapNamingStrategy::createFromAsymmetricMap(['foo' => 'bar'], ['bat' => 'baz']);
+        $this->assertEquals('bar', $strategy->extract('foo'));
+        $this->assertEquals('baz', $strategy->hydrate('bat'));
+    }
 }

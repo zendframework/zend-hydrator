@@ -17,7 +17,7 @@ based on the direction:
 - When maps are provided for both extraction and hydration, the appropriate map
   will be used during extraction and hydration operations. You can create an
   instance with this behavior using
-  `MapNamingStrategy::createFromAssymetricMap(array $extractionMap, array $hydrationStrategy) : MapNamingStrategy`.
+  `MapNamingStrategy::createFromAsymmetricMap(array $extractionMap, array $hydrationStrategy) : MapNamingStrategy`.
 
 Most of the time, you will want your maps symmetrical; as such, set either a
 hydration map or an extraction map, but not both.
@@ -60,7 +60,7 @@ echo $namingStrategy->hydrate('bash'); // outputs: baz
 ### Both hydration and extraction maps
 
 ```php
-$namingStrategy = Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromAssymetricMap(
+$namingStrategy = Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromAsymmetricMap(
     [
         'foo' => 'bar',
         'baz' => 'bash'
