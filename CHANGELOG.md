@@ -22,7 +22,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#97](https://github.com/zendframework/zend-hydrator/pull/97) adds missing `static` keyword to `Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromAsymmetricMap` while fixing misspelling.
+- [#97](https://github.com/zendframework/zend-hydrator/pull/97) adds a missing `static` keyword to `Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromAsymmetricMap`,
+  and simultaneously fixes a mis-spelling of the method name (it incorrectly
+  used two "s" characters previously, and only one "m" in "asymmetric"). As the
+  method could not be invoked as documented previously, these changes are
+  considered bugfixes and not BC breaks.
 
 ## 3.0.0 - 2018-12-10
 
