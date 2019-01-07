@@ -24,7 +24,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 3.0.1 - TBD
+## 3.0.1 - 2019-01-07
 
 ### Added
 
@@ -49,6 +49,9 @@ All notable changes to this project will be documented in this file, in reverse 
   used two "s" characters previously, and only one "m" in "asymmetric"). As the
   method could not be invoked as documented previously, these changes are
   considered bugfixes and not BC breaks.
+
+- [#96](https://github.com/zendframework/zend-hydrator/pull/96) fixes issue with integer keys in `ArraySerializableHydrator`. Keys are now
+  cast to strings as we have strict type declaration in the library.
 
 ## 3.0.0 - 2018-12-10
 
