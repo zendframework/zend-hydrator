@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace ZendTest\Hydrator;
 
+use ArrayObject;
 use PHPUnit\Framework\TestCase;
 use TypeError;
 use Zend\Hydrator\ArraySerializableHydrator;
@@ -168,5 +169,18 @@ class ArraySerializableHydratorTest extends TestCase
         $final = $original->getArrayCopy();
 
         $this->assertSame($expected, $final['tags']);
+    }
+
+    public function testExtractArrayObject()
+    {
+        $arrayObject = new ArrayObject([
+            'value1',
+            'value2',
+            'value3',
+        ]);
+
+        $data = $this->hydrator->extract($arrayObject);
+
+        $this->assertSame(['value1', 'value2', 'value3'], $data);
     }
 }
