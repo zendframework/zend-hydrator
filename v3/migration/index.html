@@ -599,7 +599,7 @@ same duties, but in reverse. As such, for version 3, we have merged the two into
 three "named constructors":</p>
 <pre class="codehilite"><code class="language-php">public static function createFromExtractionMap(array $extractionMap) : MapNamingStrategy;
 public static function createFromHydrationMap(array $hydrationMap) : MapNamingStrategy;
-public static function createFromAssymetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy;</code></pre>
+public static function createFromAsymmetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy;</code></pre>
 
 <p>In the first two cases, the constructor will flip the arrays for purposes of the
 opposite interaction; e.g., using <code>createFromExtractionMap()</code> will create a
