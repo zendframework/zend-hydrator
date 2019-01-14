@@ -117,7 +117,7 @@ $artist = $delegating->hydrate($data, new Artist());
 Any data key matching a publicly accessible property will be hydrated; any public properties
 will be used for extraction.
 
-### Zend\\Hydrator\\ReflectionHyrator
+### Zend\\Hydrator\\ReflectionHydrator
 
 Similar to the `ObjectPropertyHydrator`, but uses [PHP's reflection API](http://php.net/manual/en/intro.reflection.php)
 to hydrate or extract properties of any visibility. Any data key matching an
