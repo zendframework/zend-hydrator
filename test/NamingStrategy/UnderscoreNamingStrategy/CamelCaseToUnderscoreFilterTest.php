@@ -94,7 +94,7 @@ class CamelCaseToUnderscoreFilterTest extends TestCase
             ],
             'alphanumeric' => [
                 'one2Three',
-                'one_2_three'
+                'one2_three'
             ],
             'multiple uppercased letters and underscores' => [
                 'TheseAre_SOME_CamelCASEDWords',
@@ -102,7 +102,7 @@ class CamelCaseToUnderscoreFilterTest extends TestCase
             ],
             'alphanumeric multiple up cases' => [
                 'one2THR23ree',
-                'one_2_thr_23_ree'
+                'one2_thr23ree'
             ],
             'lowercased alphanumeric' => [
                 'bfd7b82e9cfceaa82704d1c1Foo',
@@ -124,7 +124,7 @@ class CamelCaseToUnderscoreFilterTest extends TestCase
             ],
             'alphanumeric' => [
                 'one2Three',
-                'one_2_three'
+                'one2_three'
             ],
             'multiple uppercased letters and underscores' => [
                 'TheseAre_SOME_CamelCASEDWords',
@@ -132,7 +132,7 @@ class CamelCaseToUnderscoreFilterTest extends TestCase
             ],
             'alphanumeric multiple up cases' => [
                 'one2THR23ree',
-                'one_2_thr_23_ree'
+                'one2_thr23ree'
             ],
             'unicode' => [
                 'testŠuma',
@@ -154,7 +154,7 @@ class CamelCaseToUnderscoreFilterTest extends TestCase
             ],
             'alphanumeric' => [
                 'one2Three',
-                'one_2_three'
+                'one2_three'
             ],
             'multiple uppercased letters and underscores' => [
                 'TheseAre_SOME_CamelCASEDWords',
@@ -162,7 +162,7 @@ class CamelCaseToUnderscoreFilterTest extends TestCase
             ],
             'alphanumeric multiple up cases' => [
                 'one2THR23ree',
-                'one_2_thr_23_ree'
+                'one2_thr23ree'
             ],
             'unicode uppercase character' => [
                 'testŠuma',
