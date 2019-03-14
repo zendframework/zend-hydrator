@@ -104,6 +104,10 @@ class CamelCaseToUnderscoreFilterTest extends TestCase
                 'one2THR23ree',
                 'one_2_thr_23_ree'
             ],
+            'lowercased alphanumeric' => [
+                'bfd7b82e9cfceaa82704d1c1Foo',
+                'bfd7b82e9cfceaa82704d1c1_foo',
+            ],
         ];
     }
 
