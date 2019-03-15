@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.0.2 - TBD
+## 3.0.2 - 2019-03-15
 
 ### Added
 
@@ -22,7 +22,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#103](https://github.com/zendframework/zend-hydrator/pull/103) restores the original behavior of the UnderscoreNamingStrategy with
+  regards to how numeric characters are treated. In version 2, they were
+  **never** used as word boundaries, while version 3.0 used them as word
+  boundaries in very specific, but hard to predict, scenarios. This release
+  restores the original behavior from version 2.
 
 ## 3.0.1 - 2019-01-07
 
