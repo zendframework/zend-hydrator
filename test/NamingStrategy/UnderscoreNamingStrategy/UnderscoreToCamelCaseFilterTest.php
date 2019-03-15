@@ -53,8 +53,12 @@ class UnderscoreToCamelCaseFilterTest extends TestCase
                 'studly_cases_me',
                 'studlyCasesMe'
             ],
-            'alphanumeric' => [
+            'alphanumeric in single word' => [
                 'one_2_three',
+                'one2Three'
+            ],
+            'alphanumeric in separate words' => [
+                'one2_three',
                 'one2Three'
             ],
         ];
@@ -89,8 +93,12 @@ class UnderscoreToCamelCaseFilterTest extends TestCase
                 'studly_cases_me',
                 'studlyCasesMe'
             ],
-            'alphanumeric' => [
+            'alphanumeric in single word' => [
                 'one_2_three',
+                'one2Three'
+            ],
+            'alphanumeric in separate words' => [
+                'one2_three',
                 'one2Three'
             ],
             'unicode character' => [
@@ -132,8 +140,12 @@ class UnderscoreToCamelCaseFilterTest extends TestCase
                 'studly_cases_me',
                 'studlyCasesMe'
             ],
-            'alphanumeric' => [
+            'alphanumeric in single word' => [
                 'one_2_three',
+                'one2Three'
+            ],
+            'alphanumeric in separate words' => [
+                'one2_three',
                 'one2Three'
             ],
             'uppercase unicode character' => [
