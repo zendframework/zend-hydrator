@@ -1,128 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-    
     <url>
-     <loc>/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
     <url>
-     <loc>/v3/quick-start/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-    
-
-    
-        
     <url>
-     <loc>/v3/filter/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/v3/strategy/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/v3/aggregate/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc></loc>
-     <lastmod></lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/v3/plugin-managers/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/v3/migration/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    
-
-    
-        
     <url>
-     <loc>/v2/quick-start/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc></loc>
-     <lastmod></lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    
-
-    
-        
     <url>
-     <loc>/quick-start/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/filter/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/strategy/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/aggregate/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/naming-strategy/identity-naming-strategy/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/naming-strategy/map-naming-strategy/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/naming-strategy/underscore-naming-strategy/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
     <url>
-     <loc>/naming-strategy/composite-naming-strategy/</loc>
-     <lastmod>2019-04-17</lastmod>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    
-
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-04-18</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
 </urlset>
