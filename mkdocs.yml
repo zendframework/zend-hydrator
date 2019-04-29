@@ -1,20 +1,26 @@
 docs_dir: docs/book
 site_dir: docs/html
+extra:
+  current_version: v3
+  versions:
+    - v3
+    - v2
 pages:
     - Home: index.md
-    - "Quick Start": v3/quick-start.md
-    - Reference:
-      - "Filters": v3/filter.md
-      - "Strategies": v3/strategy.md
-      - "Aggregates": v3/aggregate.md
-      - "Naming Strategies":
-        - "Introduction": v3/naming-strategy/intro.md
-        - "Identity": v3/naming-strategy/identity-naming-strategy.md
-        - "Mapping": v3/naming-strategy/map-naming-strategy.md
-        - "Underscore Mapping": v3/naming-strategy/underscore-naming-strategy.md
-        - "Composite": v3/naming-strategy/composite-naming-strategy.md
-      - "Plugin Managers": v3/plugin-managers.md
-      - Migration: v3/migration.md
+    - v3:
+      - "Quick Start": v3/quick-start.md
+      - Reference:
+        - "Filters": v3/filter.md
+        - "Strategies": v3/strategy.md
+        - "Aggregates": v3/aggregate.md
+        - "Naming Strategies":
+          - "Introduction": v3/naming-strategy/intro.md
+          - "Identity": v3/naming-strategy/identity-naming-strategy.md
+          - "Mapping": v3/naming-strategy/map-naming-strategy.md
+          - "Underscore Mapping": v3/naming-strategy/underscore-naming-strategy.md
+          - "Composite": v3/naming-strategy/composite-naming-strategy.md
+        - "Plugin Managers": v3/plugin-managers.md
+        - Migration: v3/migration.md
     - v2:
         - "Quick Start": v2/quick-start.md
         - Reference:
