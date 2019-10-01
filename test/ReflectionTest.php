@@ -29,6 +29,6 @@ class ReflectionTest extends TestCase
 
         $this->assertInstanceOf(ReflectionHydrator::class, $hydrator);
         $this->assertIsString($test->message);
-        $this->assertContains('is deprecated, please use', $test->message);
+        $this->assertStringContainsString('is deprecated, please use', $test->message);
     }
 }

@@ -26,7 +26,6 @@ class HydratorPluginManagerFactoryTest extends TestCase
 
         $hydrators = $factory($container, HydratorPluginManagerFactory::class);
         $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
-        $this->assertAttributeSame($container, 'creationContext', $hydrators);
     }
 
     /**

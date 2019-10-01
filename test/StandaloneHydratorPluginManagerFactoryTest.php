@@ -31,7 +31,7 @@ class StandaloneHydratorPluginManagerFactoryTest extends TestCase
 {
     private const MESSAGE_DEFAULT_SERVICES = 'Missing the service %s';
 
-    public function setUp()
+    protected function setUp() : void
     {
         $this->factory   = new StandaloneHydratorPluginManagerFactory();
         $this->container = $this->prophesize(ContainerInterface::class);

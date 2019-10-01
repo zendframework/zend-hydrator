@@ -41,7 +41,7 @@ class DelegatingHydratorTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->hydrators = $this->prophesize(ContainerInterface::class);
         $this->hydrator = new DelegatingHydrator($this->hydrators->reveal());

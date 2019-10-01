@@ -25,4 +25,9 @@ class ObjectProperty
         $this->quo = "blubb";
         $this->quin = 'five';
     }
+
+    public function get(string $name)
+    {
+        return $this->$name;
+    }
 }
