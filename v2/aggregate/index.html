@@ -342,12 +342,11 @@ that in subsequent steps.</p>
 <h2 id="installation-requirements">Installation requirements</h2>
 <p>The <code>AggregateHydrator</code> depends on the zend-eventmanager component, so be sure to have it
 installed before getting started:</p>
-<pre class="codehilite"><code class="language-bash">$ composer require zendframework/zend-eventmanager</code></pre>
-
+<p> <pre class=codehilite><code class=language-bash>$ composer require zendframework/zend-eventmanager</code></pre></p>
 <h2 id="basic-usage">Basic usage</h2>
 <p>A simple use case may be hydrating a <code>BlogPost</code> object, which contains data for the user that
 created it, the time it was created, the current publishing status, etc:</p>
-<pre class="codehilite"><code class="language-php">use Zend\Hydrator\Aggregate\AggregateHydrator;
+<p> <pre class=codehilite><code class=language-php>use Zend\Hydrator\Aggregate\AggregateHydrator;
 
 $hydrator = new AggregateHydrator();
 
@@ -365,10 +364,9 @@ $hydrator-&gt;add(new My\PublishableObjectHydrator());
 $data = $hydrator-&gt;extract($blogPost);
 
 // or you can fill the object with complex data
-$blogPost = $hydrator-&gt;hydrate($data, $blogPost);</code></pre>
-
+$blogPost = $hydrator-&gt;hydrate($data, $blogPost);</code></pre></p>
 <blockquote>
-<h3 id="hydrator-priorities">Hydrator priorities</h3>
+<h3>Hydrator priorities</h3>
 <p><code>AggregateHydrator::add</code> has a second optional argument, <code>$priority</code>. If you
 have two or more hydrators that conflict with each other for same data keys,
 you may decide which one to execute first or last by passing a higher or lower
@@ -376,7 +374,7 @@ integer priority, respectively, to this argument.</p>
 </blockquote>
 <p>In order to work with this logic, each of the hydrators that are attached should
 ignore any unknown object type passed in:</p>
-<pre class="codehilite"><code class="language-php">namespace My;
+<p> <pre class=codehilite><code class=language-php>namespace My;
 
 use Zend\Hydrator\HydratorInterface
 
@@ -399,8 +397,7 @@ class BlogPostHydrator implements HydratorInterface
 
         // ... continue extraction ...
     }
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="advanced-use-cases">Advanced use cases</h2>
 <p>Since the <code>AggregateHydrator</code> is event-driven, you can use the <code>EventManager</code>
 API to tweak its behaviour.</p>
@@ -413,7 +410,7 @@ API to tweak its behaviour.</p>
 </ul>
 <p>In the following example, a cache listener is introduced to speed up hydration, which can be
 very useful when the same data is requested multiple times:</p>
-<pre class="codehilite"><code class="language-php">use Zend\Hydrator\Aggregate\AggregateHydrator;
+<p> <pre class=codehilite><code class=language-php>use Zend\Hydrator\Aggregate\AggregateHydrator;
 use Zend\Hydrator\Aggregate\ExtractEvent;
 use Zend\Cache\Storage\Adapter\Memory;
 
@@ -455,8 +452,7 @@ $eventManager = $hydrator-&gt;getEventManager();
 $eventManager()-&gt;attach(ExtractEvent::EVENT_EXTRACT, $cacheReadListener, 1000);
 
 // Attaching a low priority listener executed after extraction logic:
-$eventManager()-&gt;attach(ExtractEvent::EVENT_EXTRACT, $cacheWriteListener, -1000);</code></pre>
-
+$eventManager()-&gt;attach(ExtractEvent::EVENT_EXTRACT, $cacheWriteListener, -1000);</code></pre></p>
 <p>With an aggregate hydrator configured in this way, any
 <code>$hydrator-&gt;extract($blogPost)</code> operation will be cached.</p>
 
@@ -492,7 +488,7 @@ $eventManager()-&gt;attach(ExtractEvent::EVENT_EXTRACT, $cacheWriteListener, -10
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v2/aggregate.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v2/aggregate.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

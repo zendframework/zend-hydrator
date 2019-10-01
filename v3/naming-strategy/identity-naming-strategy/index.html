@@ -346,13 +346,12 @@
 <p><code>Zend\Hydrator\NamingStrategy\IdentityNamingStrategy</code> uses the keys provided to
 it for hydration and extraction.</p>
 <h2 id="basic-usage">Basic Usage</h2>
-<pre class="codehilite"><code class="language-php">$namingStrategy = new Zend\Hydrator\NamingStrategy\IdentityNamingStrategy();
+<p> <pre class=codehilite><code class=language-php>$namingStrategy = new Zend\Hydrator\NamingStrategy\IdentityNamingStrategy();
 
 echo $namingStrategy-&gt;hydrate('foo'); // outputs: foo
-echo $namingStrategy-&gt;extract('bar'); // outputs: bar</code></pre>
-
+echo $namingStrategy-&gt;extract('bar'); // outputs: bar</code></pre></p>
 <p>This strategy can be used in hydrators as well:</p>
-<pre class="codehilite"><code class="language-php">class Foo
+<p> <pre class=codehilite><code class=language-php>class Foo
 {
     public $foo;
 }
@@ -365,7 +364,7 @@ $foo = new Foo();
 $hydrator-&gt;hydrate(array('foo' =&gt; 123), $foo);
 
 print_r($foo); // Foo Object ( [foo] =&gt; 123 )
-print_r($hydrator-&gt;extract($foo)); // Array ( [foo] =&gt; 123 )</code></pre>
+print_r($hydrator-&gt;extract($foo)); // Array ( [foo] =&gt; 123 )</code></pre></p>
 
 
 
@@ -399,7 +398,7 @@ print_r($hydrator-&gt;extract($foo)); // Array ( [foo] =&gt; 123 )</code></pre>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v3/naming-strategy/identity-naming-strategy.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/naming-strategy/identity-naming-strategy.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

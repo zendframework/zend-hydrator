@@ -355,7 +355,7 @@ operation.  This is especially useful, if you want to omit some internals (e.g.
 common use cases. The filters are composed in the <code>AbstractHydrator</code>, so you can
 start using them immediately in any custom extensions you write that extend that
 class.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator\Filter;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator\Filter;
 
 interface FilterInterface
 {
@@ -363,31 +363,30 @@ interface FilterInterface
      * Should return true, if the given filter does not match.
      */
     public function filter(string $property) : bool;
-}</code></pre>
-
+}</code></pre></p>
 <p>If it returns true, the key/value pairs will be in the extracted arrays - if it
 returns false, you'll not see them again.</p>
 <h2 id="filter-implementations">Filter implementations</h2>
-<h3 id="zend92hydrator92filter92getfilter">Zend\Hydrator\Filter\GetFilter</h3>
+<h3>Zend\Hydrator\Filter\GetFilter</h3>
 <p>This filter is used in the <code>ClassMethodsHydrator</code> to decide which getters will
 be extracted. It checks if the key to extract starts with <code>get</code> or the object
 contains a method beginning with <code>get</code> (e.g., <code>Zend\Foo\Bar::getFoo</code>).</p>
-<h3 id="zend92hydrator92filter92hasfilter">Zend\Hydrator\Filter\HasFilter</h3>
+<h3>Zend\Hydrator\Filter\HasFilter</h3>
 <p>This filter is used in the <code>ClassMethodsHydrator</code> to decide which <code>has</code> methods
 will be extracted. It checks if the key to extract begins with <code>has</code> or the
 object contains a method beginning with <code>has</code> (e.g., <code>Zend\Foo\Bar::hasFoo</code>).</p>
-<h3 id="zend92hydrator92filter92isfilter">Zend\Hydrator\Filter\IsFilter</h3>
+<h3>Zend\Hydrator\Filter\IsFilter</h3>
 <p>This filter is used in the <code>ClassMethodsHydrator</code> to decide which <code>is</code> methods
 will be extracted. It checks if the key to extract begins with <code>is</code> or the
 object contains a method beginning with <code>is</code> (e.g., <code>Zend\Foo\Bar::isFoo</code>).</p>
-<h3 id="zend92hydrator92filter92methodmatchfilter">Zend\Hydrator\Filter\MethodMatchFilter</h3>
+<h3>Zend\Hydrator\Filter\MethodMatchFilter</h3>
 <p>This filter allows you to omit methods during extraction that match the
 condition defined in the composite.  The name of the method is specified in the
 constructor of this filter; the second parameter decides whether to use white or
 blacklisting to decide (whitelisting retains only the matching method, blacklist
 omits any matching method). The default is blacklisting - pass <code>false</code> to change
 the behavior.</p>
-<h3 id="zend92hydrator92filter92numberofparameterfilter">Zend\Hydrator\Filter\NumberOfParameterFilter</h3>
+<h3>Zend\Hydrator\Filter\NumberOfParameterFilter</h3>
 <p>This filter is used in the <code>ClassMethodsHydrator</code> to check the number of
 parameters. By convention, the <code>get</code>, <code>has</code> and <code>is</code> methods do not get any
 parameters - but it may happen. You can add your own number of required
@@ -400,25 +399,24 @@ regular filter to the hydrator. One benefit of this implementation is that you
 can add the filters with a condition and accomplish complex requirements using
 different filters with different conditions. You can pass the following
 conditions to the 3rd parameter, when you add a filter:</p>
-<h3 id="zend92hydrator92filter92filtercompositecondition95or">Zend\Hydrator\Filter\FilterComposite::CONDITION_OR</h3>
+<h3>Zend\Hydrator\Filter\FilterComposite::CONDITION_OR</h3>
 <p>At the given level of the composite, at least one filter set using
 <code>CONDITION_OR</code> must return true to extract the value.</p>
-<h3 id="zend92hydrator92filter92filtercompositecondition95and">Zend\Hydrator\Filter\FilterComposite::CONDITION_AND</h3>
+<h3>Zend\Hydrator\Filter\FilterComposite::CONDITION_AND</h3>
 <p>At the given level of the composite, <strong>all</strong> filters set using <code>CONDITION_AND</code>
 must return true to extract the value.</p>
-<h3 id="filtercomposite-examples">FilterComposite Examples</h3>
+<h3>FilterComposite Examples</h3>
 <p>To illustrate how conditions apply when composing filters, consider the
 following set of filters:</p>
-<pre class="codehilite"><code class="language-php">$composite = new FilterComposite();
+<p> <pre class=codehilite><code class=language-php>$composite = new FilterComposite();
 
 $composite-&gt;addFilter('one', $condition1);
 $composite-&gt;addFilter('two', $condition2);
 $composite-&gt;addFilter('three', $condition3);
 $composite-&gt;addFilter('four', $condition4, FilterComposite::CONDITION_AND);
-$composite-&gt;addFilter('five', $condition5, FilterComposite::CONDITION_AND);</code></pre>
-
+$composite-&gt;addFilter('five', $condition5, FilterComposite::CONDITION_AND);</code></pre></p>
 <p>The above is roughly equivalent to the following conditional:</p>
-<pre class="codehilite"><code>// This is what's happening internally
+<p> <pre class=codehilite><code>// This is what's happening internally
 if (
      ($condition1
         || $condition2
@@ -428,12 +426,11 @@ if (
      )
 ) {
     // do extraction
-}</code></pre>
-
+}</code></pre></p>
 <p>If you only have one condition block (e.g., only <code>AND</code> or <code>OR</code> filters), the
 other condition type will be completely ignored.</p>
 <p>A bit more complex filter can look like this:</p>
-<pre class="codehilite"><code class="language-php">$composite = new FilterComposite();
+<p> <pre class=codehilite><code class=language-php>$composite = new FilterComposite();
 $composite-&gt;addFilter(
     'servicemanager',
     new MethodMatchFilter('getServiceManager'),
@@ -461,14 +458,13 @@ if (( // default composite inside the ClassMethodsHydrator:
    )
 ) {
     // do extraction
-}</code></pre>
-
+}</code></pre></p>
 <p>If you perform this on the <code>ClassMethodsHydrator</code>, all getters will get
 extracted, except for <code>getServiceManager()</code> and <code>getEventManager()</code>.</p>
 <h2 id="using-the-provider-interface">Using the provider interface</h2>
 <p><code>Zend\Hydrator\Filter\FilterProviderInterface</code> allows you to configure the
 behavior of the hydrator inside your objects.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator\Filter;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator\Filter;
 
 interface FilterProviderInterface
 {
@@ -478,13 +474,12 @@ interface FilterProviderInterface
      * @return FilterInterface
      */
     public function getFilter();
-}</code></pre>
-
+}</code></pre></p>
 <p>(The <code>getFilter()</code> method is automatically excluded from <code>extract()</code>.) If the
 extracted object implements the <code>Zend\Hydrator\Filter\FilterProviderInterface</code>,
 the returned <code>FilterInterface</code> instance can also be a <code>FilterComposite</code>.</p>
 <p>For example:</p>
-<pre class="codehilite"><code class="language-php">Class Foo implements FilterProviderInterface
+<p> <pre class=codehilite><code class=language-php>Class Foo implements FilterProviderInterface
 {
      public function getFoo()
      {
@@ -530,19 +525,18 @@ the returned <code>FilterInterface</code> instance can also be a <code>FilterCom
 }
 
 $hydrator = new ClassMethodsHydrator(false);
-$extractedArray = $hydrator-&gt;extract(new Foo());</code></pre>
-
+$extractedArray = $hydrator-&gt;extract(new Foo());</code></pre></p>
 <p><code>$extractedArray</code> will only have 'foo' =&gt; 'foo'; all other values are
 excluded from extraction.</p>
 <blockquote>
-<h3 id="note">Note</h3>
+<h3>Note</h3>
 <p>All pre-registered filters from the <code>ClassMethodsHydrator</code> hydrator are ignored when
 this interface is used. More on those methods below.</p>
 </blockquote>
 <h2 id="filter-enabled-hydrators-and-the-composite-filter">Filter-enabled hydrators and the composite filter</h2>
 <p>Hydrators can indicate they are filter-enabled by implementing
 <code>Zend\Hydrator\Filter\FilterEnabledInterface</code>:</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator\Filter;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator\Filter;
 
 interface FilterEnabledInterface extends FilterProviderInterface
 {
@@ -552,7 +546,7 @@ interface FilterEnabledInterface extends FilterProviderInterface
      *
      * &lt;code&gt;
      * $composite-&gt;addFilter(
-     *     "servicelocator",
+     *     &quot;servicelocator&quot;,
      *     function ($property) {
      *         [$class, $method] = explode('::', $property, 2);
      *         return $method !== 'getServiceLocator';
@@ -576,15 +570,14 @@ interface FilterEnabledInterface extends FilterProviderInterface
     /**
      * Remove a filter from the composition.
      *
-     * To not extract "has" methods, you simply need to unregister it
+     * To not extract &quot;has&quot; methods, you simply need to unregister it
      *
      * &lt;code&gt;
      * $filterComposite-&gt;removeFilter('has');
      * &lt;/code&gt;
      */
     public function removeFilter(string $name) : void;
-}</code></pre>
-
+}</code></pre></p>
 <blockquote>
 <p>Note that the interface extends <code>FilterProviderInterface</code>, which means it also
 includes the <code>getFilter()</code> method.</p>
@@ -597,46 +590,41 @@ by a <code>Zend\Hydrator\Filter\FilterComposite</code>; the various <code>addFil
 built, implements <code>FilterEnabledInterface</code>. Of the hydrators shipped, only one,
 <code>ClassMethodsHydrator</code>, defines any filters from the outset. Its constructor
 includes the following:</p>
-<pre class="codehilite"><code class="language-php">$this-&gt;filterComposite-&gt;addFilter('is', new IsFilter());
+<p> <pre class=codehilite><code class=language-php>$this-&gt;filterComposite-&gt;addFilter('is', new IsFilter());
 $this-&gt;filterComposite-&gt;addFilter('has', new HasFilter());
 $this-&gt;filterComposite-&gt;addFilter('get', new GetFilter());
 $this-&gt;filterComposite-&gt;addFilter(
     'parameter',
     new NumberOfParameterFilter(),
     FilterComposite::CONDITION_AND
-);</code></pre>
-
-<h3 id="remove-filters">Remove filters</h3>
+);</code></pre></p>
+<h3>Remove filters</h3>
 <p>If you want to tell a filter-enabled hydrator such as <code>ClassMethodsHydrator</code> not
 to extract methods that start with <code>is</code>, remove the related filter:</p>
-<pre class="codehilite"><code class="language-php">$hydrator = new ClassMethodsHydrator(false);
-$hydrator-&gt;removeFilter('is');</code></pre>
-
+<p> <pre class=codehilite><code class=language-php>$hydrator = new ClassMethodsHydrator(false);
+$hydrator-&gt;removeFilter('is');</code></pre></p>
 <p>After performing the above, the key/value pairs for <code>is</code> methods will no longer
 end up in your extracted array.</p>
-<h3 id="add-filters">Add filters</h3>
+<h3>Add filters</h3>
 <p>You can add filters using the <code>addFilter()</code> method. Filters can either implement
 <code>FilterInterface</code>, or simply be PHP callables:</p>
-<pre class="codehilite"><code class="language-php">$hydrator-&gt;addFilter('len', function($property) {
+<p> <pre class=codehilite><code class=language-php>$hydrator-&gt;addFilter('len', function($property) {
     return strlen($property) === 3;
-});</code></pre>
-
+});</code></pre></p>
 <p>By default, every filter you add will be added with a conditional <code>OR</code>. If you
 want to add it with <code>AND</code> (such as the <code>ClassMethodsHydrator</code> does with its
 composed <code>NumberOfParameterFilter</code>, demonstrated above) provide the conditon as
 the third argument to <code>addFilter</code>:</p>
-<pre class="codehilite"><code class="language-php">$hydrator-&gt;addFilter('len', function($property) {
+<p> <pre class=codehilite><code class=language-php>$hydrator-&gt;addFilter('len', function($property) {
     return strlen($property) === 3;
-}, FilterComposite::CONDITION_AND);</code></pre>
-
+}, FilterComposite::CONDITION_AND);</code></pre></p>
 <p>One common use case for filters is to omit getters for values that you do not
 want to represent, such as a service manager instance:</p>
-<pre class="codehilite"><code class="language-php">$hydrator-&gt;addFilter(
+<p> <pre class=codehilite><code class=language-php>$hydrator-&gt;addFilter(
     'servicemanager',
     new MethodMatchFilter('getServiceManager'),
     FilterComposite::CONDITION_AND
-);</code></pre>
-
+);</code></pre></p>
 <p>The example above will exclude the <code>getServiceManager()</code> method and the
 <code>servicemanager</code> key from extraction, even if the <code>get</code> filter wants to add it.</p>
 
@@ -672,7 +660,7 @@ want to represent, such as a service manager instance:</p>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v3/filter.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/filter.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

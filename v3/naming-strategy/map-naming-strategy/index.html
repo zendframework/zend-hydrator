@@ -373,8 +373,8 @@ based on the direction:</p>
 <p>Most of the time, you will want your maps symmetrical; as such, set either a
 hydration map or an extraction map, but not both.</p>
 <h2 id="creating-maps">Creating maps</h2>
-<h3 id="hydration-map-only">Hydration map only</h3>
-<pre class="codehilite"><code class="language-php">$namingStrategy = Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromHydrationMap(
+<h3>Hydration map only</h3>
+<p> <pre class=codehilite><code class=language-php>$namingStrategy = Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromHydrationMap(
     [
         'foo' =&gt; 'bar',
         'baz' =&gt; 'bash'
@@ -384,10 +384,9 @@ echo $namingStrategy-&gt;extract('bar'); // outputs: foo
 echo $namingStrategy-&gt;extract('bash'); // outputs: baz
 
 echo $namingStrategy-&gt;hydrate('foo'); // outputs: bar
-echo $namingStrategy-&gt;hydrate('baz'); // outputs: bash</code></pre>
-
-<h3 id="extraction-map-only">Extraction map only</h3>
-<pre class="codehilite"><code class="language-php">$namingStrategy = Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromExtractionMap(
+echo $namingStrategy-&gt;hydrate('baz'); // outputs: bash</code></pre></p>
+<h3>Extraction map only</h3>
+<p> <pre class=codehilite><code class=language-php>$namingStrategy = Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromExtractionMap(
     null, // no hydration map
     [
         'foo' =&gt; 'bar',
@@ -398,10 +397,9 @@ echo $namingStrategy-&gt;extract('foo'); // outputs: bar
 echo $namingStrategy-&gt;extract('baz'); // outputs: bash
 
 echo $namingStrategy-&gt;hydrate('bar'); // outputs: foo
-echo $namingStrategy-&gt;hydrate('bash'); // outputs: baz</code></pre>
-
-<h3 id="both-hydration-and-extraction-maps">Both hydration and extraction maps</h3>
-<pre class="codehilite"><code class="language-php">$namingStrategy = Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromAsymmetricMap(
+echo $namingStrategy-&gt;hydrate('bash'); // outputs: baz</code></pre></p>
+<h3>Both hydration and extraction maps</h3>
+<p> <pre class=codehilite><code class=language-php>$namingStrategy = Zend\Hydrator\NamingStrategy\MapNamingStrategy::createFromAsymmetricMap(
     [
         'foo' =&gt; 'bar',
         'baz' =&gt; 'bash'
@@ -415,11 +413,10 @@ echo $namingStrategy-&gt;extract('foo'); // outputs: bar
 echo $namingStrategy-&gt;extract('baz'); // outputs: bash
 
 echo $namingStrategy-&gt;hydrate('is_bar'); // outputs: foo
-echo $namingStrategy-&gt;hydrate('bashable'); // outputs: baz</code></pre>
-
+echo $namingStrategy-&gt;hydrate('bashable'); // outputs: baz</code></pre></p>
 <h2 id="mapping-keys-for-hydrators">Mapping keys for hydrators</h2>
 <p>This strategy can be used in hydrators to dictate how keys should be mapped:</p>
-<pre class="codehilite"><code class="language-php">class Foo
+<p> <pre class=codehilite><code class=language-php>class Foo
 {
     public $bar;
 }
@@ -435,7 +432,7 @@ $foo = new Foo();
 $hydrator-&gt;hydrate(['foo' =&gt; 123], $foo);
 
 print_r($foo); // Foo Object ( [bar] =&gt; 123 )
-print_r($hydrator-&gt;extract($foo)); // Array ( "foo" =&gt; 123 )</code></pre>
+print_r($hydrator-&gt;extract($foo)); // Array ( &quot;foo&quot; =&gt; 123 )</code></pre></p>
 
 
 
@@ -469,7 +466,7 @@ print_r($hydrator-&gt;extract($foo)); // Array ( "foo" =&gt; 123 )</code></pre>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v3/naming-strategy/map-naming-strategy.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/naming-strategy/map-naming-strategy.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

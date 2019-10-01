@@ -363,20 +363,20 @@
 <p>This document details changes made between version 2 and version 3 that could
 affect end-users.</p>
 <h2 id="minimum-supported-versions">Minimum supported versions</h2>
-<h3 id="php">PHP</h3>
+<h3>PHP</h3>
 <p>Version 3 bumps the minimum supported PHP version to version 7.2. We chose this
 version in particular as it provides the <code>object</code> typehint, which allows us to
 enforce at the engine level what we were previously enforcing only at the
 documentation level.</p>
 <p>Additionally, we have enabled strict types in all class files shipped with this
 component.</p>
-<h3 id="zend-eventmanager">zend-eventmanager</h3>
+<h3>zend-eventmanager</h3>
 <p>The minimum supported version of zend-eventmanager (used by the
 <code>AggregateHydrator</code>)is now 3.2.1.</p>
-<h3 id="zend-serializer">zend-serializer</h3>
+<h3>zend-serializer</h3>
 <p>The minimum supported version of zend-serializer (used by the
 <code>SerializableStrategy</code>) is now 2.9.0.</p>
-<h3 id="zend-servicemanager">zend-servicemanager</h3>
+<h3>zend-servicemanager</h3>
 <p>The minimum supported version of zend-servicemanager (used by the
 <code>HydratorPluginManager</code>) is now 3.3.2.</p>
 <h2 id="renamed-interfaces">Renamed interfaces</h2>
@@ -603,10 +603,9 @@ typehints:</p>
 same duties, but in reverse. As such, for version 3, we have merged the two into
 <code>MapNamingStrategy</code>. To accommodate the three different use cases, we provide
 three "named constructors":</p>
-<pre class="codehilite"><code class="language-php">public static function createFromExtractionMap(array $extractionMap) : MapNamingStrategy;
+<p> <pre class=codehilite><code class=language-php>public static function createFromExtractionMap(array $extractionMap) : MapNamingStrategy;
 public static function createFromHydrationMap(array $hydrationMap) : MapNamingStrategy;
-public static function createFromAsymmetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy;</code></pre>
-
+public static function createFromAsymmetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy;</code></pre></p>
 <p>In the first two cases, the constructor will flip the arrays for purposes of the
 opposite interaction; e.g., using <code>createFromExtractionMap()</code> will create a
 hydration map based on an <code>array_flip()</code> of the extraction map provided.</p>
@@ -656,7 +655,7 @@ See the <a href="../plugin-managers/">plugin managers chapter</a> for more detai
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v3/migration.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/migration.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

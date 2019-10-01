@@ -337,7 +337,7 @@
 keys to use when hydrating and extracting; the map will translate the key based
 on the direction.</p>
 <h2 id="basic-usage">Basic Usage</h2>
-<pre class="codehilite"><code class="language-php">$namingStrategy = new Zend\Hydrator\NamingStrategy\MapNamingStrategy(array(
+<p> <pre class=codehilite><code class=language-php>$namingStrategy = new Zend\Hydrator\NamingStrategy\MapNamingStrategy(array(
     'foo' =&gt; 'bar',
     'baz' =&gt; 'bash'
 ));
@@ -345,10 +345,9 @@ echo $namingStrategy-&gt;hydrate('foo'); // outputs: bar
 echo $namingStrategy-&gt;hydrate('baz'); // outputs: bash
 
 echo $namingStrategy-&gt;extract('bar'); // outputs: foo
-echo $namingStrategy-&gt;extract('bash'); // outputs: baz</code></pre>
-
+echo $namingStrategy-&gt;extract('bash'); // outputs: baz</code></pre></p>
 <p>This strategy can be used in hydrators to dictate how keys should be mapped:</p>
-<pre class="codehilite"><code class="language-php">class Foo
+<p> <pre class=codehilite><code class=language-php>class Foo
 {
     public $bar;
 }
@@ -364,7 +363,7 @@ $foo = new Foo();
 $hydrator-&gt;hydrate(['foo' =&gt; 123], $foo);
 
 print_r($foo); // Foo Object ( [bar] =&gt; 123 )
-print_r($hydrator-&gt;extract($foo)); // Array ( [foo] =&gt; 123 )</code></pre>
+print_r($hydrator-&gt;extract($foo)); // Array ( [foo] =&gt; 123 )</code></pre></p>
 
 
 
@@ -398,7 +397,7 @@ print_r($hydrator-&gt;extract($foo)); // Array ( [foo] =&gt; 123 )</code></pre>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v2/naming-strategy/map-naming-strategy.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v2/naming-strategy/map-naming-strategy.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

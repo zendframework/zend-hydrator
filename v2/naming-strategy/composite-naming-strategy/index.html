@@ -333,7 +333,7 @@ strategy should be used for each key encountered during hydration or extraction.
 <p>When invoked, the following composite strategy will extract the property <code>bar</code>
 to the array key <code>foo</code> (using the <code>MapNamingStrategy</code>), and the property
 <code>barBat</code> to the array key <code>bar_bat</code> (using the <code>UnderscoreNamingStrategy</code>):</p>
-<pre class="codehilite"><code class="language-php">class Foo
+<p> <pre class=codehilite><code class=language-php>class Foo
 {
     public $bar;
     public $barBat;
@@ -358,12 +358,11 @@ $foo-&gt;bar = 123;
 $foo-&gt;barBat = 42;
 
 print_r($foo); // Foo Object ( [bar] =&gt; 123 [barBat] =&gt; 42 )
-print_r($hydrator-&gt;extract($foo)); // Array ( [foo] =&gt; 123 [bar_bat] =&gt; 42 )</code></pre>
-
+print_r($hydrator-&gt;extract($foo)); // Array ( [foo] =&gt; 123 [bar_bat] =&gt; 42 )</code></pre></p>
 <p>Unfortunately, the <code>CompositeNamingStrategy</code> can only be used for extraction as it will not know how
 to handle the keys necessary for hydration (<code>foo</code> and <code>bar_bat</code>, respectively). To rectify this we
 have to cover the keys for both hydration and extraction in our composite strategy:</p>
-<pre class="codehilite"><code class="language-php">class Foo
+<p> <pre class=codehilite><code class=language-php>class Foo
 {
     public $bar;
     public $barBat;
@@ -399,7 +398,7 @@ print_r($array); // Array ( [foo] =&gt; 123 [bar_bat] =&gt; 42 )
 $foo2 = new Foo();
 $hydrator-&gt;hydrate($array, $foo2);
 
-print_r($foo2); // Foo Object ( [bar] =&gt; 123 [barBat] =&gt; 42 )</code></pre>
+print_r($foo2); // Foo Object ( [bar] =&gt; 123 [barBat] =&gt; 42 )</code></pre></p>
 
 
 
@@ -433,7 +432,7 @@ print_r($foo2); // Foo Object ( [bar] =&gt; 123 [barBat] =&gt; 42 )</code></pre>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v2/naming-strategy/composite-naming-strategy.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v2/naming-strategy/composite-naming-strategy.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

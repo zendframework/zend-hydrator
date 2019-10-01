@@ -385,7 +385,7 @@ initial versions. The <code>HydratorPluginManager</code> extends the zend-servic
   the <code>Zend\Hydrator\DelegatingHydratorFactory</code>.</li>
 <li>No services are shared; a new instance is created each time you call <code>get()</code>.</li>
 </ul>
-<h3 id="hydratorpluginmanagerfactory">HydratorPluginManagerFactory</h3>
+<h3>HydratorPluginManagerFactory</h3>
 <p><code>Zend\Hydrator\HydratorPluginManager</code> is mapped to the factory
 <code>Zend\Hydrator\HydratorPluginManagerFactory</code> when wired to the dependency
 injection container.</p>
@@ -396,7 +396,7 @@ should map to an array that follows <a href="https://docs.zendframework.com/zend
 <p><code>Zend\Hydrator\StandaloneHydratorPluginManager</code> provides an implementation that
 has no dependencies on other libraries. <strong>It can only load the hydrators shipped
 with zend-hydrator</strong>.</p>
-<h3 id="standardhydratorpluginmanagerfactory">StandardHydratorPluginManagerFactory</h3>
+<h3>StandardHydratorPluginManagerFactory</h3>
 <p><code>Zend\Hydrator\StandardHydratorPluginManager</code> is mapped to the factory
 <code>Zend\Hydrator\StandardHydratorPluginManagerFactory</code> when wired to the dependency
 injection container.</p>
@@ -414,7 +414,7 @@ your application, you should write a custom implementation of
 <p>As an example, if you want a configurable solution that uses factories, and want
 those factories capable of pulling application-level dependencies, you might do
 something like the following:</p>
-<pre class="codehilite"><code class="language-php">// In src/YourApplication/CustomHydratorPluginManager.php:
+<div class=md-fenced-code-tabs id=tab-tab-group-0><ul class="nav nav-tabs"><li class="nav-item active"><a href=#tab-group-0-0_php role=tab data-toggle=tab data-lang=php>Php</a></li><li class="nav-item "><a href=#tab-group-0-1_php role=tab data-toggle=tab data-lang=php>Php</a></li><li class="nav-item "><a href=#tab-group-0-2_php role=tab data-toggle=tab data-lang=php>Php</a></li></ul><div class=tab-content><div id=tab-group-0-0_php class="tab-pane active" role=tabpanel><pre class=codehilite><code class=language-php>// In src/YourApplication/CustomHydratorPluginManager.php:
 
 namespace YourApplication;
 
@@ -479,9 +479,7 @@ class CustomHydratorPluginManager implements HydratorPluginManagerInterface
     {
         $this-&gt;factories[$name] = $factory;
     }
-}</code></pre>
-
-<pre class="codehilite"><code class="language-php">// In src/YourApplication/CustomHydratorPluginManagerFactory.php:
+}</code></pre></div><div id=tab-group-0-1_php class="tab-pane " role=tabpanel><pre class=codehilite><code class=language-php>// In src/YourApplication/CustomHydratorPluginManagerFactory.php:
 
 namespace YourApplication;
 
@@ -514,9 +512,7 @@ class CustomHydratorPluginManagerFactory
                 : $manager-&gt;setFactory($name, $factory);
         }
     }
-}</code></pre>
-
-<pre class="codehilite"><code class="language-php">// in config/autoload/hydrators.global.php or similar:
+}</code></pre></div><div id=tab-group-0-2_php class="tab-pane " role=tabpanel><pre class=codehilite><code class=language-php>// in config/autoload/hydrators.global.php or similar:
 
 return [
     'dependencies' =&gt; [
@@ -534,7 +530,7 @@ return [
             // etc.
         ],
     ],
-];</code></pre>
+];</code></pre></div></div></div>
 
 
 
@@ -568,7 +564,7 @@ return [
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v3/plugin-managers.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/plugin-managers.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

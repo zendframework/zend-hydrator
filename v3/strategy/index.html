@@ -347,7 +347,7 @@
 <p>You can compose <code>Zend\Hydrator\Strategy\StrategyInterface</code> instances in any of
 the hydrators to manipulate the way they behave on <code>extract()</code> and <code>hydrate()</code>
 for specific key/value pairs. The interface offers the following definitions:</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator\Strategy;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator\Strategy;
 
 interface StrategyInterface
 {
@@ -368,8 +368,7 @@ interface StrategyInterface
      * @return mixed      Returns the value that should be hydrated.
      */
     public function hydrate($value, ?array $data = null);
-}</code></pre>
-
+}</code></pre></p>
 <p>This interface is similar to what the <code>Zend\Hydrator\ExtractionInterface</code> and
 <code>Zend\Hydrator\HydrationInterface</code> provide; the reason is that strategies
 provide a proxy implementation for <code>hydrate()</code> and <code>extract()</code> on individual
@@ -380,7 +379,7 @@ values. For this reason, their return types are listed as mixed, versus as
 Hydrators can implement this interface, and then call on its <code>getStrategy()</code>
 method in order to extract or hydrate individual values. The interface has the
 following definition:</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator\Strategy;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator\Strategy;
 
 interface StrategyEnabledInterface
 {
@@ -403,8 +402,7 @@ interface StrategyEnabledInterface
      * Removes the strategy with the given name.
      */
     public function removeStrategy(string $name) : void;
-}</code></pre>
-
+}</code></pre></p>
 <p>We provide a default implementation of the interface as part of
 <code>Zend\Hydrator\AbstractHydrator</code>; it uses an array property to store and
 retrieve strategies by name when extracting and hydrating values. Since all
@@ -415,17 +413,17 @@ capabilities.</p>
 if present, will use it to translate the property name prior to looking up a
   strategy for it.</p>
 <h2 id="available-implementations">Available implementations</h2>
-<h3 id="zend92hydrator92strategy92booleanstrategy">Zend\Hydrator\Strategy\BooleanStrategy</h3>
+<h3>Zend\Hydrator\Strategy\BooleanStrategy</h3>
 <p>This strategy converts values into Booleans and vice versa. It expects two
 arguments at the constructor, which are used to define value maps for <code>true</code> and
 <code>false</code>.</p>
-<h3 id="zend92hydrator92strategy92closurestrategy">Zend\Hydrator\Strategy\ClosureStrategy</h3>
+<h3>Zend\Hydrator\Strategy\ClosureStrategy</h3>
 <p>This is a strategy that allows you to pass in options for:</p>
 <ul>
 <li><code>hydrate</code>, a callback to be called when hydrating a value, and</li>
 <li><code>extract</code>, a callback to be called when extracting a value.</li>
 </ul>
-<h3 id="zend92hydrator92strategy92datetimeformatterstrategy">Zend\Hydrator\Strategy\DateTimeFormatterStrategy</h3>
+<h3>Zend\Hydrator\Strategy\DateTimeFormatterStrategy</h3>
 <p><code>DateTimeFormatterStrategy</code> provides bidirectional conversion between strings
 and DateTime instances. The input and output formats can be provided as
 constructor arguments.</p>
@@ -437,7 +435,7 @@ midnight time value.</p>
 <p>Starting in version 3.0, the constructor defines a third, optional argument,
 <code>$dateTimeFallback</code>.  If enabled and hydration fails, the given string is parsed
 by the <code>DateTime</code> constructor, as demonstrated below:</p>
-<pre class="codehilite"><code class="language-php">// Previous behavior:
+<p> <pre class=codehilite><code class=language-php>// Previous behavior:
 $strategy = new Zend\Hydrator\Strategy\DateTimeFormatterStrategy('Y-m-d H:i:s.uP');
 $hydrated1 = $strategy-&gt;hydrate('2016-03-04 10:29:40.123456+01'); // Format is the same; returns DateTime instance
 $hydrated2 = $strategy-&gt;hydrate('2016-03-04 10:29:40+01');        // Format is different; value is not hydrated
@@ -445,21 +443,20 @@ $hydrated2 = $strategy-&gt;hydrate('2016-03-04 10:29:40+01');        // Format i
 // Using new $dateTimeFallback flag; both values are hydrated:
 $strategy = new Zend\Hydrator\Strategy\DateTimeFormatterStrategy('Y-m-d H:i:s.uP', null, true);
 $hydrated1 = $strategy-&gt;hydrate('2016-03-04 10:29:40.123456+01');
-$hydrated2 = $strategy-&gt;hydrate('2016-03-04 10:29:40+01');</code></pre>
-
-<h3 id="zend92hydrator92strategy92defaultstrategy">Zend\Hydrator\Strategy\DefaultStrategy</h3>
+$hydrated2 = $strategy-&gt;hydrate('2016-03-04 10:29:40+01');</code></pre></p>
+<h3>Zend\Hydrator\Strategy\DefaultStrategy</h3>
 <p>The <code>DefaultStrategy</code> simply proxies everything through, without performing any
 conversion of values.</p>
-<h3 id="zend92hydrator92strategy92explodestrategy">Zend\Hydrator\Strategy\ExplodeStrategy</h3>
+<h3>Zend\Hydrator\Strategy\ExplodeStrategy</h3>
 <p>This strategy is a wrapper around PHP's <code>implode()</code> and <code>explode()</code> functions.
 The delimiter and a limit can be provided to the constructor; the limit will
 only be used for <code>extract</code> operations.</p>
-<h3 id="zend92hydrator92strategy92serializablestrategy">Zend\Hydrator\Strategy\SerializableStrategy</h3>
+<h3>Zend\Hydrator\Strategy\SerializableStrategy</h3>
 <p><code>SerializableStrategy</code> provides the functionality backing
 <code>Zend\Hydrator\ArraySerializableHydrator</code>. You can use it with custom
 implementations for <code>Zend\Serializer\Adapter\AdapterInterface</code> if you want to as
 well.</p>
-<h3 id="zend92hydrator92strategy92strategychain">Zend\Hydrator\Strategy\StrategyChain</h3>
+<h3>Zend\Hydrator\Strategy\StrategyChain</h3>
 <p>This strategy takes an array of <code>StrategyInterface</code> instances and iterates
 over them when performing <code>extract()</code> and <code>hydrate()</code> operations. Each operates
 on the return value of the previous, allowing complex operations based on
@@ -469,7 +466,7 @@ smaller, single-purpose strategies.</p>
 basics for writing your own strategies, as well as provide ideas as to where and
 when to use them. This strategy simply transforms the value for the defined key
 using <code>str_rot13()</code> during both the <code>extract()</code> and <code>hydrate()</code> operations:</p>
-<pre class="codehilite"><code class="language-php">class Rot13Strategy implements StrategyInterface
+<p> <pre class=codehilite><code class=language-php>class Rot13Strategy implements StrategyInterface
 {
     public function extract($value)
     {
@@ -480,10 +477,9 @@ using <code>str_rot13()</code> during both the <code>extract()</code> and <code>
     {
         return str_rot13($value);
     }
-}</code></pre>
-
+}</code></pre></p>
 <p>This is the example class with which we want to use the hydrator example:</p>
-<pre class="codehilite"><code class="language-php">class Foo
+<p> <pre class=codehilite><code class=language-php>class Foo
 {
     protected $foo = null;
     protected $bar = null;
@@ -507,36 +503,33 @@ using <code>str_rot13()</code> during both the <code>extract()</code> and <code>
     {
         $this-&gt;bar = $bar;
     }
-}</code></pre>
-
+}</code></pre></p>
 <p>Now, we'll add the <code>rot13</code> strategy to the method <code>getFoo()</code> and <code>setFoo($foo)</code>:</p>
-<pre class="codehilite"><code class="language-php">$foo = new Foo();
+<p> <pre class=codehilite><code class=language-php>$foo = new Foo();
 $foo-&gt;setFoo('bar');
 $foo-&gt;setBar('foo');
 
 $hydrator = new ClassMethodsHydrator();
-$hydrator-&gt;addStrategy('foo', new Rot13Strategy());</code></pre>
-
+$hydrator-&gt;addStrategy('foo', new Rot13Strategy());</code></pre></p>
 <p>When you use the hydrator to extract an array for the object <code>$foo</code>, you'll
 receive the following:</p>
-<pre class="codehilite"><code class="language-php">$extractedArray = $hydrator-&gt;extract($foo);
+<p> <pre class=codehilite><code class=language-php>$extractedArray = $hydrator-&gt;extract($foo);
 
 // array(2) {
-//     ["foo"]=&gt;
-//     string(3) "one"
-//     ["bar"]=&gt;
-//     string(3) "foo"
-// }</code></pre>
-
+//     [&quot;foo&quot;]=&gt;
+//     string(3) &quot;one&quot;
+//     [&quot;bar&quot;]=&gt;
+//     string(3) &quot;foo&quot;
+// }</code></pre></p>
 <p>And when hydrating a new <code>Foo</code> instance:</p>
-<pre class="codehilite"><code class="language-php">$hydrator-&gt;hydrate($extractedArray, $foo)
+<p> <pre class=codehilite><code class=language-php>$hydrator-&gt;hydrate($extractedArray, $foo)
 
 // object(Foo)#2 (2) {
-//   ["foo":protected]=&gt;
-//   string(3) "bar"
-//   ["bar":protected]=&gt;
-//   string(3) "foo"
-// }</code></pre>
+//   [&quot;foo&quot;:protected]=&gt;
+//   string(3) &quot;bar&quot;
+//   [&quot;bar&quot;:protected]=&gt;
+//   string(3) &quot;foo&quot;
+// }</code></pre></p>
 
 
 
@@ -570,7 +563,7 @@ receive the following:</p>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v3/strategy.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/strategy.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

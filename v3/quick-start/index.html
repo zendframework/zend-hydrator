@@ -340,8 +340,8 @@
 objects, as well as extracting data sets from them.</p>
 <p>The component consists of interfaces, and several implementations for common use cases.</p>
 <h2 id="base-interfaces">Base Interfaces</h2>
-<h3 id="extractioninterface">ExtractionInterface</h3>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator;
+<h3>ExtractionInterface</h3>
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator;
 
 interface ExtractionInterface
 {
@@ -351,10 +351,9 @@ interface ExtractionInterface
      * @return mixed[]
      */
     public function extract(object $object) : array;
-}</code></pre>
-
-<h3 id="hydrationinterface">HydrationInterface</h3>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator;
+}</code></pre></p>
+<h3>HydrationInterface</h3>
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator;
 
 interface HydrationInterface
 {
@@ -367,33 +366,30 @@ interface HydrationInterface
      *     implementations may choose to specify a more specific type.
      */
     public function hydrate(array $data, object $object);
-}</code></pre>
-
-<h3 id="hydratorinterface">HydratorInterface</h3>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator;
+}</code></pre></p>
+<h3>HydratorInterface</h3>
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator;
 
 interface HydratorInterface extends
     ExtractionInterface,
     HydrationInterface
 {
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="usage">Usage</h2>
 <p>Usage involves instantiating the hydrator, and then passing information to it.</p>
-<pre class="codehilite"><code class="language-php">use Zend\Hydrator;
+<p> <pre class=codehilite><code class=language-php>use Zend\Hydrator;
 $hydrator = new Hydrator\ArraySerializableHydrator();
 
 // To hydrate an object from values in an array:
 $object = $hydrator-&gt;hydrate($data, new ArrayObject());
 
 // or, going the other way and extracting the values from an object as an array:
-$data = $hydrator-&gt;extract($object);</code></pre>
-
+$data = $hydrator-&gt;extract($object);</code></pre></p>
 <h2 id="available-implementations">Available Implementations</h2>
-<h3 id="zend92hydrator92arrayserializablehydrator">Zend\Hydrator\ArraySerializableHydrator</h3>
+<h3>Zend\Hydrator\ArraySerializableHydrator</h3>
 <p>Follows the definition of <code>ArrayObject</code>. Objects must implement either the <code>exchangeArray()</code> or
 <code>populate()</code> methods to support hydration, and the <code>getArrayCopy()</code> method to support extraction.</p>
-<h3 id="zend92hydrator92classmethodshydrator">Zend\Hydrator\ClassMethodsHydrator</h3>
+<h3>Zend\Hydrator\ClassMethodsHydrator</h3>
 <p>Any data key matching a setter method will be called in order to hydrate; any method matching a
 getter method will be called for extraction, according to the following rules:</p>
 <ul>
@@ -401,16 +397,16 @@ getter method will be called for extraction, according to the following rules:</
   prefix will be removed from the property name.</li>
 <li><code>set*()</code> methods will be used when hydrating properties.</li>
 </ul>
-<h3 id="zend92hydrator92delegatinghydrator">Zend\Hydrator\DelegatingHydrator</h3>
+<h3>Zend\Hydrator\DelegatingHydrator</h3>
 <p>Composes a hydrator locator, and will delegate <code>hydrate()</code> and <code>extract()</code> calls
 to the appropriate one based upon the class name of the object being operated
 on.</p>
-<pre class="codehilite"><code class="language-php">// Instantiate each hydrator you wish to delegate to
+<p> <pre class=codehilite><code class=language-php>// Instantiate each hydrator you wish to delegate to
 $albumHydrator = new Zend\Hydrator\ClassMethodsHydrator();
 $artistHydrator = new Zend\Hydrator\ClassMethodsHydrator();
 
 // Map the entity class name to the hydrator using the HydratorPluginManager.
-// In this case we have two entity classes, "Album" and "Artist".
+// In this case we have two entity classes, &quot;Album&quot; and &quot;Artist&quot;.
 $hydrators = new Zend\Hydrator\HydratorPluginManager;
 $hydrators-&gt;setService('Album', $albumHydrator);
 $hydrators-&gt;setService('Artist', $artistHydrator);
@@ -420,12 +416,11 @@ $delegating = new Zend\Hydrator\DelegatingHydrator($hydrators);
 
 // Now we can use $delegating to hydrate or extract any supported object
 $array  = $delegating-&gt;extract(new Artist());
-$artist = $delegating-&gt;hydrate($data, new Artist());</code></pre>
-
-<h3 id="zend92hydrator92objectpropertyhydrator">Zend\Hydrator\ObjectPropertyHydrator</h3>
+$artist = $delegating-&gt;hydrate($data, new Artist());</code></pre></p>
+<h3>Zend\Hydrator\ObjectPropertyHydrator</h3>
 <p>Any data key matching a publicly accessible property will be hydrated; any public properties
 will be used for extraction.</p>
-<h3 id="zend92hydrator92reflectionhydrator">Zend\Hydrator\ReflectionHydrator</h3>
+<h3>Zend\Hydrator\ReflectionHydrator</h3>
 <p>Similar to the <code>ObjectPropertyHydrator</code>, but uses <a href="http://php.net/manual/en/intro.reflection.php">PHP's reflection API</a>
 to hydrate or extract properties of any visibility. Any data key matching an
 existing property will be hydrated; any existing properties will be used for
@@ -463,7 +458,7 @@ extraction.</p>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v3/quick-start.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/quick-start.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

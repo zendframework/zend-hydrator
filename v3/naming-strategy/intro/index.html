@@ -360,7 +360,7 @@ similar to <a href="../strategies.md">strategies</a>, but instead of operating o
 <em>value</em>, they operate on the <em>name</em>.</p>
 <h2 id="namingstrategyinterface">NamingStrategyInterface</h2>
 <p>Naming strategies implement <code>Zend\Hydrator\NamingStrategy\NamingStrategyInterface</code>:</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator\NamingStrategy;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator\NamingStrategy;
 
 /**
  * Allow property extraction / hydration for hydrator
@@ -380,12 +380,11 @@ interface NamingStrategyInterface
      * @param null|object $object The original object for context.
      */
     public function extract(string $name, ?object $object = null) : string;
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="providing-naming-strategies">Providing naming strategies</h2>
 <p>Hydrators can indicate they will consume naming strategies, as well as allow
 registration of them, by implementing <code>Zend\Hydrator\NamingStrategy\NamingStrategyEnabledInterface</code>:</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Hydrator\NamingStrategy;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator\NamingStrategy;
 
 interface NamingStrategyEnabledInterface
 {
@@ -408,8 +407,7 @@ interface NamingStrategyEnabledInterface
      * Removes the naming strategy.
      */
     public function removeNamingStrategy() : void;
-}</code></pre>
-
+}</code></pre></p>
 <p>We provide a default implementation of this interface within the
 <code>Zend\Hydrator\AbstractHydrator</code> definition. Its <code>getNamingStrategy()</code> will
 lazy-load an <code>IdentityNamingStrategy</code> if none has been previously registered.
@@ -456,7 +454,7 @@ strategies.</p>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v3/naming-strategy/intro.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/naming-strategy/intro.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

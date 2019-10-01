@@ -346,7 +346,7 @@
 <p><code>Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy</code> converts snake case strings (e.g.
 <code>foo_bar_baz</code>) to camel-case strings (e.g. <code>fooBarBaz</code>) and vice versa.</p>
 <h2 id="basic-usage">Basic Usage</h2>
-<pre class="codehilite"><code class="language-php">$namingStrategy = new Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy();
+<p> <pre class=codehilite><code class=language-php>$namingStrategy = new Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy();
 
 echo $namingStrategy-&gt;extract('foo_bar'); // outputs: foo_bar
 echo $namingStrategy-&gt;extract('Foo_Bar'); // outputs: foo_bar
@@ -354,10 +354,9 @@ echo $namingStrategy-&gt;extract('FooBar'); // outputs: foo_bar
 
 echo $namingStrategy-&gt;hydrate('fooBar'); // outputs: fooBar
 echo $namingStrategy-&gt;hydrate('FooBar'); // outputs: fooBar
-echo $namingStrategy-&gt;hydrate('Foo_Bar'); // outputs: fooBar</code></pre>
-
+echo $namingStrategy-&gt;hydrate('Foo_Bar'); // outputs: fooBar</code></pre></p>
 <p>This strategy can be used in hydrators to dictate how keys should be mapped.</p>
-<pre class="codehilite"><code class="language-php">class Foo
+<p> <pre class=codehilite><code class=language-php>class Foo
 {
     public $fooBar;
 }
@@ -369,7 +368,7 @@ $foo = new Foo();
 $hydrator-&gt;hydrate(['foo_bar' =&gt; 123], $foo);
 
 print_r($foo); // Foo Object ( [fooBar] =&gt; 123 )
-print_r($hydrator-&gt;extract($foo)); // Array ( [foo_bar] =&gt; 123 )</code></pre>
+print_r($hydrator-&gt;extract($foo)); // Array ( [foo_bar] =&gt; 123 )</code></pre></p>
 
 
 
@@ -403,7 +402,7 @@ print_r($hydrator-&gt;extract($foo)); // Array ( [foo_bar] =&gt; 123 )</code></p
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/v3/naming-strategy/underscore-naming-strategy.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/naming-strategy/underscore-naming-strategy.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>
