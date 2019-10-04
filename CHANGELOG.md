@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.4.2 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#106](https://github.com/zendframework/zend-hydrator/pull/106) fixes PHP 7.4 compatibility.
+
 ## 2.4.1 - 2018-11-19
 
 ### Added
