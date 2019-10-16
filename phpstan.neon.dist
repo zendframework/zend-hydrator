@@ -3,5 +3,4 @@ parameters:
     paths:
         - src/
     ignoreErrors:
-        - '#Parameter \#1 \$configInstanceOrParentLocator.*?Psr\\Container\\ContainerInterface given\.#'
         - '#Result of \|{2} is always true#'
