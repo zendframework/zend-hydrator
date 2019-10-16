@@ -19,7 +19,7 @@ class HydratorObjectPropertyTest extends TestCase
      */
     private $hydrator;
 
-    public function setUp()
+    protected function setUp() : void
     {
         $this->hydrator = new ObjectPropertyHydrator();
     }

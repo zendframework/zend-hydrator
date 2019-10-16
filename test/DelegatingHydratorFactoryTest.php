@@ -28,7 +28,6 @@ class DelegatingHydratorFactoryTest extends TestCase
 
         $hydrator = $factory($hydrators, '');
         $this->assertInstanceOf(DelegatingHydrator::class, $hydrator);
-        $this->assertAttributeSame($hydrators, 'hydrators', $hydrator);
     }
 
     public function testFactoryUsesHydratorPluginManagerServiceFromContainerToSeedDelegatingHydratorWhenAvailable()
@@ -42,7 +41,6 @@ class DelegatingHydratorFactoryTest extends TestCase
 
         $hydrator = $factory($container->reveal(), '');
         $this->assertInstanceOf(DelegatingHydrator::class, $hydrator);
-        $this->assertAttributeSame($hydrators, 'hydrators', $hydrator);
     }
 
     public function testFactoryUsesHydratorManagerServiceFromContainerToSeedDelegatingHydratorWhenAvailable()
@@ -57,7 +55,6 @@ class DelegatingHydratorFactoryTest extends TestCase
 
         $hydrator = $factory($container->reveal(), '');
         $this->assertInstanceOf(DelegatingHydrator::class, $hydrator);
-        $this->assertAttributeSame($hydrators, 'hydrators', $hydrator);
     }
 
     public function testFactoryCreatesHydratorPluginManagerToSeedDelegatingHydratorAsFallback()
@@ -76,6 +73,5 @@ class DelegatingHydratorFactoryTest extends TestCase
         $hydrators = $r->getValue($hydrator);
 
         $this->assertInstanceOf(HydratorPluginManager::class, $hydrators);
-        $this->assertAttributeSame($container->reveal(), 'creationContext', $hydrators);
     }
 }

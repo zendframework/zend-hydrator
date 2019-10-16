@@ -34,7 +34,7 @@ class ArraySerializableHydratorTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->hydrator = new ArraySerializableHydrator();
     }

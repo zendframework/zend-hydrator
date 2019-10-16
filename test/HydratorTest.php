@@ -66,7 +66,7 @@ class HydratorTest extends TestCase
      */
     protected $reflection;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->classMethodsCamelCase = new ClassMethodsCamelCase();
         $this->classMethodsTitleCase = new ClassMethodsTitleCase();

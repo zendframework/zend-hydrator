@@ -37,7 +37,7 @@ class HydratorListenerTest extends TestCase
      *
      * @covers \Zend\Hydrator\Aggregate\HydratorListener::__construct
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->hydrator = $this->createMock(HydratorInterface::class);
         $this->listener = new HydratorListener($this->hydrator);

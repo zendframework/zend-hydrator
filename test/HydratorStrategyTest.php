@@ -23,18 +23,18 @@ class HydratorStrategyTest extends TestCase
      */
     private $hydrator;
 
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->hydrator = new ClassMethodsHydrator();
     }
 
     public function testAddingStrategy()
     {
-        $this->assertAttributeCount(0, 'strategies', $this->hydrator);
+        $this->assertFalse($this->hydrator->hasStrategy('myStrategy'));
 
         $this->hydrator->addStrategy('myStrategy', new TestAsset\HydratorStrategy());
 
-        $this->assertAttributeCount(1, 'strategies', $this->hydrator);
+        $this->assertTrue($this->hydrator->hasStrategy('myStrategy'));
     }
 
     public function testCheckStrategyEmpty()
@@ -51,13 +51,13 @@ class HydratorStrategyTest extends TestCase
 
     public function testRemovingStrategy()
     {
-        $this->assertAttributeCount(0, 'strategies', $this->hydrator);
+        $this->assertFalse($this->hydrator->hasStrategy('myStrategy'));
 
         $this->hydrator->addStrategy('myStrategy', new TestAsset\HydratorStrategy());
-        $this->assertAttributeCount(1, 'strategies', $this->hydrator);
+        $this->assertTrue($this->hydrator->hasStrategy('myStrategy'));
 
         $this->hydrator->removeStrategy('myStrategy');
-        $this->assertAttributeCount(0, 'strategies', $this->hydrator);
+        $this->assertFalse($this->hydrator->hasStrategy('myStrategy'));
     }
 
     public function testRetrieveStrategy()
