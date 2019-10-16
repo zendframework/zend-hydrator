@@ -32,7 +32,7 @@ class ObjectPropertyHydratorTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->hydrator = new ObjectPropertyHydrator();
     }
@@ -107,7 +107,7 @@ class ObjectPropertyHydratorTest extends TestCase
 
         $this->assertEquals('baz', $object->foo);
         $this->assertObjectHasAttribute('bar', $object);
-        $this->assertAttributeSame('baz', 'bar', $object);
+        $this->assertSame('baz', $object->bar);
     }
 
     /**
@@ -126,11 +126,11 @@ class ObjectPropertyHydratorTest extends TestCase
             new ObjectPropertyTestAsset()
         );
 
-        $this->assertAttributeSame('foo', 'foo', $object);
-        $this->assertAttributeSame('bar', 'bar', $object);
-        $this->assertAttributeSame('blubb', 'blubb', $object);
-        $this->assertAttributeSame('quo', 'quo', $object);
-        $this->assertAttributeNotSame('quin', 'quin', $object);
+        $this->assertSame('foo', $object->get('foo'));
+        $this->assertSame('bar', $object->get('bar'));
+        $this->assertSame('blubb', $object->get('blubb'));
+        $this->assertSame('quo', $object->get('quo'));
+        $this->assertNotSame('quin', $object->get('quin'));
     }
 
     /**
@@ -140,7 +140,7 @@ class ObjectPropertyHydratorTest extends TestCase
     {
         $object = $this->hydrator->hydrate(['newProperty' => 'newPropertyValue'], new ObjectPropertyTestAsset());
 
-        $this->assertAttributeSame('newPropertyValue', 'newProperty', $object);
+        $this->assertSame('newPropertyValue', $object->get('newProperty'));
     }
 
     /**

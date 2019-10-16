@@ -36,7 +36,7 @@ class AggregateHydratorTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->eventManager = $this->prophesize(EventManager::class);
         $this->hydrator     = new AggregateHydrator();

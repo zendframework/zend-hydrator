@@ -29,6 +29,6 @@ class ArraySerializableTest extends TestCase
 
         $this->assertInstanceOf(ArraySerializableHydrator::class, $hydrator);
         $this->assertIsString($test->message);
-        $this->assertContains('is deprecated, please use', $test->message);
+        $this->assertStringContainsString('is deprecated, please use', $test->message);
     }
 }

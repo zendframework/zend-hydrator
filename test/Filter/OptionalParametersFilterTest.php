@@ -28,7 +28,7 @@ class OptionalParametersFilterTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp() : void
     {
         $this->filter = new OptionalParametersFilter();
     }

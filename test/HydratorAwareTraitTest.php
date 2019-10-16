@@ -21,13 +21,13 @@ class HydratorAwareTraitTest extends TestCase
     {
         $object = $this->getObjectForTrait('\Zend\Hydrator\HydratorAwareTrait');
 
-        $this->assertAttributeEquals(null, 'hydrator', $object);
+        $this->assertSame(null, $object->getHydrator());
 
         $hydrator = $this->getMockForAbstractClass('\Zend\Hydrator\AbstractHydrator');
 
         $object->setHydrator($hydrator);
 
-        $this->assertAttributeEquals($hydrator, 'hydrator', $object);
+        $this->assertSame($hydrator, $object->getHydrator());
     }
 
     public function testGetHydrator()
