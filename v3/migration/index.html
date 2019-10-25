@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Serialize objects to arrays, and vice versa">  
+    <link rel="canonical" href="https://docs.zendframework.com/zend-hydrator/v3/migration/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    <title>Migration - zend-hydrator - Zend Framework Docs</title>
+
+    <link rel="stylesheet" href="../../css/styles-5cfabd53ee.css">
+</head>
+<body id="page-top">
+
+    
+    <div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+
+            
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="../../img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="nav navbar-nav navbar-collapse visible-xs-block ">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">zend-hydrator</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../quick-start/" class="subnavigation__link">Quick Start</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Reference</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../filter/" class="subnavigation__link">Filters</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../strategy/" class="subnavigation__link">Strategies</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../aggregate/" class="subnavigation__link">Aggregates</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Naming Strategies</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/identity-naming-strategy/" class="subnavigation__link">Identity</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/map-naming-strategy/" class="subnavigation__link">Mapping</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/underscore-naming-strategy/" class="subnavigation__link">Underscore Mapping</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/composite-naming-strategy/" class="subnavigation__link">Composite</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../plugin-managers/" class="subnavigation__link">Plugin Managers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Migration</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="nav navbar-nav navbar-collapse visible-xs-block">
+                <div class="component-selector">
+    <h4 class="component-selector__title">Components</h4>
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+
+                    
+                        <small class="header__subtitle">zend-hydrator</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-xs-4 text-right">
+                
+                    
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            
+                v3
+            
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            
+                
+                    <li class="dropdown-menu__item dropdown-menu__item--selected">
+                        <a href="../quick-start/">
+                            
+                                v3 (latest)
+                            
+                        </a>
+                    </li>
+                
+            
+                
+                    <li class="dropdown-menu__item">
+                        <a href="../../v2/quick-start/">
+                            
+                                v2
+                            
+                        </a>
+                    </li>
+                
+            
+        </ul>
+    </div>
+</div>
+
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/zendframework/zend-hydrator/" class="header__link header__link--github" title="Go to repository of zend-hydrator">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="laminas-announcement">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                Zend Framework transitions to the Linux Foundation. <a href="https://getlaminas.org">Learn More.</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-xs-12 content" role="main">
+            <!-- content:begin -->
+                
+                    <ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
+    <li><a href="https://framework.zend.com/">Home</a></li>
+
+    
+        <li><a href="https://docs.zendframework.com/">Documentation</a></li>
+
+        
+            <li><a href="../..">zend-hydrator</a></li>
+
+            
+                
+                    
+                    
+                
+            
+                
+                    
+                    
+                        <li>Reference</li>
+                    
+                
+            
+
+            <li class="active">Migration</li>
+        
+    
+</ol>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Reference</h2>
+    
+
+    <div>
+        
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">In This Article</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#minimum-supported-versions" class="toc__link">Minimum supported versions</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#renamed-interfaces" class="toc__link">Renamed interfaces</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#renamed-classes" class="toc__link">Renamed classes</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#interface-changes" class="toc__link">Interface changes</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#typehints" class="toc__link">Typehints</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#arraymapnamingstrategy-and-mapnamingstrategy-merged" class="toc__link">ArrayMapNamingStrategy and MapNamingStrategy merged</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#hydratorpluginmanager" class="toc__link">HydratorPluginManager</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+    </div>
+
+    <h1 id="migration-from-version-2">Migration from version 2</h1>
+<p>This document details changes made between version 2 and version 3 that could
+affect end-users.</p>
+<h2 id="minimum-supported-versions">Minimum supported versions</h2>
+<h3>PHP</h3>
+<p>Version 3 bumps the minimum supported PHP version to version 7.2. We chose this
+version in particular as it provides the <code>object</code> typehint, which allows us to
+enforce at the engine level what we were previously enforcing only at the
+documentation level.</p>
+<p>Additionally, we have enabled strict types in all class files shipped with this
+component.</p>
+<h3>zend-eventmanager</h3>
+<p>The minimum supported version of zend-eventmanager (used by the
+<code>AggregateHydrator</code>)is now 3.2.1.</p>
+<h3>zend-serializer</h3>
+<p>The minimum supported version of zend-serializer (used by the
+<code>SerializableStrategy</code>) is now 2.9.0.</p>
+<h3>zend-servicemanager</h3>
+<p>The minimum supported version of zend-servicemanager (used by the
+<code>HydratorPluginManager</code>) is now 3.3.2.</p>
+<h2 id="renamed-interfaces">Renamed interfaces</h2>
+<p>The following interfaces were renamed:</p>
+<ul>
+<li><code>Zend\Hydrator\FilterEnabledInterface</code> becomes <code>Zend\Hydrator\Filter\FilterEnabledInterface</code>.</li>
+<li><code>Zend\Hydrator\NamingStrategyEnabledInterface</code> becomes <code>Zend\Hydrator\NamingStrategy\NamingStrategyEnabledInterface</code>.</li>
+<li><code>Zend\Hydrator\StrategyEnabledInterface</code> becomes <code>Zend\Hydrator\Strategy\StrategyEnabledInterface</code>.</li>
+</ul>
+<h2 id="renamed-classes">Renamed classes</h2>
+<p>The following classes were renamed:</p>
+<ul>
+<li><code>Zend\Hydrator\ArraySerializable</code> becomes <code>Zend\Hydrator\ArraySerializableHydrator</code></li>
+<li><code>Zend\Hydrator\ClassMethods</code> becomes <code>Zend\Hydrator\ClassMethodsHydrator</code></li>
+<li><code>Zend\Hydrator\ObjectProperty</code> becomes <code>Zend\Hydrator\ObjectPropertyHydrator</code></li>
+<li><code>Zend\Hydrator\Reflection</code> becomes <code>Zend\Hydrator\ReflectionHydrator</code></li>
+</ul>
+<p>In each case, a class named after the original has been created as a deprecated
+extension of the new class. This means you can continue to use the old class
+names, but only until version 4, at which point they will be removed.</p>
+<p>Additionally, aliases for the old class names have been added to the
+<code>HydratorPluginManager</code>, pointing to services named after the new class names.</p>
+<h2 id="interface-changes">Interface changes</h2>
+<p>Each of the interfaces provided by this package have been updated to add
+typehints where they were previously omitted (due to engine limitations), both
+on parameters and return values. These include:</p>
+<ul>
+<li><code>Zend\Hydrator\ExtractionInterface</code>:</li>
+<li><code>extract($object)</code> becomes <code>extract(object $object) : array</code></li>
+<li><code>Zend\Hydrator\Filter\FilterEnabledInterface</code> (was <code>Zend\Hydrator\FilterEnabledInterface</code>):</li>
+<li><code>addFilter($name, $filter, $condition = Zend\Hydrator\Filter\FilterComposite::CONDITION_OR)</code> becomes <code>addFilter(string $name, $filter, int $condition = Zend\Hydrator\Filter\FilterComposite::CONDITION_OR) : void</code></li>
+<li><code>hasFilter($name)</code> becomes <code>hasFilter(string $name) : bool</code></li>
+<li><code>removeFilter($name)</code> becomes <code>removeFilter(string $name) : void</code></li>
+<li><code>Zend\Hydrator\HydrationInterface</code>:</li>
+<li><code>hydrate(array $data, $object)</code> becomes <code>hydrate(array $data, object $object)</code></li>
+<li><code>Zend\Hydrator\HydratorAwareInterface</code>:</li>
+<li><code>setHydrator(Zend\Hydrator\HydratorInterface $hydrator)</code> becomes <code>setHydrator(Zend\Hydrator\HydratorInterface $hydrator) : void</code></li>
+<li><code>getHydrator()</code> becomes <code>getHydrator() : ?Zend\Hydrator\HydratorInterface</code></li>
+<li><code>Zend\Hydrator\HydratorAwareTrait</code> was updated to follow the interface; if
+    you use the trait to implement the interface, no changes will be necessary.</li>
+<li><code>Zend\Hydrator\HydratorOptionsInterface</code>:</li>
+<li><code>setOptions($options)</code> becomes <code>setOptions(iterable $options) : void</code></li>
+<li><code>Zend\Hydrator\HydratorProviderInterface</code>:</li>
+<li><code>getHydratorConfig()</code> becomes <code>getHydratorConfig() : array</code></li>
+<li><code>Zend\Hydrator\NamingStrategy\NamingStrategyEnabledInterface</code> (was <code>Zend\Hydrator\NamingStrategyEnabledInterface</code>):</li>
+<li><code>setNamingStrategy(Zend\Hydrator\NamingStrategy\NamingStrategyInterface $strategy)</code> becomes <code>setNamingStrategy(Zend\Hydrator\NamingStrategy\NamingStrategyInterface $strategy) : void</code></li>
+<li><code>getNamingStrategy()</code> becomes <code>getNamingStrategy() : Zend\Hydrator\NamingStrategy\NamingStrategyInterface</code></li>
+<li><code>removeNamingStrategy()</code> becomes <code>removeNamingStrategy() : void</code></li>
+<li><code>Zend\Hydrator\Strategy\StrategyEnabledInterface</code> (was <code>Zend\Hydrator\StrategyEnabledInterface</code>):</li>
+<li><code>addStrategy($name, Zend\Hydrator\Strategy\StrategyInterface $strategy)</code> becomes <code>addStrategy(string $name, Zend\Hydrator\Strategy\StrategyInterface $strategy) : void</code></li>
+<li><code>getStrategy($name)</code> becomes <code>getStrategy(string $name) : Zend\Hydrator\Strategy\StrategyInterface</code></li>
+<li><code>hasStrategy($name)</code> becomes <code>hasStrategy(string $name) : bool</code></li>
+<li><code>removeStrategy($name)</code> becomes <code>removeStrategy(string $name) : void</code></li>
+<li><code>Zend\Hydrator\Filter\FilterInterface</code>:</li>
+<li><code>filter($property)</code> becomes <code>filter(string $property) : bool</code></li>
+<li><code>Zend\Hydrator\Filter\FilterProviderInterface</code>:</li>
+<li><code>getFilter()</code> becomes <code>getFilter() : Zend\Hydrator\Filter\FilterInterface</code></li>
+<li><code>Zend\Hydrator\Iterator\HydratingIteratorInterface</code>:</li>
+<li><code>setPrototype($prototype)</code> becomes <code>setPrototype($prototype) : void</code> (<code>$prototype</code> continues to allow either a <code>string</code> or object)</li>
+<li><code>setHydrator(Zend\Hydrator\HydratorInterface $hydrator)</code> becomes <code>setHydrator(Zend\Hydrator\HydratorInterface $hydrator) : void</code></li>
+<li><code>Zend\Hydrator\NamingStrategy\NamingStrategyInterface</code>:</li>
+<li><code>extract($name)</code> becomes <code>extract(string $name, ?object $object = null) : string</code></li>
+<li><code>hydrate($name)</code> becomes <code>hydrate(string $name, ?array $data = null) : string</code></li>
+<li><code>Zend\Hydrator\Strategy\StrategyInterface</code>:</li>
+<li><code>hydrate($value)</code> becomes <code>hydrate($value, ?array $data = null)</code> (the <code>$value</code> parameter and return value can be any PHP type)</li>
+<li><code>extract($value)</code> becomes <code>extract($value, ?object $object = null)</code> (the <code>$value</code> parameter and return value can be any PHP type)</li>
+</ul>
+<p>All implementations of these interface shipped in the component have been
+updated to ensure signatures match.</p>
+<p>If you are providing custom implementations, or extending the implementations
+provided in this package, you may need to update signatures per the above.</p>
+<h2 id="typehints">Typehints</h2>
+<p>As noted in the above section, typehints were added to all interfaces. In
+addition to those changes, the following methods were also updated to add
+typehints:</p>
+<ul>
+<li><code>Zend\Hydrator\Aggregate\AggregateHydrator</code>:</li>
+<li>
+<p><code>add(Zend\Hydrator\HydratorInterface $hydrator, $priority = self::DEFAULT_PRIORITY)</code> becomes <code>add(Zend\Hydrator\HydratorInterface $hydrator, int $priority = self::DEFAULT_PRIORITY) : void</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Aggregate\ExtractEvent</code>:</p>
+</li>
+<li><code>__construct($target, $extractionObject)</code> becomes <code>__construct(object $target, object $extractionObject)</code></li>
+<li><code>getExtractionObject()</code> becomes <code>getExtractionObject() : object</code></li>
+<li><code>setExtractionObject($extractionObject)</code> becomes <code>setExtractionObject(object $extractionObject) : void</code></li>
+<li><code>getExtractedData()</code> becomes <code>getExtractedData() : array</code></li>
+<li><code>setExtractedData(array $extractedData)</code> becomes <code>setExtractedData(array $extractedData) : void</code></li>
+<li>
+<p><code>mergeExtractedData(array $additionalData)</code> becomes <code>mergeExtractedData(array $additionalData) : void</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Aggregate\HydrateEvent</code>:</p>
+</li>
+<li><code>__construct($target, $hydratedObject, array $hydrationData)</code> becomes <code>__construct(object $target, object $hydratedObject, array $hydrationData)</code></li>
+<li><code>getHydratedObject()</code> becomes <code>getHydratedObject() : object</code></li>
+<li><code>setHydratedObject($hydratedObject)</code> becomes <code>setHydratedObject(object $hydratedObject) : void</code></li>
+<li><code>getHydrationData()</code> becomes <code>getHydrationData() : array</code></li>
+<li>
+<p><code>setHydrationData(array $hydrationData)</code> becomes <code>setHydrationData(array $hydrationData) : void</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Aggregate\HydratorListener</code>:</p>
+</li>
+<li><code>onHydrate(HydrateEvent $event)</code> becomes <code>onHydrate(HydrateEvent $event) : object</code></li>
+<li>
+<p><code>onExtract(ExtractEvent $event)</code> becomes <code>onExtract(ExtractEvent $event) : array</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\ClassMethodsHydrator</code> (was <code>Zend\Hydrator\ClassMethods</code>):</p>
+</li>
+<li><code>__construct($underscoreSeparatedKeys = true, $methodExistsCheck = false)</code> becomes <code>__construct(bool $underscoreSeparatedKeys = true, bool $methodExistsCheck = false)</code></li>
+<li><code>setUnderscoreSeparatedKeys($underscoreSeparatedKeys)</code> becomes <code>setUnderscoreSeparatedKeys(bool $underscoreSeparatedKeys) : void</code></li>
+<li><code>getUnderscoreSeparatedKeys()</code> becomes <code>getUnderscoreSeparatedKeys() : bool</code></li>
+<li><code>setMethodExistsCheck($methodExistsCheck)</code> becomes <code>setMethodExistsCheck(bool $methodExistsCheck) : void</code></li>
+<li>
+<p><code>getMethodExistsCheck()</code> becomes <code>getMethodExistsCheck() : bool</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\ConfigProvider</code>:</p>
+</li>
+<li><code>__invoke()</code> becomes <code>__invoke() : array</code></li>
+<li>
+<p><code>getDependencyConfig()</code> becomes <code>getDependencyConfig() : array</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\DelegatingHydratorFactory</code>:</p>
+</li>
+<li>no longer implements <code>Zend\ServiceManager\FactoryInterface</code></li>
+<li>
+<p><code>__invoke(Interop\Container\ContainerInterface $container, $requestedName, array $options = null)</code> becomes <code>__invoke(Psr\Container\ContainerInterface $container) : Zend\Hydrator\DelegatingHydrator</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Filter\FilterComposite</code>:</p>
+</li>
+<li>
+<p><code>__construct($orFilters = [], $andFilters = [])</code> becomes <code>__construct(array $orFilters = [], array $andFilters = [])</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Filter\MethodMatchFilter</code>:</p>
+</li>
+<li>
+<p><code>__construct($method, $exclude = true)</code> becomes <code>__construct(string $method, bool $exclude = true)</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Filter\NumberOfParameterFilter</code>:</p>
+</li>
+<li>
+<p><code>__construct($numberOfParameters = 0)</code> becomes <code>__construct(int $numberOfParameters = 0)</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\HydratorPluginManagerFactory</code>:</p>
+</li>
+<li>no longer implements <code>Zend\ServiceManager\FactoryInterface</code></li>
+<li>
+<p><code>__invoke(Interop\Container\ContainerInterface $container, $requestedName, array $options = null)</code> becomes <code>__invoke(Psr\Container\ContainerInterface $container, string $name, ?array $options = []) : Zend\Hydrator\HydratorPluginManager</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Module</code>:</p>
+</li>
+<li><code>getConfig()</code> becomes <code>getConfig() : array</code></li>
+<li>
+<p><code>init($moduleManager)</code> becomes <code>init(Zend\ModuleManager\ModuleManager $moduleManager) : void</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\NamingStrategy\CompositeNamingStrategy</code>:</p>
+</li>
+<li>
+<p><code>__construct(array $strategies, Zend\Hydrator\NamingStrategy\NamingStrategyInterface $defaultNamingStrategy = null)</code> becomes <code>__construct(array $strategies, ?Zend\Hydrator\NamingStrategy\NamingStrategyInterface $defaultNamingStrategy = null)</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\CamelCaseToUnderscoreFilter</code>:</p>
+</li>
+<li>
+<p><code>filter($value)</code> becomes <code>filter(string $value) : string</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy\UnderscoreToCamelCaseFilter</code>:</p>
+</li>
+<li>
+<p><code>filter($value)</code> becomes <code>filter(string $value) : string</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Strategy\ClosureStrategy</code>:</p>
+</li>
+<li>
+<p><code>__construct($extractFunc = null, $hydrateFunc = null)</code> becomes <code>__construct(?callable $extractFunc = null, ?callable $hydrateFunc = null)</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Strategy\CollectionStrategy</code>:</p>
+</li>
+<li>
+<p><code>__construct(Zend\Hydrator\HydratorInterface $objectHydrator, $objectClassName)</code> becomes <code>__construct(Zend\Hydrator\HydratorInterface $objectHydrator, string $objectClassName)</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Strategy\DateTimeFormatterStrategy</code>:</p>
+</li>
+<li>
+<p><code>__construct($format = DateTime::RFC3339, DateTimeZone $timezone = null, $dateTimeFallback = false)</code> becomes <code>__construct(string $format = DateTime::RFC3339, ?DateTimeZone $timezone = null, bool $dateTimeFallback = false)</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Strategy\ExplodeStrategy</code>:</p>
+</li>
+<li>
+<p><code>__construct($delimiter = ',', $explodeLimit = null)</code> becomes <code>__construct(string $delimiter = ',', ?int $explodeLimit = null)</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Strategy\SerializableStrategy</code>:</p>
+</li>
+<li><code>__construct($serializer, $serializerOptions = null)</code> becomes <code>__construct($serializer, ?iterable $serializerOptions = null)</code></li>
+<li><code>setSerializer($serializer)</code> becomes <code>setSerializer($serializer) : void</code></li>
+<li><code>getSerializer()</code> becomes <code>getSerializer($serializer) : Zend\Serializer\Adapter\AdapterInterface</code></li>
+<li><code>setSerializerOptions($serializerOptions)</code> becomes <code>setSerializerOptions(iterable $serializerOptions) : void</code></li>
+<li>
+<p><code>getSerializerOptions()</code> becomes <code>getSerializerOptions() : array</code></p>
+</li>
+<li>
+<p><code>Zend\Hydrator\Strategy\StrategyChain</code>:</p>
+</li>
+<li><code>__construct($extractionStrategies)</code> becomes <code>__construct(iterable $extractionStrategies)</code></li>
+</ul>
+<h2 id="arraymapnamingstrategy-and-mapnamingstrategy-merged">ArrayMapNamingStrategy and MapNamingStrategy merged</h2>
+<p><code>ArrayMapNamingStrategy</code> and <code>MapNamingStrategy</code> were performing essentially the
+same duties, but in reverse. As such, for version 3, we have merged the two into
+<code>MapNamingStrategy</code>. To accommodate the three different use cases, we provide
+three "named constructors":</p>
+<p> <pre class=codehilite><code class=language-php>public static function createFromExtractionMap(array $extractionMap) : MapNamingStrategy;
+public static function createFromHydrationMap(array $hydrationMap) : MapNamingStrategy;
+public static function createFromAsymmetricMap(array $extractionMap, array $hydrationMap) : MapNamingStrategy;</code></pre></p>
+<p>In the first two cases, the constructor will flip the arrays for purposes of the
+opposite interaction; e.g., using <code>createFromExtractionMap()</code> will create a
+hydration map based on an <code>array_flip()</code> of the extraction map provided.</p>
+<p><strong>You MUST use one of these methods to create an instance,</strong> as the constructor
+is now marked <code>private</code>.</p>
+<h2 id="hydratorpluginmanager">HydratorPluginManager</h2>
+<p>This version removes support for zend-servicemanager v2 service names. Under
+zend-servicemanager v2, most special characters were removed, and the name
+normalized to all lowercase. Now, only fully qualified class names are mapped to
+factories, and short names (names omitting the namespace and/or "Hydrator"
+suffix) are mapped as aliases.</p>
+<p>Additionally, version 3 ships a standalone, PSR-11 compliant version,
+<code>Zend\Hydrator\StandaloneHydratorPluginManager</code>. By default, the <code>HydratorManager</code>
+service alias will point to the <code>StandaloneHydratorPluginManager</code> if
+zend-servicemanager is not installed, and the <code>HydratorPluginManager</code> otherwise.
+See the <a href="../plugin-managers/">plugin managers chapter</a> for more details.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../plugin-managers/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../v2/quick-start/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/zendframework/zend-hydrator/edit/master/docs/book/v3/migration.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            <!-- content:end -->
+            </div>
+            <div class="col-md-3 col-xs-12 sidebar">
+                
+                    <div class="component-selector">
+    <h4 class="component-selector__title">Components</h4>
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">zend-hydrator</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../quick-start/" class="subnavigation__link">Quick Start</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Reference</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../filter/" class="subnavigation__link">Filters</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../strategy/" class="subnavigation__link">Strategies</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../aggregate/" class="subnavigation__link">Aggregates</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Naming Strategies</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/identity-naming-strategy/" class="subnavigation__link">Identity</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/map-naming-strategy/" class="subnavigation__link">Mapping</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/underscore-naming-strategy/" class="subnavigation__link">Underscore Mapping</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../naming-strategy/composite-naming-strategy/" class="subnavigation__link">Composite</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../plugin-managers/" class="subnavigation__link">Plugin Managers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Migration</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>&copy; 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        var base_url = '../..',
+            siteName = 'zend-hydrator';
+    </script>
+    <script src="../../js/scripts-8d7ae56abf.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+
+</html>

@@ -2,142 +2,142 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/quick-start/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/filter/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/aggregate/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/naming-strategy/intro/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/naming-strategy/identity-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/naming-strategy/map-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/naming-strategy/underscore-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/naming-strategy/composite-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/plugin-managers/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v3/migration/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v2/quick-start/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v2/filter/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v2/strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v2/aggregate/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v2/naming-strategy/identity-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v2/naming-strategy/map-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v2/naming-strategy/underscore-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/v2/naming-strategy/composite-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/quick-start/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/filter/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/aggregate/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/naming-strategy/identity-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/naming-strategy/map-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/naming-strategy/underscore-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-hydrator/naming-strategy/composite-naming-strategy/</loc>
-     <lastmod>2019-10-24</lastmod>
+     <lastmod>2019-10-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
