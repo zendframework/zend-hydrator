@@ -2,7 +2,7 @@
 
 > ## Repository abandoned 2019-12-31
 >
-> This repository has moved to laminas/laminas-hydrator.
+> This repository has moved to [laminas/laminas-hydrator](https://github.com/laminas/laminas-hydrator).
 
 [![Build Status](https://secure.travis-ci.org/zendframework/zend-hydrator.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-hydrator)
 [![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-hydrator/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-hydrator?branch=master)
