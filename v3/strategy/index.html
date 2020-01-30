@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Serialize objects to arrays, and vice versa">  
-    <link rel="canonical" href="https://docs.zendframework.com/zend-hydrator/v3/strategy/">
+    <link rel="canonical" href="https://docs.zendframework.com/v3/strategy/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     <title>Strategies - zend-hydrator - Zend Framework Docs</title>
 
-    <link rel="stylesheet" href="../../css/styles-5cfabd53ee.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body id="page-top">
 
@@ -264,9 +264,9 @@
     <div class="laminas-announcement">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                Zend Framework transitions to the Linux Foundation. <a href="https://getlaminas.org">Learn More.</a>
-            </div>
+            <div class="col-xs-12"><strong>
+                This package has moved. Visit its replacement, <a href="https://docs.laminas.dev/laminas-hydrator/">laminas/laminas-hydrator.</a>
+            </strong></div>
         </div>
     </div>
 </div>
@@ -347,7 +347,7 @@
 <p>You can compose <code>Zend\Hydrator\Strategy\StrategyInterface</code> instances in any of
 the hydrators to manipulate the way they behave on <code>extract()</code> and <code>hydrate()</code>
 for specific key/value pairs. The interface offers the following definitions:</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator\Strategy;
+<pre><code class="language-php">namespace Zend\Hydrator\Strategy;
 
 interface StrategyInterface
 {
@@ -368,7 +368,9 @@ interface StrategyInterface
      * @return mixed      Returns the value that should be hydrated.
      */
     public function hydrate($value, ?array $data = null);
-}</code></pre></p>
+}
+</code></pre>
+
 <p>This interface is similar to what the <code>Zend\Hydrator\ExtractionInterface</code> and
 <code>Zend\Hydrator\HydrationInterface</code> provide; the reason is that strategies
 provide a proxy implementation for <code>hydrate()</code> and <code>extract()</code> on individual
@@ -379,7 +381,7 @@ values. For this reason, their return types are listed as mixed, versus as
 Hydrators can implement this interface, and then call on its <code>getStrategy()</code>
 method in order to extract or hydrate individual values. The interface has the
 following definition:</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Hydrator\Strategy;
+<pre><code class="language-php">namespace Zend\Hydrator\Strategy;
 
 interface StrategyEnabledInterface
 {
@@ -402,7 +404,9 @@ interface StrategyEnabledInterface
      * Removes the strategy with the given name.
      */
     public function removeStrategy(string $name) : void;
-}</code></pre></p>
+}
+</code></pre>
+
 <p>We provide a default implementation of the interface as part of
 <code>Zend\Hydrator\AbstractHydrator</code>; it uses an array property to store and
 retrieve strategies by name when extracting and hydrating values. Since all
@@ -435,7 +439,7 @@ midnight time value.</p>
 <p>Starting in version 3.0, the constructor defines a third, optional argument,
 <code>$dateTimeFallback</code>.  If enabled and hydration fails, the given string is parsed
 by the <code>DateTime</code> constructor, as demonstrated below:</p>
-<p> <pre class=codehilite><code class=language-php>// Previous behavior:
+<pre><code class="language-php">// Previous behavior:
 $strategy = new Zend\Hydrator\Strategy\DateTimeFormatterStrategy('Y-m-d H:i:s.uP');
 $hydrated1 = $strategy-&gt;hydrate('2016-03-04 10:29:40.123456+01'); // Format is the same; returns DateTime instance
 $hydrated2 = $strategy-&gt;hydrate('2016-03-04 10:29:40+01');        // Format is different; value is not hydrated
@@ -443,7 +447,9 @@ $hydrated2 = $strategy-&gt;hydrate('2016-03-04 10:29:40+01');        // Format i
 // Using new $dateTimeFallback flag; both values are hydrated:
 $strategy = new Zend\Hydrator\Strategy\DateTimeFormatterStrategy('Y-m-d H:i:s.uP', null, true);
 $hydrated1 = $strategy-&gt;hydrate('2016-03-04 10:29:40.123456+01');
-$hydrated2 = $strategy-&gt;hydrate('2016-03-04 10:29:40+01');</code></pre></p>
+$hydrated2 = $strategy-&gt;hydrate('2016-03-04 10:29:40+01');
+</code></pre>
+
 <h3>Zend\Hydrator\Strategy\DefaultStrategy</h3>
 <p>The <code>DefaultStrategy</code> simply proxies everything through, without performing any
 conversion of values.</p>
@@ -466,7 +472,7 @@ smaller, single-purpose strategies.</p>
 basics for writing your own strategies, as well as provide ideas as to where and
 when to use them. This strategy simply transforms the value for the defined key
 using <code>str_rot13()</code> during both the <code>extract()</code> and <code>hydrate()</code> operations:</p>
-<p> <pre class=codehilite><code class=language-php>class Rot13Strategy implements StrategyInterface
+<pre><code class="language-php">class Rot13Strategy implements StrategyInterface
 {
     public function extract($value)
     {
@@ -477,9 +483,11 @@ using <code>str_rot13()</code> during both the <code>extract()</code> and <code>
     {
         return str_rot13($value);
     }
-}</code></pre></p>
+}
+</code></pre>
+
 <p>This is the example class with which we want to use the hydrator example:</p>
-<p> <pre class=codehilite><code class=language-php>class Foo
+<pre><code class="language-php">class Foo
 {
     protected $foo = null;
     protected $bar = null;
@@ -503,33 +511,40 @@ using <code>str_rot13()</code> during both the <code>extract()</code> and <code>
     {
         $this-&gt;bar = $bar;
     }
-}</code></pre></p>
+}
+</code></pre>
+
 <p>Now, we'll add the <code>rot13</code> strategy to the method <code>getFoo()</code> and <code>setFoo($foo)</code>:</p>
-<p> <pre class=codehilite><code class=language-php>$foo = new Foo();
+<pre><code class="language-php">$foo = new Foo();
 $foo-&gt;setFoo('bar');
 $foo-&gt;setBar('foo');
 
 $hydrator = new ClassMethodsHydrator();
-$hydrator-&gt;addStrategy('foo', new Rot13Strategy());</code></pre></p>
+$hydrator-&gt;addStrategy('foo', new Rot13Strategy());
+</code></pre>
+
 <p>When you use the hydrator to extract an array for the object <code>$foo</code>, you'll
 receive the following:</p>
-<p> <pre class=codehilite><code class=language-php>$extractedArray = $hydrator-&gt;extract($foo);
+<pre><code class="language-php">$extractedArray = $hydrator-&gt;extract($foo);
 
 // array(2) {
 //     [&quot;foo&quot;]=&gt;
 //     string(3) &quot;one&quot;
 //     [&quot;bar&quot;]=&gt;
 //     string(3) &quot;foo&quot;
-// }</code></pre></p>
+// }
+</code></pre>
+
 <p>And when hydrating a new <code>Foo</code> instance:</p>
-<p> <pre class=codehilite><code class=language-php>$hydrator-&gt;hydrate($extractedArray, $foo)
+<pre><code class="language-php">$hydrator-&gt;hydrate($extractedArray, $foo)
 
 // object(Foo)#2 (2) {
 //   [&quot;foo&quot;:protected]=&gt;
 //   string(3) &quot;bar&quot;
 //   [&quot;bar&quot;:protected]=&gt;
 //   string(3) &quot;foo&quot;
-// }</code></pre></p>
+// }
+</code></pre>
 
 
 
@@ -726,7 +741,7 @@ receive the following:</p>
             
             <div class="col-md-9">
                 <h4 class="footer__headline">Copyright</h4>
-                <p>&copy; 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+                <p>&copy; 2006-2020 by <a href="https://www.zend.com/">Zend</a> by <a href="https://www.perforce.com/">Perforce</a>.</p>
             </div>
 
             
@@ -734,10 +749,10 @@ receive the following:</p>
                 <h4 class="footer__headline">Support</h4>
                 <ul class="support__list">
                     <li class="support__list-item">
-                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
                     </li>
                     <li class="support__list-item">
-                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                        <a href="https://laminas.dev/chat/" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
                     </li>
                     <li class="support__list-item">
                         <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
@@ -745,27 +760,28 @@ receive the following:</p>
                     <li class="support__list-item">
                         <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
                     </li>
-                    <li class="support__list-item">
-                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
-                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
 
+<nav class="cookie-bar navbar navbar-fixed-bottom navbar-default hidden">
+    <div class="container">
+        <p class="navbar-text">
+            We use cookies to allow you to dismiss dialogs such as the Laminas
+            Project notification.
+        </p>
+        <button type="button" class="cookie-button btn btn-default navbar-btn">Allow Cookies</button>
+    </div>
+</nav>
+
     <script>
         var base_url = '../..',
             siteName = 'zend-hydrator';
     </script>
-    <script src="../../js/scripts-8d7ae56abf.js"></script>
-        <script src="../../search/main.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="../../search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
